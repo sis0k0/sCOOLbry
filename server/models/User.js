@@ -30,20 +30,23 @@ module.exports.seedInitialUsers = function() {
             return;
         }
 
-        if (collection.length === 0) {
-            var salt;
-            var hashedPwd;
 
-            salt = encryption.generateSalt();
-            hashedPwd = encryption.generateHashedPassword(salt, 'Ivaylo');
-            User.create({username: 'ivaylo.kenov', firstName: 'Ivaylo', lastName: 'Kenov', salt: salt, hashPass: hashedPwd, roles: ['admin']});
-            salt = encryption.generateSalt();
-            hashedPwd = encryption.generateHashedPassword(salt, 'Nikolay');
-            User.create({username: 'Nikolay.IT', firstName: 'Nikolay', lastName: 'Kostov', salt: salt, hashPass: hashedPwd, roles: ['standard']});
-            salt = encryption.generateSalt();
-            hashedPwd = encryption.generateHashedPassword(salt, 'Doncho');
-            User.create({username: 'Doncho', firstName: 'Doncho', lastName: 'Minkov', salt: salt, hashPass: hashedPwd});
-            console.log('Users added to database...');
-        }
+            if (collection.length === 0) {
+                var salt;
+                var hashedPwd;
+
+                salt = encryption.generateSalt();
+                hashedPwd = encryption.generateHashedPassword(salt, 'password');
+                User.create({username: 'admin' +
+                    '', firstName: 'Admin', lastName: 'Adminov', salt: salt, hashPass: hashedPwd, roles: ['admin']});
+                salt = encryption.generateSalt();
+                hashedPwd = encryption.generateHashedPassword(salt, 'password');
+                User.create({username: 'standart', firstName: 'Standart', lastName: 'User', salt: salt, hashPass: hashedPwd, roles: ['standard']});
+                salt = encryption.generateSalt();
+                hashedPwd = encryption.generateHashedPassword(salt, 'password');
+                User.create({username: 'nobody', firstName: 'Just', lastName: 'Nobody', salt: salt, hashPass: hashedPwd});
+                console.log('Users added to database...');
+            }
+
     });
 };
