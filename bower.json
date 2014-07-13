@@ -1,11 +1,10 @@
 {
-  "name": "sCOOLbry",
+  "name": "TelerikAcademyCourses",
   "version": "0.0.1",
   "description": "MEAN Stack application",
   "main": "server.js",
   "authors": [
-    "Stanimira Vlaeva",
-    "Petar Petrov"
+    "Ivaylo Kenov"
   ],
   "license": "MIT",
   "ignore": [
@@ -23,6 +22,5 @@
     "angular-resource": "~1.2.16",
     "angular-route": "~1.2.16",
     "bootstrap": "~3.1.1"
-  },
-  "directory": "public/lib"
+  }
 }
