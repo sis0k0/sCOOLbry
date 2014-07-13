@@ -1,5 +1,5 @@
 {
-  "name": "TelerikAcademyCourses",
+  "name": "sCOOLbry",
   "version": "0.0.1",
   "description": "MEAN Stack application",
   "main": "server.js",
@@ -10,7 +10,7 @@
     "node": "0.10.x",
     "npm": "1.4.x"
   },
-  "author": "Ivaylo Kenov",
+  "author": "Stanimira Vlaeva & Petar Petrov",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.0.2",

@@ -12,11 +12,12 @@ module.exports = {
                 return;
             }
 
+
             req.logIn(user, function(err) {
                 if (err) {
                     res.status(400);
                     return res.send({reason: err.toString()});
-                };
+                }
 
                 res.send(user);
             })
@@ -47,4 +48,4 @@ module.exports = {
             res.send(collection);
         })
     }
-}
+};
