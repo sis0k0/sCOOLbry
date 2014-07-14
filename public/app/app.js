@@ -33,6 +33,10 @@ app.config(function($routeProvider, $locationProvider) {
             templateUrl: '/partials/account/signup',
             controller: 'SignUpCtrl'
         })
+        .when('/login', {
+            templateUrl: '/partials/account/login',
+            controller: 'SignUpCtrl'
+        })
         .when('/profile', {
             templateUrl: '/partials/account/profile',
             controller: 'ProfileCtrl',
