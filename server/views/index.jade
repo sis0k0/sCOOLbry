@@ -1,20 +1,31 @@
 extends includes/layout
 block main-content
-    header.nav.navbar-inverse.navbar-fixed-top
-        .container
+
+    .container-fluid
+        header(role="navigation").nav.navbar-inverse.navbar-fixed-top
+
             .navbar-header
-                a.navbar-brand(href="/") TA Courses
-            .navbar-collapse.collapse
-                ul.nav.navbar-nav
-                    li
-                        a(href="/") Home
-                    li
-                        a(href="/courses") Courses
-                div(ng-include="'partials/account/login'")
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-inverse-collapse')
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href="/")
+
+            .navbar-collapse.collapse.navbar-inverse-collapse
+
+                form.navbar-form.navbar-left(role='search')
+                    .form-group.input-group
+                        input.form-control.input-searchbox(type='text', placeholder='Search for books by title, author, genre, ISBN or citation')
+                        .input-group-btn
+                            button(type="submit").btn.btn-default
+                                i.glyphicon.glyphicon-search
+
+
+                div(ng-include="'partials/account/user-panel'")
 
     section
         div(ng-view)
 
     footer
         p.text-center
-            | &copy; Telerik Academy 2014
+            | &copy; shqlqlq 2014

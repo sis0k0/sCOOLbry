@@ -1,5 +1,26 @@
-body {
-  padding-top: 80px;
+/*
+* Header styles
+*/
+header {
+  border-bottom: 3px solid #00c2ff !important;
+  padding: 0 20px !important;
+}
+header .sign-up {
+  border: 1px solid #39c !important;
+  color: #39c !important;
+}
+header .sign-up:hover {
+  background: #39c !important;
+  color: #fff !important;
+}
+.navbar-brand {
+  margin-right: 2.5em;
+  background: url("../images/logo.png") no-repeat center;
+  width: 150px;
+  height: 34px;
+}
+.navbar-form {
+  margin-top: 19px;
 }
 .navbar-right .navbar-form input {
   margin-right: 10px;
@@ -7,9 +28,87 @@ body {
 .navbar-right .navbar-form a.btn {
   margin-left: 10px;
 }
+.navbar-right .navbar-form .input-group-btn {
+  display: inline;
+}
+.input-searchbox {
+  width: 35em !important;
+}
+/*
+* Main styles
+*/
+body {
+  padding-top: 115px;
+}
 .toast-top-right {
   top: 70px;
 }
+.container-fluid {
+  padding: 0;
+}
+/*
+* Homepage styles
+*/
+/*
+* Welcome section styles
+*/
+#welcome-section {
+  background-color: #39c;
+  padding: 20px;
+  margin-top: -32px;
+}
+#welcome-section h1,
+#welcome-section h2 {
+  text-align: center;
+  color: #fff;
+  font-weight: normal;
+}
+#welcome-section h1 {
+  font-size: 90px;
+  margin-top: 45px;
+}
+#welcome-section h2 {
+  font-size: 50px;
+  margin-top: 30px;
+}
+#welcome-section img {
+  margin: auto;
+}
+#welcome-section a {
+  text-decoration: none;
+  color: #134fb8;
+}
+#welcome-section a:hover {
+  color: #4582ec;
+}
+#welcome-section .btn-group-lg {
+  margin-top: 70px;
+}
+#welcome-section .btn-group-lg a {
+  padding: 19px 16px;
+  font-size: 23px;
+  line-height: 1.33;
+  border-radius: 6px;
+  width: 270px;
+  color: #fff;
+  border: 1px solid #fff;
+}
+#welcome-section .btn-group-lg .btn-info {
+  margin-right: 50px;
+  background-color: transparent;
+}
+#welcome-section .btn-group-lg .btn-info:hover {
+  background-color: #4582ec;
+}
+#welcome-section .btn-group-lg .btn-primary {
+  background-color: #1863e6;
+}
+#welcome-section .btn-group-lg .btn-primary:hover {
+  background-color: #4582ec;
+}
+/*
+* Footer styles
+*/
 footer {
   padding-left: 120px;
   padding-right: 120px;

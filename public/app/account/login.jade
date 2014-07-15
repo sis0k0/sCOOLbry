@@ -1,20 +1,16 @@
-.navbar-right(ng-controller="LoginCtrl")
-    form.navbar-form(ng-hide="identity.isAuthenticated()")
-        .form-group
-            input.form-control(type="text", placeholder="Username", ng-model="user.username")
-            input.form-control(type="password", placeholder="Password", ng-model="user.password")
-        button.btn.btn-primary(ng-click="login(user)") Login
-        a.btn.btn-primary(href="/signup") Sign Up
-
-    ul.nav.navbar-nav.navbar-right(ng-show="identity.isAuthenticated()")
-        li.dropdown
-            a.dropdown-toggle(href="", data-toggle="dropdown")
-                | {{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}
-                span.caret
-            ul.dropdown-menu
-                li(ng-show="identity.currentUser.isAdmin()")
-                    a(href="/admin/users") Users
-                li(ng-show="identity.isAuthenticated()")
-                    a(href="/profile") Profile
-                li
-                    a(href="/" ng-click="logout()") Sign Out
+.container
+    .well
+        form.form-horizontal(name="logInForm" ng-controller="LoginCtrl")
+            fieldset
+                legend Login
+                .form-group
+                    label.col-md-2.control-label(for="username") Username
+                    .col-md-10
+                        input.form-control(type="text", placeholder="Username", ng-model="user.username", required)
+                .form-group
+                    label.col-md-2.control-label(for="password") Password
+                    .col-md-10
+                        input.form-control(type="password", placeholder="Password", ng-model="user.password", required)
+                .pull-right
+                    button.btn.btn-primary(ng-click="login(user)", ng-disabled="logInForm.$invalid") Login
+                    a.btn.btn-primary(href="/") Cancel
