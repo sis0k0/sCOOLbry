@@ -1,4 +1,4 @@
-Telerik-Academy-Courses
+sCOOLbry
 =======================
 
 MEAN Stack Application
