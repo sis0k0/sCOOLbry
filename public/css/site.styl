@@ -104,6 +104,20 @@ body
 * Welcome section styles
 */
 
+
+
+
+@media screen and (min-width: 768px)
+  .jumbotron
+    h1
+      font-size 90px !important
+      margin-top 30px !important
+@media screen and (min-width: 768px)
+  .jumbotron
+    h2
+      font-size 50px !important
+      margin-top 30px !important
+
 #welcome-section
   background-color #39c
   padding 20px
@@ -112,12 +126,9 @@ body
     text-align center
     color #fff
     font-weight normal
-  h1
-    font-size 90px
-    margin-top 45px
-  h2
-    font-size 50px
-    margin-top 30px
+  @media (max-width: 991px)
+    .col-md-4
+      display none
   img
     margin auto
   a
