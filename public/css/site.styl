@@ -31,8 +31,56 @@ header
   .input-group-btn
     display inline
 
-.input-searchbox
-  width 35em !important
+#search-header
+  .form-group
+    width 100%
+    input
+      width 100%
+
+@media (min-width: 1200px)
+  #search-header
+    width 50%
+
+
+@media (max-width: 1250px)
+  #search-header
+    width 40%
+
+@media (max-width: 1050px)
+  #search-header
+    width 35%
+  header
+    .navbar-right
+      a
+        padding 8px
+        margin 20px 2px
+
+
+
+@media (max-width: 875px)
+  .navbar-header
+    float none
+
+  .navbar-toggle
+    display block
+
+  .navbar-collapse
+    border-top 1px solid transparent
+    box-shadow inset 0 1px 0 rgba(255,255,255,0.1)
+    &.collapse
+      display none!important
+
+  .navbar-nav
+    float none!important
+    margin 7.5px -15px
+    & > li
+      float none
+      & > a
+        padding-top 10px
+        padding-bottom 10px
+
+
+
 
 /*
 * Main styles
@@ -87,8 +135,10 @@ body
       width 270px
       color #fff
       border 1px solid #fff
+    .btn-primary
+      margin-right 25px
     .btn-info
-      margin-right 50px
+      margin-right 25px
       background-color transparent
       &:hover
         background-color #4582ec

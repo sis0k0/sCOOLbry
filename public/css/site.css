@@ -31,8 +31,56 @@ header .sign-up:hover {
 .navbar-right .navbar-form .input-group-btn {
   display: inline;
 }
-.input-searchbox {
-  width: 35em !important;
+#search-header .form-group {
+  width: 100%;
+}
+#search-header .form-group input {
+  width: 100%;
+}
+@media (min-width: 1200px) {
+  #search-header {
+    width: 50%;
+  }
+}
+@media (max-width: 1250px) {
+  #search-header {
+    width: 40%;
+  }
+}
+@media (max-width: 1050px) {
+  #search-header {
+    width: 35%;
+  }
+  header .navbar-right a {
+    padding: 8px;
+    margin: 20px 2px;
+  }
+}
+@media (max-width: 875px) {
+  .navbar-header {
+    float: none;
+  }
+  .navbar-toggle {
+    display: block;
+  }
+  .navbar-collapse {
+    border-top: 1px solid transparent;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+  }
+  .navbar-collapse.collapse {
+    display: none !important;
+  }
+  .navbar-nav {
+    float: none !important;
+    margin: 7.5px -15px;
+  }
+  .navbar-nav > li {
+    float: none;
+  }
+  .navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }
 /*
 * Main styles
@@ -93,8 +141,11 @@ body {
   color: #fff;
   border: 1px solid #fff;
 }
+#welcome-section .btn-group-lg .btn-primary {
+  margin-right: 25px;
+}
 #welcome-section .btn-group-lg .btn-info {
-  margin-right: 50px;
+  margin-right: 25px;
   background-color: transparent;
 }
 #welcome-section .btn-group-lg .btn-info:hover {
