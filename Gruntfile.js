@@ -4,13 +4,8 @@ module.exports = function(grunt) {
     grunt.initConfig({
 
 
-        // check all js files for errors
-        jshint: {
-          all: ['**/*.js'] 
-        },
 
-        // compile all jade files
-
+        // compiles all jade files
         jade: {
           compile: {
             options: {
@@ -43,19 +38,15 @@ module.exports = function(grunt) {
         },
 
 
-        // watch css, js and jade files and process the above tasks
+        // watch css and jade files and process the above tasks
         watch: {
           css: {
             files: ['public/css/*.styl'],
-            tasks: ['stylus']
-          },
-          js: {
-            files: ['**/*.js'],
-            tasks: ['jshint']
+            tasks: ['newer:stylus']
           },
           jade: {
             files: ['**/*.jade'],
-            tasks: ['jade']
+            tasks: ['newer:jade']
           }
         },
 
@@ -80,15 +71,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.loadNpmTasks('grunt-contrib-jade');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadNpmTasks('grunt-newer');
 
     // define the tasks
     grunt.registerTask(
         'default',
-        [ 'stylus', 'jade', 'concurrent' ]
+        [ 'newer:stylus', 'newer:jade', 'concurrent' ]
     );
 
 };
