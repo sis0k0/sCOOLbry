@@ -1,1 +1,25 @@
-<div class="container"><div class="well"><form name="logInForm" ng-controller="LoginCtrl" class="form-horizontal"><fieldset><legend>Login</legend><div class="form-group"><label for="username" class="col-md-2 control-label">Username</label><div class="col-md-10"><input type="text" placeholder="Username" ng-model="user.username" required="required" class="form-control"/></div></div><div class="form-group"><label for="password" class="col-md-2 control-label">Password</label><div class="col-md-10"><input type="password" placeholder="Password" ng-model="user.password" required="required" class="form-control"/></div></div><div class="pull-right"><button ng-click="login(user)" ng-disabled="logInForm.$invalid" class="btn btn-primary">Login</button><a href="/" class="btn btn-primary">Cancel</a></div></fieldset></form></div></div>
+
+<div class="container">
+  <div class="well">
+    <form name="logInForm" ng-controller="LoginCtrl" class="form-horizontal">
+      <fieldset>
+        <legend>Login</legend>
+        <div class="form-group">
+          <label for="username" class="col-md-2 control-label">Username</label>
+          <div class="col-md-10">
+            <input type="text" placeholder="Username" ng-model="user.username" required="required" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-md-2 control-label">Password</label>
+          <div class="col-md-10">
+            <input type="password" placeholder="Password" ng-model="user.password" required="required" class="form-control"/>
+          </div>
+        </div>
+        <div class="pull-right">
+          <button ng-click="login(user)" ng-disabled="logInForm.$invalid" class="btn btn-primary">Login</button><a href="/" class="btn btn-primary">Cancel</a>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

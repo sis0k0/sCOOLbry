@@ -14,7 +14,8 @@ module.exports = function(grunt) {
         jade: {
           compile: {
             options: {
-              data: {}
+              data: {},
+              pretty: true
             },
             files: [{
               expand: true,
