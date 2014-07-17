@@ -1,4 +1,16 @@
 /*
+* Footer styles
+*/
+footer {
+  padding-left: 120px;
+  padding-right: 120px;
+}
+footer p {
+  border-top: 1px solid #808080;
+  padding-top: 10px;
+}
+
+/*
 * Header styles
 */
 header {
@@ -82,18 +94,7 @@ header .sign-up:hover {
     padding-bottom: 10px;
   }
 }
-/*
-* Main styles
-*/
-body {
-  padding-top: 115px;
-}
-.toast-top-right {
-  top: 70px;
-}
-.container-fluid {
-  padding: 0;
-}
+
 /*
 * Homepage styles
 */
@@ -105,15 +106,43 @@ body {
     font-size: 90px !important;
     margin-top: 30px !important;
   }
-}
-@media screen and (min-width: 768px) {
   .jumbotron h2 {
     font-size: 50px !important;
     margin-top: 30px !important;
   }
 }
+@media screen and (max-width: 768px) {
+  .jumbotron .btn-primary,
+  .jumbotron .btn-info {
+    width: 200px !important;
+    font-size: 20px !important;
+    border-radius: 10px !important;
+  }
+}
+@media screen and (max-width: 500px) {
+  .jumbotron .btn-group-lg {
+    margin-top: 30px !important;
+  }
+  .jumbotron .btn-primary,
+  .jumbotron .btn-info {
+    width: 150px !important;
+    font-size: 20px !important;
+    border-radius: 15px !important;
+    padding: 15px 0 !important;
+  }
+}
+@media screen and (max-width: 500px) {
+  .jumbotron .btn-primary,
+  .jumbotron .btn-info {
+    width: 140px !important;
+    font-size: 18px !important;
+    border-radius: 15px !important;
+    padding: 10px 0 !important;
+    margin-right: 10px !important;
+  }
+}
 #welcome-section {
-  background-color: #39c;
+  background-color: #369;
   padding: 20px;
   margin-top: -32px;
 }
@@ -132,11 +161,11 @@ body {
   margin: auto;
 }
 #welcome-section a {
-  text-decoration: none;
-  color: #134fb8;
+  color: #ec8145;
 }
 #welcome-section a:hover {
-  color: #43CFF5;
+  color: #43cff5;
+  text-decoration: none;
 }
 #welcome-section .btn-group-lg {
   margin-top: 70px;
@@ -158,22 +187,36 @@ body {
   background-color: transparent;
 }
 #welcome-section .btn-group-lg .btn-info:hover {
-  background-color: #4582ec;
+  background-color: #5c9db1;
+  background-color: rgba(28,195,245,0.6);
 }
 #welcome-section .btn-group-lg .btn-primary {
-  background-color: #1863e6;
+  background-color: #dd9d7a;
+  background-color: rgba(236,129,69,0.6);
 }
 #welcome-section .btn-group-lg .btn-primary:hover {
-  background-color: #4582ec;
+  background-color: rgba(28,195,245,0.6);
 }
+
 /*
-* Footer styles
+* Main styles
 */
-footer {
-  padding-left: 120px;
-  padding-right: 120px;
+body {
+  padding-top: 115px;
+  background-color: #f5f5f5;
 }
-footer p {
-  border-top: 1px solid #808080;
-  padding-top: 10px;
+.well {
+  background-color: #fff;
+}
+.well input {
+  border: 1px solid #e5e5e5;
+}
+.panel {
+  border: 1px solid #e5e5e5;
+}
+.toast-top-right {
+  top: 70px;
+}
+.container-fluid {
+  padding: 0;
 }

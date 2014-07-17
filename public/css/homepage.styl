@@ -1,0 +1,85 @@
+
+/*
+* Homepage styles
+*/
+
+/*
+* Welcome section styles
+*/
+
+@media screen and (min-width: 768px)
+  .jumbotron
+    h1
+      font-size 90px !important
+      margin-top 30px !important
+    h2
+      font-size 50px !important
+      margin-top 30px !important
+
+@media screen and (max-width: 768px)
+  .jumbotron
+    .btn-primary, .btn-info
+      width 200px !important
+      font-size 20px !important
+      border-radius 10px !important
+
+@media screen and (max-width: 500px)
+  .jumbotron
+    .btn-group-lg
+      margin-top 30px !important
+    .btn-primary, .btn-info
+      width 150px !important
+      font-size 20px !important
+      border-radius 15px !important
+      padding 15px 0 !important
+
+@media screen and (max-width: 500px)
+  .jumbotron
+    .btn-primary, .btn-info
+      width 140px !important
+      font-size 18px !important
+      border-radius 15px !important
+      padding 10px 0 !important
+      margin-right 10px !important
+
+#welcome-section
+  background-color #369
+  padding 20px
+  margin-top -32px
+  h1, h2
+    text-align center
+    color #fff
+    font-weight normal
+  @media (max-width: 991px)
+    .col-md-4
+      display none
+  img
+    margin auto
+  a
+    color #EC8145
+    &:hover
+      color #43CFF5
+      text-decoration none
+  .btn-group-lg
+    margin-top 70px
+    a
+      padding 19px 16px
+      font-size 23px
+      line-height 1.33
+      border-radius 6px
+      width 270px
+      color #fff
+      border 1px solid #fff
+    .btn-primary
+      margin-right 25px
+    .btn-info
+      margin-right 25px
+      background-color transparent
+      &:hover
+        background-color #5C9DB1
+        background-color rgba(28,195,245,0.6)
+    .btn-primary
+      background-color #DD9D7A
+      background-color rgba(236,129,69,0.6)
+      &:hover
+        background-color rgba(28,195,245,0.6)
