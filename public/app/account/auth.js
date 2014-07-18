@@ -21,6 +21,8 @@ app.factory('auth', function($http, $q, identity, UsersResource) {
             updatedUser.$update().then(function() {
                 identity.currentUser.firstName = updatedUser.firstName;
                 identity.currentUser.lastName = updatedUser.lastName;
+                identity.currentUser.password = updatedUser.password;
+                identity.currentUser.roles = updatedUser.roles;
                 deferred.resolve();
             }, function(response) {
                 deferred.reject(response);

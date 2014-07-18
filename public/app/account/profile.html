@@ -1,31 +1,21 @@
 
 <div class="container">
   <div class="well">
-    <form name="profileForm" class="form-horizontal">
-      <fieldset>
-        <legend>Create New User</legend>
-        <div class="form-group">
-          <label for="first-name" class="col-md-2 control-label">First Name</label>
-          <div class="col-md-10">
-            <input type="text" placeholder="First Name" ng-model="user.firstName" required="required" class="form-control"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="last-name" class="col-md-2 control-label">Last Name</label>
-          <div class="col-md-10">
-            <input type="text" placeholder="Last Name" ng-model="user.lastName" required="required" class="form-control"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="password" class="col-md-2 control-label">Password</label>
-          <div class="col-md-10">
-            <input type="password" placeholder="Password" ng-model="user.password" class="form-control"/>
-          </div>
-        </div>
-        <div class="pull-right">
-          <button ng-click="update(user)" ng-disabled="profileForm.$invalid" class="btn btn-primary">Update</button><a href="/" class="btn btn-primary">Cancel</a>
-        </div>
-      </fieldset>
-    </form>
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#personal-information" data-toggle="tab" target="_self" class="active">Personal information</a></li>
+      <li><a href="#favorites" data-toggle="tab" target="_self">Favorites</a></li>
+      <li><a href="#libraries" data-toggle="tab" target="_self">Libraries</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div id="personal-information" class="tab-pane fade active in">
+        <p>Personal information Personal information Personal information Personal information Personal information Personal information Personal information</p>
+      </div>
+      <div id="favorites" class="tab-pane fade">
+        <p>favorites favorites favorites favorites favorites favorites favorites favorites favorites favorites favorites</p>
+      </div>
+      <div id="libraries" class="tab-pane fade">
+        <p>libraries</p>
+      </div>
+    </div><a href="/profile/edit">Edit Profile</a>
   </div>
 </div>

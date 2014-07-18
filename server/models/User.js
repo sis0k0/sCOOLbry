@@ -39,9 +39,11 @@ module.exports.seedInitialUsers = function() {
                 hashedPwd = encryption.generateHashedPassword(salt, 'password');
                 User.create({username: 'admin' +
                     '', firstName: 'Admin', lastName: 'Adminov', salt: salt, hashPass: hashedPwd, roles: ['admin']});
+                
                 salt = encryption.generateSalt();
                 hashedPwd = encryption.generateHashedPassword(salt, 'password');
                 User.create({username: 'standart', firstName: 'Standart', lastName: 'User', salt: salt, hashPass: hashedPwd, roles: ['standard']});
+                
                 salt = encryption.generateSalt();
                 hashedPwd = encryption.generateHashedPassword(salt, 'password');
                 User.create({username: 'nobody', firstName: 'Just', lastName: 'Nobody', salt: salt, hashPass: hashedPwd});

@@ -42,6 +42,11 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'ProfileCtrl',
             resolve: routeUserChecks.authenticated
         })
+        .when('/profile/edit', {
+            templateUrl: '/partials/account/editProfile',
+            controller: 'ProfileCtrl',
+            resolve: routeUserChecks.authenticated
+        })
         .when('/admin/users', {
             templateUrl: '/partials/admin/users-list',
             controller: 'UserListCtrl',
