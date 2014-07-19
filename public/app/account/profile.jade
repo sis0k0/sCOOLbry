@@ -2,7 +2,7 @@
     .well
 
 
-        ul.nav.nav-tabs
+        ul.nav.nav-tabs(style="margin-bottom: 25px")
             li.active
                 a(href="#personal-information", data-toggle="tab", target="_self").active
                     | Personal information
@@ -15,8 +15,12 @@
 
         #myTabContent.tab-content
             .tab-pane.fade.active.in#personal-information
-                p
-                    | Personal information Personal information Personal information Personal information Personal information Personal information Personal information
+                .row
+                    .col-md-6
+                        h3
+                            | {{ user.firstName }} {{ user.lastName }} ({{ user.username }})
+                        img(ng-src="{{ user.avatar }}").img-responsive
+                    .col-md-6
             .tab-pane.fade#favorites
                 p
                     | favorites favorites favorites favorites favorites favorites favorites favorites favorites favorites favorites

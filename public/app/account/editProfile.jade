@@ -14,11 +14,15 @@
                 .form-group
                     label.col-md-2.control-label(for="password") Password
                     .col-md-10
-                        input.form-control(type="password", placeholder="Password", ng-model="user.password", required)
+                        input.form-control(type="password", placeholder="Password", ng-model="user.password")
                 .form-group
                     label.col-md-2.control-label(for="roles") Roles
                     .col-md-10
-                        input.form-control(type="text", placeholder="Roles", ng-model="user.roles", required)
+                        input.form-control(type="text", placeholder="Roles", ng-model="user.roles")
+                .form-group
+                    label.col-md-2.control-label(for="avatar") Avatar
+                    .col-md-10
+                        input.form-control(type="text", placeholder="Avatar", ng-model="user.avatar")
                 .pull-right
                     button.btn.btn-primary(ng-click="update(user)", ng-disabled="profileForm.$invalid") Update
                     a.btn.btn-primary(href="/") Cancel
