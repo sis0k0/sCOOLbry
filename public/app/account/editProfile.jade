@@ -23,6 +23,27 @@
                     label.col-md-2.control-label(for="avatar") Avatar
                     .col-md-10
                         input.form-control(type="text", placeholder="Avatar", ng-model="user.avatar")
+                .form-group
+                    label.col-md-2.control-label(for="fb_url") Facebook URL
+                    .col-md-10
+                        input.form-control(type="text", placeholder="Facebook URL", ng-model="user.fb_url")
+                .form-group
+                    label.col-md-2.control-label(for="twitter_url") Twitter URL
+                    .col-md-10
+                        input.form-control(type="text", placeholder="Twitter URL", ng-model="user.twitter_url")
+                .form-group
+                    label.col-md-2.control-label(for="googleplus_url") Google+ URL
+                    .col-md-10
+                        input.form-control(type="text", placeholder="Google+ URL", ng-model="user.googleplus_url")
+                .form-group
+                    label.col-md-2.control-label(for="favourite_book") Favourite Book
+                    .col-md-10
+                        input.form-control(type="text", placeholder="Favourite Book", ng-model="user.favourite_book")
+                .form-group
+                    label.col-md-2.control-label(for="about_me") About Me
+                    .col-md-10
+                        input.form-control(type="text", placeholder="About Me", ng-model="user.about_me")
+                
                 .pull-right
                     button.btn.btn-primary(ng-click="update(user)", ng-disabled="profileForm.$invalid") Update
                     a.btn.btn-primary(href="/") Cancel
