@@ -9,7 +9,7 @@ app.controller('ProfileCtrl', function($scope, $location, auth, identity) {
         twitter_url: identity.currentUser.twitter_url,
         googleplus_url: identity.currentUser.googleplus_url,
         favourite_book: identity.currentUser.favourite_book,
-        about_us: identity.currentUser.about_us
+        about_me: identity.currentUser.about_me
     }
 
     $scope.update = function(user) {
@@ -22,7 +22,7 @@ app.controller('ProfileCtrl', function($scope, $location, auth, identity) {
             $scope.twitter_url = user.twitter_url;
             $scope.googleplus_url = user.googleplus_url;
             $scope.favourite_book = user.favourite_book;
-            $scope.about_us = user.about_us;
+            $scope.about_me = user.about_me;
         
             $location.path('/');
         });
