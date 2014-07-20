@@ -24,6 +24,11 @@ app.factory('auth', function($http, $q, identity, UsersResource) {
                 identity.currentUser.password = updatedUser.password;
                 identity.currentUser.roles = updatedUser.roles;
                 identity.currentUser.avatar = updatedUser.avatar;
+                identity.currentUser.fb_url = updatedUser.fb_url;
+                identity.currentUser.twitter_url = updatedUser.twitter_url;
+                identity.currentUser.googleplus_url = updatedUser.googleplus_url;
+                identity.currentUser.favourite_book = updatedUser.favourite_book;
+                identity.currentUser.about_me = updatedUser.about_me;
                 deferred.resolve();
             }, function(response) {
                 deferred.reject(response);
