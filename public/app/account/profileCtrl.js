@@ -3,28 +3,12 @@ app.controller('ProfileCtrl', function($scope, $location, auth, identity) {
         username: identity.currentUser.username,
         firstName: identity.currentUser.firstName,
         lastName: identity.currentUser.lastName,
+        email: identity.currentUser.email,
         roles: identity.currentUser.roles,
         avatar: identity.currentUser.avatar,
-        fb_url: identity.currentUser.fb_url,
-        twitter_url: identity.currentUser.twitter_url,
-        googleplus_url: identity.currentUser.googleplus_url,
-        favourite_book: identity.currentUser.favourite_book,
-        about_me: identity.currentUser.about_me
-    }
-
-    $scope.update = function(user) {
-        auth.update(user).then(function() {
-            $scope.firstName = user.firstName;
-            $scope.lastName = user.lastName;
-            $scope.roles = user.roles;
-            $scope.avatar = user.avatar;
-            $scope.fb_url = user.fb_url;
-            $scope.twitter_url = user.twitter_url;
-            $scope.googleplus_url = user.googleplus_url;
-            $scope.favourite_book = user.favourite_book;
-            $scope.about_me = user.about_me;
-        
-            $location.path('/');
-        });
+        facebookUrl: identity.currentUser.facebookUrl,
+        twitterUrl: identity.currentUser.twitterUrl,
+        googlePlusUrl: identity.currentUser.googlePlusUrl,
+        aboutMe: identity.currentUser.aboutMe
     }
 });

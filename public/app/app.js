@@ -44,7 +44,7 @@ app.config(function($routeProvider, $locationProvider) {
         })
         .when('/profile/edit', {
             templateUrl: '/partials/account/editProfile',
-            controller: 'ProfileCtrl',
+            controller: 'EditProfileCtrl',
             resolve: routeUserChecks.authenticated
         })
         .when('/admin/users', {

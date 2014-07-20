@@ -21,14 +21,14 @@ app.factory('auth', function($http, $q, identity, UsersResource) {
             updatedUser.$update().then(function() {
                 identity.currentUser.firstName = updatedUser.firstName;
                 identity.currentUser.lastName = updatedUser.lastName;
+                identity.currentUser.email = updatedUser.email;
                 identity.currentUser.password = updatedUser.password;
                 identity.currentUser.roles = updatedUser.roles;
                 identity.currentUser.avatar = updatedUser.avatar;
-                identity.currentUser.fb_url = updatedUser.fb_url;
-                identity.currentUser.twitter_url = updatedUser.twitter_url;
-                identity.currentUser.googleplus_url = updatedUser.googleplus_url;
-                identity.currentUser.favourite_book = updatedUser.favourite_book;
-                identity.currentUser.about_me = updatedUser.about_me;
+                identity.currentUser.facebookUrl = updatedUser.facebookUrl;
+                identity.currentUser.twitterUrl = updatedUser.twitterUrl;
+                identity.currentUser.googlePlusUrl = updatedUser.googlePlusUrl;
+                identity.currentUser.aboutMe = updatedUser.aboutMe;
                 deferred.resolve();
             }, function(response) {
                 deferred.reject(response);

@@ -21,7 +21,25 @@
               </div>
             </div>
           </form>
-          <div ng-include="'partials/account/user-panel'"></div>
+          <div ng-controller="LoginCtrl" class="navbar-right">
+            <ul ng-hide="identity.isAuthenticated()" class="nav navbar-nav navbar-right">
+              <li><a href="/libraries">Libraries</a></li>
+              <li><a href="/catalogue">Catalogue</a></li>
+              <li><a href="/login">Log in</a></li>
+              <li><a href="/signup" class="sign-up">Sign Up</a></li>
+            </ul>
+            <ul ng-show="identity.isAuthenticated()" class="nav navbar-nav navbar-right">
+              <li><a href="/libraries">Libraries</a></li>
+              <li><a href="/catalogue">Catalogue</a></li>
+              <li class="dropdown"><a href="" data-toggle="dropdown" class="dropdown-toggle">{{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li ng-show="identity.currentUser.isAdmin()"><a href="/admin/users">Users</a></li>
+                  <li ng-show="identity.isAuthenticated()"><a href="/profile">Profile</a></li>
+                  <li><a href="/" ng-click="logout()">Sign Out</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
       </header>
     </div>
@@ -29,7 +47,7 @@
       <div ng-view></div>
     </section>
     <footer>
-      <p class="text-center">&copy; shqlqlq 2014</p>
+      <p class="text-center">&copy; sCOOLbry 2014</p>
     </footer>
     <script type="text/javascript" src="/lib/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="/lib/bootstrap/dist/js/bootstrap.js"></script>

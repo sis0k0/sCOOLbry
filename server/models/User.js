@@ -11,6 +11,9 @@ var userSchema = mongoose.Schema({
     lastName: { 
         type: String, require: '{PATH} is required' 
     },
+    email: {
+        type: String, require: '{PATH} is required'
+    },
     salt: String,
     hashPass: String,
     roles: [String],
@@ -18,15 +21,14 @@ var userSchema = mongoose.Schema({
         type: String,
         default: "images/icon-user-default.png"
     },
-    fb_url: { type: String },
-    twitter_url: { type: String },
-    googleplus_url: { type: String },
-    favourite_book: { type: String },
-    about_me: { type: String },
+    facebookUrl: { type: String },
+    twitterUrl: { type: String },
+    googlePlusUrl: { type: String },
+    aboutMe: { type: String },
     created: {
         type: Date,
         default: Date.now
-    },
+    }
 });
 
 userSchema.method({

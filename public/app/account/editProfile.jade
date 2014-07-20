@@ -12,6 +12,10 @@
                     .col-md-10
                         input.form-control(type="text", placeholder="Last Name", ng-model="user.lastName", required)
                 .form-group
+                    label.col-md-2.control-label(for="email") Email
+                    .col-md-10
+                        input.form-control(type="text", placeholder="Email", ng-model="user.email", required)
+                .form-group
                     label.col-md-2.control-label(for="password") Password
                     .col-md-10
                         input.form-control(type="password", placeholder="Password", ng-model="user.password")
@@ -24,25 +28,43 @@
                     .col-md-10
                         input.form-control(type="text", placeholder="Avatar", ng-model="user.avatar")
                 .form-group
-                    label.col-md-2.control-label(for="fb_url") Facebook URL
+                    label.col-md-2.control-label(for="facebookUrl") Facebook URL
                     .col-md-10
-                        input.form-control(type="text", placeholder="Facebook URL", ng-model="user.fb_url")
+                        input.form-control(type="text", placeholder="Facebook URL", ng-model="user.facebookUrl")
                 .form-group
-                    label.col-md-2.control-label(for="twitter_url") Twitter URL
+                    label.col-md-2.control-label(for="twitterUrl") Twitter URL
                     .col-md-10
-                        input.form-control(type="text", placeholder="Twitter URL", ng-model="user.twitter_url")
+                        input.form-control(type="text", placeholder="Twitter URL", ng-model="user.twitterUrl")
                 .form-group
-                    label.col-md-2.control-label(for="googleplus_url") Google+ URL
+                    label.col-md-2.control-label(for="googlePlusUrl") Google+ URL
                     .col-md-10
-                        input.form-control(type="text", placeholder="Google+ URL", ng-model="user.googleplus_url")
+                        input.form-control(type="text", placeholder="Google+ URL", ng-model="user.googlePlusUrl")
                 .form-group
-                    label.col-md-2.control-label(for="favourite_book") Favourite Book
+                    label.col-md-2.control-label(for="aboutMe") About Me
                     .col-md-10
-                        input.form-control(type="text", placeholder="Favourite Book", ng-model="user.favourite_book")
+                        textarea.form-control(rows="3", placeholder="About Me", ng-model="user.aboutMe")
+
+
                 .form-group
-                    label.col-md-2.control-label(for="about_me") About Me
+                    label.col-md-2.control-label(for="aboutMe") Upload avatar
                     .col-md-10
-                        input.form-control(type="text", placeholder="About Me", ng-model="user.about_me")
+                        .span4
+                            .fileupload.fileupload-new(data-provides='fileupload')
+                                .input-append
+                                  .uneditable-input.span3
+                                    i.icon-file.fileupload-exists
+                                    span.fileupload-preview(ng-model='userType')
+                                  span.btn.btn-file
+                                    span.fileupload-new Select file
+                                    span.fileupload-exists Change
+                                    //
+                                      <input type="file" name="file" />
+                                    input(type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
+                                  a.btn.fileupload-exists(href='#', data-dismiss='fileupload') Remove
+                            .span2
+                              button#btnStartUpload.btn.start(type='submit', value='Send', ng-click='uploadFile()', ng-disabled='!upload_button_state')
+                                i.icon-upload
+                                span Upload File
                 
                 .pull-right
                     button.btn.btn-primary(ng-click="update(user)", ng-disabled="profileForm.$invalid") Update
