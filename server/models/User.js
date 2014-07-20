@@ -15,8 +15,14 @@ var userSchema = mongoose.Schema({
     hashPass: String,
     roles: [String],
     avatar: {
-        type: String
+        type: String,
+        default: "images/icon-user-default.png"
     },
+    fb_url: { type: String },
+    twitter_url: { type: String },
+    googleplus_url: { type: String },
+    favourite_book: { type: String },
+    about_me: { type: String },
     created: {
         type: Date,
         default: Date.now
