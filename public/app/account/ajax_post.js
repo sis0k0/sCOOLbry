@@ -4,7 +4,7 @@ app.factory('ajax_post', ['$http', function(_http) {
             uploadFile_init: function(uploadedFile) {
                 var fd = new FormData();
                 fd.append("uploadedFile", uploadedFile);
-                var upload_promise = _http.post('/images/',
+                var upload_promise = _http.post('/api/images',
                     fd, {
                         headers: {
                             'Content-Type': undefined

@@ -57,8 +57,6 @@
                                   span.btn.btn-file
                                     span.fileupload-new Select file
                                     span.fileupload-exists Change
-                                    //
-                                      <input type="file" name="file" />
                                     input(type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
                                   a.btn.fileupload-exists(href='#', data-dismiss='fileupload') Remove
                             .span2
