@@ -14,6 +14,10 @@ var userSchema = mongoose.Schema({
     email: {
         type: String, require: '{PATH} is required'
     },
+    created: {
+        type: Date,
+        default: Date.now
+    },
     salt: String,
     hashPass: String,
     roles: [String],
@@ -21,14 +25,15 @@ var userSchema = mongoose.Schema({
         type: String,
         default: "images/icon-user-default.png"
     },
-    facebookUrl: { type: String },
-    twitterUrl: { type: String },
-    googlePlusUrl: { type: String },
-    aboutMe: { type: String },
-    created: {
-        type: Date,
-        default: Date.now
-    }
+    gender: {
+        type: String,
+        default: "Not specified"
+    },
+    dateOfBirth: Date,
+    facebookUrl: String,
+    twitterUrl: String,
+    googlePlusUrl: String,
+    aboutMe: String,
 });
 
 userSchema.method({

@@ -28,6 +28,19 @@
                     .col-md-10
                         input.form-control(type="text", placeholder="Avatar", ng-model="user.avatar")
                 .form-group
+                    label.col-md-2.control-label(for="gender") Gender
+                    .col-md-10
+                        select.form-control(form="profileForm" ng-model="user.gender")
+                            option Not specified
+                            option Male
+                            option Female
+                .form-group
+                    label.col-md-2.control-label(for="dateOfBirth") Date of birth
+                    .col-md-10.input-group.date
+                        input.form-control(type="text", datepicker, placeholder="Date of birth", ng-model="user.dateOfBirth")
+                        span.input-group-addon
+                            i.glyphicon.glyphicon-th
+                .form-group
                     label.col-md-2.control-label(for="facebookUrl") Facebook URL
                     .col-md-10
                         input.form-control(type="text", placeholder="Facebook URL", ng-model="user.facebookUrl")

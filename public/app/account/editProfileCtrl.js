@@ -7,6 +7,8 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
         email: identity.currentUser.email,
         roles: identity.currentUser.roles,
         avatar: identity.currentUser.avatar,
+        gender: identity.currentUser.gender,
+        dateOfBirth: identity.currentUser.dateOfBirth,
         facebookUrl: identity.currentUser.facebookUrl,
         twitterUrl: identity.currentUser.twitterUrl,
         googlePlusUrl: identity.currentUser.googlePlusUrl,
@@ -21,6 +23,8 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
             $scope.email = user.email,
             $scope.roles = user.roles;
             $scope.avatar = user.avatar;
+            $scope.gender = user.gender;
+            $scope.dateOfBirth = user.dateOfBirth;
             $scope.facebookUrl = user.facebookUrl;
             $scope.twitterUrl = user.twitterUrl;
             $scope.googlePlusUrl = user.googlePlusUrl;

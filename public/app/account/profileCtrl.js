@@ -5,6 +5,8 @@ app.controller('ProfileCtrl', function($scope, $location, auth, identity) {
         lastName: identity.currentUser.lastName,
         email: identity.currentUser.email,
         roles: identity.currentUser.roles,
+        gender: identity.currentUser.gender,
+        dateOfBirth: identity.currentUser.dateOfBirth,
         avatar: identity.currentUser.avatar,
         facebookUrl: identity.currentUser.facebookUrl,
         twitterUrl: identity.currentUser.twitterUrl,
