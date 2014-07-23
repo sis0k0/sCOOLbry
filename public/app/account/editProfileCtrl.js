@@ -18,20 +18,14 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 
 	$scope.update = function(user) {
         auth.update(user).then(function() {
-            $scope.firstName = user.firstName;
-            $scope.lastName = user.lastName;
-            $scope.email = user.email,
-            $scope.roles = user.roles;
-            $scope.avatar = user.avatar;
-            $scope.gender = user.gender;
-            $scope.dateOfBirth = user.dateOfBirth;
-            $scope.facebookUrl = user.facebookUrl;
-            $scope.twitterUrl = user.twitterUrl;
-            $scope.googlePlusUrl = user.googlePlusUrl;
-            $scope.aboutMe = user.aboutMe;
-        
+            $scope.user = user;
             $location.path('/');
         });
+    }
+
+    $scope.getMonth = function(user) {
+        console.log('test');
+        auth.getMonth(user);
     }
 
 

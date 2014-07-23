@@ -19,16 +19,7 @@ app.factory('auth', function($http, $q, identity, UsersResource) {
             var updatedUser = new UsersResource(user);
             updatedUser._id = identity.currentUser._id;
             updatedUser.$update().then(function() {
-                identity.currentUser.firstName = updatedUser.firstName;
-                identity.currentUser.lastName = updatedUser.lastName;
-                identity.currentUser.email = updatedUser.email;
-                identity.currentUser.password = updatedUser.password;
-                identity.currentUser.roles = updatedUser.roles;
-                identity.currentUser.avatar = updatedUser.avatar;
-                identity.currentUser.facebookUrl = updatedUser.facebookUrl;
-                identity.currentUser.twitterUrl = updatedUser.twitterUrl;
-                identity.currentUser.googlePlusUrl = updatedUser.googlePlusUrl;
-                identity.currentUser.aboutMe = updatedUser.aboutMe;
+                identity.currentUser = updatedUser;
                 deferred.resolve();
             }, function(response) {
                 deferred.reject(response);
@@ -78,6 +69,11 @@ app.factory('auth', function($http, $q, identity, UsersResource) {
             else {
                 return $q.reject('not authorized');
             }
+        },
+        getMonth: function(user) {
+            console.log('dasdsada');
+            console.log(user.dateOfBirth); //this works
+            console.log(user.dateOfBirth.getMonth()); //this does not! ?!
         }
     }
 })

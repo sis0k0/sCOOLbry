@@ -78,5 +78,7 @@
                                 span Upload File
                 
                 .pull-right
+                    button.btn.btn-primary(ng-click="getMonth(user)") Get Month
+
                     button.btn.btn-primary(ng-click="update(user)", ng-disabled="profileForm.$invalid") Update
                     a.btn.btn-primary(href="/") Cancel
