@@ -1,84 +1,81 @@
-.container
-    .well
-        form.form-horizontal(name="profileForm")
-            fieldset
-                legend Update profile
-                .form-group
-                    label.col-md-2.control-label(for="first-name") First Name
-                    .col-md-10
-                        input.form-control(type="text", placeholder="First Name", ng-model="user.firstName", required)
-                .form-group
-                    label.col-md-2.control-label(for="last-name") Last Name
-                    .col-md-10
-                        input.form-control(type="text", placeholder="Last Name", ng-model="user.lastName", required)
-                .form-group
-                    label.col-md-2.control-label(for="email") Email
-                    .col-md-10
-                        input.form-control(type="text", placeholder="Email", ng-model="user.email", required)
-                .form-group
-                    label.col-md-2.control-label(for="password") Password
-                    .col-md-10
-                        input.form-control(type="password", placeholder="Password", ng-model="user.password")
-                .form-group
-                    label.col-md-2.control-label(for="roles") Roles
-                    .col-md-10
-                        input.form-control(type="text", placeholder="Roles", ng-model="user.roles")
-                .form-group
-                    label.col-md-2.control-label(for="avatar") Avatar
-                    .col-md-10
-                        input.form-control(type="text", placeholder="Avatar", ng-model="user.avatar")
-                .form-group
-                    label.col-md-2.control-label(for="gender") Gender
-                    .col-md-10
-                        select.form-control(form="profileForm" ng-model="user.gender")
-                            option Not specified
-                            option Male
-                            option Female
-                .form-group
-                    label.col-md-2.control-label(for="dateOfBirth") Date of birth
-                    .col-md-10.input-group.date
-                        input.form-control(type="text", datepicker, placeholder="Date of birth", ng-model="user.dateOfBirth")
-                        span.input-group-addon
-                            i.glyphicon.glyphicon-th
-                .form-group
-                    label.col-md-2.control-label(for="facebookUrl") Facebook URL
-                    .col-md-10
-                        input.form-control(type="text", placeholder="Facebook URL", ng-model="user.facebookUrl")
-                .form-group
-                    label.col-md-2.control-label(for="twitterUrl") Twitter URL
-                    .col-md-10
-                        input.form-control(type="text", placeholder="Twitter URL", ng-model="user.twitterUrl")
-                .form-group
-                    label.col-md-2.control-label(for="googlePlusUrl") Google+ URL
-                    .col-md-10
-                        input.form-control(type="text", placeholder="Google+ URL", ng-model="user.googlePlusUrl")
-                .form-group
-                    label.col-md-2.control-label(for="aboutMe") About Me
-                    .col-md-10
-                        textarea.form-control(rows="3", placeholder="About Me", ng-model="user.aboutMe")
-
-
-                .form-group
-                    label.col-md-2.control-label(for="aboutMe") Upload avatar
-                    .col-md-10
-                        .span4
-                            .fileupload.fileupload-new(data-provides='fileupload')
-                                .input-append
-                                  .uneditable-input.span3
-                                    i.icon-file.fileupload-exists
-                                    span.fileupload-preview(ng-model='userType')
-                                  span.btn.btn-file
-                                    span.fileupload-new Select file
-                                    span.fileupload-exists Change
-                                    input(type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
-                                  a.btn.fileupload-exists(href='#', data-dismiss='fileupload') Remove
-                            .span2
-                              button#btnStartUpload.btn.start(type='submit', value='Send', ng-click='uploadFile()', ng-disabled='!upload_button_state')
-                                i.icon-upload
-                                span Upload File
-                
-                .pull-right
-                    button.btn.btn-primary(ng-click="getMonth(user)") Get Month
-
-                    button.btn.btn-primary(ng-click="update(user)", ng-disabled="profileForm.$invalid") Update
-                    a.btn.btn-primary(href="/") Cancel
+div.container
+  div.well
+    form.form-horizontal(name='profileForm')
+      fieldset
+        legend Update profile
+        div.form-group
+          label.col-md-2.control-label(for='first-name') First Name
+          div.col-md-10
+            input.form-control(type='text', placeholder='First Name', ng-model='user.firstName', required='required')
+        div.form-group
+          label.col-md-2.control-label(for='last-name') Last Name
+          div.col-md-10
+            input.form-control(type='text', placeholder='Last Name', ng-model='user.lastName', required='required')
+        div.form-group
+          label.col-md-2.control-label(for='email') Email
+          div.col-md-10
+            input.form-control(type='text', placeholder='Email', ng-model='user.email', required='required')
+        div.form-group
+          label.col-md-2.control-label(for='password') Password
+          div.col-md-10
+            input.form-control(type='password', placeholder='Password', ng-model='user.password')
+        div.form-group
+          label.col-md-2.control-label(for='roles') Roles
+          div.col-md-10
+            input.form-control(type='text', placeholder='Roles', ng-model='user.roles')
+        div.form-group
+          label.col-md-2.control-label(for='avatar') Avatar
+          div.col-md-8.pull-left
+            input.form-control(type='text', placeholder='Avatar', ng-model='user.avatar', ng-bind='user.avatar')
+          div.col-md-2.pull-right.text-center
+            img.image-responsive(ng-src='{{user.avatar}}', ng-bind='user.avatar')
+        div.form-group
+          label.col-md-2.control-label(for='gender') Gender
+          div.col-md-10
+            select.form-control(form='profileForm', ng-model='user.gender')
+              option Not specified
+              option Male
+              option Female
+        div.form-group
+          label.col-md-2.control-label(for='dateOfBirth') Date of birth
+          div.col-md-10.input-group.date
+            input.form-control(type='text', datepicker='datepicker', placeholder='Date of birth', ng-model='user.dateOfBirth')
+            span.input-group-addon
+              i.glyphicon.glyphicon-th
+        div.form-group
+          label.col-md-2.control-label(for='facebookUrl') Facebook URL
+          div.col-md-10
+            input.form-control(type='text', placeholder='Facebook URL', ng-model='user.facebookUrl')
+        div.form-group
+          label.col-md-2.control-label(for='twitterUrl') Twitter URL
+          div.col-md-10
+            input.form-control(type='text', placeholder='Twitter URL', ng-model='user.twitterUrl')
+        div.form-group
+          label.col-md-2.control-label(for='googlePlusUrl') Google+ URL
+          div.col-md-10
+            input.form-control(type='text', placeholder='Google+ URL', ng-model='user.googlePlusUrl')
+        div.form-group
+          label.col-md-2.control-label(for='aboutMe') About Me
+          div.col-md-10
+            textarea.form-control(rows='3', placeholder='About Me', ng-model='user.aboutMe')
+        div.form-group
+          label.col-md-2.control-label(for='aboutMe') Upload avatar
+          div.col-md-10
+            div.span4
+              div.fileupload.fileupload-new(data-provides='fileupload')
+                div.input-append
+                  div.uneditable-input.span3
+                    i.icon-file.fileupload-exists
+                    span.fileupload-preview(ng-model='userType')
+                  span.btn.btn-file
+                    span.fileupload-new Select file
+                    span.fileupload-exists Change
+                    input(type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
+              div.span2
+                button#btnStartUpload.btn.start(type='submit', value='Send', ng-click='uploadFile()', ng-disabled='!upload_button_state')
+                  i.icon-upload
+                  span Upload File
+        div.pull-right
+          button.btn.btn-primary(ng-click='getMonth(user)') Get Month
+          button.btn.btn-primary(ng-click='update(user)', ng-disabled='profileForm.$invalid') Update
+          a.btn.btn-primary(href='/') Cancel

@@ -3,13 +3,18 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
-    passport = require('passport');
+    passport = require('passport'),
+    multer  = require('multer');
+    
+
+
 
 module.exports = function(app, config) {
     app.set('view engine', 'jade');
     app.set('views', config.rootPath + '/server/views');
     app.use(cookieParser());
     app.use(bodyParser());
+    app.use(multer({ dest: './uploads/'}))
     app.use(session({secret: 'magic unicorns'}));
     app.use(stylus.middleware(
         {

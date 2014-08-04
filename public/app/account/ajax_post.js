@@ -10,8 +10,10 @@ app.factory('ajax_post', ['$http', function(_http) {
                             'Content-Type': undefined
                         },
                         transformRequest: angular.identity
-                    });
-
+                    }).success(function(data){
+						
+					});
+				
                 return upload_promise;
             }
         }

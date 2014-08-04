@@ -52,9 +52,9 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	    ajax_post.uploadFile_init($scope.uploadedFile)
 	        .then(function(result) {
 	            if (result.status == 200) {
-	                $scope.storeDB_button_state = true;
-	                clientInfo.imagePath = "/uploadsfolder/" + $scope.uploadedFile.name;
-
+	                $scope.storeDB_upload_button_state = true;
+	                console.log(result);
+	                $scope.user.avatar = result.data;
 	            }
 	        }, function(error) {
 	            alert(error.message);

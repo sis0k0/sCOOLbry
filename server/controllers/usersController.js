@@ -39,6 +39,37 @@ module.exports = {
             res.send({reason: 'You do not have permissions!'})
         }
     },
+    uploadAvatar: function(req, res, next) {
+        if (req.user._id == req.body._id || req.user.roles.indexOf('admin') > -1) {
+            /*var updatedUserData = req.body;
+            if (updatedUserData.password && updatedUserData.password.length > 0) {
+                updatedUserData.salt = encryption.generateSalt();
+                updatedUserData.hashPass = encryption.generateHashedPassword(updatedUserData.salt, updatedUserData.password);
+            }*/
+            currentPath = "../../"+req.files.uploadedFile.path;
+            var imgur = require('imgur-node-api');
+			var path = require('path');
+			var imgurURL;
+			imgur.setClientID("de1c5c887fbf774");
+			imgur.upload(path.join(__dirname, currentPath),function(err, res2){
+				imgurURL= res2.data.link;
+				console.log(imgurURL);
+				var updatedUserData = req.body;
+				imgurURL = imgurURL.substring(0,imgurURL.lastIndexOf(".")) + 's.' + imgurURL.substring(imgurURL.lastIndexOf(".")+1, imgurURL.length);
+				updatedUserData.avatar = imgurURL;
+				
+				User.update({_id: req.user._id}, updatedUserData, function() {
+					res.send(updatedUserData.avatar);
+				
+				});
+			});
+			
+
+        }
+        else {
+            res.send({reason: 'You do not have permissions!'})
+        }
+    },
     getAllUsers: function(req, res) {
         User.find({}).exec(function(err, collection) {
             if (err) {

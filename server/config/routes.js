@@ -8,34 +8,9 @@ module.exports = function(app) {
     router.post('/api/users', controllers.users.createUser);
     router.put('/api/users', auth.isAuthenticated, controllers.users.updateUser);
 
-    router.post('/api/images', function(req, res) {
-     
-        var serverPath = '/images/' + req.fd.uploadedFile.name;
-     
-        require('fs').rename(
-        req.fd.uploadedFile.name,
-        'public/app/users/' + serverPath,
-        function(error) {
-                if(error) {
-            res.send({
-                        error: 'Ah crap! Something bad happened'
-            });
-                    return;
-                }
-     
-                res.send({
-            path: serverPath
-                });
-        }
-        );
-    });
-
-
-
-
-
-
-
+    router.post('/api/images', auth.isAuthenticated, controllers.users.uploadAvatar);
+   
+    
     router.get('/api/courses', controllers.courses.getAllCourses);
     router.get('/api/courses/:id', controllers.courses.getCourseById);
 
