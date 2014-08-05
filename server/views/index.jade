@@ -22,7 +22,7 @@ block main-content
 
                 
                 .navbar-right(ng-controller="LoginCtrl")
-                    ul.nav.navbar-nav.navbar-right(ng-hide="identity.isAuthenticated()")
+                    ul#top-menu.nav.navbar-nav.navbar-right(ng-hide="identity.isAuthenticated()")
                         li
                             a(href='/libraries') Libraries
                         li
@@ -32,7 +32,7 @@ block main-content
                         li
                             a(href="/signup").sign-up Sign Up
                     
-                    ul.nav.navbar-nav.navbar-right(ng-show="identity.isAuthenticated()")
+                    ul#top-menu.nav.navbar-nav.navbar-right(ng-show="identity.isAuthenticated()")
                         li
                             a(href='/libraries') Libraries
                         li

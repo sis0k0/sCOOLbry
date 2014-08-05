@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>sCOOLbry</title>
+    <link rel="stylesheet" href="/lib/bootstrap-datepicker/datepicker3.min.css">
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/lib/toastr/toastr.css">
     <link rel="stylesheet" href="/css/site.css">
@@ -22,13 +23,13 @@
             </div>
           </form>
           <div ng-controller="LoginCtrl" class="navbar-right">
-            <ul ng-hide="identity.isAuthenticated()" class="nav navbar-nav navbar-right">
+            <ul id="top-menu" ng-hide="identity.isAuthenticated()" class="nav navbar-nav navbar-right">
               <li><a href="/libraries">Libraries</a></li>
               <li><a href="/catalogue">Catalogue</a></li>
               <li><a href="/login">Log in</a></li>
               <li><a href="/signup" class="sign-up">Sign Up</a></li>
             </ul>
-            <ul ng-show="identity.isAuthenticated()" class="nav navbar-nav navbar-right">
+            <ul id="top-menu" ng-show="identity.isAuthenticated()" class="nav navbar-nav navbar-right">
               <li><a href="/libraries">Libraries</a></li>
               <li><a href="/catalogue">Catalogue</a></li>
               <li class="dropdown"><a href="" data-toggle="dropdown" class="dropdown-toggle">{{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}<span class="caret"></span></a>
@@ -55,19 +56,24 @@
     <script type="text/javascript" src="/lib/angular/angular.js"></script>
     <script type="text/javascript" src="/lib/angular-resource/angular-resource.js"></script>
     <script type="text/javascript" src="/lib/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="/lib/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="/lib/bootstrap-datepicker/bootstrap-datepicker.bg.min.js"></script>
     <script type="text/javascript" src="/app/app.js"></script>
     <script type="text/javascript" src="/app/main/mainCtrl.js"></script>
     <script type="text/javascript" src="/app/account/loginCtrl.js"></script>
     <script type="text/javascript" src="/app/account/signUpCtrl.js"></script>
     <script type="text/javascript" src="/app/account/profileCtrl.js"></script>
+    <script type="text/javascript" src="/app/account/editProfileCtrl.js"></script>
     <script type="text/javascript" src="/app/account/identity.js"></script>
     <script type="text/javascript" src="/app/account/auth.js"></script>
     <script type="text/javascript" src="/app/account/usersResource.js"></script>
+    <script type="text/javascript" src="/app/account/ajax_post.js"></script>
     <script type="text/javascript" src="/app/admin/userListCtrl.js"></script>
     <script type="text/javascript" src="/app/courses/coursesListCtrl.js"></script>
     <script type="text/javascript" src="/app/courses/courseDetailsCtrl.js"></script>
     <script type="text/javascript" src="/app/courses/courseResource.js"></script>
     <script type="text/javascript" src="/app/courses/cachedCourses.js"></script>
     <script type="text/javascript" src="/app/common/notifier.js"></script>
+    <script type="text/javascript" src="/app/common/datepicker.js"></script>
   </body>
 </html>
