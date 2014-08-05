@@ -7,52 +7,21 @@
 * Welcome section styles
 */
 
-@media screen and (min-width: 768px)
-  .jumbotron
-    h1
-      font-size 90px !important
-      margin-top 30px !important
-    h2
-      font-size 50px !important
-      margin-top 30px !important
-
-@media screen and (max-width: 768px)
-  .jumbotron
-    .btn-primary, .btn-info
-      width 200px !important
-      font-size 20px !important
-      border-radius(10px) !important
-
-@media screen and (max-width: 500px)
-  .jumbotron
-    .btn-group-lg
-      margin-top 30px !important
-    .btn-primary, .btn-info
-      width 150px !important
-      font-size 20px !important
-      border-radius 15px !important
-      padding 15px 0 !important
-
-@media screen and (max-width: 500px)
-  .jumbotron
-    .btn-primary, .btn-info
-      width 140px !important
-      font-size 18px !important
-      border-radius(15px) !important
-      padding 10px 0 !important
-      margin-right 10px !important
-
 #welcome-section
+  font-size 25px
+  font-size 2.5rem
   background-color #369
   padding 20px
   margin-top -32px
+  h1
+    font-size 3.6em
+  h2
+    font-size 2.4em
+    margin-top 0.4em
   h1, h2
     text-align center
     color #fff
     font-weight normal
-  @media (max-width: 991px)
-    .col-md-4
-      display none
   img
     margin auto
   a
@@ -61,19 +30,19 @@
       color #43CFF5
       text-decoration none
   .btn-group-lg
-    margin-top 70px
+    margin-top 2.5em
     a
-      padding 19px 16px
-      font-size 23px
+      padding 0.76em 0.64em
+      font-size 1em
       line-height 1.33
       border-radius(6px)
-      width 270px
+      width 11em
       color #fff
       border 1px solid #fff
     .btn-primary
-      margin-right 25px
+      margin-right 1em
     .btn-info
-      margin-right 25px
+      margin-right 1em
       background-color transparent
       &:hover
         background-color #5C9DB1
@@ -83,3 +52,42 @@
       background-color rgba(236,129,69,0.8)
       &:hover
         background-color rgba(236,129,69,0.5)
+
+
+@media screen and (max-width: 1285px)
+  #welcome-section
+    font-size 20px
+    font-size 2rem
+    img
+      width 60%
+    .col-md-8
+      margin-left -3%
+
+@media screen and (max-width: 1032px)
+  #welcome-section
+    font-size 18px
+    font-size 1.8rem
+    img
+      width 50%
+    .col-md-8
+      margin-left -5%
+
+@media screen and (max-width: 942px)
+  #welcome-section
+    font-size 16px
+    font-size 1.6rem
+
+@media screen and (max-width: 849px)
+  #welcome-section
+    font-size 14px
+    font-size 1.4rem
+    .col-md-4
+      display none
+    .col-md-8
+      width 100%
+      margin 0
+
+@media screen and (max-width: 504px)
+  #welcome-section
+    font-size 12px
+    font-size 1.2rem

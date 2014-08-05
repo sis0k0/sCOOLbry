@@ -4,6 +4,8 @@
 */
 
 header
+  font-size 8.5px
+  font-size 0.85rem
   border-bottom 3px solid #00c2ff !important
   padding 0 20px !important
   .sign-up
@@ -12,12 +14,13 @@ header
     &:hover
       background #39c !important
       color #fff !important
-
-.navbar-collapse.in 
-    overflow-y visible !important
+  ul
+    a
+      font-size 2em
+      padding 4em 6em
+      margin 10em 3em
 
 .navbar-brand
-  margin-right 2.5em
   background url('../images/logo.png') no-repeat center
   width 150px
   height 34px
@@ -29,45 +32,90 @@ header
 
 .navbar-right .navbar-form
   input
-    margin-right 10px
+    margin-right 1.4em
   a.btn
-    margin-left 10px
+    margin-left 1.4em
   .input-group-btn
     display inline
 
 #search-header
+  width 70em
+  margin-left 4em
   .form-group
     width 100%
     input
       width 100%
-
-@media (min-width: 1200px)
-  #search-header
-    width 50%
-
+    button
+      width 40px
 
 @media (max-width: 1250px)
-  #search-header
-    width 40%
-
-@media (max-width: 1050px)
-  #search-header
-    width 35%
   header
-    .navbar-right
-      a
-        padding 8px
-        margin 20px 2px
+    font-size 8.25px
+    font-size 0.825rem
+    #search-header
+      width 65em
 
-
-
-@media (max-width: 875px) and (min-width: 767px)
+@media (max-width: 1198px)
   header
-    .navbar-right
-      a
-        padding 7px
-        margin 20px 1px
-        font-size 15px
-    .navbar-brand
-      margin-right 0.5em !important
+    font-size 8px
+    font-size 0.8rem
+    #search-header
+      width 60em
 
+@media (max-width: 1118px)
+  header
+    #search-header
+      width 30em
+
+@media (max-width: 878px)
+  header
+    font-size 7px
+    font-size 0.7rem
+
+@media (min-width: 768px) and (max-width: 878px)
+  header
+    #search-header
+      display none
+    font-size 7.75px
+    font-size 0.775rem
+
+@media (max-width: 768px)
+  header
+    #search-header
+      width 100%
+    .sign-up
+      border inherit !important
+      color inherit !important
+      &:hover
+        background #fff !important
+        color inherit !important
+        border 1px solid #ddd !important
+
+.navbar-collapse.in 
+    overflow-y visible !important
+
+// @media screen and (min-width: 1000px)
+//   .navbar-brand
+//     float left
+//     margin-right 5px
+//     margin-left -15px
+//   .navbar-nav 
+//     float left
+//     margin-top 0
+//     margin-bottom 0
+//   .navbar-nav > li 
+//     float left
+//   .navbar-nav > li > a 
+//     border-radius 0
+//   .navbar-nav.pull-right
+//     float right
+//     width auto
+//   .navbar-toggle 
+//     position relative
+//     top aut
+//     left auto
+//     display none
+//   .nav-collapse.collapse 
+//     display block !important
+//     height auto !important
+//     overflow visible !important
