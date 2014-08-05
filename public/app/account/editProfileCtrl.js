@@ -19,7 +19,7 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	$scope.update = function(user) {
         auth.update(user).then(function() {
             $scope.user = user;
-            $location.path('/');
+            $location.path('/profile');
         });
     }
 
