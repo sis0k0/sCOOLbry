@@ -14,7 +14,7 @@ module.exports = function(app, config) {
     app.set('views', config.rootPath + '/server/views');
     app.use(cookieParser());
     app.use(bodyParser());
-    app.use(multer({ dest: './uploads/'}))
+    app.use(multer({ dest: './server/uploads/', fileSize: 2097152}))
     app.use(session({secret: 'magic unicorns'}));
     app.use(stylus.middleware(
         {
