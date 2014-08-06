@@ -48,15 +48,14 @@ module.exports = {
 			imgur.setClientID("de1c5c887fbf774");
 			imgur.upload(path.join(__dirname, currentPath),function(err, res2){
 				imgurURL= res2.data.link;
-				console.log(imgurURL);
 				imgurURL = imgurURL.substring(0,imgurURL.lastIndexOf(".")) + 's.' + imgurURL.substring(imgurURL.lastIndexOf(".")+1, imgurURL.length);
+				console.log(imgurURL);
+				//console.log("SUCCESS?");
 				res.send(imgurURL);
-				
 			});
 			var fs = require('fs');
 			fs.unlink(path.join(__dirname, currentPath));
-			
-
+			//console.log("FAIL!");
      
     },
     getAllUsers: function(req, res) {
