@@ -44,7 +44,7 @@ module.exports = {
             currentPath = "../../"+req.files.uploadedFile.path;
             var imgur = require('imgur-node-api');
 			var path = require('path');
-			var imgurURL;
+			var imgurURL = "";
 			imgur.setClientID("de1c5c887fbf774");
 			imgur.upload(path.join(__dirname, currentPath),function(err, res2){
 				imgurURL= res2.data.link;
