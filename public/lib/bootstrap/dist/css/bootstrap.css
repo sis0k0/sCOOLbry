@@ -6226,6 +6226,9 @@ button.close {
 legend {
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+label {
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 .input-group-addon {
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

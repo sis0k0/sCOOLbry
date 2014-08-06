@@ -267,3 +267,117 @@ body {
   vertical-align: middle;
   float: none;
 }
+/*
+* Social buttons for Bootstrap 3
+*/
+.btn-facebook {
+  color: #fff;
+  background-color: #133783;
+  border-color: #133783;
+}
+.btn-facebook:hover,
+.btn-facebook:focus,
+.btn-facebook:active,
+.btn-facebook.active,
+.open .dropdown-toggle.btn-facebook {
+  color: #fff;
+  background-color: #0e285f;
+  border-color: #0b214e;
+}
+.btn-facebook:active,
+.btn-facebook.active,
+.open .dropdown-toggle.btn-facebook {
+  background-image: none;
+}
+.btn-facebook.disabled,
+.btn-facebook[disabled],
+fieldset[disabled] .btn-facebook,
+.btn-facebook.disabled:hover,
+.btn-facebook[disabled]:hover,
+fieldset[disabled] .btn-facebook:hover,
+.btn-facebook.disabled:focus,
+.btn-facebook[disabled]:focus,
+fieldset[disabled] .btn-facebook:focus,
+.btn-facebook.disabled:active,
+.btn-facebook[disabled]:active,
+fieldset[disabled] .btn-facebook:active,
+.btn-facebook.disabled.active,
+.btn-facebook[disabled].active,
+fieldset[disabled] .btn-facebook.active {
+  background-color: #133783;
+  border-color: #133783;
+}
+.btn-twitter {
+  color: #fff;
+  background-color: #2daddc;
+  border-color: #0271bf;
+}
+.btn-twitter:hover,
+.btn-twitter:focus,
+.btn-twitter:active,
+.btn-twitter.active,
+.open .dropdown-toggle.btn-twitter {
+  color: #fff;
+  background-color: #2095c0;
+  border-color: #014d82;
+}
+.btn-twitter:active,
+.btn-twitter.active,
+.open .dropdown-toggle.btn-twitter {
+  background-image: none;
+}
+.btn-twitter.disabled,
+.btn-twitter[disabled],
+fieldset[disabled] .btn-twitter,
+.btn-twitter.disabled:hover,
+.btn-twitter[disabled]:hover,
+fieldset[disabled] .btn-twitter:hover,
+.btn-twitter.disabled:focus,
+.btn-twitter[disabled]:focus,
+fieldset[disabled] .btn-twitter:focus,
+.btn-twitter.disabled:active,
+.btn-twitter[disabled]:active,
+fieldset[disabled] .btn-twitter:active,
+.btn-twitter.disabled.active,
+.btn-twitter[disabled].active,
+fieldset[disabled] .btn-twitter.active {
+  background-color: #2daddc;
+  border-color: #0271bf;
+}
+.btn-google-plus {
+  color: #fff;
+  background-color: #dd4b39;
+  border-color: #c53727;
+}
+.btn-google-plus:hover,
+.btn-google-plus:focus,
+.btn-google-plus:active,
+.btn-google-plus.active,
+.open .dropdown-toggle.btn-google-plus {
+  color: #fff;
+  background-color: #ca3523;
+  border-color: #92291d;
+}
+.btn-google-plus:active,
+.btn-google-plus.active,
+.open .dropdown-toggle.btn-google-plus {
+  background-image: none;
+}
+.btn-google-plus.disabled,
+.btn-google-plus[disabled],
+fieldset[disabled] .btn-google-plus,
+.btn-google-plus.disabled:hover,
+.btn-google-plus[disabled]:hover,
+fieldset[disabled] .btn-google-plus:hover,
+.btn-google-plus.disabled:focus,
+.btn-google-plus[disabled]:focus,
+fieldset[disabled] .btn-google-plus:focus,
+.btn-google-plus.disabled:active,
+.btn-google-plus[disabled]:active,
+fieldset[disabled] .btn-google-plus:active,
+.btn-google-plus.disabled.active,
+.btn-google-plus[disabled].active,
+fieldset[disabled] .btn-google-plus.active {
+  background-color: #dd4b39;
+  border-color: #c53727;
+}

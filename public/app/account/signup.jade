@@ -2,27 +2,60 @@
     .well
         form.form-horizontal(name="signUpForm")
             fieldset
-                legend Create New User
-                .form-group
-                    label.col-md-2.control-label(for="first-name") First Name
-                    .col-md-10
-                        input.form-control(type="text", placeholder="First Name", ng-model="user.firstName", required)
-                .form-group
-                    label.col-md-2.control-label(for="last-name") Last Name
-                    .col-md-10
-                        input.form-control(type="text", placeholder="Last Name", ng-model="user.lastName", required)
-                .form-group
-                    label.col-md-2.control-label(for="username") Username
-                    .col-md-10
-                        input.form-control(type="text", placeholder="Username", ng-model="user.username", required)
-                .form-group
-                    label.col-md-2.control-label(for="email") Email
-                    .col-md-10
-                        input.form-control(type="text", placeholder="Email", ng-model="user.email", required)
-                .form-group
-                    label.col-md-2.control-label(for="password") Password
-                    .col-md-10
-                        input.form-control(type="password", placeholder="Password", ng-model="user.password", required)
+                legend
+                    .row
+                        .col-md-4.col-xs-4.vcenter
+                            h2 Sign up
+                        .col-md-8.col-xs-8.vcenter
+                            h6.text-right Already have an account?
+                                a(href="../login")&nbsp;Login
+                
+                .row
+                    .col-md-5.col-xs-2
+                        
+                        .col-xs-10.col-xs-offset-1
+                            .form-group
+                                btn.btn.btn-lg.btn-facebook.btn-block
+                                    i.fa.fa-facebook
+                                    |&nbsp;| Connect with Facebook
+                            .form-group
+                                btn.btn.btn-lg.btn-twitter.btn-block
+                                    i.fa.fa-twitter
+                                    |&nbsp;| Connect with Twitter
+                            .form-group
+                                btn.btn.btn-lg.btn-google-plus.btn-block
+                                    i.fa.fa-google-plus
+                                    |&nbsp;| Connect with Google+
+                    .col-md-6.col-xs-8.col-xs-offset-1
+                        .row
+                            .col-xs-11
+                                .form-group
+                                    label.control-label(for="first-name") Name
+                                    .row
+                                        .col-xs-6
+                                            input.form-control(type="text", placeholder="First Name", ng-model="user.firstName", required)
+                                        .col-xs-6
+                                            input.form-control(type="text", placeholder="Last Name", ng-model="user.lastName", required)
+                                .form-group
+                                    label.control-label(for="username") Username
+                                    .row
+                                        .col-xs-12
+                                            input.form-control(type="text", placeholder="Username", ng-model="user.username", required)
+                                .form-group
+                                    label.control-label(for="email") Email
+                                    .row
+                                        .col-xs-12
+                                            input.form-control(type="text", placeholder="Email", ng-model="user.email", required)
+                                .form-group
+                                    label.control-label(for="password") Password
+                                    .row
+                                        .col-xs-12
+                                            input.form-control(type="password", placeholder="Password", ng-model="user.password", required)
+                                .form-group
+                                    label.control-label(for="confirm-password") Confirm password
+                                    .row
+                                        .col-xs-12
+                                            input.form-control(type="password", placeholder="Confirm password", ng-model="user.password", required)
                 .pull-right
                     button.btn.btn-primary(ng-click="signup(user)", ng-disabled="signUpForm.$invalid") Create
                     a.btn.btn-primary(href="/") Cancel
