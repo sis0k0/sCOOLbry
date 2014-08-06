@@ -56,6 +56,7 @@
                                     .row
                                         .col-xs-12
                                             input.form-control.validity(type="password", placeholder="Confirm password", ng-model="passwordConfirm", password-match="user.password", required)
+
                 .pull-right
                     button.btn.btn-primary(ng-click="signup(user)", ng-disabled="signUpForm.$invalid") Create
                     a.btn.btn-primary(href="/") Cancel
