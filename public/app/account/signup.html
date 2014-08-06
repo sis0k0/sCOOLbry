@@ -34,10 +34,10 @@
                   <label for="first-name" class="control-label">Name</label>
                   <div class="row">
                     <div class="col-xs-6">
-                      <input type="text" placeholder="First Name" ng-model="user.firstName" required="required" class="form-control"/>
+                      <input type="text" placeholder="First Name" ng-model="user.firstName" required="required" class="form-control validity"/>
                     </div>
                     <div class="col-xs-6">
-                      <input type="text" placeholder="Last Name" ng-model="user.lastName" required="required" class="form-control"/>
+                      <input type="text" placeholder="Last Name" ng-model="user.lastName" required="required" class="form-control validity"/>
                     </div>
                   </div>
                 </div>
@@ -45,7 +45,7 @@
                   <label for="username" class="control-label">Username</label>
                   <div class="row">
                     <div class="col-xs-12">
-                      <input type="text" placeholder="Username" ng-model="user.username" required="required" class="form-control"/>
+                      <input type="text" placeholder="Username" ng-model="user.username" ng-pattern="/^[a-z0-9_-]{3,16}$/" required="required" class="form-control validity"/>
                     </div>
                   </div>
                 </div>
@@ -53,7 +53,7 @@
                   <label for="email" class="control-label">Email</label>
                   <div class="row">
                     <div class="col-xs-12">
-                      <input type="text" placeholder="Email" ng-model="user.email" required="required" class="form-control"/>
+                      <input type="text" placeholder="Email" ng-model="user.email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/" required="required" class="form-control validity"/>
                     </div>
                   </div>
                 </div>
@@ -61,7 +61,7 @@
                   <label for="password" class="control-label">Password</label>
                   <div class="row">
                     <div class="col-xs-12">
-                      <input type="password" placeholder="Password" ng-model="user.password" required="required" class="form-control"/>
+                      <input type="password" placeholder="Password" ng-model="user.password" ng-pattern="/^[a-z0-9_-]{6,18}$/" required="required" class="form-control validity"/>
                     </div>
                   </div>
                 </div>
@@ -69,7 +69,7 @@
                   <label for="confirm-password" class="control-label">Confirm password</label>
                   <div class="row">
                     <div class="col-xs-12">
-                      <input type="password" placeholder="Confirm password" ng-model="user.password" required="required" class="form-control"/>
+                      <input type="password" placeholder="Confirm password" ng-model="passwordConfirm" password-match="user.password" required="required" class="form-control validity"/>
                     </div>
                   </div>
                 </div>

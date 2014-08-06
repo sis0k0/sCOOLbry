@@ -267,6 +267,12 @@ body {
   vertical-align: middle;
   float: none;
 }
+input.ng-dirty.ng-invalid {
+  background-color: #ffc0cb;
+}
+input.ng-dirty.ng-valid.validity {
+  background-color: #9c9;
+}
 /*
 * Social buttons for Bootstrap 3
 */

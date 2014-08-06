@@ -33,29 +33,29 @@
                                     label.control-label(for="first-name") Name
                                     .row
                                         .col-xs-6
-                                            input.form-control(type="text", placeholder="First Name", ng-model="user.firstName", required)
+                                            input.form-control.validity(type="text", placeholder="First Name", ng-model="user.firstName", required)
                                         .col-xs-6
-                                            input.form-control(type="text", placeholder="Last Name", ng-model="user.lastName", required)
+                                            input.form-control.validity(type="text", placeholder="Last Name", ng-model="user.lastName", required)
                                 .form-group
                                     label.control-label(for="username") Username
                                     .row
                                         .col-xs-12
-                                            input.form-control(type="text", placeholder="Username", ng-model="user.username", required)
+                                            input.form-control.validity(type="text", placeholder="Username", ng-model="user.username",ng-pattern="/^[a-z0-9_-]{3,16}$/" required)
                                 .form-group
                                     label.control-label(for="email") Email
                                     .row
                                         .col-xs-12
-                                            input.form-control(type="text", placeholder="Email", ng-model="user.email", required)
+                                            input.form-control.validity(type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", required)
                                 .form-group
                                     label.control-label(for="password") Password
                                     .row
                                         .col-xs-12
-                                            input.form-control(type="password", placeholder="Password", ng-model="user.password", required)
+                                            input.form-control.validity(type="password", placeholder="Password", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
                                 .form-group
                                     label.control-label(for="confirm-password") Confirm password
                                     .row
                                         .col-xs-12
-                                            input.form-control(type="password", placeholder="Confirm password", ng-model="user.password", required)
+                                            input.form-control.validity(type="password", placeholder="Confirm password", ng-model="passwordConfirm", password-match="user.password", required)
                 .pull-right
                     button.btn.btn-primary(ng-click="signup(user)", ng-disabled="signUpForm.$invalid") Create
                     a.btn.btn-primary(href="/") Cancel
