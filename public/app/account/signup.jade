@@ -23,7 +23,7 @@
                                     i.fa.fa-twitter
                                     |&nbsp;| Connect with Twitter
                             .form-group
-                                btn.btn.btn-lg.btn-google-plus.btn-block
+                                btn.btn.btn-lg.btn-google-plus.btn-block(data-toggle="tooltip", tooltip, data-placement="left", title="tooltip")
                                     i.fa.fa-google-plus
                                     |&nbsp;| Connect with Google+
                     .col-md-6.col-xs-8.col-xs-offset-1
@@ -40,7 +40,7 @@
                                     label.control-label(for="username") Username
                                     .row
                                         .col-xs-12
-                                            input.form-control.validity(type="text", placeholder="Username", ng-model="user.username",ng-pattern="/^[a-z0-9_-]{3,16}$/" required)
+                                            input.form-control.validity(data-toggle="tooltip", tooltip, data-placement="left", title="tooltip", type="text", placeholder="Username", ng-model="user.username",ng-pattern="/^[a-z0-9_-]{3,16}$/" required)
                                 .form-group
                                     label.control-label(for="email") Email
                                     .row
