@@ -1,10 +1,16 @@
-var app = angular.module('app', ['ngResource', 'ngRoute']).value('toastr', toastr);
-                    
+var app = angular.module('app', ['ngResource', 'ngRoute', 'reCAPTCHA']).value('toastr', toastr);
 
-app.config(function($routeProvider, $locationProvider) {
+app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
+	 
+ 
      $locationProvider.html5Mode(true);
+     
+     reCAPTCHAProvider.setPublicKey('6Lcy4csSAAAAAFdcvcxawMgzlJCabD0G5bk5lp2U');
+     reCAPTCHAProvider.setOptions({
+		theme: 'clean'
+     });
 
-    var routeUserChecks = {
+     var routeUserChecks = {
         adminRole: {
             authenticate: function(auth) {
                 return auth.isAuthorizedForRole('admin');
@@ -53,6 +59,8 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'UserListCtrl',
             resolve: routeUserChecks.adminRole
         })
+        
+        
 });
 
 app.run(function($rootScope, $location) {

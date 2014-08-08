@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function($scope, $location, notifier, identity, auth) {
+app.controller('LoginCtrl', function($scope, $location, notifier, identity, auth, $window) {
     $scope.identity = identity;
 
     $scope.login = function(user) {
@@ -8,7 +8,11 @@ app.controller('LoginCtrl', function($scope, $location, notifier, identity, auth
                 $location.path('/');
             }
             else {
-                notifier.error('Username/Password combination is not valid!');
+				
+				notifier.error('Username/Password combination is not valid or the RECAPTCHA Challenge is not complete!');
+				
+				
+				$window.Recaptcha.reload();
             }
         });
     };
