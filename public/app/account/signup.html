@@ -45,7 +45,7 @@
                   <label for="username" class="control-label">Username</label>
                   <div class="row">
                     <div class="col-xs-12">
-                      <input data-toggle="tooltip" tooltip="tooltip" data-placement="left" title="tooltip" type="text" placeholder="Username" ng-model="user.username" ng-pattern="/^[a-z0-9_-]{3,16}$/" required="required" class="form-control validity"/>
+                      <input type="text" placeholder="Username" tooltip="tooltip" data-placement="left" data-trigger="focus" title="Lowercase letters, digits, hyphens and underscores. 3-16 characters" ng-model="user.username" ng-pattern="/^[a-z0-9_-]{3,16}$/" required="required" class="form-control validity"/>
                     </div>
                   </div>
                 </div>
@@ -61,7 +61,7 @@
                   <label for="password" class="control-label">Password</label>
                   <div class="row">
                     <div class="col-xs-12">
-                      <input type="password" placeholder="Password" ng-model="user.password" ng-pattern="/^[a-z0-9_-]{6,18}$/" required="required" class="form-control validity"/>
+                      <input type="password" placeholder="Password" tooltip="tooltip" data-placement="left" data-trigger="focus" title="Lowercase letters, digits, hyphens and underscores. 6-18 characters" ng-model="user.password" ng-pattern="/^[a-z0-9_-]{6,18}$/" required="required" class="form-control validity"/>
                     </div>
                   </div>
                 </div>

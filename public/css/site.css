@@ -267,7 +267,7 @@ body {
   vertical-align: middle;
   float: none;
 }
-input.ng-dirty.ng-invalid {
+input.ng-dirty.ng-invalid.validity {
   background-color: #ffc0cb;
 }
 input.ng-dirty.ng-valid.validity {
