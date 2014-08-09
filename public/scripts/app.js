@@ -2,16 +2,15 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'reCAPTCHA']).value('t
 
 app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
 	 
-    // enable html5Mode
+    // remove # from urls
     $locationProvider.html5Mode(true);
      
-    // set reCAPTCHA's public key and options
     reCAPTCHAProvider.setPublicKey('6Lcy4csSAAAAAFdcvcxawMgzlJCabD0G5bk5lp2U');
     reCAPTCHAProvider.setOptions({
 	   theme: 'clean'
     });
 
-    // check if authorized
+    // router authorization checker for roles
     var routeUserChecks = {
         adminRole: {
             authenticate: function(auth) {

@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="/lib/bootstrap-datepicker/datepicker3.min.css">
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/lib/toastr/toastr.css">
-    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="/styles/site.css">
+    <link rel="stylesheet" href="/styles/font-awesome.min.css">
   </head>
-  <body ng-app="app">
+  <body ng-app="app" ng-cloak class="ng-cloak">
+    <!-- external libraries-->
     <script type="text/javascript" src="/lib/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="/lib/toastr/toastr.js"></script>
@@ -19,22 +21,30 @@
     <script type="text/javascript" src="/lib/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="/lib/bootstrap-datepicker/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="/lib/bootstrap-datepicker/bootstrap-datepicker.bg.min.js"></script>
-    <script type="text/javascript" src="/app/app.js"></script>
-    <script type="text/javascript" src="/app/main/mainCtrl.js"></script>
-    <script type="text/javascript" src="/app/account/loginCtrl.js"></script>
-    <script type="text/javascript" src="/app/account/signUpCtrl.js"></script>
-    <script type="text/javascript" src="/app/account/profileCtrl.js"></script>
-    <script type="text/javascript" src="/app/account/editProfileCtrl.js"></script>
-    <script type="text/javascript" src="/app/account/identity.js"></script>
-    <script type="text/javascript" src="/app/account/auth.js"></script>
-    <script type="text/javascript" src="/app/account/usersResource.js"></script>
-    <script type="text/javascript" src="/app/account/ajax_post.js"></script>
-    <script type="text/javascript" src="/app/admin/userListCtrl.js"></script>
-    <script type="text/javascript" src="/app/courses/coursesListCtrl.js"></script>
-    <script type="text/javascript" src="/app/courses/courseDetailsCtrl.js"></script>
-    <script type="text/javascript" src="/app/courses/courseResource.js"></script>
-    <script type="text/javascript" src="/app/courses/cachedCourses.js"></script>
-    <script type="text/javascript" src="/app/common/notifier.js"></script>
-    <script type="text/javascript" src="/app/common/datepicker.js"></script>
+    <!-- angularjs scripts-->
+    <script type="text/javascript" src="/scripts/app.js"></script>
+    <!-- controllers-->
+    <script type="text/javascript" src="/scripts/controllers/mainCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/loginCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/signUpCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/profileCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/editProfileCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/userListCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/coursesListCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/courseDetailsCtrl.js"></script>
+    <!-- directives-->
+    <script type="text/javascript" src="/scripts/directives/passwordMatch.js"></script>
+    <script type="text/javascript" src="/scripts/directives/tooltip.js"></script>
+    <script type="text/javascript" src="/scripts/directives/datepicker.js"></script>
+    <!-- services-->
+    <script type="text/javascript" src="/scripts/services/auth.js"></script>
+    <script type="text/javascript" src="/scripts/services/ajax_post.js"></script>
+    <script type="text/javascript" src="/scripts/services/cachedCourses.js"></script>
+    <script type="text/javascript" src="/scripts/services/courseResource.js"></script>
+    <script type="text/javascript" src="/scripts/services/usersResource.js"></script>
+    <script type="text/javascript" src="/scripts/services/identity.js"></script>
+    <script type="text/javascript" src="/scripts/services/notifier.js"></script>
+    <script type="text/javascript" src="/lib/angular-re-captcha/angular-re-captcha.js"></script>
+    <script type="text/javascript" src="/lib/bootstrap/js/tooltip.js"></script>
   </body>
 </html>
