@@ -2,15 +2,17 @@ var app = angular.module('app', ['ngResource', 'ngRoute', 'reCAPTCHA']).value('t
 
 app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
 	 
- 
-     $locationProvider.html5Mode(true);
+    // enable html5Mode
+    $locationProvider.html5Mode(true);
      
-     reCAPTCHAProvider.setPublicKey('6Lcy4csSAAAAAFdcvcxawMgzlJCabD0G5bk5lp2U');
-     reCAPTCHAProvider.setOptions({
-		theme: 'clean'
-     });
+    // set reCAPTCHA's public key and options
+    reCAPTCHAProvider.setPublicKey('6Lcy4csSAAAAAFdcvcxawMgzlJCabD0G5bk5lp2U');
+    reCAPTCHAProvider.setOptions({
+	   theme: 'clean'
+    });
 
-     var routeUserChecks = {
+    // check if authorized
+    var routeUserChecks = {
         adminRole: {
             authenticate: function(auth) {
                 return auth.isAuthorizedForRole('admin');
@@ -23,6 +25,7 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
         }
     };
 
+    // set routes using angular's ngRoute
     $routeProvider
         .when('/', {
             templateUrl: '/partials/main/home',
@@ -64,6 +67,8 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
 });
 
 app.run(function($rootScope, $location) {
+
+    // handling authorization errors
     $rootScope.$on('$routeChangeError', function(ev, current, previous, rejection) {
         if (rejection === 'not authorized') {
             $location.path('/');

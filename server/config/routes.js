@@ -15,7 +15,7 @@ module.exports = function(app) {
     router.get('/api/courses/:id', controllers.courses.getCourseById);
 
     router.get('/partials/:partialArea/:partialName', function(req, res) {
-        res.render('../../public/app/' + req.params.partialArea + '/' + req.params.partialName)
+        res.render('../../public/views/' + req.params.partialArea + '/' + req.params.partialName)
     });
 
     router.post('/login', auth.login);

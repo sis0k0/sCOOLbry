@@ -5,7 +5,7 @@ module.exports = function(grunt) {
 
 
 
-        // compiles all jade files
+        // compile all jade files
         jade: {
           compile: {
             options: {
@@ -20,19 +20,14 @@ module.exports = function(grunt) {
           }
         },
 
-        /*
-        * The stylus task is used to compile every file with .styl extension in the public/css file
-        * into one single site.css file in the same directory.
-        * Using multiple .styl files provides easy maintenance of the code.
-        * Building everything in one .css file improves the performance.
-        */
+        // build every .styl file to a single site.css file
         stylus: {
             options: {
                 compress: false
             },
             compile: {
                 files: {
-                    'public/css/site.css': ['public/css/*.styl']
+                    'public/styles/site.css': ['public/styles/*.styl']
                 }
             }
         },
@@ -41,7 +36,7 @@ module.exports = function(grunt) {
         // watch css and jade files and process the above tasks
         watch: {
           css: {
-            files: ['public/css/*.styl'],
+            files: ['public/styles/*.styl'],
             tasks: ['newer:stylus']
           },
           jade: {
