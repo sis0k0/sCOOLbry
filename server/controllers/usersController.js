@@ -1,27 +1,31 @@
-var encryption = require('../utilities/encryption');
+var encryption = require('../utilities/encryption'),
+	http = require('http'),
+	querystring = require('querystring');
 var User = require('mongoose').model('User');
 
 module.exports = {
     createUser: function(req, res, next) {
+        
         var newUserData = req.body;
-        newUserData.salt = encryption.generateSalt();
-        newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
-        User.create(newUserData, function(err, user) {
-            if (err) {
-                console.log('Failed to register new user: ' + err);
-                return;
-            }
+		newUserData.salt = encryption.generateSalt();
+		newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
+		User.create(newUserData, function(err, user) {
+			if (err) {
+				console.log('Failed to register new user: ' + err);
+				return;
+			}
 
+			req.logIn(user, function(err) {
+				if (err) {
+					res.status(403);
+					return res.send({reason: err.toString()});
+				}
 
-            req.logIn(user, function(err) {
-                if (err) {
-                    res.status(400);
-                    return res.send({reason: err.toString()});
-                }
-
-                res.send(user);
-            })
-        });
+				res.send(user);
+			})
+		});
+   
+   
     },
     updateUser: function(req, res, next) {
         if (req.user._id == req.body._id || req.user.roles.indexOf('admin') > -1) {
@@ -98,5 +102,66 @@ module.exports = {
 				
 			}
         })
-    }
+    },
+    validCaptcha: function(req, res, next) {
+	
+		var captchaData = new Object();
+		var stopSignUp = false;
+
+		captchaData.remoteip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+		captchaData.challenge = req.body.captcha.challenge;
+		captchaData.response = req.body.captcha.response;
+		captchaData.privatekey = "6Lcy4csSAAAAANa_TKPxw2JPmHL_lk2Ibl8HmHre";
+		var captchaData = querystring.stringify(captchaData);
+		
+		var requestOptions = {
+			host: "www.google.com",
+			path: "/recaptcha/api/verify",
+			port: 80,
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+				'Content-Length': captchaData.length
+			}
+		};
+		
+		var request = http.request(requestOptions, function(response){
+			var body = '';
+			
+			
+			response.on('error', function(err) {
+				//ERROR code
+				stopSignUp = true;
+				
+			});
+
+			response.on('data', function(chunk) {
+				body += chunk;
+			});
+
+			response.on('end', function() {
+				var success, error_code, parts;
+
+				parts = body.split('\n');
+				success = parts[0];
+				error_code = parts[1];
+
+				if (success == 'false') {
+					stopSignUp = true;
+					res.status(403);
+					return res.send({reason: "Wrong RECAPTCHA Challenge."});
+				}else{
+					
+					next();
+					
+				}
+				
+				console.log(success+' '+error_code);
+			});
+		});
+		request.write(captchaData, 'utf8');
+		request.end();
+   
+   
+	}
 };
