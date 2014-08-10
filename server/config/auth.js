@@ -5,7 +5,6 @@ var passport = require('passport'),
 module.exports = {
 
     login: function(req, res, next) {
-		console.log(req);
 		var captchaData = new Object();
 		var stopLogin = false;
 
@@ -14,7 +13,6 @@ module.exports = {
 		captchaData.response = req.body.captcha.response;
 		captchaData.privatekey = "6Lcy4csSAAAAANa_TKPxw2JPmHL_lk2Ibl8HmHre";
 		var captchaData = querystring.stringify(captchaData);
-		console.log(captchaData);
 		
 		var requestOptions = {
 			host: "www.google.com",

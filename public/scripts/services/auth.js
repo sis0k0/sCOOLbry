@@ -8,7 +8,8 @@ app.factory('auth', function($http, $q, identity, UsersResource) {
                 identity.currentUser = user;
                 deferred.resolve();
             }, function(response) {
-                deferred.reject(response);
+				
+                deferred.reject(response.data.reason);
             });
 
             return deferred.promise;
