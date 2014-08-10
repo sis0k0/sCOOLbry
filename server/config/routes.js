@@ -7,6 +7,8 @@ module.exports = function(app) {
     router.get('/api/users', auth.isInRole('admin'), controllers.users.getAllUsers);
     router.post('/api/users', controllers.users.createUser);
     router.put('/api/users', auth.isAuthenticated, controllers.users.updateUser);
+    router.get('/api/usernameTaken/:username', controllers.users.getUserByUsername);
+    router.get('/api/emailTaken/:email', controllers.users.getUserByEmail);
 
     router.post('/api/images', auth.isAuthenticated, controllers.users.uploadAvatar);
    

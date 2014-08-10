@@ -66,5 +66,37 @@ module.exports = {
 
             res.send(collection);
         })
+    },
+    getUserByUsername: function(req, res, next) {
+        User.findOne({username: req.params.username}).exec(function(err, user) {
+            if (err) {
+				res.send(false);
+            }else{
+				//console.log(user);
+				
+				if(user==null){
+					res.send(false);
+				}else{
+					res.send(true);
+				}
+				
+			}
+        })
+    },
+    getUserByEmail: function(req, res, next) {
+        User.findOne({email: req.params.email}).exec(function(err, user) {
+            if (err) {
+				res.send(false);
+            }else{
+				//console.log(user);
+				
+				if(user==null){
+					res.send(false);
+				}else{
+					res.send(true);
+				}
+				
+			}
+        })
     }
 };
