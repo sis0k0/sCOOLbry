@@ -33,34 +33,30 @@
                                     label.control-label(for="first-name") Name
                                     .row
                                         .col-xs-6
-                                            input.form-control.validity(type="text", placeholder="First Name", ng-model="user.firstName", ng-change="check(user)", required)
+                                            input.form-control.validity(type="text", placeholder="First Name", ng-model="user.firstName", ng-change="check()", required)
                                         .col-xs-6
-                                            input.form-control.validity(type="text", placeholder="Last Name", ng-model="user.lastName", ng-change="check(user)", required)
+                                            input.form-control.validity(type="text", placeholder="Last Name", ng-model="user.lastName", ng-change="check()", required)
                                 .form-group
                                     label.control-label(for="username") Username
                                     .row
                                         .col-xs-12
-                                            input.form-control.validity(type="text", placeholder="Username", tooltip, data-placement="left", data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 3-16 characters", ng-model="user.username", ng-pattern="/^[a-z0-9_-]{3,16}$/", ng-change="check(user)", required)
+                                            input.form-control.validity(type="text", placeholder="Username", tooltip, data-placement="left", data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 3-16 characters", ng-model="user.username", ng-pattern="/^[a-z0-9_-]{3,16}$/", ng-change="check()", required)
                                 .form-group
                                     label.control-label(for="email") Email
                                     .row
                                         .col-xs-12
-                                            input.form-control.validity(type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="check(user)", required)
+                                            input.form-control.validity(type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="check()", required)
                                 .form-group
                                     label.control-label(for="password") Password
                                     .row
                                         .col-xs-12
-                                            input.form-control.validity(type="password", placeholder="Password", tooltip, data-placement="left", data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", ng-change="check(user)", required)
+                                            input.form-control.validity(type="password", placeholder="Password", tooltip, data-placement="left", data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", ng-change="check()", required)
                                 .form-group
                                     label.control-label(for="confirm-password") Confirm password
                                     .row
                                         .col-xs-12
-                                            input.form-control.validity(type="password", placeholder="Confirm password", ng-model="passwordConfirm", password-match="user.password", ng-change="check(user)", required)
-                                .form-group
-                                    label.col-md-2.control-label(for='recaptcha') RECAPTCHA Challenge
-                                    .row
-                                        .col-xs-12
-                                            div(re-captcha='', ng-model='user.captcha')
+                                            input.form-control.validity(type="password", placeholder="Confirm password", ng-model="passwordConfirm", password-match="user.password", ng-change="check()", required)
+
                 .pull-right
                     button.btn.btn-primary(ng-click="signup(user)", ng-disabled="signUpForm.$invalid") Create
                     a.btn.btn-primary(href="/") Cancel
