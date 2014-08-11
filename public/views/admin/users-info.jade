@@ -1,0 +1,48 @@
+div.container
+  table.table
+    tr
+      td ID: {{ userInfo._id }}
+    tr
+      td First Name: {{ userInfo.firstName }}
+    tr
+      td Last Name: {{ userInfo.lastName }}
+    tr
+      td Email: {{ userInfo.email }}
+    tr
+      td Registered On: {{ userInfo.created }}
+    tr
+      td Role(s): {{ userInfo.roles }}
+    tr
+      td Avatar URL: {{ userInfo.avatar }}
+    tr
+      td Gender: {{ userInfo.gender }}
+    tr
+      td Date of Birth: {{ userInfo.dateOfBirth }}
+    tr
+      td Facebook URL: {{ userInfo.facebookUrl }}
+    tr
+      td Twitter URL: {{ userInfo.twitterUrl }}
+    tr
+      td Google Plus URL: {{ userInfo.googlePlusUrl }}
+    tr
+      td About Me: {{ userInfo.aboutMe }}
+    tr
+      td
+        h1 User Libraries
+    tr
+      td
+        h1 User Books
+    tr
+      td
+        h1 User Requests
+    tr
+      td
+        h1 User Reviews
+   
+        
+    tr
+      td
+        a.btn(href='#') Edit
+      td
+        a.btn(href='#') Delete
+

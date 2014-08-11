@@ -1,0 +1,37 @@
+.container
+      ul.nav.navbar-nav
+        li.active
+          a(href='admin/settings') Settings
+        li.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            | Libraries
+            span.caret
+          ul.dropdown-menu(role='menu')
+            li
+              a(href='admin/libraries/add') Add
+            li
+              a(href='admin/libraries') Browse
+            li
+              a(href='admin/libraries/search') Search
+        li.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            | Books
+            span.caret
+          ul.dropdown-menu(role='menu')
+            li
+              a(href='admin/books/add') Add
+            li
+              a(href='admin/books') Browse
+            li
+              a(href='admin/books/search') Search
+        li.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            | Users
+            span.caret
+          ul.dropdown-menu(role='menu')
+            li
+              a(href='admin/users/add') Add
+            li
+              a(href='admin/users') Browse
+            li
+              a(href='admin/users/search') Search
