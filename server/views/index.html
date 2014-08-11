@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width = 440, initial-scale = 2.3, user-scalable = no">
+    <meta name="keywords" content="library lol">
     <title>sCOOLbry</title>
     <link rel="stylesheet" href="/lib/bootstrap-datepicker/datepicker3.min.css">
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/lib/toastr/toastr.css">
-    <link rel="stylesheet" href="/css/site.css">
+    <link rel="stylesheet" href="/styles/site.css">
+    <link rel="stylesheet" href="/styles/font-awesome.min.css">
   </head>
-  <body ng-app="app">
+  <body ng-app="app" ng-cloak class="ng-cloak">
     <div class="container-fluid">
       <header role="navigation" class="nav navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
@@ -22,25 +26,26 @@
               </div>
             </div>
           </form>
-          <div ng-controller="LoginCtrl" class="navbar-right">
-            <ul id="top-menu" ng-hide="identity.isAuthenticated()" class="nav navbar-nav navbar-right">
-              <li><a href="/libraries">Libraries</a></li>
-              <li><a href="/catalogue">Catalogue</a></li>
-              <li><a href="/login">Log in</a></li>
-              <li><a href="/signup" class="sign-up">Sign Up</a></li>
-            </ul>
-            <ul id="top-menu" ng-show="identity.isAuthenticated()" class="nav navbar-nav navbar-right">
-              <li><a href="/libraries">Libraries</a></li>
-              <li><a href="/catalogue">Catalogue</a></li>
-              <li class="dropdown"><a href="" data-toggle="dropdown" class="dropdown-toggle">{{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li ng-show="identity.currentUser.isAdmin()"><a href="/admin/users">Users</a></li>
-                  <li ng-show="identity.isAuthenticated()"><a href="/profile">Profile</a></li>
-                  <li><a href="/" ng-click="logout()">Sign Out</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+          <ul id="top-menu" ng-hide="identity.isAuthenticated()" ng-controller="LoginCtrl" ng-init="screenWidth = showWidth()" data-toggle="{{ dataToggle }}" data-target="{{ dataTarget }}" class="nav navbar-nav navbar-right">
+            <li>{{ width }}</li>
+            <li>{{ dataToggle }}</li>
+            <li><a href="/libraries">Libraries</a></li>
+            <li><a href="/catalogue">Catalogue</a></li>
+            <li><a href="/login">Log in</a></li>
+            <li><a href="/signup" class="sign-up">Sign Up</a></li>
+            <button ng-click="showWidth()"></button>
+          </ul>
+          <ul id="top-menu" ng-show="identity.isAuthenticated()" ng-controller="LoginCtrl" ng-click="navbar-toggle" class="nav navbar-nav navbar-right">
+            <li><a href="/libraries">Libraries</a></li>
+            <li><a href="/catalogue">Catalogue</a></li>
+            <li class="dropdown"><a href="" data-toggle="dropdown" class="dropdown-toggle">{{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li ng-show="identity.currentUser.isAdmin()"><a href="/admin/users">Users</a></li>
+                <li ng-show="identity.isAuthenticated()"><a href="/profile">Profile</a></li>
+                <li><a href="/" ng-click="logout()">Sign Out</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </header>
     </div>
@@ -50,6 +55,7 @@
     <footer>
       <p class="text-center">&copy; sCOOLbry 2014</p>
     </footer>
+    <!-- external libraries-->
     <script type="text/javascript" src="/lib/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="/lib/toastr/toastr.js"></script>
@@ -58,22 +64,29 @@
     <script type="text/javascript" src="/lib/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="/lib/bootstrap-datepicker/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="/lib/bootstrap-datepicker/bootstrap-datepicker.bg.min.js"></script>
-    <script type="text/javascript" src="/app/app.js"></script>
-    <script type="text/javascript" src="/app/main/mainCtrl.js"></script>
-    <script type="text/javascript" src="/app/account/loginCtrl.js"></script>
-    <script type="text/javascript" src="/app/account/signUpCtrl.js"></script>
-    <script type="text/javascript" src="/app/account/profileCtrl.js"></script>
-    <script type="text/javascript" src="/app/account/editProfileCtrl.js"></script>
-    <script type="text/javascript" src="/app/account/identity.js"></script>
-    <script type="text/javascript" src="/app/account/auth.js"></script>
-    <script type="text/javascript" src="/app/account/usersResource.js"></script>
-    <script type="text/javascript" src="/app/account/ajax_post.js"></script>
-    <script type="text/javascript" src="/app/admin/userListCtrl.js"></script>
-    <script type="text/javascript" src="/app/courses/coursesListCtrl.js"></script>
-    <script type="text/javascript" src="/app/courses/courseDetailsCtrl.js"></script>
-    <script type="text/javascript" src="/app/courses/courseResource.js"></script>
-    <script type="text/javascript" src="/app/courses/cachedCourses.js"></script>
-    <script type="text/javascript" src="/app/common/notifier.js"></script>
-    <script type="text/javascript" src="/app/common/datepicker.js"></script>
+    <!-- angularjs scripts-->
+    <script type="text/javascript" src="/scripts/app.js"></script>
+    <!-- controllers-->
+    <script type="text/javascript" src="/scripts/controllers/mainCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/loginCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/signUpCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/profileCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/editProfileCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/userListCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/coursesListCtrl.js"></script>
+    <script type="text/javascript" src="/scripts/controllers/courseDetailsCtrl.js"></script>
+    <!-- directives-->
+    <script type="text/javascript" src="/scripts/directives/tooltip.js"></script>
+    <script type="text/javascript" src="/scripts/directives/datepicker.js"></script>
+    <!-- services-->
+    <script type="text/javascript" src="/scripts/services/auth.js"></script>
+    <script type="text/javascript" src="/scripts/services/ajax_post.js"></script>
+    <script type="text/javascript" src="/scripts/services/cachedCourses.js"></script>
+    <script type="text/javascript" src="/scripts/services/courseResource.js"></script>
+    <script type="text/javascript" src="/scripts/services/usersResource.js"></script>
+    <script type="text/javascript" src="/scripts/services/identity.js"></script>
+    <script type="text/javascript" src="/scripts/services/notifier.js"></script>
+    <script type="text/javascript" src="/lib/angular-re-captcha/angular-re-captcha.js"></script>
+    <script type="text/javascript" src="/lib/bootstrap/js/tooltip.js"></script>
   </body>
 </html>

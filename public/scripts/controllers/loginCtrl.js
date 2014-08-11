@@ -27,4 +27,26 @@ app.controller('LoginCtrl', function($scope, $location, notifier, identity, auth
             $location.path('/');
         })
     }
+
+    $scope.width = angular.element($window).width();
+    if($scope.width<700) {
+        $scope.dataToggle = "collapse";
+        $scope.dataTarget = ".navbar-inverse-collapse";
+    }
+    else{
+        $scope.dataToggle = "";
+        $scope.dataTarget = "";    
+    }
+    
+    $scope.$watch(function(){
+       return $window.innerWidth;
+    }, function(value) {
+       console.log(value);
+   });
+
+    $scope.showWidth = function() {
+        var width = angular.element($window).width();
+        if(width>700)
+            return 
+    }
 });

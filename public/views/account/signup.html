@@ -14,8 +14,8 @@
           </div>
         </legend>
         <div class="row">
-          <div class="col-md-5 col-xs-2">
-            <div class="col-xs-10 col-xs-offset-1">
+          <div class="col-md-5">
+            <div class="col-md-10 col-md-offset-1">
               <div class="form-group">
                 <btn class="btn btn-lg btn-facebook btn-block"><i class="fa fa-facebook"></i>&nbsp;| Connect with Facebook</btn>
               </div>
@@ -27,9 +27,9 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-xs-8 col-xs-offset-1">
+          <div class="col-md-6">
             <div class="row">
-              <div class="col-xs-11">
+              <div class="col-md-10 col-md-offset-2">
                 <div ng-class="{ 'has-success': (signUpForm.firstName.$valid &amp;&amp; signUpForm.lastName.$valid) }" class="form-group">
                   <label for="first-name" class="control-label">Name</label>
                   <div class="row">
@@ -81,12 +81,14 @@
                     </div>
                   </div>
                 </div>
+                <div class="form-group">
+                  <div class="pull-right">
+                    <button ng-click="signup(user)" ng-disabled="signUpForm.$invalid" class="btn btn-primary">Create</button><a href="/" style="margin-left:0.2em" class="btn btn-danger">Cancel</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="pull-right">
-          <button ng-click="signup(user)" ng-disabled="signUpForm.$invalid" class="btn btn-primary">Create</button><a href="/" style="margin-left:0.2em" class="btn btn-danger">Cancel</a>
         </div>
       </fieldset>
     </form>

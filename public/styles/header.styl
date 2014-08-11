@@ -83,8 +83,20 @@ header
 
 @media (max-width: 768px)
   header
+    font-size 8.5px
+    font-size 0.85rem
+    .nav.navbar-nav.navbar-right
+      a
+        margin-top 14px
+        margin-bottom 14px
+      .dropdown-menu
+        a
+          margin 5px
+    a.dropdown-toggle
+      margin-bottom 0 !important
     #search-header
       width 100%
+      margin-left 0
     .sign-up
       border inherit !important
       color inherit !important
@@ -95,29 +107,3 @@ header
 
 .navbar-collapse.in 
     overflow-y visible !important
-
-// @media screen and (min-width: 1000px)
-//   .navbar-brand
-//     float left
-//     margin-right 5px
-//     margin-left -15px
-//   .navbar-nav 
-//     float left
-//     margin-top 0
-//     margin-bottom 0
-//   .navbar-nav > li 
-//     float left
-//   .navbar-nav > li > a 
-//     border-radius 0
-//   .navbar-nav.pull-right
-//     float right
-//     width auto
-//   .navbar-toggle 
-//     position relative
-//     top aut
-//     left auto
-//     display none
-//   .nav-collapse.collapse 
-//     display block !important
-//     height auto !important
-//     overflow visible !important

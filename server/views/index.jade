@@ -20,35 +20,40 @@ block main-content
                                 i.glyphicon.glyphicon-search
 
 
+                ul#top-menu.nav.navbar-nav.navbar-right(ng-hide="identity.isAuthenticated()", ng-controller="LoginCtrl", ng-init="screenWidth = showWidth()", data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}")
+                    li {{ width }}
+                    li {{ dataToggle }}
+                    li
+                        a(href='/libraries') Libraries
+                    li
+                        a(href='/catalogue') Catalogue
+                    li
+                        a(href="/login") Log in
+                    li
+                        a(href="/signup").sign-up Sign Up
+                    button(ng-click="showWidth()")
+
+            
+
+
                 
-                .navbar-right(ng-controller="LoginCtrl")
-                    ul#top-menu.nav.navbar-nav.navbar-right(ng-hide="identity.isAuthenticated()")
-                        li
-                            a(href='/libraries') Libraries
-                        li
-                            a(href='/catalogue') Catalogue
-                        li
-                            a(href="/login") Log in
-                        li
-                            a(href="/signup").sign-up Sign Up
-                    
-                    ul#top-menu.nav.navbar-nav.navbar-right(ng-show="identity.isAuthenticated()")
-                        li
-                            a(href='/libraries') Libraries
-                        li
-                            a(href='/catalogue') Catalogue
-                        li.dropdown
-                            a.dropdown-toggle(href="", data-toggle="dropdown")
-                                | {{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}
-                                span.caret
-                            ul.dropdown-menu
-                                li(ng-show="identity.currentUser.isAdmin()")
-                                    a(href="/admin/users") Users
-                                li(ng-show="identity.isAuthenticated()")
-                                    a(href="/profile") Profile
-                                li
-                                    a(href="/" ng-click="logout()") Sign Out
-                    
+                ul#top-menu.nav.navbar-nav.navbar-right(ng-show="identity.isAuthenticated()", ng-controller="LoginCtrl", ng-click="navbar-toggle")
+                    li
+                        a(href='/libraries') Libraries
+                    li
+                        a(href='/catalogue') Catalogue
+                    li.dropdown
+                        a.dropdown-toggle(href="", data-toggle="dropdown")
+                            | {{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}
+                            b.caret
+                        ul.dropdown-menu
+                            li(ng-show="identity.currentUser.isAdmin()")
+                                a(href="/admin/users") Users
+                            li(ng-show="identity.isAuthenticated()")
+                                a(href="/profile") Profile
+                            li
+                                a(href="/" ng-click="logout()") Sign Out
+
     section
         div(ng-view)
 
