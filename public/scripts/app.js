@@ -56,9 +56,19 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             controller: 'EditProfileCtrl',
             resolve: routeUserChecks.authenticated
         })
+        .when('/admin', {
+            templateUrl: '/partials/admin/panel',
+            controller: 'AdminPanelCtrl',
+            resolve: routeUserChecks.adminRole
+        })
         .when('/admin/users', {
             templateUrl: '/partials/admin/users-list',
             controller: 'UserListCtrl',
+            resolve: routeUserChecks.adminRole
+        })
+        .when('/admin/user/:id', {
+            templateUrl: '/partials/admin/users-info',
+            controller: 'UserInfoCtrl',
             resolve: routeUserChecks.adminRole
         })
         

@@ -1,5 +1,12 @@
-.container
-    table.table
-        tr(ng-repeat="user in users")
-            td {{ user.firstName }}
-            td {{ user.lastName }}
+div.container
+  table.table
+    tr(ng-repeat='user in users')
+      td {{ user.firstName }}
+      td {{ user.lastName }}
+      td
+        a.btn(href='/admin/user/{{ user._id }}') Browse
+      td
+        a.btn(href='#') Edit
+      td
+        a.btn(href='#') Delete
+

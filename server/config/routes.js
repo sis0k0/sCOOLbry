@@ -5,6 +5,7 @@ var auth = require('./auth'),
 
 module.exports = function(app) {
     router.get('/api/users', auth.isInRole('admin'), controllers.users.getAllUsers);
+    router.get('/api/userInfo/:id', auth.isInRole('admin'), controllers.users.getUserById);
     router.post('/api/users', controllers.users.validCaptcha, controllers.users.createUser);
     router.put('/api/users', auth.isAuthenticated, controllers.users.updateUser);
     router.get('/api/usernameTaken/:username', controllers.users.getUserByUsername);

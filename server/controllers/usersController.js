@@ -71,6 +71,18 @@ module.exports = {
             res.send(collection);
         })
     },
+    getUserById: function(req, res, next) {
+        User.findOne({_id: req.params.id}).exec(function(err, user) {
+            if (err) {
+				res.send("null");
+				
+            }else{
+				
+					res.send(user);
+					
+			}
+        })
+    },
     getUserByUsername: function(req, res, next) {
         User.findOne({username: req.params.username}).exec(function(err, user) {
             if (err) {
