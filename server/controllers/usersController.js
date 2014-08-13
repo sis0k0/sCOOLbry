@@ -115,6 +115,17 @@ module.exports = {
 			}
         })
     },
+    deleteUserById: function(req, res, next) {
+		
+        User.remove({_id: req.params.id}, function(err) {
+            if (err) {
+					res.send("false");
+            }else{
+					res.send("true");
+					
+			}
+        });
+    },
     validCaptcha: function(req, res, next) {
 	
 		var captchaData = new Object();

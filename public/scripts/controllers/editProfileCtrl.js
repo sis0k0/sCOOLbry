@@ -1,11 +1,10 @@
-app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajax_post) {
+app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajax_post, $window) {
 
 	$scope.user = {
         username: identity.currentUser.username,
         firstName: identity.currentUser.firstName,
         lastName: identity.currentUser.lastName,
         email: identity.currentUser.email,
-        roles: identity.currentUser.roles,
         avatar: identity.currentUser.avatar,
         gender: identity.currentUser.gender,
         dateOfBirth: identity.currentUser.dateOfBirth,
@@ -19,7 +18,7 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	$scope.update = function(user) {
         auth.update(user).then(function() {
             $scope.user = user;
-            $location.path('/profile');
+            $window.location = '/profile';
         });
     }
 

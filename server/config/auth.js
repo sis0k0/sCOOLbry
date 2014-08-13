@@ -97,5 +97,15 @@ module.exports = {
                 res.end();
             }
         }
-    }
+    },
+    isAuthenticatedOrAdmin: function(req, res, next) {
+		
+		if(req.isAuthenticated() || req.user.roles.indexOf("admin") > -1){
+			next();
+		}else{
+			res.status(403);
+            res.end();
+		}
+		
+    },
 }

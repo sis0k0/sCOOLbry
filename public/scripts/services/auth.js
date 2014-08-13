@@ -18,9 +18,23 @@ app.factory('auth', function($http, $q, identity, UsersResource) {
             var deferred = $q.defer();
 
             var updatedUser = new UsersResource(user);
+            console.log(updatedUser);
             updatedUser._id = identity.currentUser._id;
             updatedUser.$update().then(function() {
                 identity.currentUser = updatedUser;
+                deferred.resolve();
+            }, function(response) {
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
+        },
+        updateAsAdmin: function(user) {
+            var deferred = $q.defer();
+
+            var updatedUser = new UsersResource(user);
+            updatedUser._id = user._id;
+            updatedUser.$update().then(function() {
                 deferred.resolve();
             }, function(response) {
                 deferred.reject(response);

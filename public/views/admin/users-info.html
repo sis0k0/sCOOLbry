@@ -1,10 +1,1 @@
-
-<div class="container">
-  <table class="table">
-    <tr ng-repeat="user in users">
-      <td>{{ user.firstName }}</td>
-      <td>{{ user.lastName }}</td>
-      <td><a href="#" class="btn">Browse</a></td>
-    </tr>
-  </table>
-</div>
+<div class="container"><table class="table"><tr><td>ID: {{ userInfo._id }}</td></tr><tr><td>First Name: {{ userInfo.firstName }}</td></tr><tr><td>Last Name: {{ userInfo.lastName }}</td></tr><tr><td>Email: {{ userInfo.email }}</td></tr><tr><td>Registered On: {{ userInfo.created }}</td></tr><tr><td>Role(s): {{ userInfo.roles }}</td></tr><tr><td>Avatar URL: {{ userInfo.avatar }}</td></tr><tr><td>Gender: {{ userInfo.gender }}</td></tr><tr><td>Date of Birth: {{ userInfo.dateOfBirth }}</td></tr><tr><td>Facebook URL: {{ userInfo.facebookUrl }}</td></tr><tr><td>Twitter URL: {{ userInfo.twitterUrl }}</td></tr><tr><td>Google Plus URL: {{ userInfo.googlePlusUrl }}</td></tr><tr><td>About Me: {{ userInfo.aboutMe }}</td></tr><tr><td><h1>User Libraries</h1></td></tr><tr><td><h1>User Books</h1></td></tr><tr><td><h1>User Requests</h1></td></tr><tr><td><h1>User Reviews</h1></td></tr><tr><td><a href="/admin/user/edit/{{ userInfo._id }}" class="btn">Edit</a></td><td><a href="/admin/user/delete/{{ userInfo._id }}" onclick="return window.confirm(&quot;Deleting an user&quot; || &quot;Are you sure that you want to delete this user?&quot;)" class="btn">Delete</a></td></tr></table></div>

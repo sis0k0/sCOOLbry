@@ -71,6 +71,16 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             controller: 'UserInfoCtrl',
             resolve: routeUserChecks.adminRole
         })
+        .when('/admin/user/edit/:id', {
+            templateUrl: '/partials/admin/user-edit',
+            controller: 'editProfileAdminCtrl',
+            resolve: routeUserChecks.adminRole
+        })
+        .when('/admin/user/delete/:id', {
+            templateUrl: '/partials/admin/user-delete',
+            controller: 'UserDeleteCtrl',
+            resolve: routeUserChecks.adminRole
+        })
         
         
 });
