@@ -1,12 +1,12 @@
-div.container
-  table.table
-    tr(ng-repeat='user in users')
-      td {{ user.firstName }}
-      td {{ user.lastName }}
-      td
-        a.btn(href='/admin/user/{{ user._id }}') Browse
-      td
-        a.btn(href='/admin/user/edit/{{ user._id }}') Edit
-      td
-        a.btn(href='/admin/user/delete/{{ user._id }}' onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")') Delete
+.container
+  .well
+    h1.text-center Users list
+    table.table.table-striped.table-bordered.table-condensed
+      tr(ng-repeat='user in users')
+        td 
+          a.btn(href='/admin/user/{{ user._id }}') {{ user.username }}
+        td
+          a.btn(href='/admin/user/edit/{{ user._id }}') Edit
+        td
+          a.btn(href='/admin/user/delete/{{ user._id }}' onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")') Delete
 

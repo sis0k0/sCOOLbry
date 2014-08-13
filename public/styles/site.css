@@ -81,12 +81,12 @@ header ul ul a {
     width: 60em;
   }
 }
-@media (max-width: 1118px) {
+@media (min-width: 768px) and (max-width: 1118px) {
   header #search-header {
     width: 30em;
   }
 }
-@media (max-width: 878px) {
+@media (min-width: 768px) and (max-width: 878px) {
   header {
     font-size: 7px;
     font-size: 0.7rem;
@@ -129,9 +129,6 @@ header ul ul a {
     color: inherit !important;
     border: 1px solid #ddd !important;
   }
-}
-.navbar-collapse.in {
-  overflow-y: visible !important;
 }
 
 /*
@@ -281,6 +278,10 @@ body {
   display: inline-block;
   vertical-align: middle;
   float: none;
+}
+.table-wrapped {
+  table-layout: fixed;
+  word-wrap: break-word;
 }
 /*
 * RECAPTCHA

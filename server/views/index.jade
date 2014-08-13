@@ -10,7 +10,7 @@ block main-content
                     span.icon-bar
                 a.navbar-brand(href="/")
 
-            .navbar-collapse.collapse.navbar-inverse-collapse
+            .navbar-collapse.collapse.navbar-inverse-collapse.in
 
                 form.navbar-form.navbar-left#search-header(role='search')
                     .form-group.input-group
@@ -20,35 +20,36 @@ block main-content
                                 i.glyphicon.glyphicon-search
 
 
-                ul#top-menu.nav.navbar-nav.navbar-right(ng-hide="identity.isAuthenticated()", ng-controller="LoginCtrl", resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}")
+                ul#top-menu.nav.navbar-nav.navbar-right(ng-hide="identity.isAuthenticated()", ng-controller="LoginCtrl")
                     li
-                        a(href='/libraries') Libraries
+                        a(href='/libraries', resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Libraries
                     li
-                        a(href='/catalogue') Catalogue
+                        a(href='/catalogue', resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Catalogue
                     li
-                        a(href="/login") Log in
+                        a(href="/login", resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Log in
                     li
-                        a(href="/signup").sign-up Sign Up
+                        a(href="/signup", resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}").sign-up Sign Up
                     button(ng-click="showWidth()")
 
             
 
 
                 
-                ul#top-menu.nav.navbar-nav.navbar-right(ng-show="identity.isAuthenticated()", ng-controller="LoginCtrl", resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}")
+                ul#top-menu.nav.navbar-nav.navbar-right(ng-show="identity.isAuthenticated()", ng-controller="LoginCtrl")
                     li
-                        a(href='/libraries') Libraries
+                        a(href='/libraries', resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Libraries
                     li
-                        a(href='/catalogue') Catalogue
+                        a(href='/catalogue', resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Catalogue
                     li.dropdown
                         a.dropdown-toggle(href="", data-toggle="dropdown")
                             | {{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}
                             b.caret
                         ul.dropdown-menu
                             li(ng-show="identity.currentUser.isAdmin()")
-                                a(href="/admin") Admin Panel
+                                a(href="/admin", resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Admin Panel
                             li(ng-show="identity.isAuthenticated()")
-                                a(href="/profile") Profile
+                                a(href="/profile", resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Profile
+                            li.divider
                             li
                                 a(href="/" ng-click="logout()") Sign Out
 
