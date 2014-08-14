@@ -5,8 +5,8 @@ app.directive('resize', function ($window) {
 
         scope.getWindowDimensions = function () {
             return {
-                'h': w.innerHeight(),
-                'w': w.innerWidth()
+                'h': w.height(),
+                'w': w.width()
             };
         };
 
@@ -16,7 +16,7 @@ app.directive('resize', function ($window) {
 
 
             // Handles the different behaviour of the navbar in different screen width
-            if(scope.windowWidth<750){
+            if(scope.windowWidth<768){
                 scope.dataToggle = "collapse";
                 scope.dataTarget = ".navbar-inverse-collapse";
             }else{

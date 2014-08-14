@@ -1,12 +1,31 @@
 .container
   .well
     h1.text-center Users list
-    table.table.table-striped.table-bordered.table-condensed
-      tr(ng-repeat='user in users')
-        td 
-          a.btn(href='/admin/user/{{ user._id }}') {{ user.username }}
-        td
-          a.btn(href='/admin/user/edit/{{ user._id }}') Edit
-        td
-          a.btn(href='/admin/user/delete/{{ user._id }}' onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")') Delete
+    .table-responsive
+      table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
+        thead
+          tr.text-bold
+            td ID
+            td Username
+            td First name
+            td Last name
+            td Created
+            td Email
+            td Roles
+            td Actions
+        tr(ng-repeat="user in users | orderBy:'_id'")
+          td.text-bold {{ user._id }}
+          td {{ user.username }}
+          td {{ user.firstName }}
+          td {{ user.lastName }}
+          td {{ user.created }}
+          td {{ user.email }}
+          td {{ user.roles }}
+          td
+            a.btn-sm(href='/admin/user/{{ user._id }}', title='Browse', tooltip)
+              span.glyphicon.glyphicon-search.text-success
+            a.btn-sm(href='/admin/user/edit/{{ user._id }}', title='Edit', tooltip)
+              span.glyphicon.glyphicon-edit.text-primary
+            a.btn-sm(href='/admin/user/delete/{{ user._id }}', title='Delete', tooltip, onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")')
+              span.glyphicon.glyphicon-remove.text-danger
 

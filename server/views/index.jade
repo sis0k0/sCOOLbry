@@ -22,35 +22,35 @@ block main-content
 
                 ul#top-menu.nav.navbar-nav.navbar-right(ng-hide="identity.isAuthenticated()", ng-controller="LoginCtrl")
                     li
-                        a(href='/libraries', resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Libraries
+                        a(href='/libraries', resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Libraries
                     li
-                        a(href='/catalogue', resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Catalogue
+                        a(href='/catalogue', resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Catalogue
                     li
-                        a(href="/login", resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Log in
+                        a(href="/login", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Log in
                     li
-                        a(href="/signup", resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}").sign-up Sign Up
+                        a(href="/signup", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}").sign-up Sign Up
 
             
 
 
                 
-                ul#top-menu.nav.navbar-nav.navbar-right(ng-show="identity.isAuthenticated()", ng-controller="LoginCtrl")
+                ul#top-menu.nav.navbar-nav.navbar-right(ng-show="identity.isAuthenticated()", ng-controller="LoginCtrl", resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}")
                     li
-                        a(href='/libraries', resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Libraries
+                        a(href='/libraries', resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Libraries
                     li
-                        a(href='/catalogue', resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Catalogue
+                        a(href='/catalogue', resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Catalogue
                     li.dropdown
                         a.dropdown-toggle(href="", data-toggle="dropdown")
                             | {{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}
                             b.caret
                         ul.dropdown-menu
                             li(ng-show="identity.currentUser.isAdmin()")
-                                a(href="/admin", resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Admin Panel
+                                a(href="/admin", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Admin Panel
                             li(ng-show="identity.isAuthenticated()")
-                                a(href="/profile", resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}") Profile
+                                a(href="/profile", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Profile
                             li.divider
                             li
-                                a(href="/" ng-click="logout()") Sign Out
+                                a(href="/" ng-click="logout()", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Sign Out
 
     section
         div(ng-view)

@@ -27,20 +27,20 @@
             </div>
           </form>
           <ul id="top-menu" ng-hide="identity.isAuthenticated()" ng-controller="LoginCtrl" class="nav navbar-nav navbar-right">
-            <li><a href="/libraries" resize data-toggle="{{ dataToggle }}" data-target="{{ dataTarget }}">Libraries</a></li>
-            <li><a href="/catalogue" resize data-toggle="{{ dataToggle }}" data-target="{{ dataTarget }}">Catalogue</a></li>
-            <li><a href="/login" resize data-toggle="{{ dataToggle }}" data-target="{{ dataTarget }}">Log in</a></li>
-            <li><a href="/signup" resize data-toggle="{{ dataToggle }}" data-target="{{ dataTarget }}" class="sign-up">Sign Up</a></li>
+            <li><a href="/libraries" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Libraries</a></li>
+            <li><a href="/catalogue" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Catalogue</a></li>
+            <li><a href="/login" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Log in</a></li>
+            <li><a href="/signup" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}" class="sign-up">Sign Up</a></li>
           </ul>
-          <ul id="top-menu" ng-show="identity.isAuthenticated()" ng-controller="LoginCtrl" class="nav navbar-nav navbar-right">
-            <li><a href="/libraries" resize data-toggle="{{ dataToggle }}" data-target="{{ dataTarget }}">Libraries</a></li>
-            <li><a href="/catalogue" resize data-toggle="{{ dataToggle }}" data-target="{{ dataTarget }}">Catalogue</a></li>
+          <ul id="top-menu" ng-show="identity.isAuthenticated()" ng-controller="LoginCtrl" resize data-toggle="{{ dataToggle }}" data-target="{{ dataTarget }}" class="nav navbar-nav navbar-right">
+            <li><a href="/libraries" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Libraries</a></li>
+            <li><a href="/catalogue" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Catalogue</a></li>
             <li class="dropdown"><a href="" data-toggle="dropdown" class="dropdown-toggle">{{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li ng-show="identity.currentUser.isAdmin()"><a href="/admin" resize data-toggle="{{ dataToggle }}" data-target="{{ dataTarget }}">Admin Panel</a></li>
-                <li ng-show="identity.isAuthenticated()"><a href="/profile" resize data-toggle="{{ dataToggle }}" data-target="{{ dataTarget }}">Profile</a></li>
+                <li ng-show="identity.currentUser.isAdmin()"><a href="/admin" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Admin Panel</a></li>
+                <li ng-show="identity.isAuthenticated()"><a href="/profile" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Profile</a></li>
                 <li class="divider"></li>
-                <li><a href="/" ng-click="logout()">Sign Out</a></li>
+                <li><a href="/" ng-click="logout()" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Sign Out</a></li>
               </ul>
             </li>
           </ul>
@@ -91,7 +91,10 @@
     <script type="text/javascript" src="/scripts/services/userResource.js"></script>
     <script type="text/javascript" src="/scripts/services/identity.js"></script>
     <script type="text/javascript" src="/scripts/services/notifier.js"></script>
-    <script type="text/javascript" src="/lib/angular-re-captcha/angular-re-captcha.js"></script>
+    <!-- bootstrap 3 javascript utilities-->
     <script type="text/javascript" src="/lib/bootstrap/js/tooltip.js"></script>
+    <script type="text/javascript" src="/lib/angular-re-captcha/angular-re-captcha.js"></script>
+    <!-- css3 media queries polyfill-->
+    <script type="text/javascript" src="/lib/mediatizr/mediatizr.js"></script>
   </body>
 </html>

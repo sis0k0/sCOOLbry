@@ -274,6 +274,9 @@ body {
 .form-group .input-group {
   padding: 0 15px !important;
 }
+/*
+* Additional styling classes
+ */
 .vcenter {
   display: inline-block;
   vertical-align: middle;
@@ -282,6 +285,9 @@ body {
 .table-wrapped {
   table-layout: fixed;
   word-wrap: break-word;
+}
+.text-bold {
+  font-weight: bold;
 }
 /*
 * RECAPTCHA

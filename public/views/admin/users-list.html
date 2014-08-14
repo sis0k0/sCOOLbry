@@ -2,12 +2,31 @@
 <div class="container">
   <div class="well">
     <h1 class="text-center">Users list</h1>
-    <table class="table table-striped table-bordered table-condensed">
-      <tr ng-repeat="user in users">
-        <td><a href="/admin/user/{{ user._id }}" class="btn">{{ user.username }}</a></td>
-        <td><a href="/admin/user/edit/{{ user._id }}" class="btn">Edit</a></td>
-        <td><a href="/admin/user/delete/{{ user._id }}" onclick="return window.confirm(&quot;Deleting an user&quot; || &quot;Are you sure that you want to delete this user?&quot;)" class="btn">Delete</a></td>
-      </tr>
-    </table>
+    <div class="table-responsive">
+      <table ng-class="{ 'table-wrapped': windowWidth&gt;768 }" resize="resize" class="table table-hover table-bordered">
+        <thead>
+          <tr class="text-bold">
+            <td>ID</td>
+            <td>Username</td>
+            <td>First name</td>
+            <td>Last name</td>
+            <td>Created</td>
+            <td>Email</td>
+            <td>Roles</td>
+            <td>Actions</td>
+          </tr>
+        </thead>
+        <tr ng-repeat="user in users | orderBy:'_id'">
+          <td class="text-bold">{{ user._id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.created }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.roles }}</td>
+          <td><a href="/admin/user/{{ user._id }}" title="Browse" tooltip="tooltip" class="btn-sm"><span class="glyphicon glyphicon-search text-success"></span></a><a href="/admin/user/edit/{{ user._id }}" title="Edit" tooltip="tooltip" class="btn-sm"><span class="glyphicon glyphicon-edit text-primary"></span></a><a href="/admin/user/delete/{{ user._id }}" title="Delete" tooltip="tooltip" onclick="return window.confirm(&quot;Deleting an user&quot; || &quot;Are you sure that you want to delete this user?&quot;)" class="btn-sm"><span class="glyphicon glyphicon-remove text-danger"></span></a></td>
+        </tr>
+      </table>
+    </div>
   </div>
 </div>
