@@ -2,6 +2,7 @@ div.container
   div.well
     form.form-horizontal(name='profileForm')
       fieldset
+        input.form-control(type='hidden', ng-model='user._id')
         legend Update profile
         div.form-group
           label.col-md-2.control-label(for='first-name') First Name

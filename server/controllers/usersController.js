@@ -28,14 +28,18 @@ module.exports = {
    
     },
     updateUser: function(req, res, next) {
-        if (req.user._id == req.body._id || req.user.roles.indexOf('admin') > -1) {
+    	if (req.user._id == req.body._id || req.user.roles.indexOf('admin') > -1) {
             var updatedUserData = req.body;
             if (updatedUserData.password && updatedUserData.password.length > 0) {
                 updatedUserData.salt = encryption.generateSalt();
                 updatedUserData.hashPass = encryption.generateHashedPassword(updatedUserData.salt, updatedUserData.password);
             }
+            
+            var updatedId = req.body._id;
+            delete updatedUserData._id;
 
-            User.update({_id: req.body._id}, updatedUserData, function() {
+            User.update({_id: updatedId}, updatedUserData, function(err) {
+				console.log(err);
                 res.end();
             })
         }
