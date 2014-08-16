@@ -14,6 +14,8 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
         aboutMe: identity.currentUser.aboutMe
     }
 
+    $scope.emailConfirm = $scope.user.email;
+
 
 	$scope.update = function(user) {
         auth.update(user).then(function() {
@@ -39,11 +41,6 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	    }
 
 	$scope.uploadFile = function() {
-	    uploadFile();
-	};
-
-
-	function uploadFile() {
 	    if (!$scope.uploadedFile) {
 	        return;
 	    }
@@ -57,7 +54,26 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	            }
 	        }, function(error) {
 	            alert(error.message);
-	        });
+	    	});
+	};
+
+    $scope.checkIfTaken = function(field){
+	    var responsePromise = $http.get("/api/" + field.$name + "Taken/" + field.$viewValue);
+	    responsePromise.success(function(data, status, headers, config) {
+            if(data=="true"){
+                field.$setValidity("taken", false);
+            }else{
+                field.$setValidity("taken", true);
+            }
+	    });             
+    }
+
+    $scope.fieldsMatch = function (field, confirmField) {
+		if(field.$viewValue !== confirmField.$viewValue){
+			confirmField.$setValidity("notMatching", false);
+		}else{
+			confirmField.$setValidity("notMatching", true);
+		}
 	}
 
 });

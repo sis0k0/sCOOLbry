@@ -12,7 +12,7 @@ var userSchema = mongoose.Schema({
         type: String, require: '{PATH} is required' 
     },
     email: {
-        type: String, require: '{PATH} is required'
+        type: String, require: '{PATH} is required', unique: true
     },
     created: {
         type: Date,

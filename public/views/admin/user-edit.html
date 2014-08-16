@@ -1,1 +1,107 @@
-<div class="container"><div class="well"><form name="profileForm" class="form-horizontal"><fieldset><input type="hidden" ng-model="user._id" class="form-control"/><legend>Update profile</legend><div class="form-group"><label for="first-name" class="col-md-2 control-label">First Name</label><div class="col-md-10"><input type="text" placeholder="First Name" ng-model="user.firstName" required="required" class="form-control"/></div></div><div class="form-group"><label for="last-name" class="col-md-2 control-label">Last Name</label><div class="col-md-10"><input type="text" placeholder="Last Name" ng-model="user.lastName" required="required" class="form-control"/></div></div><div class="form-group"><label for="email" class="col-md-2 control-label">Email</label><div class="col-md-10"><input type="text" placeholder="Email" ng-model="user.email" required="required" class="form-control"/></div></div><div class="form-group"><label for="password" class="col-md-2 control-label">Password</label><div class="col-md-10"><input type="password" placeholder="Password" ng-model="user.password" class="form-control"/></div></div><div class="form-group"><label for="avatar" class="col-md-2 control-label">Avatar</label><div class="col-md-8 pull-left"><input type="text" placeholder="Avatar" ng-model="user.avatar" ng-bind="user.avatar" class="form-control"/></div><div class="col-md-2 pull-right text-center"><img ng-src="{{user.avatar}}" ng-bind="user.avatar" class="image-responsive"/></div></div><div class="form-group"><label for="gender" class="col-md-2 control-label">Gender</label><div class="col-md-10"><select form="profileForm" ng-model="user.gender" class="form-control"><option>Not specified</option><option>Male</option><option>Female</option></select></div></div><div class="form-group"><label for="dateOfBirth" class="col-md-2 control-label">Date of birth</label><div class="col-md-10 input-group date"><input type="text" datepicker="datepicker" placeholder="Date of birth" ng-model="user.dateOfBirth" class="form-control"/><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span></div></div><div class="form-group"><label for="facebookUrl" class="col-md-2 control-label">Facebook URL</label><div class="col-md-10"><input type="text" placeholder="Facebook URL" ng-model="user.facebookUrl" class="form-control"/></div></div><div class="form-group"><label for="twitterUrl" class="col-md-2 control-label">Twitter URL</label><div class="col-md-10"><input type="text" placeholder="Twitter URL" ng-model="user.twitterUrl" class="form-control"/></div></div><div class="form-group"><label for="googlePlusUrl" class="col-md-2 control-label">Google+ URL</label><div class="col-md-10"><input type="text" placeholder="Google+ URL" ng-model="user.googlePlusUrl" class="form-control"/></div></div><div class="form-group"><label for="aboutMe" class="col-md-2 control-label">About Me</label><div class="col-md-10"><textarea rows="3" placeholder="About Me" ng-model="user.aboutMe" class="form-control"></textarea></div></div><div class="form-group"><label for="aboutMe" class="col-md-2 control-label">Upload avatar</label><div class="col-md-10"><div class="span4"><div data-provides="fileupload" class="fileupload fileupload-new"><div class="input-append"><div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i><span ng-model="userType" class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" ng-model="upFile" onchange="angular.element(this).scope().setFileEventListener(this)"/></span></div></div><div class="span2"><button id="btnStartUpload" type="submit" value="Send" ng-click="uploadFile()" ng-disabled="!upload_button_state" class="btn start"><i class="icon-upload"></i><span>Upload File</span></button></div></div></div></div><div class="pull-right"><button ng-click="updateAsAdmin(user)" ng-disabled="profileForm.$invalid" class="btn btn-primary">Update</button><a href="/admin/users" class="btn btn-primary">Cancel</a></div></fieldset></form></div></div>
+
+<div class="container">
+  <div class="well">
+    <form name="profileForm" class="form-horizontal">
+      <fieldset>     
+        <input type="hidden" ng-model="user._id" class="form-control"/>
+        <legend>Update profile</legend>
+        <div class="form-group">
+          <label for="first-name" class="col-md-2 control-label">First Name</label>
+          <div class="col-md-10">
+            <input type="text" placeholder="First Name" ng-model="user.firstName" required="required" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="last-name" class="col-md-2 control-label">Last Name</label>
+          <div class="col-md-10">
+            <input type="text" placeholder="Last Name" ng-model="user.lastName" required="required" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-md-2 control-label">Email</label>
+          <div class="col-md-10">
+            <input type="text" placeholder="Email" ng-model="user.email" required="required" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="roles" class="col-md-2 control-label">Roles</label>
+          <div class="col-md-10">
+            <input type="text" placeholder="Roles" ng-model="user.roles" required="required" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-md-2 control-label">Password</label>
+          <div class="col-md-10">
+            <input type="password" placeholder="Password" ng-model="user.password" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="avatar" class="col-md-2 control-label">Avatar</label>
+          <div class="col-md-8 pull-left">
+            <input type="text" placeholder="Avatar" ng-model="user.avatar" ng-bind="user.avatar" class="form-control"/>
+          </div>
+          <div class="col-md-2 pull-right text-center"><img ng-src="{{user.avatar}}" ng-bind="user.avatar" class="image-responsive"/></div>
+        </div>
+        <div class="form-group">
+          <label for="gender" class="col-md-2 control-label">Gender</label>
+          <div class="col-md-10">
+            <select form="profileForm" ng-model="user.gender" class="form-control">
+              <option>Not specified</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="dateOfBirth" class="col-md-2 control-label">Date of birth</label>
+          <div class="col-md-10 input-group date">
+            <input type="text" datepicker="datepicker" placeholder="Date of birth" ng-model="user.dateOfBirth" class="form-control"/><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="facebookUrl" class="col-md-2 control-label">Facebook URL</label>
+          <div class="col-md-10">
+            <input type="text" placeholder="Facebook URL" ng-model="user.facebookUrl" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="twitterUrl" class="col-md-2 control-label">Twitter URL</label>
+          <div class="col-md-10">
+            <input type="text" placeholder="Twitter URL" ng-model="user.twitterUrl" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="googlePlusUrl" class="col-md-2 control-label">Google+ URL</label>
+          <div class="col-md-10">
+            <input type="text" placeholder="Google+ URL" ng-model="user.googlePlusUrl" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="aboutMe" class="col-md-2 control-label">About Me</label>
+          <div class="col-md-10">
+            <textarea rows="3" placeholder="About Me" ng-model="user.aboutMe" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="aboutMe" class="col-md-2 control-label">Upload avatar</label>
+          <div class="col-md-10">
+            <div class="span4">
+              <div data-provides="fileupload" class="fileupload fileupload-new">
+                <div class="input-append">
+                  <div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i><span ng-model="userType" class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span>
+                    <input type="file" ng-model="upFile" onchange="angular.element(this).scope().setFileEventListener(this)"/></span>
+                </div>
+              </div>
+              <div class="span2">
+                <button id="btnStartUpload" type="submit" value="Send" ng-click="uploadFile()" ng-disabled="!upload_button_state" class="btn start"><i class="icon-upload"></i><span>Upload File</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pull-right">
+          <button ng-click="updateAsAdmin(user)" ng-disabled="profileForm.$invalid" class="btn btn-primary">Update</button><a href="/admin/users" class="btn btn-primary">Cancel</a>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

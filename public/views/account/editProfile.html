@@ -5,69 +5,97 @@
       <fieldset>
         <input type="hidden" ng-model="user._id" class="form-control"/>
         <legend>Update profile</legend>
-        <div class="form-group">
-          <label for="first-name" class="col-md-2 control-label">First Name</label>
-          <div class="col-md-10">
-            <input type="text" placeholder="First Name" ng-model="user.firstName" required="required" class="form-control"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="last-name" class="col-md-2 control-label">Last Name</label>
-          <div class="col-md-10">
-            <input type="text" placeholder="Last Name" ng-model="user.lastName" required="required" class="form-control"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="email" class="col-md-2 control-label">Email</label>
-          <div class="col-md-10">
-            <input type="text" placeholder="Email" ng-model="user.email" required="required" class="form-control"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="password" class="col-md-2 control-label">Password</label>
-          <div class="col-md-10">
-            <input type="password" placeholder="Password" ng-model="user.password" class="form-control"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="avatar" class="col-md-2 control-label">Avatar</label>
-          <div class="col-md-8 pull-left">
-            <input type="text" placeholder="Avatar" ng-model="user.avatar" ng-bind="user.avatar" class="form-control"/>
-          </div>
-          <div class="col-md-2 pull-right text-center"><img ng-src="{{user.avatar}}" ng-bind="user.avatar" class="image-responsive"/></div>
-        </div>
-        <div class="form-group">
-          <label for="gender" class="col-md-2 control-label">Gender</label>
-          <div class="col-md-10">
-            <select form="profileForm" ng-model="user.gender" class="form-control">
-              <option>Not specified</option>
-              <option>Male</option>
-              <option>Female</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="dateOfBirth" class="col-md-2 control-label">Date of birth</label>
-          <div class="col-md-10 input-group date">
-            <input type="text" datepicker="datepicker" placeholder="Date of birth" ng-model="user.dateOfBirth" class="form-control"/><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="facebookUrl" class="col-md-2 control-label">Facebook URL</label>
-          <div class="col-md-10">
-            <input type="text" placeholder="Facebook URL" ng-model="user.facebookUrl" class="form-control"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="twitterUrl" class="col-md-2 control-label">Twitter URL</label>
-          <div class="col-md-10">
-            <input type="text" placeholder="Twitter URL" ng-model="user.twitterUrl" class="form-control"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="googlePlusUrl" class="col-md-2 control-label">Google+ URL</label>
-          <div class="col-md-10">
-            <input type="text" placeholder="Google+ URL" ng-model="user.googlePlusUrl" class="form-control"/>
+        <div class="row">
+          <div class="col-md-11 col-md-offset-1">
+            <div class="col-md-5">
+              <div ng-class="{ 'has-success': (profileForm.firstName.$valid &amp;&amp; profileForm.lastName.$valid) }" class="form-group">
+                <label for="first-name" class="control-label">Name</label>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <input name="firstName" type="text" placeholder="First Name" ng-model="user.firstName" required="required" class="form-control validity"/>
+                  </div>
+                  <div class="col-xs-6">
+                    <input name="lastName" type="text" placeholder="Last Name" ng-model="user.lastName" required="required" class="form-control validity"/>
+                  </div>
+                </div>
+              </div>
+              <div ng-class="{ 'has-error': (profileForm.email.$invalid &amp;&amp; profileForm.email.$dirty), 'has-success': (profileForm.email.$valid) }" class="form-group">
+                <label for="email" class="control-label">Email</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <input name="email" type="text" placeholder="Email" ng-model="user.email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/" ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail); checkIfTaken(signUpForm.username)" required="required" class="form-control validity"/><span ng-show="profileForm.email.$error.taken" class="has-error help-block">Email already taken</span><span ng-show="profileForm.email.$invalid &amp;&amp; profileForm.email.$dirty" class="has-error help-block">Please enter valid email</span>
+                  </div>
+                </div>
+              </div>
+              <div ng-class="{ 'has-error': (profileForm.confirmEmail.$invalid &amp;&amp; profileForm.confirmEmail.$dirty), 'has-success': (profileForm.confirmEmail.$valid) }" class="form-group">
+                <label for="confirm-password" class="control-label">Confirm email</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <input name="confirmEmail" type="text" placeholder="Confirm email" ng-value="user.email" ng-model="emailConfirm" ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail)" required="required" class="form-control validity"/><span ng-show="profileForm.confirmEmail.$error.notMatching &amp;&amp; profileForm.confirmEmail.$dirty" class="has-error help-block">These emails don't match. Try again?</span>
+                  </div>
+                </div>
+              </div>
+              <div ng-class="{ 'has-error': (profileForm.password.$invalid &amp;&amp; profileForm.password.$dirty), 'has-success': (profileForm.password.$valid) }" class="form-group">
+                <label for="password" class="control-label">Password</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <input name="password" type="password" placeholder="Password" tooltip="tooltip" data-placement="left" data-trigger="focus" title="Lowercase letters, digits, hyphens and underscores. 6-18 characters" ng-model="user.password" ng-pattern="/^[a-z0-9_-]{6,18}$/" ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)" required="required" class="form-control validity"/>
+                  </div>
+                </div>
+              </div>
+              <div ng-class="{ 'has-error': (profileForm.confirmPassword.$invalid &amp;&amp; profileForm.confirmPassword.$dirty), 'has-success': (profileForm.confirmPassword.$valid) }" class="form-group">
+                <label for="confirm-password" class="control-label">Confirm password</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <input name="confirmPassword" type="password" placeholder="Confirm password" ng-model="passwordConfirm" ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)" required="required" class="form-control validity"/><span ng-show="profileForm.confirmPassword.$error.notMatching &amp;&amp; profileForm.confirmPassword.$dirty" class="has-error help-block">These passwords don't match. Try again?</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 col-md-offset-1">
+              <div class="form-group">
+                <label for="gender" class="control-label">Gender</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <select form="profileForm" ng-model="user.gender" class="form-control">
+                      <option>Not specified</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="dateOfBirth" class="control-label">Date of birth</label>
+                <div class="row input-group date">
+                  <input type="text" datepicker="datepicker" placeholder="Date of birth" ng-model="user.dateOfBirth" class="form-control"/><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="facebookUrl" class="control-label">Facebook URL</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <input type="text" placeholder="Facebook URL" ng-model="user.facebookUrl" class="form-control"/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="twitterUrl" class="control-label">Twitter URL</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <input type="text" placeholder="Twitter URL" ng-model="user.twitterUrl" class="form-control"/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="googlePlusUrl" class="control-label">Google+ URL</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <input type="text" placeholder="Google+ URL" ng-model="user.googlePlusUrl" class="form-control"/>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="form-group">
@@ -77,24 +105,15 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="aboutMe" class="col-md-2 control-label">Upload avatar</label>
-          <div class="col-md-10">
-            <div class="span4">
-              <div data-provides="fileupload" class="fileupload fileupload-new">
-                <div class="input-append">
-                  <div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i><span ng-model="userType" class="fileupload-preview"></span></div><span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span>
-                    <input type="file" ng-model="upFile" onchange="angular.element(this).scope().setFileEventListener(this)"/></span>
-                </div>
-              </div>
-              <div class="span2">
-                <button id="btnStartUpload" type="submit" value="Send" ng-click="uploadFile()" ng-disabled="!upload_button_state" class="btn start"><i class="icon-upload"></i><span>Upload File</span></button>
-              </div>
-            </div>
+          <label for="aboutMe" class="col-md-2 control-label">Avatar</label>
+          <div class="col-xs-7">
+            <input type="file" ng-model="upFile" onchange="angular.element(this).scope().setFileEventListener(this)" ng-pattern="/.(gif|jpg|jpeg|tiff|png)$/i" class="form-control"/>
+            <button id="btnStartUpload" type="submit" loading-button="loading-button" value="Send" ng-click="uploadFile()" ng-disabled="!upload_button_state" style="margin-top:0.5em" class="btn start btn-success">Upload file</button>
           </div>
+          <div class="col-xs-3"><img ng-src="{{user.avatar}}" ng-bind="user.avatar" class="image-responsive img-thumbnail"/></div>
         </div>
         <div class="pull-right">
-          <button ng-click="getMonth(user)" class="btn btn-primary">Get Month</button>
-          <button ng-click="update(user)" ng-disabled="profileForm.$invalid" class="btn btn-primary">Update</button><a href="/" class="btn btn-primary">Cancel</a>
+          <button ng-click="update(user)" ng-disabled="profileForm.$invalid" class="btn btn-primary">Update</button><a href="/" style="margin-left:0.2em" class="btn btn-danger">Cancel</a>
         </div>
       </fieldset>
     </form>

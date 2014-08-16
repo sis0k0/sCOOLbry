@@ -12,13 +12,13 @@ app.controller('SignUpCtrl', function($scope, $location, auth, notifier, $http, 
     },
 
     $scope.checkIfTaken = function(field){
-	    var responsePromise = $http.get("/api/" + field.$name + "Taken/" + field.$viewValue);
+	    var responsePromise = $http.get("../api/" + field.$name + "Taken/" + field.$viewValue);
 	    responsePromise.success(function(data, status, headers, config) {
-	            if(data=="true"){
-	                field.$setValidity("taken", false);
-	            }else{
-	                field.$setValidity("taken", true);
-	            }
+            if(data=="true"){
+                field.$setValidity("taken", false);
+            }else{
+                field.$setValidity("taken", true);
+            }
 	    });             
     }
 
