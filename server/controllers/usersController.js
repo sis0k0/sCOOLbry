@@ -37,7 +37,13 @@ module.exports = {
             
             var updatedId = req.body._id;
             delete updatedUserData._id;
-
+            
+            if(req.user.roles.indexOf('admin') > -1 && req.body.roles!=undefined) {
+				updatedUserData.roles = req.body.roles;
+            }else{
+				delete updatedUserData.roles;
+			}
+			
             User.update({_id: updatedId}, updatedUserData, function(err) {
 				console.log(err);
                 res.end();
@@ -68,6 +74,43 @@ module.exports = {
     },
     getAllUsers: function(req, res) {
         User.find({}).exec(function(err, collection) {
+            if (err) {
+                console.log('Users could not be loaded: ' + err);
+            }
+
+            res.send(collection);
+        })
+    },
+    getAllUsersSortable: function(req, res) {
+		var order, field, page, perPage;
+		
+		if(req.params.order==undefined) {
+			order = 'asc';
+		}else{
+			order = req.params.order;
+		}
+		
+		if(req.params.field==undefined) {
+			field = '_id';
+		}else{
+			field = req.params.field;
+		}
+		
+		if(req.params.page==undefined) {
+			page = 1;
+		}else{
+			page = req.params.page;
+		}
+		
+		if(req.params.perPage==undefined) {
+			perPage = 10;
+		}else{
+			perPage = req.params.perPage;
+		}
+		
+		var sortObject = {};
+		sortObject[field] = order;
+        User.find({}, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage}).exec(function(err, collection) {
             if (err) {
                 console.log('Users could not be loaded: ' + err);
             }
