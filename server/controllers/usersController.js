@@ -72,8 +72,26 @@ module.exports = {
 			//console.log("FAIL!");
      
     },
+    getUserCount: function(req, res) {
+        User.count({}).exec(function(err, collection) {
+            if (err) {
+                console.log('Users could not be loaded: ' + err);
+            }
+
+            res.send(""+collection);
+        })
+    },
     getAllUsers: function(req, res) {
         User.find({}).exec(function(err, collection) {
+            if (err) {
+                console.log('Users could not be loaded: ' + err);
+            }
+
+            res.send(collection);
+        })
+    },
+    getAllUsersSearchable: function(req, res) {
+        User.find({ $or: [ {username: new RegExp(req.params.phrase, "i")}, {firstName: new RegExp(req.params.phrase, "i")}, {lastName: new RegExp(req.params.phrase, "i")}, {email: new RegExp(req.params.phrase, "i")} ] }).exec(function(err, collection) {
             if (err) {
                 console.log('Users could not be loaded: ' + err);
             }

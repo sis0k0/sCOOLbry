@@ -24,5 +24,4 @@ app.controller('UserInfoCtrl', function($scope, UserResource, $routeParams) {
 	});
     
    
-    console.log($scope.userInfo);
 });
