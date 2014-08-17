@@ -37,7 +37,6 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	        if ($scope.uploadedFile) {
 	            $scope.$apply(function() {
 	                $scope.upload_button_state = true;
-	                $scope.upload = true;
 	            });   
 	        }
 	    }
@@ -59,7 +58,6 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	    	});
 	    	
 	    
-		$scope.upload = false;
 		 
 	                
 	};
