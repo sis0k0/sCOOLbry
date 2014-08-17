@@ -11,7 +11,6 @@ app.factory('ajax_post', ['$http', function(_http) {
                         },
                         transformRequest: angular.identity
                     }).success(function(data){
-						
 					});
 				
                 return upload_promise;

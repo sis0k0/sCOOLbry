@@ -1,4 +1,4 @@
-app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajax_post, $window) {
+app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajax_post, $window, $http) {
 
 	$scope.user = {
         username: identity.currentUser.username,
@@ -13,9 +13,10 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
         googlePlusUrl: identity.currentUser.googlePlusUrl,
         aboutMe: identity.currentUser.aboutMe
     }
+    
+    $scope.upload = false;
 
     $scope.emailConfirm = $scope.user.email;
-
 
 	$scope.update = function(user) {
         auth.update(user).then(function() {
@@ -36,6 +37,7 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	        if ($scope.uploadedFile) {
 	            $scope.$apply(function() {
 	                $scope.upload_button_state = true;
+	                $scope.upload = true;
 	            });   
 	        }
 	    }
@@ -48,24 +50,31 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	    ajax_post.uploadFile_init($scope.uploadedFile)
 	        .then(function(result) {
 	            if (result.status == 200) {
-	                $scope.storeDB_upload_button_state = true;
-	                console.log(result);
+					
 	                $scope.user.avatar = result.data;
+	                
 	            }
 	        }, function(error) {
 	            alert(error.message);
 	    	});
+	    	
+	    
+		$scope.upload = false;
+		 
+	                
 	};
 
     $scope.checkIfTaken = function(field){
+		
 	    var responsePromise = $http.get("/api/" + field.$name + "Taken/" + field.$viewValue);
 	    responsePromise.success(function(data, status, headers, config) {
+			alert(data);
             if(data=="true"){
                 field.$setValidity("taken", false);
             }else{
                 field.$setValidity("taken", true);
             }
-	    });             
+	    });           
     }
 
     $scope.fieldsMatch = function (field, confirmField) {

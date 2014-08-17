@@ -18,7 +18,7 @@
                   label.control-label(for="email") Email
                   .row
                       .col-xs-12
-                          input.form-control.validity(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail); checkIfTaken(signUpForm.username)", required)
+                          input.form-control.validity(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail); checkIfTaken(profileForm.email)", required)
                           span.has-error.help-block(ng-show="profileForm.email.$error.taken") Email already taken
                           span.has-error.help-block(ng-show="profileForm.email.$invalid && profileForm.email.$dirty") Please enter valid email
               .form-group(ng-class="{ 'has-error': (profileForm.confirmEmail.$invalid && profileForm.confirmEmail.$dirty), 'has-success': (profileForm.confirmEmail.$valid) }")
@@ -78,7 +78,7 @@
           label.col-md-2.control-label(for='aboutMe') Avatar
           .col-xs-7
               input.form-control(type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)', ng-pattern='/\.(gif|jpg|jpeg|tiff|png)$/i')
-              button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, value='Send', ng-click='uploadFile()', ng-disabled='!upload_button_state', style='margin-top:0.5em') Upload file
+              button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, value='Send', ng-click='uploadFile()', ng-disabled='!upload_button_state' style='margin-top:0.5em') Upload file
           .col-xs-3
             img.image-responsive.img-thumbnail(ng-src='{{user.avatar}}', ng-bind='user.avatar')
 
