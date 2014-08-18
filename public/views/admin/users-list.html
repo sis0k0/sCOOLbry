@@ -7,21 +7,21 @@
         <input placeholder="Search..." ng-model="search"/>
       </div>
     </div>
-    <div class="table-responsive">
+    <div id="users-list" ng-init="pages();" class="table-responsive">
       <table ng-class="{ 'table-wrapped': windowWidth&gt;768 }" resize="resize" class="table table-hover table-bordered">
         <thead>
           <tr class="text-bold">
-            <td>ID</td>
-            <td>Username</td>
-            <td>First name</td>
-            <td>Last name</td>
-            <td>Created</td>
-            <td>Email</td>
-            <td>Roles</td>
+            <td ng-click="setOrder();setField('_id');reloadUsers();">ID</td>
+            <td ng-click="setOrder();setField('username');reloadUsers();">Username</td>
+            <td ng-click="setOrder();setField('firstName');reloadUsers();">First name</td>
+            <td ng-click="setOrder();setField('lastName');reloadUsers();">Last name</td>
+            <td ng-click="setOrder();setField('created');reloadUsers();">Created</td>
+            <td ng-click="setOrder();setField('email');reloadUsers();">Email</td>
+            <td ng-click="setOrder();setField('roles');reloadUsers();">Roles</td>
             <td>Actions</td>
           </tr>
         </thead>
-        <tr ng-repeat="user in (filteredUsers = (users | orderBy: 'username' | limitTo: totalDisplayed | filter: search))">
+        <tr ng-repeat="user in users">
           <td class="text-bold">{{ user._id }}</td>
           <td>{{ user.username }}</td>
           <td>{{ user.firstName }}</td>
@@ -33,11 +33,8 @@
         </tr>
       </table>
     </div>
-    <div ng-hide="totalDisplayed &gt;= users.length" class="row">
-      <div class="text-center">
-        <button ng-click="loadMore()" style="margin-right: 0.25em" class="btn-primary btn-lg">Load More</button>
-        <button ng-click="loadAll()" class="btn-success btn-lg">Load All</button>
-      </div>
+    <div class="pagination">
+      <li ng-repeat="i in range(pagesCount) track by $index"><a href="#" ng-click="setPage($index+1, $event); reloadUsers();" id="page-{{ $index+1 }}" class="pageItem">{{ $index+1 }}</a></li>
     </div>
   </div>
 </div>

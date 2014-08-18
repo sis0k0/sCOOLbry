@@ -23,7 +23,7 @@
                 <label for="email" class="control-label">Email</label>
                 <div class="row">
                   <div class="col-xs-12">
-                    <input name="email" type="text" placeholder="Email" ng-model="user.email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/" ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail); checkIfTaken(signUpForm.username)" required="required" class="form-control validity"/><span ng-show="profileForm.email.$error.taken" class="has-error help-block">Email already taken</span><span ng-show="profileForm.email.$invalid &amp;&amp; profileForm.email.$dirty" class="has-error help-block">Please enter valid email</span>
+                    <input name="email" type="text" placeholder="Email" ng-model="user.email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/" ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail); checkIfTaken(profileForm.email)" required="required" class="form-control validity"/><span ng-show="profileForm.email.$error.taken" class="has-error help-block">Email already taken</span><span ng-show="profileForm.email.$invalid &amp;&amp; profileForm.email.$dirty" class="has-error help-block">Please enter valid email</span>
                   </div>
                 </div>
               </div>
@@ -35,19 +35,19 @@
                   </div>
                 </div>
               </div>
-              <div ng-class="{ 'has-error': (profileForm.password.$invalid &amp;&amp; profileForm.password.$dirty), 'has-success': (profileForm.password.$valid) }" class="form-group">
+              <div ng-class="{ 'has-error': (profileForm.password.$invalid &amp;&amp; profileForm.password.$dirty), 'has-success': (profileForm.password.$valid &amp;&amp; profileForm.password.$dirty) }" class="form-group">
                 <label for="password" class="control-label">Password</label>
                 <div class="row">
                   <div class="col-xs-12">
-                    <input name="password" type="password" placeholder="Password" tooltip="tooltip" data-placement="left" data-trigger="focus" title="Lowercase letters, digits, hyphens and underscores. 6-18 characters" ng-model="user.password" ng-pattern="/^[a-z0-9_-]{6,18}$/" ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)" required="required" class="form-control validity"/>
+                    <input name="password" type="password" placeholder="Password" tooltip="tooltip" data-placement="left" data-trigger="focus" title="Lowercase letters, digits, hyphens and underscores. 6-18 characters" ng-model="user.password" ng-pattern="/^[a-z0-9_-]{6,18}$/" ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)" class="form-control validity"/>
                   </div>
                 </div>
               </div>
-              <div ng-class="{ 'has-error': (profileForm.confirmPassword.$invalid &amp;&amp; profileForm.confirmPassword.$dirty), 'has-success': (profileForm.confirmPassword.$valid) }" class="form-group">
+              <div ng-class="{ 'has-error': (profileForm.confirmPassword.$invalid &amp;&amp; profileForm.confirmPassword.$dirty), 'has-success': (profileForm.confirmPassword.$valid &amp;&amp; profileForm.confirmPassword.$dirty) }" class="form-group">
                 <label for="confirm-password" class="control-label">Confirm password</label>
                 <div class="row">
                   <div class="col-xs-12">
-                    <input name="confirmPassword" type="password" placeholder="Confirm password" ng-model="passwordConfirm" ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)" required="required" class="form-control validity"/><span ng-show="profileForm.confirmPassword.$error.notMatching &amp;&amp; profileForm.confirmPassword.$dirty" class="has-error help-block">These passwords don't match. Try again?</span>
+                    <input name="confirmPassword" type="password" placeholder="Confirm password" ng-model="passwordConfirm" ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)" class="form-control validity"/><span ng-show="profileForm.confirmPassword.$error.notMatching &amp;&amp; profileForm.confirmPassword.$dirty" class="has-error help-block">These passwords don't match. Try again?</span>
                   </div>
                 </div>
               </div>
@@ -98,19 +98,27 @@
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="aboutMe" class="col-md-2 control-label">About Me</label>
-          <div class="col-md-10">
-            <textarea rows="3" placeholder="About Me" ng-model="user.aboutMe" class="form-control"></textarea>
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="form-group">
+              <label for="about-me" class="control-label">About Me</label>
+              <div class="row">
+                <div class="col-xs-12">
+                  <textarea name="about-me" rows="3" placeholder="About Me" ng-model="user.aboutMe" class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="avatar" class="control-label">Avatar</label>
+              <div class="row">
+                <div class="col-xs-8">
+                  <input name="avatar" type="file" fileread="upFile" onchange="angular.element(this).scope().setFileEventListener(this); angular.element(this).scope().imageValidate()" ng-pattern="/.(gif|jpg|jpeg|tiff|png)$/i" class="form-control validity"/>
+                  <button id="btnStartUpload" type="submit" loading-button="loading-button" value="Send" ng-click="uploadFile()" ng-disabled="!upload_button_state" style="margin-top:0.5em" class="btn start btn-success">Upload file</button>
+                </div>
+                <div class="col-xs-4"><img ng-src="{{user.avatar}}" ng-bind="user.avatar" class="image-responsive img-thumbnail"/></div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="aboutMe" class="col-md-2 control-label">Avatar</label>
-          <div class="col-xs-7">
-            <input type="file" ng-model="upFile" onchange="angular.element(this).scope().setFileEventListener(this)" ng-pattern="/.(gif|jpg|jpeg|tiff|png)$/i" class="form-control"/>
-            <button id="btnStartUpload" type="submit" loading-button="loading-button" value="Send" ng-click="uploadFile()" ng-disabled="!upload_button_state" style="margin-top:0.5em" class="btn start btn-success">Upload file</button>
-          </div>
-          <div class="col-xs-3"><img ng-src="{{user.avatar}}" ng-bind="user.avatar" class="image-responsive img-thumbnail"/></div>
         </div>
         <div class="pull-right">
           <button ng-click="update(user)" ng-disabled="profileForm.$invalid" class="btn btn-primary">Update</button><a href="/" style="margin-left:0.2em" class="btn btn-danger">Cancel</a>

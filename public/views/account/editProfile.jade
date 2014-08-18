@@ -28,16 +28,16 @@
                         input.form-control.validity(name="confirmEmail", type="text", placeholder="Confirm email", ng-value="user.email", ng-model="emailConfirm", ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail)", required)
                         span.has-error.help-block(ng-show="profileForm.confirmEmail.$error.notMatching && profileForm.confirmEmail.$dirty") These emails don't match. Try again?
 
-              .form-group(ng-class="{ 'has-error': (profileForm.password.$invalid && profileForm.password.$dirty), 'has-success': (profileForm.password.$valid) }")
+              .form-group(ng-class="{ 'has-error': (profileForm.password.$invalid && profileForm.password.$dirty), 'has-success': (profileForm.password.$valid && profileForm.password.$dirty) }")
                   label.control-label(for="password") Password
                   .row
                       .col-xs-12
-                          input.form-control.validity(name="password", type="password", placeholder="Password", tooltip, data-placement="left", data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)", required)
-              .form-group(ng-class="{ 'has-error': (profileForm.confirmPassword.$invalid && profileForm.confirmPassword.$dirty), 'has-success': (profileForm.confirmPassword.$valid) }")
+                          input.form-control.validity(name="password", type="password", placeholder="Password", tooltip, data-placement="left", data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)")
+              .form-group(ng-class="{ 'has-error': (profileForm.confirmPassword.$invalid && profileForm.confirmPassword.$dirty), 'has-success': (profileForm.confirmPassword.$valid && profileForm.confirmPassword.$dirty) }")
                   label.control-label(for="confirm-password") Confirm password
                   .row
                     .col-xs-12
-                        input.form-control.validity(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)", required)
+                        input.form-control.validity(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)")
                         span.has-error.help-block(ng-show="profileForm.confirmPassword.$error.notMatching && profileForm.confirmPassword.$dirty") These passwords don't match. Try again?
                                 
             .col-md-5.col-md-offset-1
@@ -70,17 +70,22 @@
                 .row
                   .col-xs-12
                     input.form-control(type='text', placeholder='Google+ URL', ng-model='user.googlePlusUrl')
-        .form-group
-          label.col-md-2.control-label(for='aboutMe') About Me
-          .col-md-10
-            textarea.form-control(rows='3', placeholder='About Me', ng-model='user.aboutMe')
-        .form-group
-          label.col-md-2.control-label(for='aboutMe') Avatar
-          .col-xs-7
-              input.form-control(type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)', ng-pattern='/\.(gif|jpg|jpeg|tiff|png)$/i')
-              button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, value='Send', ng-click='uploadFile()', ng-disabled='!upload_button_state', style='margin-top:0.5em') Upload file
-          .col-xs-3
-            img.image-responsive.img-thumbnail(ng-src='{{user.avatar}}', ng-bind='user.avatar')
+        
+        .row
+          .col-md-10.col-md-offset-1
+            .form-group
+              label.control-label(for='about-me') About Me
+              .row
+                .col-xs-12
+                  textarea.form-control(name='about-me', rows='3', placeholder='About Me', ng-model='user.aboutMe')
+            .form-group()
+              label.control-label(for='avatar') Avatar
+              .row
+                .col-xs-8
+                    input.form-control.validity(name='avatar', type='file', fileread='upFile', onchange='angular.element(this).scope().setFileEventListener(this); angular.element(this).scope().imageValidate()', ng-pattern="/\.(gif|jpg|jpeg|tiff|png)$/i")
+                    button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, value='Send', ng-click='uploadFile()', ng-disabled='!upload_button_state', style='margin-top:0.5em') Upload file
+                .col-xs-4
+                  img.image-responsive.img-thumbnail(ng-src='{{user.avatar}}', ng-bind='user.avatar')
 
         .pull-right
           button.btn.btn-primary(ng-click='update(user)', ng-disabled='profileForm.$invalid') Update

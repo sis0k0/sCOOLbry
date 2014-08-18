@@ -66,7 +66,6 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 		
 	    var responsePromise = $http.get("/api/" + field.$name + "Taken/" + field.$viewValue);
 	    responsePromise.success(function(data, status, headers, config) {
-			alert(data);
             if(data=="true"){
                 field.$setValidity("taken", false);
             }else{
@@ -80,6 +79,21 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 			confirmField.$setValidity("notMatching", false);
 		}else{
 			confirmField.$setValidity("notMatching", true);
+		}
+	}
+
+
+	$scope.imageValidate = function(){
+		alert('im in');
+		console.log($scope.upFile);
+
+		var extension = $scope.upFile.substring($scope.upFile.lastIndexOf('.') + 1).toLowerCase();
+
+		console.log($scope.extension);
+		if (extension == "gif" || extension == "png" || extension == "bmp" || extension == "jpeg" || extension == "jpg") {
+			console.log('True');
+		}else {
+			console.log('False');
 		}
 	}
 
