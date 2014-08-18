@@ -54,7 +54,8 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	                
 	            }
 	        }, function(error) {
-	            alert(error.message);
+				
+	            alert(error.data);
 	    	});
 	    	
 	    
@@ -83,18 +84,6 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	}
 
 
-	$scope.imageValidate = function(){
-		alert('im in');
-		console.log($scope.upFile);
 
-		var extension = $scope.upFile.substring($scope.upFile.lastIndexOf('.') + 1).toLowerCase();
-
-		console.log($scope.extension);
-		if (extension == "gif" || extension == "png" || extension == "bmp" || extension == "jpeg" || extension == "jpg") {
-			console.log('True');
-		}else {
-			console.log('False');
-		}
-	}
 
 });

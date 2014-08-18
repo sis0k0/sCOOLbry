@@ -82,7 +82,7 @@
               label.control-label(for='avatar') Avatar
               .row
                 .col-xs-8
-                    input.form-control.validity(name='avatar', type='file', fileread='upFile', onchange='angular.element(this).scope().setFileEventListener(this); angular.element(this).scope().imageValidate()', ng-pattern="/\.(gif|jpg|jpeg|tiff|png)$/i")
+                    input.form-control.validity(name='avatar', type='file', fileread='upFile', onchange='angular.element(this).scope().setFileEventListener(this); ', ng-pattern="/\.(gif|jpg|jpeg|tiff|png)$/i")
                     button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, value='Send', ng-click='uploadFile()', ng-disabled='!upload_button_state', style='margin-top:0.5em') Upload file
                 .col-xs-4
                   img.image-responsive.img-thumbnail(ng-src='{{user.avatar}}', ng-bind='user.avatar')

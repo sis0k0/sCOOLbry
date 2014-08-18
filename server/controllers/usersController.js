@@ -56,21 +56,26 @@ module.exports = {
     uploadAvatar: function(req, res, next) {
            
             currentPath = "../../"+req.files.uploadedFile.path;
-            var imgur = require('imgur-node-api');
-			var path = require('path');
-			var imgurURL = "";
-			imgur.setClientID("de1c5c887fbf774");
-			imgur.upload(path.join(__dirname, currentPath),function(err, res2){
-				imgurURL= res2.data.link;
-				imgurURL = imgurURL.substring(0,imgurURL.lastIndexOf(".")) + 'm.' + imgurURL.substring(imgurURL.lastIndexOf(".")+1, imgurURL.length);
-				//console.log(imgurURL);
-				//console.log("SUCCESS?");
-				res.send(imgurURL);
-			});
+            var path = require('path');
+            
+            if(!(req.files.uploadedFile.mimetype=="image/gif" || req.files.uploadedFile.mimetype=="image/jpeg" || req.files.uploadedFile.mimetype=="image/png" || req.files.uploadedFile.mimetype=="image/tiff")){
+				res.status("403");
+				res.send("invalid mime type");
+			}else{
+				var imgur = require('imgur-node-api');
+				var imgurURL = "";
+				imgur.setClientID("de1c5c887fbf774");
+				imgur.upload(path.join(__dirname, currentPath),function(err, res2){
+					imgurURL= res2.data.link;
+					imgurURL = imgurURL.substring(0,imgurURL.lastIndexOf(".")) + 'm.' + imgurURL.substring(imgurURL.lastIndexOf(".")+1, imgurURL.length);
+					res.send(imgurURL);
+				});
+			}
+
 			var fs = require('fs');
+			
 			fs.unlink(path.join(__dirname, currentPath));
-			//console.log("FAIL!");
-     
+	
     },
     getUserCount: function(req, res) {
         User.count({}).exec(function(err, collection) {
