@@ -49,13 +49,16 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	    ajax_post.uploadFile_init($scope.uploadedFile)
 	        .then(function(result) {
 	            if (result.status == 200) {
-					
 	                $scope.user.avatar = result.data;
-	                
+	                $scope.avatarUploadSuccessful = true;   
 	            }
 	        }, function(error) {
-				
-	            alert(error.data);
+				if(error.data=="Invalid mime type"){
+					$scope.avatarTypeError = true;
+				}
+				else{
+	            	$scope.avatarUploadError = true;
+	    		}
 	    	});
 	    	
 	    

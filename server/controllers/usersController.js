@@ -60,7 +60,7 @@ module.exports = {
             
             if(!(req.files.uploadedFile.mimetype=="image/gif" || req.files.uploadedFile.mimetype=="image/jpeg" || req.files.uploadedFile.mimetype=="image/png" || req.files.uploadedFile.mimetype=="image/tiff")){
 				res.status("403");
-				res.send("invalid mime type");
+				res.send("Invalid mime type");
 			}else{
 				var imgur = require('imgur-node-api');
 				var imgurURL = "";

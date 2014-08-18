@@ -7,8 +7,8 @@ app.directive('loadingButton', function () {
 			    $elem.button('loading');
 			});
 			
-			$scope.$watch("user.avatar", function(){
-				$elem.button("reset");
+			$scope.$watch('user.avatar', function(){
+				$elem.button('reset');
 			});
      
         }
