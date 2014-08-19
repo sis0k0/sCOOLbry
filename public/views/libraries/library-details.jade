@@ -1,0 +1,5 @@
+.container
+    h2 {{ library.title }}
+    p {{ library.description }}
+    ul
+        li(ng-repeat="tag in library.tags") {{ tag }}
