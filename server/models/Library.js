@@ -15,7 +15,7 @@ var Library = mongoose.model('Library', librarySchema);
 module.exports.seedInitialLibraries = function() {
     Library.find({}).exec(function(err, collection) {
         if (err) {
-            console.log('Cannot find Librarys: ' + err);
+            console.log('Cannot find Libraries: ' + err);
             return;
 		}
 		

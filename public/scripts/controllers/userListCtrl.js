@@ -35,21 +35,14 @@ app.controller('UserListCtrl', function($scope, UsersResourceSortable, $routePar
 		$scope.perPage = perPage;
 	};
 	
-	$scope.setField = function(field){
-		$scope.field = field;
-	};
 	
-	$scope.setOrder = function(){
-		if($scope.order=="asc"){
-			$scope.order = "desc";
-		}else{
-			$scope.order = "asc";
-		}
+	$scope.sort = function(event){
+		$scope.field = event.target.id;
+		$scope.order = ($scope.order=="asc") ? $scope.order="desc" : $scope.order="asc";
 	};
 	
 	$scope.reloadUsers = function(){
 		$scope.users = UsersResourceSortable.query({field: $scope.field, order: $scope.order, page: $scope.page, perPage: $scope.perPage}, function(data){
-			console.log(data);
 		});
 		
 	}

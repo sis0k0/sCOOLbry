@@ -10,14 +10,14 @@
     <div id="users-list" ng-init="pages();" class="table-responsive">
       <table ng-class="{ 'table-wrapped': windowWidth&gt;768 }" resize="resize" class="table table-hover table-bordered">
         <thead>
-          <tr class="text-bold">
-            <td ng-click="setOrder();setField('_id');reloadUsers();">ID</td>
-            <td ng-click="setOrder();setField('username');reloadUsers();">Username</td>
-            <td ng-click="setOrder();setField('firstName');reloadUsers();">First name</td>
-            <td ng-click="setOrder();setField('lastName');reloadUsers();">Last name</td>
-            <td ng-click="setOrder();setField('created');reloadUsers();">Created</td>
-            <td ng-click="setOrder();setField('email');reloadUsers();">Email</td>
-            <td ng-click="setOrder();setField('roles');reloadUsers();">Roles</td>
+          <tr class="text-bold text-primary">
+            <td id="_id" ng-click="sort($event); reloadUsers()">ID<span id="_id" class="glyphicon glyphicon-sort text-right"></span></td>
+            <td id="username" ng-click="sort($event); reloadUsers()">Username<span id="username" class="glyphicon glyphicon-sort text-right"></span></td>
+            <td id="firstName" ng-click="sort($event); reloadUsers()">First name<span id="firstName" class="glyphicon glyphicon-sort text-right"></span></td>
+            <td id="lastName" ng-click="sort($event); reloadUsers()">Last name<span id="lastName" class="glyphicon glyphicon-sort text-right"></span></td>
+            <td id="created" ng-click="sort($event); reloadUsers()">Created<span id="created" class="glyphicon glyphicon-sort text-right"></span></td>
+            <td id="email" ng-click="sort($event); reloadUsers()">Email<span id="email" class="glyphicon glyphicon-sort text-right"></span></td>
+            <td id="roles" ng-click="sort($event); reloadUsers()">Roles<span id="roles" class="glyphicon glyphicon-sort text-right"></span></td>
             <td>Actions</td>
           </tr>
         </thead>

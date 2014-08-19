@@ -1,10 +1,13 @@
 app.controller('editProfileAdminCtrl', function($scope, $location, auth, ajax_post, UserResource, $routeParams) {
 
     $scope.user = UserResource.get({id: $routeParams.id}, function(data){
-
 	});
 	
 	console.log($scope.user);
+
+	$scope.upload = false;
+
+    $scope.emailConfirm = $scope.user.email;
 
 	$scope.updateAsAdmin = function(user) {
         auth.updateAsAdmin(user).then(function() {
@@ -23,12 +26,8 @@ app.controller('editProfileAdminCtrl', function($scope, $location, auth, ajax_po
 	        }
 	    }
 
+
 	$scope.uploadFile = function() {
-	    uploadFile();
-	};
-
-
-	function uploadFile() {
 	    if (!$scope.uploadedFile) {
 	        return;
 	    }
@@ -36,13 +35,45 @@ app.controller('editProfileAdminCtrl', function($scope, $location, auth, ajax_po
 	    ajax_post.uploadFile_init($scope.uploadedFile)
 	        .then(function(result) {
 	            if (result.status == 200) {
-	                $scope.storeDB_upload_button_state = true;
-	                console.log(result);
 	                $scope.user.avatar = result.data;
+	                $scope.avatarUploadSuccessful = true;
+	                $scope.avatarUploadError = false;
+	                $scope.avatarTypeError = false;   
 	            }
 	        }, function(error) {
-	            alert(error.message);
-	        });
+				if(error.data=="Invalid mime type"){
+					$scope.avatarTypeError = true;
+				}
+				else{
+	            	$scope.avatarUploadError = true;
+	    		}
+	            $scope.avatarError = error.data;
+	    	});
+	    	
+	    
+		 
+	                
+	};
+
+    $scope.checkIfTaken = function(field){
+		
+	    var responsePromise = $http.get("/api/" + field.$name + "Taken/" + field.$viewValue);
+	    responsePromise.success(function(data, status, headers, config) {
+            if(data=="true"){
+                field.$setValidity("taken", false);
+            }else{
+                field.$setValidity("taken", true);
+            }
+	    });           
+    }
+
+    $scope.fieldsMatch = function (field, confirmField) {
+		if(field.$viewValue !== confirmField.$viewValue){
+			confirmField.$setValidity("notMatching", false);
+		}else{
+			confirmField.$setValidity("notMatching", true);
+		}
 	}
+
 
 });

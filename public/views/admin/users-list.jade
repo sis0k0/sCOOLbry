@@ -8,14 +8,21 @@
     #users-list.table-responsive(ng-init="pages();")
       table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
         thead
-          tr.text-bold
-            td(ng-click="setOrder();setField('_id');reloadUsers();") ID
-            td(ng-click="setOrder();setField('username');reloadUsers();") Username
-            td(ng-click="setOrder();setField('firstName');reloadUsers();") First name
-            td(ng-click="setOrder();setField('lastName');reloadUsers();") Last name
-            td(ng-click="setOrder();setField('created');reloadUsers();") Created
-            td(ng-click="setOrder();setField('email');reloadUsers();") Email
-            td(ng-click="setOrder();setField('roles');reloadUsers();") Roles
+          tr.text-bold.text-primary
+            td#_id(ng-click="sort($event); reloadUsers()") ID
+              span#_id.glyphicon.glyphicon-sort.text-right
+            td#username(ng-click="sort($event); reloadUsers()") Username
+              span#username.glyphicon.glyphicon-sort.text-right
+            td#firstName(ng-click="sort($event); reloadUsers()") First name
+              span#firstName.glyphicon.glyphicon-sort.text-right
+            td#lastName(ng-click="sort($event); reloadUsers()") Last name
+              span#lastName.glyphicon.glyphicon-sort.text-right
+            td#created(ng-click="sort($event); reloadUsers()") Created
+              span#created.glyphicon.glyphicon-sort.text-right
+            td#email(ng-click="sort($event); reloadUsers()") Email
+              span#email.glyphicon.glyphicon-sort.text-right
+            td#roles(ng-click="sort($event); reloadUsers()") Roles
+              span#roles.glyphicon.glyphicon-sort.text-right
             td Actions
         tr(ng-repeat="user in users")
           td.text-bold {{ user._id }}

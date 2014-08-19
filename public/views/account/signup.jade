@@ -41,7 +41,7 @@
                                     label.control-label(for="username") Username
                                     .row
                                         .col-xs-12
-                                            input.form-control(name="username", type="text", placeholder="Username", tooltip, data-placement="left", data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 3-16 characters", ng-model="user.username", ng-pattern="/^[a-z0-9_-]{3,16}$/", ng-change="checkIfTaken(signUpForm.username)", required)
+                                            input.form-control(name="username", type="text", placeholder="Username", tooltip, data-placement='left',  data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 3-16 characters", ng-model="user.username", ng-pattern="/^[a-z0-9_-]{3,16}$/", ng-change="checkIfTaken(signUpForm.username)", required)
                                             span.help-block(ng-show="signUpForm.username.$error.taken") Username already taken
                                 .form-group(ng-class="{ 'has-error': (signUpForm.email.$invalid && signUpForm.email.$dirty), 'has-success': (signUpForm.email.$valid) }")
                                     label.control-label(for="email") Email
@@ -54,7 +54,7 @@
                                     label.control-label(for="password") Password
                                     .row
                                         .col-xs-12
-                                            input.form-control(name="password", type="password", placeholder="Password", tooltip, data-placement="left", data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
+                                            input.form-control(name="password", type="password", placeholder="Password", tooltip, data-placement='left',  data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
                                 .form-group(ng-class="{ 'has-error': (signUpForm.confirmPassword.$invalid && signUpForm.confirmPassword.$dirty), 'has-success': (signUpForm.confirmPassword.$valid) }")
                                     label.control-label(for="confirm-password") Confirm password
                                     .row

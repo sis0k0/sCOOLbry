@@ -1,81 +1,113 @@
-div.container
-  div.well
+.container
+  .well
     form.form-horizontal(name='profileForm')
-      fieldset      
+      fieldset
         input.form-control(type='hidden', ng-model='user._id')
         legend Update profile
-        div.form-group
-          label.col-md-2.control-label(for='first-name') First Name
-          div.col-md-10
-            input.form-control(type='text', placeholder='First Name', ng-model='user.firstName', required='required')
-        div.form-group
-          label.col-md-2.control-label(for='last-name') Last Name
-          div.col-md-10
-            input.form-control(type='text', placeholder='Last Name', ng-model='user.lastName', required='required')
-        div.form-group
-          label.col-md-2.control-label(for='email') Email
-          div.col-md-10
-            input.form-control(type='text', placeholder='Email', ng-model='user.email', required='required')
-        div.form-group
-          label.col-md-2.control-label(for='roles') Roles
-          div.col-md-10
-            input.form-control(type='text', placeholder='Roles', ng-model='user.roles', required='required')
-        div.form-group
-          label.col-md-2.control-label(for='password') Password
-          div.col-md-10
-            input.form-control(type='password', placeholder='Password', ng-model='user.password')
-        div.form-group
-          label.col-md-2.control-label(for='avatar') Avatar
-          div.col-md-8.pull-left
-            input.form-control(type='text', placeholder='Avatar', ng-model='user.avatar', ng-bind='user.avatar')
-          div.col-md-2.pull-right.text-center
-            img.image-responsive(ng-src='{{user.avatar}}', ng-bind='user.avatar')
-        div.form-group
-          label.col-md-2.control-label(for='gender') Gender
-          div.col-md-10
-            select.form-control(form='profileForm', ng-model='user.gender')
-              option Not specified
-              option Male
-              option Female
-        div.form-group
-          label.col-md-2.control-label(for='dateOfBirth') Date of birth
-          div.col-md-10.input-group.date
-            input.form-control(type='text', datepicker='datepicker', placeholder='Date of birth', ng-model='user.dateOfBirth')
-            span.input-group-addon
-              i.glyphicon.glyphicon-th
-        div.form-group
-          label.col-md-2.control-label(for='facebookUrl') Facebook URL
-          div.col-md-10
-            input.form-control(type='text', placeholder='Facebook URL', ng-model='user.facebookUrl')
-        div.form-group
-          label.col-md-2.control-label(for='twitterUrl') Twitter URL
-          div.col-md-10
-            input.form-control(type='text', placeholder='Twitter URL', ng-model='user.twitterUrl')
-        div.form-group
-          label.col-md-2.control-label(for='googlePlusUrl') Google+ URL
-          div.col-md-10
-            input.form-control(type='text', placeholder='Google+ URL', ng-model='user.googlePlusUrl')
-        div.form-group
-          label.col-md-2.control-label(for='aboutMe') About Me
-          div.col-md-10
-            textarea.form-control(rows='3', placeholder='About Me', ng-model='user.aboutMe')
-        div.form-group
-          label.col-md-2.control-label(for='aboutMe') Upload avatar
-          div.col-md-10
-            div.span4
-              div.fileupload.fileupload-new(data-provides='fileupload')
-                div.input-append
-                  div.uneditable-input.span3
-                    i.icon-file.fileupload-exists
-                    span.fileupload-preview(ng-model='userType')
-                  span.btn.btn-file
-                    span.fileupload-new Select file
-                    span.fileupload-exists Change
-                    input(type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
-              div.span2
-                button#btnStartUpload.btn.start(type='submit', value='Send', ng-click='uploadFile()', ng-disabled='!upload_button_state')
-                  i.icon-upload
-                  span Upload File
-        div.pull-right
+        .row
+          .col-md-11.col-md-offset-1
+            .col-md-5
+              .form-group(ng-class="{ 'has-success': (profileForm.firstName.$valid && profileForm.lastName.$valid) }")
+                  label.control-label(for="first-name") Name
+                  .row
+                      .col-xs-6
+                          input.form-control(name="firstName", type="text", placeholder="First Name", ng-model="user.firstName", required)
+                      .col-xs-6
+                          input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model="user.lastName", required)
+              
+              // TO DO: should check if taken
+              .form-group(ng-class="{ 'has-error': (profileForm.email.$invalid && profileForm.email.$dirty), 'has-success': (profileForm.email.$valid) }")
+                  label.control-label(for="email") Email
+                  .row
+                      .col-xs-12
+                          input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="checkIfTaken(profileForm.email)", required)
+                          span.has-error.help-block(ng-show="profileForm.email.$error.taken") Email already taken
+                          span.has-error.help-block(ng-show="profileForm.email.$invalid && profileForm.email.$dirty") Please enter valid email
+              .form-group(ng-class="{ 'has-error': (profileForm.password.$invalid && profileForm.password.$dirty), 'has-success': (profileForm.password.$valid && profileForm.password.$dirty) }")
+                  label.control-label(for="password") New Password
+                  .row
+                      .col-xs-12
+                          input.form-control(name="password", type="password", placeholder="Password", tooltip, data-placement='left', data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)")
+              .form-group(ng-class="{ 'has-error': (profileForm.confirmPassword.$invalid && profileForm.confirmPassword.$dirty), 'has-success': (profileForm.confirmPassword.$valid && profileForm.confirmPassword.$dirty) }")
+                  label.control-label(for="confirm-password") Confirm password
+                  .row
+                    .col-xs-12
+                        input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)")
+                        span.has-error.help-block(ng-show="profileForm.confirmPassword.$error.notMatching && profileForm.confirmPassword.$dirty") These passwords don't match. Try again?
+              .form-group(ng-class = "{ 'has-success': profileForm.roles.$dirty }")
+                label.control-label(for='roles') Roles
+                .row
+                  .col-xs-12
+                      select.form-control(name='roles', multiple, select-picker, autofocus='standart', form='profileForm', ng-model='user.roles', title='The roles appear after modification')
+                        option(value='standart') Standart
+                        option(value='moderator') Moderator
+                        option(value='admin') Administrator
+                        option(value='libraryOwner') Library owner
+                        option(value='librarian') Librarian               
+            .col-md-5.col-md-offset-1
+              .form-group(ng-class="{ 'has-success': (profileForm.gender.$valid && (!!user.gender)) }")
+                label.control-label(for='gender') Gender
+                .row
+                  .col-xs-12
+                    select.form-control(name='gender', form='profileForm', ng-model='user.gender')
+                      option Not specified
+                      option Male
+                      option Female
+              .form-group(ng-class="{ 'has-success': (profileForm.dateOfBirth.$valid && (!!user.dateOfBirth)) }")
+                label.control-label(for='date-of-birth') Date of birth
+                .row.input-group.date
+                    input.form-control(name='dateOfBirth', type='text', datepicker='datepicker', placeholder='Date of birth', ng-model='user.dateOfBirth')
+                    span.input-group-addon
+                      i.glyphicon.glyphicon-th
+              .form-group(ng-class="{ 'has-success': (profileForm.facebookUrl.$valid && (!!user.facebookUrl)) }")
+                label.control-label(for='facebook-url') Facebook URL
+                .row
+                  .col-xs-12
+                    input.form-control(name='facebookUrl', type='text', placeholder='Facebook URL', ng-model='user.facebookUrl')
+              .form-group(ng-class="{ 'has-success': (profileForm.twitterUrl.$valid && (!!user.twitterUrl)) }")
+                label.control-label(for='twitterUrl') Twitter URL
+                .row
+                  .col-xs-12
+                    input.form-control(name='twitterUrl', type='text', placeholder='Twitter URL', ng-model='user.twitterUrl')
+              .form-group(ng-class="{ 'has-success': (profileForm.googlePlusUrl.$valid && (!!user.googlePlusUrl)) }")
+                label.control-label(for='googlePlusUrl') Google+ URL
+                .row
+                  .col-xs-12
+                    input.form-control(name='googlePlusUrl', type='text', placeholder='Google+ URL', ng-model='user.googlePlusUrl')
+        
+        .row
+          .col-md-10.col-md-offset-1
+
+            // TO DO: should show up all the libraries and allow picking one of them + search
+            .form-group(ng-show=" user.roles.indexOf('librarian')!=-1 || user.roles.indexOf('libraryOwner')!=-1 ")
+                label.control-label(for='roles') Roles
+                .row
+                  .col-xs-12
+                      select.form-control(name='roles', multiple, select-picker, autofocus='standart', form='profileForm', ng-model='user.roles', title='The roles appear after modification')
+                        option(value='standart') Standart
+                        option(value='moderator') Moderator
+                        option(value='admin') Administrator
+                        option(value='libraryOwner') Library owner
+                        option(value='librarian') Librarian 
+
+
+
+            .form-group(ng-class="{ 'has-success': (profileForm.aboutMe.$valid && (!!user.aboutMe)) }")
+              label.control-label(for='aboutMe') About Me
+              .row
+                .col-xs-12
+                  textarea.form-control(name='aboutMe', rows='3', placeholder='About Me', ng-model='user.aboutMe')
+            .form-group(ng-class="{ 'has-success': (avatarUploadSuccessful), 'has-error': (avatarUploadError || avatarTypeError) }")
+              label.control-label(for='avatar') Avatar
+              .row
+                .col-xs-8
+                    input.form-control(name='avatar', type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
+                    button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadFile()', ng-disabled='!upload_button_state', style='margin-top:0.5em') Upload file
+                    span.has-error.help-block(ng-show='avatarTypeError') The supported types are GIF, JPEG, PNG and TIFF
+                    span.has-error.help-block(ng-show='avatarUploadError') An error occured. Please try again later.
+                .col-xs-4
+                  img.image-responsive.img-thumbnail(ng-src='{{ user.avatar }}', ng-bind='user.avatar')
+
+        .pull-right
           button.btn.btn-primary(ng-click='updateAsAdmin(user)', ng-disabled='profileForm.$invalid') Update
-          a.btn.btn-primary(href='/admin/users') Cancel
+          a.btn.btn-danger(href='/admin/users', style="margin-left:0.2em") Cancel
