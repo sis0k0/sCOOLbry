@@ -18,8 +18,8 @@ module.exports = function(app) {
     router.post('/api/images', auth.isAuthenticated, controllers.users.uploadAvatar);
    
     
-    router.get('/api/courses', controllers.courses.getAllCourses);
-    router.get('/api/courses/:id', controllers.courses.getCourseById);
+    router.get('/api/libraries', controllers.libraries.getAllLibraries);
+    router.get('/api/libraries/:id', controllers.libraries.getLibraryById);
 
     router.get('/partials/:partialArea/:partialName', function(req, res) {
         res.render('../../public/views/' + req.params.partialArea + '/' + req.params.partialName)

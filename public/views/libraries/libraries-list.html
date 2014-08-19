@@ -9,19 +9,18 @@
     <div class="col-md-4">
       <select ng-model="sort" class="form-control">
         <option value=" " ng-selected="'true'">Default</option>
-        <option value="title">Title</option>
-        <option value="published">Publicsed</option>
+        <option value="name">Name</option>
       </select>
     </div>
   </div><br/>
   <table class="table">
     <tr>
-      <th>Title</th>
-      <th>Published</th>
+      <th>Name</th>
+      <th>Description</th>
     </tr>
-    <tr ng-repeat="course in courses | filter: search | orderBy: sort">
-      <td><a href="/courses/{{ course._id }}">{{ course.title }}</a></td>
-      <td>{{ course.published | date }}</td>
+    <tr ng-repeat="library in libraries | filter: search | orderBy: sort">
+      <td><a href="/libraries/{{ library._id }}">{{ library.name }}</a></td>
+      <td>{{ library.description }}</td>
     </tr>
   </table>
 </div>

@@ -7,14 +7,14 @@
         .col-md-4
             select.form-control(ng-model="sort")
                 option(value=" " ng-selected="'true'") Default
-                option(value="title") Title
-                option(value="published") Publicsed
+                option(value="name") Name
+                option(value="description") Description
     br
     table.table
         tr
             th Title
-            th Published
-        tr(ng-repeat="course in courses | filter: search | orderBy: sort")
+            th Description
+        tr(ng-repeat="library in libraries | filter: search | orderBy: sort")
             td
-                a(href="/courses/{{ course._id }}") {{ course.title }}
-            td {{ course.published | date }}
+                a(href="/libraries/{{ library._id }}") {{ library.name }}
+            td {{ library.description }}

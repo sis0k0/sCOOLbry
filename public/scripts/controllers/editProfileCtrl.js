@@ -1,4 +1,4 @@
-app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajax_post, $window, $http) {
+app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajax_post, $window, $http, notifier) {
 
 	$scope.user = {
         username: identity.currentUser.username,
@@ -53,12 +53,17 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	                $scope.avatarUploadSuccessful = true;   
 	            }
 	        }, function(error) {
+<<<<<<< HEAD
 				if(error.data=="Invalid mime type"){
 					$scope.avatarTypeError = true;
 				}
 				else{
 	            	$scope.avatarUploadError = true;
 	    		}
+=======
+	            notifier.error("The uploaded file is not a valid image.");
+	            $scope.avatarError = error.data;
+>>>>>>> origin/master
 	    	});
 	    	
 	    
