@@ -1,3 +1,3 @@
-app.controller('CoursesListCtrl', function($scope, cachedCourses) {
-    $scope.courses = cachedCourses.query();
+app.controller('LibrariesListCtrl', function($scope, cachedLibraries) {
+    $scope.libraries = cachedLibraries.query();
 });

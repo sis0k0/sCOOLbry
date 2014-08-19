@@ -30,13 +30,13 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             templateUrl: '/partials/main/home',
             controller: 'MainCtrl'
         })
-        .when('/courses', {
-            templateUrl: '/partials/courses/courses-list',
-            controller: 'CoursesListCtrl'
+        .when('/libraries', {
+            templateUrl: '/partials/libraries/libraries-list',
+            controller: 'LibrariesListCtrl'
         })
-        .when('/courses/:id', {
-            templateUrl: '/partials/courses/course-details',
-            controller: 'CourseDetailsCtrl'
+        .when('/libraries/:id', {
+            templateUrl: '/partials/libraries/library-details',
+            controller: 'LibraryDetailsCtrl'
         })
         .when('/signup', {
             templateUrl: '/partials/account/signup',

@@ -10,6 +10,11 @@ app.directive('loadingButton', function () {
 			$scope.$watch("user.avatar", function(){
 				$elem.button("reset");
 			});
+			
+			$scope.$watch("avatarError", function(){
+				$elem.button("reset");
+				$scope.avatarError = "";
+			});
      
         }
     }

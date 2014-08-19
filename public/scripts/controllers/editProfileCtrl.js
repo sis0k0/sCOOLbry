@@ -1,4 +1,4 @@
-app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajax_post, $window, $http) {
+app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajax_post, $window, $http, notifier) {
 
 	$scope.user = {
         username: identity.currentUser.username,
@@ -54,8 +54,8 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	                
 	            }
 	        }, function(error) {
-				
-	            alert(error.data);
+	            notifier.error("The uploaded file is not a valid image.");
+	            $scope.avatarError = error.data;
 	    	});
 	    	
 	    

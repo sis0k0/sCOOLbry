@@ -1,9 +1,8 @@
-app.controller('CourseDetailsCtrl', function($scope, $routeParams, cachedCourses) {
-    //$scope.course = CourseResource.get({id: $routeParams.id});
-    $scope.course = cachedCourses.query().$promise.then(function(collection) {
-        collection.forEach(function(course) {
-            if (course._id === $routeParams.id) {
-                $scope.course = course;
+app.controller('LibraryDetailsCtrl', function($scope, $routeParams, cachedLibraries) {
+    $scope.library = cachedLibraries.query().$promise.then(function(collection) {
+        collection.forEach(function(library) {
+            if (library._id === $routeParams.id) {
+                $scope.library = library;
             }
         })
     })
