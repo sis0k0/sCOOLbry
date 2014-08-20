@@ -14,15 +14,19 @@
                           input.form-control(name="firstName", type="text", placeholder="First Name", ng-model="user.firstName", required)
                       .col-xs-6
                           input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model="user.lastName", required)
-              
-              // TO DO: should check if taken
               .form-group(ng-class="{ 'has-error': (profileForm.email.$invalid && profileForm.email.$dirty), 'has-success': (profileForm.email.$valid) }")
                   label.control-label(for="email") Email
                   .row
                       .col-xs-12
-                          input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="checkIfTaken(profileForm.email)", required)
+                          input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail); checkIfTaken(profileForm.email)", required)
                           span.has-error.help-block(ng-show="profileForm.email.$error.taken") Email already taken
                           span.has-error.help-block(ng-show="profileForm.email.$invalid && profileForm.email.$dirty") Please enter valid email
+              .form-group(ng-class="{ 'has-error': (profileForm.confirmEmail.$invalid && profileForm.confirmEmail.$dirty), 'has-success': (profileForm.confirmEmail.$valid) }")
+                  label.control-label(for="confirm-password") Confirm email
+                  .row
+                    .col-xs-12
+                        input.form-control(name="confirmEmail", type="text", placeholder="Confirm email", ng-value="user.email", ng-model="emailConfirm", ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail)", required)
+                        span.has-error.help-block(ng-show="profileForm.confirmEmail.$error.notMatching && profileForm.confirmEmail.$dirty") These emails don't match. Try again?
               .form-group(ng-class="{ 'has-error': (profileForm.password.$invalid && profileForm.password.$dirty), 'has-success': (profileForm.password.$valid && profileForm.password.$dirty) }")
                   label.control-label(for="password") New Password
                   .row

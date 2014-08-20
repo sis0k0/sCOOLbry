@@ -89,7 +89,4 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 		}
 	}
 
-
-
-
 });

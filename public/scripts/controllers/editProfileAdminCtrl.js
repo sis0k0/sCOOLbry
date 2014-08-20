@@ -1,4 +1,4 @@
-app.controller('editProfileAdminCtrl', function($scope, $location, auth, ajax_post, UserResource, $routeParams) {
+app.controller('editProfileAdminCtrl', function($scope, $location, auth, ajax_post, UserResource, $routeParams, $http) {
 
     $scope.user = UserResource.get({id: $routeParams.id}, function(data){
 	});
