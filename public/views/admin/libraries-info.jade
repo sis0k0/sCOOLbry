@@ -1,0 +1,29 @@
+.container
+  .well
+    h1.text-center Name: {{ libraryInfo.name }}
+    table.table.table-striped.table-bordered.table-wrapped 
+      tr(ng-repeat='(key, value) in libraryInfo')
+        td.col-md-4
+          strong {{ key }}
+        td {{ value }}
+
+    table
+      tr
+        td
+          h2 Library Users
+      tr
+        td
+          h2 Library Books
+      tr
+        td
+          h2 Library Requests
+      tr
+        td
+          h2 Library Reviews
+     
+    
+    .row
+      a.btn.btn-danger.pull-right(href='/admin/library/delete/{{ libraryInfo._id }}' onclick='return window.confirm("Deleting a library" || "Are you sure that you want to delete this library?")') Delete   
+      a.btn.btn-primary.pull-right(href='/admin/library/edit/{{ libraryInfo._id }}', style='margin-right:0.25em') Edit
+      
+

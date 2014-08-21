@@ -47,6 +47,15 @@ module.exports = {
             res.send(collection);
         })
     },
+    getLibraryCount: function(req, res) {
+		Library.count({}).exec(function(err, collection) {
+            if (err) {
+                console.log('Libraries could not be loaded: ' + err);
+            }
+
+            res.send(""+collection);
+        })
+    },
     getLibraryById: function(req, res, next) {
         Library.findOne({_id: req.params.id}).exec(function(err, library) {
             if (err) {
@@ -55,5 +64,33 @@ module.exports = {
 
             res.send(library);
         })
-    }
+    },
+    updateLibrary: function(req, res, next) {
+		if (req.user.roles.indexOf('admin') > -1) {
+            var updatedLibraryData = req.body;
+           
+            var updatedId = req.body._id;
+            delete updatedLibraryData._id;
+			
+            Library.update({_id: updatedId}, updatedLibraryData, function(err) {
+				console.log(err);
+                res.end();
+            })
+        }
+        else {
+            res.send({reason: 'You do not have permissions!'})
+        }
+    },
+    
+    deleteLibraryById: function(req, res, next) {
+		
+        Library.remove({_id: req.params.id}, function(err) {
+            if (err) {
+					res.send("false");
+            }else{
+					res.send("true");
+					
+			}
+        });
+    },
 };

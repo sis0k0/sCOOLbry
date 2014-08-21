@@ -86,7 +86,7 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             controller: 'LibraryListCtrl',
             resolve: routeUserChecks.adminRole
         })
-        .when('/admin/libraries/:id', {
+        .when('/admin/library/:id', {
             templateUrl: '/partials/admin/libraries-info',
             controller: 'LibraryInfoCtrl',
             resolve: routeUserChecks.adminRole

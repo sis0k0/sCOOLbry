@@ -20,7 +20,10 @@ module.exports = function(app) {
     
     router.get('/api/libraries', controllers.libraries.getAllLibraries);
     router.get('/api/libraries/:id', controllers.libraries.getLibraryById);
-	router.get('/api/libraries/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.libraries.getAllLibrariesSortable);
+	router.get('/api/library/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.libraries.getAllLibrariesSortable);
+    router.get('/api/library/count', controllers.libraries.getLibraryCount);
+    router.put('/api/libraries', auth.isAuthenticatedOrAdmin, controllers.libraries.updateLibrary);
+    router.get('/api/library/delete/:id', auth.isInRole('admin'), controllers.libraries.deleteLibraryById);
     
     router.get('/partials/:partialArea/:partialName', function(req, res) {
         res.render('../../public/views/' + req.params.partialArea + '/' + req.params.partialName)
