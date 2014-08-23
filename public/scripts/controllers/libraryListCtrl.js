@@ -42,7 +42,7 @@ app.controller('LibraryListCtrl', function($scope, LibraryResourceSortable, $rou
 	
 	$scope.reloadLibraries = function(){
 		$scope.libraries = LibraryResourceSortable.query({field: $scope.field, order: $scope.order, page: $scope.page, perPage: $scope.perPage}, function(data){
-			console.log(data);
+			
 		});
 		
 	}

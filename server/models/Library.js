@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var librarySchema = mongoose.Schema({
     name: String,
     address: String,
-    featured: Boolean,
+    featured: String,
     description: String,
     published: Date,
     ownerId: String,

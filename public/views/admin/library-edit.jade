@@ -18,13 +18,13 @@
                       .col-xs-12
                           textarea.form-control(name='description', rows='3', placeholder='Library Description', ng-model='library.description')
             .col-md-5.col-md-offset-1
-              .form-group(ng-class="{ 'has-success': (libraryForm.gender.$valid && (!!library.featured)) }")
+              .form-group(ng-class="{ 'has-success': (libraryForm.featured.$valid && (!!library.featured)) }")
                 label.control-label(for='featured') Featured
                 .row
                   .col-xs-12
-                    select.form-control(name='featured', form='libraryForm', ng-model='library.featured')
-                      option Yes
-                      option No
+                    select.form-control(name='featured', ng-model='library.featured')
+                      option(value='true') True
+                      option(value='false') False
               .form-group(ng-class="{ 'has-success': (libraryForm.published.$valid && (!!library.published)) }")
                 label.control-label(for='published') Published
                 .row.input-group.date

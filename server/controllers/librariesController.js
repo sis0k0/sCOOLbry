@@ -61,7 +61,6 @@ module.exports = {
             if (err) {
                 console.log('Library could not be loaded: ' + err);
             }
-
             res.send(library);
         })
     },

@@ -4,6 +4,7 @@ app.controller('editLibraryAdminCtrl', function($scope, $location, auth, ajax_po
 	});
 	
 	
+	
 	$scope.updateLibraryAsAdmin = function(library) {
         auth.updateLibraryAsAdmin(library).then(function() {
             $location.path('/admin/libraries');
