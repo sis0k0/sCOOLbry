@@ -1,4 +1,4 @@
-app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource) {
+app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource, BookResource) {
     return {
         signup: function(user) {
             var deferred = $q.defer();
@@ -48,6 +48,19 @@ app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource
             var updatedLibrary = new LibraryResource(library);
             updatedLibrary._id = library._id;
             updatedLibrary.$update().then(function() {
+                deferred.resolve();
+            }, function(response) {
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
+        },
+        updateBookAsAdmin: function(book) {
+            var deferred = $q.defer();
+
+            var updatedBook = new BookResource(book);
+            updatedBook._id = book._id;
+            updatedBook.$update().then(function() {
                 deferred.resolve();
             }, function(response) {
                 deferred.reject(response);

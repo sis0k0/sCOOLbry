@@ -25,6 +25,14 @@ module.exports = function(app) {
     router.put('/api/libraries', auth.isAuthenticatedOrAdmin, controllers.libraries.updateLibrary);
     router.get('/api/library/delete/:id', auth.isInRole('admin'), controllers.libraries.deleteLibraryById);
     
+    
+    router.get('/api/books', controllers.books.getAllBooks);
+    router.get('/api/books/:id', controllers.books.getBookById);
+	router.get('/api/book/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.books.getAllBooksSortable);
+    router.get('/api/book/count', controllers.books.getBookCount);
+    router.put('/api/books', auth.isAuthenticatedOrAdmin, controllers.books.updateBook);
+    router.get('/api/book/delete/:id', auth.isInRole('admin'), controllers.books.deleteBookById);
+    
     router.get('/partials/:partialArea/:partialName', function(req, res) {
         res.render('../../public/views/' + req.params.partialArea + '/' + req.params.partialName)
     });

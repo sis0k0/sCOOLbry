@@ -101,6 +101,26 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             controller: 'LibraryDeleteCtrl',
             resolve: routeUserChecks.adminRole
         })
+        .when('/admin/books', {
+            templateUrl: '/partials/admin/books-list',
+            controller: 'BookListCtrl',
+            resolve: routeUserChecks.adminRole
+        })
+        .when('/admin/book/:id', {
+            templateUrl: '/partials/admin/books-info',
+            controller: 'BookInfoCtrl',
+            resolve: routeUserChecks.adminRole
+        })
+        .when('/admin/book/edit/:id', {
+            templateUrl: '/partials/admin/book-edit',
+            controller: 'editBookAdminCtrl',
+            resolve: routeUserChecks.adminRole
+        })
+        .when('/admin/book/delete/:id', {
+            templateUrl: '/partials/admin/book-delete',
+            controller: 'BookDeleteCtrl',
+            resolve: routeUserChecks.adminRole
+        })
         
         
 });
