@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('ajax_post', ['$http', function(_http) {
+app.factory('ajaxPost', ['$http', function(_http) {
 
         return {           
             uploadFileInit: function(uploadedFile) {

@@ -106,7 +106,7 @@
               .row
                 .col-xs-8
                     input.form-control(name='avatar', type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
-                    button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadFile()', ng-disabled='!upload_button_state', style='margin-top:0.5em') Upload file
+                    button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadFile()', ng-disabled='!uploadButtonState', style='margin-top:0.5em') Upload file
                     span.has-error.help-block(ng-show='avatarTypeError') The supported types are GIF, JPEG, PNG and TIFF
                     span.has-error.help-block(ng-show='avatarUploadError') An error occured. Please try again later.
                 .col-xs-4

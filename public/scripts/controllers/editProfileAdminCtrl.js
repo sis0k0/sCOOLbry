@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('editProfileAdminCtrl', function($scope, $location, auth, ajax_post, UserResource, $routeParams, $http) {
+app.controller('editProfileAdminCtrl', function($scope, $location, auth, ajaxPost, UserResource, $routeParams, $http) {
 
     $scope.user = UserResource.get({id: $routeParams.id});
 	
@@ -21,7 +21,7 @@ app.controller('editProfileAdminCtrl', function($scope, $location, auth, ajax_po
 
 	        if ($scope.uploadedFile) {
 	            $scope.$apply(function() {
-	                $scope.upload_button_state = true;
+	                $scope.uploadButtonState = true;
 	            });   
 	        }
 	    };
@@ -31,7 +31,7 @@ app.controller('editProfileAdminCtrl', function($scope, $location, auth, ajax_po
 	        return;
 	    }
 
-	    ajax_post.uploadFileInit($scope.uploadedFile)
+	    ajaxPost.uploadFileInit($scope.uploadedFile)
 	        .then(function(result) {
 	            if (result.status === 200) {
 	                $scope.user.avatar = result.data;

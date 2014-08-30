@@ -142,7 +142,7 @@
               <div class="row">
                 <div class="col-xs-8">
                   <input name="avatar" type="file" ng-model="upFile" onchange="angular.element(this).scope().setFileEventListener(this)" class="form-control"/>
-                  <button id="btnStartUpload" type="submit" loading-button="loading-button" data-loading-text="Uploading..." value="Send" ng-click="uploadFile()" ng-disabled="!upload_button_state" style="margin-top:0.5em" class="btn start btn-success">Upload file</button><span ng-show="avatarTypeError" class="has-error help-block">The supported types are GIF, JPEG, PNG and TIFF</span><span ng-show="avatarUploadError" class="has-error help-block">An error occured. Please try again later.</span>
+                  <button id="btnStartUpload" type="submit" loading-button="loading-button" data-loading-text="Uploading..." value="Send" ng-click="uploadFile()" ng-disabled="!uploadButtonState" style="margin-top:0.5em" class="btn start btn-success">Upload file</button><span ng-show="avatarTypeError" class="has-error help-block">The supported types are GIF, JPEG, PNG and TIFF</span><span ng-show="avatarUploadError" class="has-error help-block">An error occured. Please try again later.</span>
                 </div>
                 <div class="col-xs-4"><img ng-src="{{ user.avatar }}" ng-bind="user.avatar" class="image-responsive img-thumbnail"/></div>
               </div>

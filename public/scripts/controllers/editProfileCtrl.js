@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajax_post, $window, $http) {
+app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajaxPost, $window, $http) {
 
 	$scope.user = {
         username: identity.currentUser.username,
@@ -15,6 +15,7 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
         googlePlusUrl: identity.currentUser.googlePlusUrl,
         aboutMe: identity.currentUser.aboutMe
     };
+
     
     $scope.upload = false;
 
@@ -38,7 +39,7 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 
 	        if ($scope.uploadedFile) {
 	            $scope.$apply(function() {
-	                $scope.upload_button_state = true;
+	                $scope.uploadButtonState = true;
 	            });   
 	        }
 	};
@@ -48,7 +49,7 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	        return;
 	}
 
-	    ajax_post.uploadFileInit($scope.uploadedFile)
+	    ajaxPost.uploadFileInit($scope.uploadedFile)
 	        .then(function(result) {
 	            if (result.status === 200) {
 	                $scope.user.avatar = result.data;

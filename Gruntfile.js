@@ -17,6 +17,10 @@ module.exports = function(grunt) {
       // take all the js files and minify them into app.min.js
       uglify: {
         build: {
+          options: {
+            //beautify: true,
+            mangle: false
+          },
           files: {
             'public/scripts/app.min.js': ['public/scripts/**/*.js']
           }
@@ -62,7 +66,7 @@ module.exports = function(grunt) {
             tasks: ['newer:jade'],
           },
           js: {
-            files: ['public/scripts/*.js'],
+            files: ['public/scripts/**/*.js'],
             tasks: ['jshint', 'uglify']
           }
         },
@@ -95,9 +99,23 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-newer');
 
     // define the tasks
+
+    // Default: check with jshint, build everything, run server and watch for changes
     grunt.registerTask(
         'default',
-        [ 'newer:stylus', 'newer:jade', 'concurrent' ]
+        [ 'jshint', 'newer:stylus', 'newer:jade', 'uglify', 'concurrent' ]
+    );
+
+    // JShint: check all javascript files
+    grunt.registerTask(
+        'jshint',
+        [ 'jshint' ]
+    );
+
+    // Build: check javascript with jshint, and then build everything
+    grunt.registerTask(
+        'build',
+        [ 'jshint', 'newer:stylus', 'newer:jade', 'uglify' ]
     );
 
 };

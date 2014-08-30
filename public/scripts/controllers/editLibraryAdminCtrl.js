@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('editLibraryAdminCtrl', function($scope, $location, auth, ajax_post, LibraryResource, $routeParams) {
+app.controller('editLibraryAdminCtrl', function($scope, $location, auth, ajaxPost, LibraryResource, $routeParams) {
 
     $scope.library = LibraryResource.get({id: $routeParams.id});
 	
