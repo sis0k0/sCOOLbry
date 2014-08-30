@@ -1,0 +1,69 @@
+.container
+  .well
+    form.form-horizontal(name='bookForm')
+      fieldset
+        input.form-control(type='hidden', ng-model='book._id')
+        legend Update Book
+        .row
+          .col-md-11.col-md-offset-1
+            .col-md-5
+              .form-group(ng-class="{ 'has-success': (bookForm.name.$valid) }")
+                  label.control-label(for="title") Title
+                  .row
+                      .col-xs-6
+                          input.form-control(name="title", type="text", placeholder="Book Title", ng-model="book.title", required)
+              .form-group(ng-class="{ 'has-success': (bookForm.author.$valid) }")
+                  label.control-label(for="author") Author
+                  .row
+                      .col-xs-6
+                          input.form-control(name="author", type="text", placeholder="Book Author", ng-model="book.author", required)
+              .form-group
+                  label.control-label(for="illustrations") Illustrations
+                  .row
+                      .col-xs-6
+                          input.form-control(name="illustrations", type="text", placeholder="Illustrations Author", ng-model="book.illustrations")
+              .form-group
+                  label.control-label(for="description") Description
+                  .row
+                      .col-xs-12
+                          textarea.form-control(name='description', rows='3', placeholder='Book Description', ng-model='book.description')
+              .form-group(ng-class="{ 'has-success': (bookForm.published.$valid && (!!book.published)) }")
+                label.control-label(for='published') Published
+                .row.input-group.date
+                    input.form-control(name='published', type='text', datepicker='datepicker', placeholder='Published', ng-model='book.published')
+                    span.input-group-addon
+                      i.glyphicon.glyphicon-th
+              .form-group
+                label.control-label(for='publisher') Publisher
+                .row.input-group.date
+                    input.form-control(name='publisher', type='text', placeholder='Publisher', ng-model='book.publisher')
+              
+            .col-md-5.col-md-offset-1
+              .form-group
+                label.control-label(for='cover') Cover
+                .row.input-group.col-xs-12
+                    input.form-control(name='cover', type='text', placeholder='Cover', ng-model='book.cover')
+              .form-group
+                label.control-label(for='authorNationality') Author Nationality
+                .row.input-group.col-xs-12
+                    input.form-control(name='authorNationality', type='text', placeholder='Author Nationality', ng-model='book.authorNationality')
+              .form-group
+                label.control-label(for='language') Language
+                .row.input-group.col-xs-12
+                    input.form-control(name='language', type='text', placeholder='Language', ng-model='book.language')
+              .form-group
+                label.control-label(for='themes') Themes
+                .row.input-group.col-xs-12
+                    input.form-control(name='themes', type='text', placeholder='Themes', ng-model='book.themes')
+              .form-group
+                label.control-label(for='genre') Genre
+                .row.input-group.col-xs-12
+                    input.form-control(name='genre', type='text', placeholder='Genre', ng-model='book.genre')
+              .form-group
+                label.control-label(for='edition') Edition
+                .row.input-group.col-xs-12
+                    input.form-control(name='edition', type='text', placeholder='Edition', ng-model='book.edition')
+        
+        .pull-right
+          button.btn.btn-primary(ng-click='updateBookAsAdmin(book)', ng-disabled='bookForm.$invalid') Update
+          a.btn.btn-danger(href='/admin/books', style="margin-left:0.2em") Cancel
