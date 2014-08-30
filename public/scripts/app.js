@@ -72,22 +72,22 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
         // Users
         
         .when('/admin/users', {
-            templateUrl: '/partials/admin/users/users-list',
+            templateUrl: '/partials/admin/users-list',
             controller: 'UserListCtrl',
             resolve: routeUserChecks.adminRole
         })
         .when('/admin/user/:id', {
-            templateUrl: '/partials/admin/users/users-info',
+            templateUrl: '/partials/admin/users-info',
             controller: 'UserInfoCtrl',
             resolve: routeUserChecks.adminRole
         })
         .when('/admin/user/edit/:id', {
-            templateUrl: '/partials/admin/users/user-edit',
+            templateUrl: '/partials/admin/user-edit',
             controller: 'editProfileAdminCtrl',
             resolve: routeUserChecks.adminRole
         })
         .when('/admin/user/delete/:id', {
-            templateUrl: '/partials/admin/users/user-delete',
+            templateUrl: '/partials/admin/user-delete',
             controller: 'UserDeleteCtrl',
             resolve: routeUserChecks.adminRole
         })

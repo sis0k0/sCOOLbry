@@ -36,9 +36,23 @@ module.exports = function(app) {
     router.get('/api/book/delete/:id', auth.isInRole('admin'), controllers.books.deleteBookById);
     
     // Partials
-    router.get('/partials/:partialArea/:subPartialArea/:partialName', function(req, res) {
-        res.render('../../public/views/' + req.params.partialArea + '/' + req.params.subPartialArea + '/' + req.params.partialName)
+    router.get('/partials/:partialArea/:partialName', function(req, res) {
+        res.render('../../public/views/' + req.params.partialArea + '/' + req.params.partialName)
     });
+
+    // exports.partials = function(req, res) {
+    //   var stripped = req.url.split('.')[0];
+    //   var requestedView = path.join('../../public/views/', stripped);
+    //   res.render(requestedView, function(err, html) {
+    //     if(err) {
+    //       console.log("Error rendering partial '" + requestedView + "'\n", err);
+    //       res.status(404);
+    //       res.send(404);
+    //     } else {
+    //       res.send(html);
+    //     }
+    //   });
+    // };
 
     router.post('/login', auth.login);
     router.post('/logout', auth.logout);

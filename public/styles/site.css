@@ -36,7 +36,7 @@ header ul ul a {
 .navbar-brand {
   background: url("../images/logo.png") no-repeat center;
   width: 150px;
-  height: 34px;
+  height: 82px;
 }
 .navbar-form {
   margin-top: 19px;
@@ -50,18 +50,25 @@ header ul ul a {
 .navbar-right .navbar-form .input-group-btn {
   display: inline;
 }
-#search-header {
+header #search-header {
   width: 70em;
   margin-left: 4em;
 }
-#search-header .form-group {
+header #search-header .form-group {
   width: 100%;
 }
-#search-header .form-group input {
+header #search-header .form-group input {
   width: 100%;
 }
-#search-header .form-group button {
+header #search-header .form-group button {
   width: 40px;
+}
+header .nav.navbar-nav.navbar-right a {
+  margin-top: 21px;
+  margin-bottom: 21px;
+}
+header .nav.navbar-nav.navbar-right .dropdown-menu a {
+  margin: 5px;
 }
 @media (max-width: 1250px) {
   header {

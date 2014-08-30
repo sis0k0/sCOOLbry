@@ -13,9 +13,20 @@ module.exports = function(app, config) {
     app.set('view engine', 'jade');
     app.set('views', config.rootPath + '/server/views');
     app.use(cookieParser());
-    app.use(bodyParser());
+    app.use(bodyParser.json());
     app.use(multer({ dest: './server/uploads/', fileSize: 2097152}))
-    app.use(session({secret: 'magic unicorns'}));
+
+
+    app.use(
+        session({
+                secret: 'pwF1Kv7CJ0F33MAQeXP5hUJf7344bz', 
+                saveUninitialized: true,
+                resave: true
+        })
+    );
+
+
+
     app.use(stylus.middleware(
         {
             src: config.rootPath + '/public',
