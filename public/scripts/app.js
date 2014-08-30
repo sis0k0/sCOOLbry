@@ -1,3 +1,5 @@
+'use strict';
+
 var app = angular.module('app', ['ngResource', 'ngRoute', 'reCAPTCHA']).value('toastr', toastr);
 
 app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
@@ -133,8 +135,7 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             templateUrl: '/partials/admin/book-delete',
             controller: 'BookDeleteCtrl',
             resolve: routeUserChecks.adminRole
-        })
-        
+        });
         
 });
 
@@ -145,5 +146,5 @@ app.run(function($rootScope, $location) {
         if (rejection === 'not authorized') {
             $location.path('/');
         }
-    })
+    });
 });

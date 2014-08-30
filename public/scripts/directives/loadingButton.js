@@ -1,7 +1,9 @@
+'use strict';
+
 app.directive('loadingButton', function () {
     return {
         restrict: 'A',
-        link: function ($scope, $elem, attrs) {
+        link: function ($scope, $elem) {
 			
 			$elem.click(function () {
 			    $elem.button('loading');
@@ -11,11 +13,11 @@ app.directive('loadingButton', function () {
 				$elem.button('reset');
 			});
 			
-			$scope.$watch("avatarError", function(){
-				$elem.button("reset");
-				$scope.avatarError = "";
+			$scope.$watch('avatarError', function(){
+				$elem.button('reset');
+				$scope.avatarError = '';
 			});
      
         }
-    }
+    };
 });

@@ -1,20 +1,22 @@
+'use strict';
+
 app.factory('ajax_post', ['$http', function(_http) {
 
         return {           
-            uploadFile_init: function(uploadedFile) {
+            uploadFileInit: function(uploadedFile) {
                 var fd = new FormData();
-                fd.append("uploadedFile", uploadedFile);
-                var upload_promise = _http.post('/api/images',
+                fd.append('uploadedFile', uploadedFile);
+                var uploadPromise = _http.post('/api/images',
                     fd, {
                         headers: {
                             'Content-Type': undefined
                         },
                         transformRequest: angular.identity
-                    }).success(function(data){
+                    }).success(function(){
 					});
 				
-                return upload_promise;
+                return uploadPromise;
             }
-        }
+        };
     }
 ]);

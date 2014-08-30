@@ -1,3 +1,5 @@
+'use strict';
+
 app.factory('cachedLibraries', function(LibraryResource) {
     var cachedLibraries;
 
@@ -9,5 +11,5 @@ app.factory('cachedLibraries', function(LibraryResource) {
 
             return cachedLibraries;
         }
-    }
+    };
 });

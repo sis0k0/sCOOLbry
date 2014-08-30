@@ -1,3 +1,5 @@
+'use strict';
+
 app.factory('UserResource', function($resource) {
     var UserResource = $resource('/api/userInfo/:id', {_id:'@id'}, { update: {method: 'PUT', isArray: false}});
 

@@ -1,5 +1,7 @@
+'use strict';
+
 app.directive('resize', function ($window) {
-    return function (scope, element) {
+    return function (scope) {
         var w = angular.element($window);
 
 
@@ -10,18 +12,18 @@ app.directive('resize', function ($window) {
             };
         };
 
-        scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+        scope.$watch(scope.getWindowDimensions, function (newValue) {
             scope.windowHeight = newValue.h;
             scope.windowWidth = newValue.w;
 
 
             // Handles the different behaviour of the navbar in different screen width
             if(scope.windowWidth<768){
-                scope.dataToggle = "collapse";
-                scope.dataTarget = ".navbar-inverse-collapse";
+                scope.dataToggle = 'collapse';
+                scope.dataTarget = '.navbar-inverse-collapse';
             }else{
-                scope.dataToggle = "";
-                scope.dataTarget = "";
+                scope.dataToggle = '';
+                scope.dataTarget = '';
             }
 
         }, true);
@@ -29,5 +31,5 @@ app.directive('resize', function ($window) {
         w.bind('resize', function () {
             scope.$apply();
         });
-    }
-})
+    };
+});

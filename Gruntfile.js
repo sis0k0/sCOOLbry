@@ -3,7 +3,25 @@ module.exports = function(grunt) {
     // configure the tasks
     grunt.initConfig({
 
+      // JS TASKS ================================================================
+      // 
+      // check all js files for errors
+      jshint: {
+        options: {
+          jshintrc: '.jshintrc'
 
+        },
+        all: ['public/scripts/**/*.js'],
+      },
+
+      // take all the js files and minify them into app.min.js
+      uglify: {
+        build: {
+          files: {
+            'public/scripts/app.min.js': ['public/scripts/**/*.js']
+          }
+        }
+      },
 
         // compile all jade files
         jade: {
@@ -41,7 +59,11 @@ module.exports = function(grunt) {
           },
           jade: {
             files: ['**/*.jade'],
-            tasks: ['newer:jade']
+            tasks: ['newer:jade'],
+          },
+          js: {
+            files: ['public/scripts/*.js'],
+            tasks: ['jshint', 'uglify']
           }
         },
 
@@ -64,7 +86,8 @@ module.exports = function(grunt) {
 
     // load the tasks
     grunt.loadNpmTasks('grunt-nodemon');
-    grunt.loadNpmTasks('grunt-contrib-stylus');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jade');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');

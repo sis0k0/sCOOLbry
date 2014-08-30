@@ -1,3 +1,5 @@
+'use strict';
+
 app.factory('cachedBooks', function(BookResource) {
     var cachedBooks;
 
@@ -9,5 +11,5 @@ app.factory('cachedBooks', function(BookResource) {
 
             return cachedBooks;
         }
-    }
+    };
 });

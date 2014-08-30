@@ -1,3 +1,5 @@
+'use strict';
+
 app.controller('SignUpCtrl', function($scope, $location, auth, notifier, $http, $window) {
     $scope.signup = function(user) {
                
@@ -5,29 +7,28 @@ app.controller('SignUpCtrl', function($scope, $location, auth, notifier, $http, 
             notifier.success('Registration successful!');
             $location.path('/');
         }, function(reason){
-                        notifier.error(reason);
-                        $window.Recaptcha.reload();
-                       
-                })
-    },
+                notifier.error(reason);
+                $window.Recaptcha.reload();
+            });
+    };
 
     $scope.checkIfTaken = function(field){
-	    var responsePromise = $http.get("../api/" + field.$name + "Taken/" + field.$viewValue);
-	    responsePromise.success(function(data, status, headers, config) {
-            if(data=="true"){
-                field.$setValidity("taken", false);
+	    var responsePromise = $http.get('../api/' + field.$name + 'Taken/' + field.$viewValue);
+	    responsePromise.success(function(data) {
+            if(data==='true'){
+                field.$setValidity('taken', false);
             }else{
-                field.$setValidity("taken", true);
+                field.$setValidity('taken', true);
             }
 	    });             
-    }
+    };
 
     $scope.passwordMatch = function (password, confirmPassword) {
     	if(password.$viewValue !== confirmPassword.$viewValue){
-    		confirmPassword.$setValidity("notMatching", false);
+    		confirmPassword.$setValidity('notMatching', false);
     	}else{
-    		confirmPassword.$setValidity("notMatching", true);
+    		confirmPassword.$setValidity('notMatching', true);
     	}
-	}
+	};
 
 });

@@ -1,11 +1,13 @@
+'use strict';
+
 app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource, BookResource) {
     return {
         signup: function(user) {
             var deferred = $q.defer();
 
-            var user = new UsersResource(user);
-            user.$save().then(function() {
-                identity.currentUser = user;
+            var newUser = new UsersResource(user);
+            newUser.$save().then(function() {
+                identity.currentUser = newUser;
                 deferred.resolve();
             }, function(response) {
 				
@@ -91,7 +93,7 @@ app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource
             $http.post('/logout').success(function() {
                 identity.currentUser = undefined;
                 deferred.resolve();
-            })
+            });
 
             return deferred.promise;
         },
@@ -116,5 +118,5 @@ app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource
             console.log(user.dateOfBirth); //this works
             console.log(user.dateOfBirth.getMonth()); //this does not! ?!
         }
-    }
-})
+    };
+});

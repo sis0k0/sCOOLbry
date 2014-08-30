@@ -1,3 +1,5 @@
-app.controller('AdminPanelCtrl', function($scope) {
+'use strict';
+
+app.controller('AdminPanelCtrl', function() {
     
 });

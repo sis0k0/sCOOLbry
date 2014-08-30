@@ -1,3 +1,5 @@
+'use strict';
+
 var Library = require('mongoose').model('Library');
 
 module.exports = {

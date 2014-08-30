@@ -1,3 +1,5 @@
+'use strict';
+
 app.controller('LoginCtrl', function($scope, $location, notifier, identity, auth, $window) {
     $scope.identity = identity;
 
@@ -25,6 +27,6 @@ app.controller('LoginCtrl', function($scope, $location, notifier, identity, auth
                 $scope.user.password = '';
             }
             $location.path('/');
-        })
-    }
+        });
+    };
 });

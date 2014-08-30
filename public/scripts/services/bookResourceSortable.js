@@ -1,3 +1,5 @@
+'use strict';
+
 app.factory('BookResourceSortable', function($resource) {
 	var BookResourceSortable = $resource('/api/book/sort/:field/:order/:page/:perPage', {_id:'@id'}, { update: {method: 'PUT', isArray: false}});
     

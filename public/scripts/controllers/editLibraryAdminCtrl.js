@@ -1,7 +1,8 @@
-app.controller('editLibraryAdminCtrl', function($scope, $location, auth, ajax_post, LibraryResource, $routeParams, $http) {
+'use strict';
 
-    $scope.library = LibraryResource.get({id: $routeParams.id}, function(data){
-	});
+app.controller('editLibraryAdminCtrl', function($scope, $location, auth, ajax_post, LibraryResource, $routeParams) {
+
+    $scope.library = LibraryResource.get({id: $routeParams.id});
 	
 	
 	
@@ -9,6 +10,6 @@ app.controller('editLibraryAdminCtrl', function($scope, $location, auth, ajax_po
         auth.updateLibraryAsAdmin(library).then(function() {
             $location.path('/admin/libraries');
         });
-    }
+    };
 
 });

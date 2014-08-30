@@ -1,14 +1,12 @@
-app.controller('editBookAdminCtrl', function($scope, $location, auth, ajax_post, BookResource, $routeParams, $http) {
+'use strict';
 
-    $scope.book = BookResource.get({id: $routeParams.id}, function(data){
-	});
-	
-	
-	
+app.controller('editBookAdminCtrl', function($scope, $location, auth, ajax_post, BookResource, $routeParams) {
+
+    $scope.book = BookResource.get({id: $routeParams.id});
+    
 	$scope.updateBookAsAdmin = function(book) {
         auth.updateBookAsAdmin(book).then(function() {
             $location.path('/admin/books');
         });
-    }
-
+    };
 });

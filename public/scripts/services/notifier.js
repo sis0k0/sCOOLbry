@@ -1,3 +1,5 @@
+'use strict';
+
 app.factory('notifier', function(toastr) {
     return {
         success: function(msg) {
@@ -6,5 +8,5 @@ app.factory('notifier', function(toastr) {
         error: function(msg) {
             toastr.error(msg);
         }
-    }
-})
+    };
+});

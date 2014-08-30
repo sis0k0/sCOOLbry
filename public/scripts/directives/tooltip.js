@@ -1,8 +1,10 @@
+'use strict';
+
 app.directive('tooltip', function () {
     return {
         restrict: 'A',
-        link: function ($scope, $elem, attrs) {
+        link: function ($scope, $elem) {
             $elem.tooltip();
         }
-    }
+    };
 });

@@ -1,3 +1,5 @@
+'use strict';
+
 var passport = require('passport'),
 	http = require('http'),
 	querystring = require('querystring');
@@ -11,12 +13,12 @@ module.exports = {
 		captchaData.remoteip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 		captchaData.challenge = req.body.captcha.challenge;
 		captchaData.response = req.body.captcha.response;
-		captchaData.privatekey = "6Lcy4csSAAAAANa_TKPxw2JPmHL_lk2Ibl8HmHre";
+		captchaData.privatekey = '6Lcy4csSAAAAANa_TKPxw2JPmHL_lk2Ibl8HmHre';
 		var captchaData = querystring.stringify(captchaData);
 		
 		var requestOptions = {
-			host: "www.google.com",
-			path: "/recaptcha/api/verify",
+			host: 'www.google.com',
+			path: '/recaptcha/api/verify',
 			port: 80,
 			method: 'POST',
 			headers: {
@@ -100,7 +102,7 @@ module.exports = {
     },
     isAuthenticatedOrAdmin: function(req, res, next) {
 		
-		if(req.isAuthenticated() || req.user.roles.indexOf("admin") > -1){
+		if(req.isAuthenticated() || req.user.roles.indexOf('admin') > -1){
 			next();
 		}else{
 			res.status(403);

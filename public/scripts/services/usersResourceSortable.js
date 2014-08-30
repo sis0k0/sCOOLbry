@@ -1,3 +1,5 @@
+'use strict';
+
 app.factory('UsersResourceSortable', function($resource) {
 	var UsersResourceSortable = $resource('/api/users/sort/:field/:order/:page/:perPage', {_id:'@id'}, { update: {method: 'PUT', isArray: false}});
     

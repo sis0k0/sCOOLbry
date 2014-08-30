@@ -1,4 +1,6 @@
-app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajax_post, $window, $http, notifier) {
+'use strict';
+
+app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajax_post, $window, $http) {
 
 	$scope.user = {
         username: identity.currentUser.username,
@@ -12,7 +14,7 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
         twitterUrl: identity.currentUser.twitterUrl,
         googlePlusUrl: identity.currentUser.googlePlusUrl,
         aboutMe: identity.currentUser.aboutMe
-    }
+    };
     
     $scope.upload = false;
 
@@ -23,12 +25,12 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
             $scope.user = user;
             $window.location = '/profile';
         });
-    }
+    };
 
     $scope.getMonth = function(user) {
         console.log('test');
         auth.getMonth(user);
-    }
+    };
 
 
 	$scope.setFileEventListener = function(element) {
@@ -39,54 +41,50 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 	                $scope.upload_button_state = true;
 	            });   
 	        }
-	    }
+	};
 
 	$scope.uploadFile = function() {
 	    if (!$scope.uploadedFile) {
 	        return;
-	    }
+	}
 
-	    ajax_post.uploadFile_init($scope.uploadedFile)
+	    ajax_post.uploadFileInit($scope.uploadedFile)
 	        .then(function(result) {
-	            if (result.status == 200) {
+	            if (result.status === 200) {
 	                $scope.user.avatar = result.data;
 	                $scope.avatarUploadSuccessful = true;
 	                $scope.avatarUploadError = false;
 	                $scope.avatarTypeError = false;   
 	            }
 	        }, function(error) {
-				if(error.data=="Invalid mime type"){
+				if(error.data==='Invalid mime type'){
 					$scope.avatarTypeError = true;
 				}
 				else{
 	            	$scope.avatarUploadError = true;
 	    		}
 	            $scope.avatarError = error.data;
-	    	});
-	    	
-	    
-		 
-	                
+	    	});              
 	};
 
     $scope.checkIfTaken = function(field){
 		
-	    var responsePromise = $http.get("/api/" + field.$name + "Taken/" + field.$viewValue);
-	    responsePromise.success(function(data, status, headers, config) {
-            if(data=="true"){
-                field.$setValidity("taken", false);
+	    var responsePromise = $http.get('/api/' + field.$name + 'Taken/' + field.$viewValue);
+	    responsePromise.success(function(data) {
+            if(data==='true'){
+                field.$setValidity('taken', false);
             }else{
-                field.$setValidity("taken", true);
+                field.$setValidity('taken', true);
             }
 	    });           
-    }
+    };
 
     $scope.fieldsMatch = function (field, confirmField) {
 		if(field.$viewValue !== confirmField.$viewValue){
-			confirmField.$setValidity("notMatching", false);
+			confirmField.$setValidity('notMatching', false);
 		}else{
-			confirmField.$setValidity("notMatching", true);
+			confirmField.$setValidity('notMatching', true);
 		}
-	}
+	};
 
 });

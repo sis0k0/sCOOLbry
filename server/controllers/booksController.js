@@ -1,3 +1,5 @@
+'use strict';
+
 var Book = require('mongoose').model('Book');
 
 module.exports = {

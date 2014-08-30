@@ -1,3 +1,5 @@
+'use strict';
+
 var encryption = require('../utilities/encryption'),
 	http = require('http'),
 	querystring = require('querystring');
@@ -55,7 +57,7 @@ module.exports = {
     },
     uploadAvatar: function(req, res, next) {
            
-            currentPath = "../../"+req.files.uploadedFile.path;
+            var currentPath = "../../"+req.files.uploadedFile.path;
             var path = require('path');
             
             if(!(req.files.uploadedFile.mimetype=="image/gif" || req.files.uploadedFile.mimetype=="image/jpeg" || req.files.uploadedFile.mimetype=="image/png" || req.files.uploadedFile.mimetype=="image/tiff")){
