@@ -19,12 +19,19 @@
                   </div>
                 </div>
               </div>
-              <!-- TO DO: should check if taken-->
               <div ng-class="{ 'has-error': (profileForm.email.$invalid &amp;&amp; profileForm.email.$dirty), 'has-success': (profileForm.email.$valid) }" class="form-group">
                 <label for="email" class="control-label">Email</label>
                 <div class="row">
                   <div class="col-xs-12">
-                    <input name="email" type="text" placeholder="Email" ng-model="user.email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/" ng-change="checkIfTaken(profileForm.email)" required="required" class="form-control"/><span ng-show="profileForm.email.$error.taken" class="has-error help-block">Email already taken</span><span ng-show="profileForm.email.$invalid &amp;&amp; profileForm.email.$dirty" class="has-error help-block">Please enter valid email</span>
+                    <input name="email" type="text" placeholder="Email" ng-model="user.email" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/" ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail); checkIfTaken(profileForm.email)" required="required" class="form-control"/><span ng-show="profileForm.email.$error.taken" class="has-error help-block">Email already taken</span><span ng-show="profileForm.email.$invalid &amp;&amp; profileForm.email.$dirty" class="has-error help-block">Please enter valid email</span>
+                  </div>
+                </div>
+              </div>
+              <div ng-class="{ 'has-error': (profileForm.confirmEmail.$invalid &amp;&amp; profileForm.confirmEmail.$dirty), 'has-success': (profileForm.confirmEmail.$valid) }" class="form-group">
+                <label for="confirm-password" class="control-label">Confirm email</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <input name="confirmEmail" type="text" placeholder="Confirm email" ng-value="user.email" ng-model="emailConfirm" ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail)" required="required" class="form-control"/><span ng-show="profileForm.confirmEmail.$error.notMatching &amp;&amp; profileForm.confirmEmail.$dirty" class="has-error help-block">These emails don't match. Try again?</span>
                   </div>
                 </div>
               </div>

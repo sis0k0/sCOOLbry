@@ -38,12 +38,15 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             templateUrl: '/partials/libraries/library-details',
             controller: 'LibraryDetailsCtrl'
         })
+
+        // Profile
+
         .when('/signup', {
-            templateUrl: '/partials/account/signup',
+            templateUrl: '/partials/account/sign-up',
             controller: 'SignUpCtrl'
         })
         .when('/login', {
-            templateUrl: '/partials/account/login',
+            templateUrl: '/partials/account/log-in',
             controller: 'SignUpCtrl'
         })
         .when('/profile', {
@@ -52,35 +55,45 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             resolve: routeUserChecks.authenticated
         })
         .when('/profile/edit', {
-            templateUrl: '/partials/account/editProfile',
+            templateUrl: '/partials/account/edit-profile',
             controller: 'EditProfileCtrl',
             resolve: routeUserChecks.authenticated
         })
+
+
+        // Administration
+
         .when('/admin', {
             templateUrl: '/partials/admin/panel',
             controller: 'AdminPanelCtrl',
             resolve: routeUserChecks.adminRole
         })
+
+        // Users
+        
         .when('/admin/users', {
-            templateUrl: '/partials/admin/users-list',
+            templateUrl: '/partials/admin/users/users-list',
             controller: 'UserListCtrl',
             resolve: routeUserChecks.adminRole
         })
         .when('/admin/user/:id', {
-            templateUrl: '/partials/admin/users-info',
+            templateUrl: '/partials/admin/users/users-info',
             controller: 'UserInfoCtrl',
             resolve: routeUserChecks.adminRole
         })
         .when('/admin/user/edit/:id', {
-            templateUrl: '/partials/admin/user-edit',
+            templateUrl: '/partials/admin/users/user-edit',
             controller: 'editProfileAdminCtrl',
             resolve: routeUserChecks.adminRole
         })
         .when('/admin/user/delete/:id', {
-            templateUrl: '/partials/admin/user-delete',
+            templateUrl: '/partials/admin/users/user-delete',
             controller: 'UserDeleteCtrl',
             resolve: routeUserChecks.adminRole
         })
+
+        // Libraries
+
         .when('/admin/libraries', {
             templateUrl: '/partials/admin/libraries-list',
             controller: 'LibraryListCtrl',
