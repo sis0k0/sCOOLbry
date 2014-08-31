@@ -1,6 +1,8 @@
+'use strict';
+
 var auth = require('./auth'),
     controllers = require('../controllers'),
-    express = require('express');
+    express = require('express'),
     router = express.Router();
 
 module.exports = function(app) {
@@ -22,7 +24,8 @@ module.exports = function(app) {
     // Libraries
     router.get('/api/libraries', controllers.libraries.getAllLibraries);
     router.get('/api/libraries/:id', controllers.libraries.getLibraryById);
-    router.get('/api/library/books/:id', controllers.libraries.getLibraryBooksById);
+    // !! FILES WEREN'T ADDED
+    // router.get('/api/library/books/:id', controllers.libraries.getLibraryBooksById);
 	router.get('/api/library/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.libraries.getAllLibrariesSortable);
     router.get('/api/library/count', controllers.libraries.getLibraryCount);
     router.put('/api/libraries', auth.isAuthenticatedOrAdmin, controllers.libraries.updateLibrary);
@@ -38,7 +41,7 @@ module.exports = function(app) {
     
     // Partials
     router.get('/partials/:partialArea/:partialName', function(req, res) {
-        res.render('../../public/views/' + req.params.partialArea + '/' + req.params.partialName)
+        res.render('../../public/views/' + req.params.partialArea + '/' + req.params.partialName);
     });
 
     // exports.partials = function(req, res) {
@@ -46,7 +49,7 @@ module.exports = function(app) {
     //   var requestedView = path.join('../../public/views/', stripped);
     //   res.render(requestedView, function(err, html) {
     //     if(err) {
-    //       console.log("Error rendering partial '" + requestedView + "'\n", err);
+    //       console.log('Error rendering partial '' + requestedView + ''\n', err);
     //       res.status(404);
     //       res.send(404);
     //     } else {
@@ -61,11 +64,11 @@ module.exports = function(app) {
     router.get('/api/*', function(req, res) {
         res.status(404);
         res.end();
-    })
+    });
 
     router.get('*', function(req, res) {
         res.render('index', {currentUser: req.user});
     });
 
     app.use('/', router);
-}
+};

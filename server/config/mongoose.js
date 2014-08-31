@@ -3,8 +3,10 @@
 var mongoose = require('mongoose'),
     user = require('../models/User'),
     library = require('../models/Library'),
-    book = require('../models/Book'),
-    libBook = require('../models/LibBook');
+    book = require('../models/Book');
+
+    // !! FILES WEREN'T ADDED
+   // libBook = require('../models/LibBook');
 
 module.exports = function(config) {
     mongoose.connect(config.db);
@@ -16,7 +18,7 @@ module.exports = function(config) {
             return;
         }
 
-        console.log('Database up and running...')
+        console.log('Database up and running...');
     });
 
     db.on('error', function(err){
@@ -26,5 +28,7 @@ module.exports = function(config) {
     user.seedInitialUsers();
     library.seedInitialLibraries();
     book.seedInitialBooks();
-    libBook.seedInitialLibBooks();
+
+    // !! FILES WEREN'T ADDED
+    //libBook.seedInitialLibBooks();
 };

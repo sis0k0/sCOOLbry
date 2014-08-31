@@ -1,40 +1,44 @@
 'use strict';
 
 var Library = require('mongoose').model('Library');
-var LibBook = require('mongoose').model('LibBook');
+
+// !! FILES WEREN'T ADDED
+//var LibBook = require('mongoose').model('LibBook');
 
 module.exports = {
-    getAllLibraries: function(req, res, next) {
+    getAllLibraries: function(req, res) {
         Library.find({}).exec(function(err, collection) {
             if (err) {
                 console.log('Libraries could not be loaded: ' + err);
             }
 
             res.send(collection);
-        })
+        });
     },
+
     getAllLibrariesSortable: function(req, res) {
-		var order, field, page, perPage;
-		
-		if(req.params.order==undefined) {
+
+        var order, field, page, perPage;
+
+		if(req.params.order===undefined) {
 			order = 'asc';
 		}else{
 			order = req.params.order;
 		}
 		
-		if(req.params.field==undefined) {
+		if(req.params.field===undefined) {
 			field = '_id';
 		}else{
 			field = req.params.field;
 		}
 		
-		if(req.params.page==undefined) {
+		if(req.params.page===undefined) {
 			page = 1;
 		}else{
 			page = req.params.page;
 		}
 		
-		if(req.params.perPage==undefined) {
+		if(req.params.perPage===undefined) {
 			perPage = 10;
 		}else{
 			perPage = req.params.perPage;
@@ -48,34 +52,43 @@ module.exports = {
             }
 
             res.send(collection);
-        })
+        });
     },
+
     getLibraryCount: function(req, res) {
+
 		Library.count({}).exec(function(err, collection) {
             if (err) {
                 console.log('Libraries could not be loaded: ' + err);
             }
 
-            res.send(""+collection);
-        })
+            res.send('' + collection);
+        });
     },
-    getLibraryById: function(req, res, next) {
+
+    getLibraryById: function(req, res) {
+
         Library.findOne({_id: req.params.id}).exec(function(err, library) {
             if (err) {
                 console.log('Library could not be loaded: ' + err);
             }
             res.send(library);
-        })
+        });
     },
-    getLibraryBooksById: function(req, res, next) {
-        LibBook.find({libraryID: req.params.id}).exec(function(err, books) {
-            if (err) {
-                console.log('LibBook could not be loaded: ' + err);
-            }
-            res.send(books);
-        })
-    },
-    updateLibrary: function(req, res, next) {
+
+    // !! FILES WEREN'T ADDED
+    // getLibraryBooksById: function(req, res) {
+
+    //     LibBook.find({libraryID: req.params.id}).exec(function(err, books) {
+    //         if (err) {
+    //             console.log('LibBook could not be loaded: ' + err);
+    //         }
+    //         res.send(books);
+    //     });
+    // },
+
+    updateLibrary: function(req, res) {
+
 		if (req.user.roles.indexOf('admin') > -1) {
             var updatedLibraryData = req.body;
            
@@ -85,20 +98,20 @@ module.exports = {
             Library.update({_id: updatedId}, updatedLibraryData, function(err) {
 				console.log(err);
                 res.end();
-            })
+            });
         }
         else {
-            res.send({reason: 'You do not have permissions!'})
+            res.send({reason: 'You do not have permissions!'});
         }
     },
     
-    deleteLibraryById: function(req, res, next) {
+    deleteLibraryById: function(req, res) {
 		
         Library.remove({_id: req.params.id}, function(err) {
             if (err) {
-					res.send("false");
+					res.send('false');
             }else{
-					res.send("true");
+					res.send('true');
 					
 			}
         });

@@ -1,40 +1,42 @@
 'use strict';
 
 var Book = require('mongoose').model('Book');
-var LibBook = require('mongoose').model('LibBook');
+
+// !! FILES WEREN'T ADDED
+//var LibBook = require('mongoose').model('LibBook');
 
 module.exports = {
-    getAllBooks: function(req, res, next) {
+    getAllBooks: function(req, res) {
         Book.find({}).exec(function(err, collection) {
             if (err) {
                 console.log('Books could not be loaded: ' + err);
             }
 
             res.send(collection);
-        })
+        });
     },
     getAllBooksSortable: function(req, res) {
 		var order, field, page, perPage;
 		
-		if(req.params.order==undefined) {
+		if(req.params.order===undefined) {
 			order = 'asc';
 		}else{
 			order = req.params.order;
 		}
 		
-		if(req.params.field==undefined) {
+		if(req.params.field===undefined) {
 			field = '_id';
 		}else{
 			field = req.params.field;
 		}
 		
-		if(req.params.page==undefined) {
+		if(req.params.page===undefined) {
 			page = 1;
 		}else{
 			page = req.params.page;
 		}
 		
-		if(req.params.perPage==undefined) {
+		if(req.params.perPage===undefined) {
 			perPage = 10;
 		}else{
 			perPage = req.params.perPage;
@@ -42,13 +44,15 @@ module.exports = {
 		
 		var sortObject = {};
 		sortObject[field] = order;
-        Book.find({}, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage}).exec(function(err, collection) {
-            if (err) {
-                console.log('Books could not be loaded: ' + err);
-            }
+        Book.find({}, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage})
+            .exec(function(err, collection) {
 
-            res.send(collection);
-        })
+                if (err) {
+                    console.log('Books could not be loaded: ' + err);
+                }
+
+                res.send(collection);
+            });
     },
     getBookCount: function(req, res) {
 		Book.count({}).exec(function(err, collection) {
@@ -56,18 +60,18 @@ module.exports = {
                 console.log('Libraries could not be loaded: ' + err);
             }
 
-            res.send(""+collection);
-        })
+            res.send(''+collection);
+        });
     },
-    getBookById: function(req, res, next) {
+    getBookById: function(req, res) {
         Book.findOne({_id: req.params.id}).exec(function(err, book) {
             if (err) {
                 console.log('Book could not be loaded: ' + err);
             }
             res.send(book);
-        })
+        });
     },
-    updateBook: function(req, res, next) {
+    updateBook: function(req, res) {
 		if (req.user.roles.indexOf('admin') > -1) {
             var updatedBookData = req.body;
            
@@ -77,20 +81,19 @@ module.exports = {
             Book.update({_id: updatedId}, updatedBookData, function(err) {
 				console.log(err);
                 res.end();
-            })
+            });
         }
         else {
-            res.send({reason: 'You do not have permissions!'})
+            res.send({reason: 'You do not have permissions!'});
         }
     },
     
-    deleteBookById: function(req, res, next) {
-		
+    deleteBookById: function(req, res) {
         Book.remove({_id: req.params.id}, function(err) {
             if (err) {
-					res.send("false");
+					res.send('false');
             }else{
-					res.send("true");
+					res.send('true');
 					
 			}
         });

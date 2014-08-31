@@ -7,14 +7,15 @@ var passport = require('passport'),
 module.exports = {
 
     login: function(req, res, next) {
-		var captchaData = new Object();
+		var captchaData = {};
 		var stopLogin = false;
 
 		captchaData.remoteip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 		captchaData.challenge = req.body.captcha.challenge;
 		captchaData.response = req.body.captcha.response;
 		captchaData.privatekey = '6Lcy4csSAAAAANa_TKPxw2JPmHL_lk2Ibl8HmHre';
-		var captchaData = querystring.stringify(captchaData);
+
+		captchaData = querystring.stringify(captchaData);
 		
 		var requestOptions = {
 			host: 'www.google.com',
@@ -32,6 +33,7 @@ module.exports = {
 
 			response.on('error', function(err) {
 				//ERROR code
+				console.log(err);
 				stopLogin = true;
 				
 			});
@@ -41,42 +43,43 @@ module.exports = {
 			});
 
 			response.on('end', function() {
-				var success, error_code, parts;
 
-				parts = body.split('\n');
-				success = parts[0];
-				error_code = parts[1];
+				var parts = body.split('\n');
+				var success = parts[0];
+				var errorCode = parts[1];
 
-				if (success == 'false') {
+				if (success === 'false') {
 					stopLogin = true;
 					res.send({success:false, captchaError: true});
 				}else{
 					var auth = passport.authenticate('local', function(err, user) {
-						if (err) return next(err);
+
+						if (err){
+							return next(err);
+						}
+
 						if (!user) {
-							res.send({success: false, captchaError: false})
+							res.send({success: false, captchaError: false});
 						}
 
 						req.logIn(user, function(err) {
-							if (err) return next(err);
+							if (err){
+								return next(err);
+							}
 							res.send({success: true, user: user});
-						})
+						});
 					});
-					
 
 					auth(req, res, next);
-				
-				
 				}
-				
-				console.log(success+' '+error_code);
+				console.log(success + ' ' + errorCode);
 			});
 		});
 		request.write(captchaData, 'utf8');
 		request.end();
    
     },
-    logout: function(req, res, next) {
+    logout: function(req, res) {
         req.logout();
         res.end();
     },
@@ -98,7 +101,7 @@ module.exports = {
                 res.status(403);
                 res.end();
             }
-        }
+        };
     },
     isAuthenticatedOrAdmin: function(req, res, next) {
 		
@@ -108,6 +111,5 @@ module.exports = {
 			res.status(403);
             res.end();
 		}
-		
     },
-}
+};

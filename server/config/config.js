@@ -1,7 +1,7 @@
 'use strict';
 
 var path = require('path');
-var rootPath = path.normalize(__dirname + '/../../')
+var rootPath = path.normalize(__dirname + '/../../');
 
 module.exports = {
     development: {
@@ -14,4 +14,4 @@ module.exports = {
         db: 'mongodb://admin:test@ds053109.mongolab.com:53109/scoolbry',
         port: process.env.PORT || 3030
     }
-}
+};

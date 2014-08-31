@@ -25,11 +25,11 @@ var userSchema = mongoose.Schema({
     roles: [String],
     avatar: {
         type: String,
-        default: "images/icon-user-default.png"
+        default: 'images/icon-user-default.png'
     },
     gender: {
         type: String,
-        default: "Not specified"
+        default: 'Not specified'
     },
     dateOfBirth: Date,
     facebookUrl: String,
@@ -47,7 +47,7 @@ userSchema.method({
             return false;
         }
     }
-})
+});
 
 var User = mongoose.model('User', userSchema);
 

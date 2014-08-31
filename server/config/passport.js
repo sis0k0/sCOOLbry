@@ -18,14 +18,14 @@ module.exports = function() {
             else {
                 return done(null, false);
             }
-        })
+        });
     }));
 
     passport.serializeUser(function(user, done) {
         if (user) {
             return done(null, user._id);
         }
-    })
+    });
 
     passport.deserializeUser(function(id, done) {
         User.findOne({_id: id}).exec(function(err, user) {
@@ -40,6 +40,6 @@ module.exports = function() {
             else {
                 return done(null, false);
             }
-        })
-    })
-}
+        });
+    });
+};

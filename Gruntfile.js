@@ -11,7 +11,7 @@ module.exports = function(grunt) {
           jshintrc: '.jshintrc'
 
         },
-        all: ['public/scripts/**/*.js'],
+        all: ['public/scripts/**/*.js', 'server/**/*.js'],
       },
 
       // take all the js files and minify them into app.min.js
@@ -22,7 +22,7 @@ module.exports = function(grunt) {
             mangle: false
           },
           files: {
-            'public/scripts/app.min.js': ['public/scripts/**/*.js']
+            'public/scripts/app.min.js': ['public/scripts/app.js', 'public/scripts/*/*.js']
           }
         }
       },
@@ -66,7 +66,7 @@ module.exports = function(grunt) {
             tasks: ['newer:jade'],
           },
           js: {
-            files: ['public/scripts/**/*.js'],
+            files: ['public/scripts/**/*.js', 'server/**/*.js'],
             tasks: ['jshint', 'uglify']
           }
         },

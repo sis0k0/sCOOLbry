@@ -8,4 +8,4 @@ module.exports = {
     users: usersController,
     libraries: librariesController,
     books: booksController
-}
+};

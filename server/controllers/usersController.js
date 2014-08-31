@@ -6,7 +6,7 @@ var encryption = require('../utilities/encryption'),
 var User = require('mongoose').model('User');
 
 module.exports = {
-    createUser: function(req, res, next) {
+    createUser: function(req, res) {
         
         var newUserData = req.body;
 		newUserData.salt = encryption.generateSalt();
@@ -24,13 +24,13 @@ module.exports = {
 				}
 
 				res.send(user);
-			})
+			});
 		});
    
    
     },
-    updateUser: function(req, res, next) {
-    	if (req.user._id == req.body._id || req.user.roles.indexOf('admin') > -1) {
+    updateUser: function(req, res) {
+    	if (req.user._id === req.body._id || req.user.roles.indexOf('admin') > -1) {
             var updatedUserData = req.body;
             if (updatedUserData.password && updatedUserData.password.length > 0) {
                 updatedUserData.salt = encryption.generateSalt();
@@ -40,7 +40,7 @@ module.exports = {
             var updatedId = req.body._id;
             delete updatedUserData._id;
             
-            if(req.user.roles.indexOf('admin') > -1 && req.body.roles!=undefined) {
+            if(req.user.roles.indexOf('admin') > -1 && req.body.roles!==undefined) {
 				updatedUserData.roles = req.body.roles;
             }else{
 				delete updatedUserData.roles;
@@ -49,27 +49,27 @@ module.exports = {
             User.update({_id: updatedId}, updatedUserData, function(err) {
 				console.log(err);
                 res.end();
-            })
+            });
         }
         else {
-            res.send({reason: 'You do not have permissions!'})
+            res.send({reason: 'You do not have permissions!'});
         }
     },
-    uploadAvatar: function(req, res, next) {
+    uploadAvatar: function(req, res) {
            
-            var currentPath = "../../"+req.files.uploadedFile.path;
+            var currentPath = '../../'+req.files.uploadedFile.path;
             var path = require('path');
             
-            if(!(req.files.uploadedFile.mimetype=="image/gif" || req.files.uploadedFile.mimetype=="image/jpeg" || req.files.uploadedFile.mimetype=="image/png" || req.files.uploadedFile.mimetype=="image/tiff")){
-				res.status("403");
-				res.send("Invalid mime type");
+            if(!(req.files.uploadedFile.mimetype==='image/gif' || req.files.uploadedFile.mimetype==='image/jpeg' || req.files.uploadedFile.mimetype==='image/png' || req.files.uploadedFile.mimetype==='image/tiff')){
+				res.status('403');
+				res.send('Invalid mime type');
 			}else{
 				var imgur = require('imgur-node-api');
-				var imgurURL = "";
-				imgur.setClientID("de1c5c887fbf774");
+				var imgurURL = '';
+				imgur.setClientID('de1c5c887fbf774');
 				imgur.upload(path.join(__dirname, currentPath),function(err, res2){
 					imgurURL= res2.data.link;
-					imgurURL = imgurURL.substring(0,imgurURL.lastIndexOf(".")) + 'm.' + imgurURL.substring(imgurURL.lastIndexOf(".")+1, imgurURL.length);
+					imgurURL = imgurURL.substring(0,imgurURL.lastIndexOf('.')) + 'm.' + imgurURL.substring(imgurURL.lastIndexOf('.')+1, imgurURL.length);
 					res.send(imgurURL);
 				});
 			}
@@ -85,8 +85,8 @@ module.exports = {
                 console.log('Users could not be loaded: ' + err);
             }
 
-            res.send(""+collection);
-        })
+            res.send(''+collection);
+        });
     },
     getAllUsers: function(req, res) {
         User.find({}).exec(function(err, collection) {
@@ -95,39 +95,39 @@ module.exports = {
             }
 
             res.send(collection);
-        })
+        });
     },
     getAllUsersSearchable: function(req, res) {
-        User.find({ $or: [ {username: new RegExp(req.params.phrase, "i")}, {firstName: new RegExp(req.params.phrase, "i")}, {lastName: new RegExp(req.params.phrase, "i")}, {email: new RegExp(req.params.phrase, "i")} ] }).exec(function(err, collection) {
+        User.find({ $or: [ {username: new RegExp(req.params.phrase, 'i')}, {firstName: new RegExp(req.params.phrase, 'i')}, {lastName: new RegExp(req.params.phrase, 'i')}, {email: new RegExp(req.params.phrase, 'i')} ] }).exec(function(err, collection) {
             if (err) {
                 console.log('Users could not be loaded: ' + err);
             }
 
             res.send(collection);
-        })
+        });
     },
     getAllUsersSortable: function(req, res) {
 		var order, field, page, perPage;
 		
-		if(req.params.order==undefined) {
+		if(req.params.order===undefined) {
 			order = 'asc';
 		}else{
 			order = req.params.order;
 		}
 		
-		if(req.params.field==undefined) {
+		if(req.params.field===undefined) {
 			field = '_id';
 		}else{
 			field = req.params.field;
 		}
 		
-		if(req.params.page==undefined) {
+		if(req.params.page===undefined) {
 			page = 1;
 		}else{
 			page = req.params.page;
 		}
 		
-		if(req.params.perPage==undefined) {
+		if(req.params.perPage===undefined) {
 			perPage = 10;
 		}else{
 			perPage = req.params.perPage;
@@ -141,77 +141,78 @@ module.exports = {
             }
 
             res.send(collection);
-        })
+        });
     },
-    getUserById: function(req, res, next) {
+    getUserById: function(req, res) {
         User.findOne({_id: req.params.id}).exec(function(err, user) {
             if (err) {
-				res.send("null");
+				res.send('null');
 				
             }else{
 				
 					res.send(user);
 					
 			}
-        })
+        });
     },
-    getUserByUsername: function(req, res, next) {
+    getUserByUsername: function(req, res) {
         User.findOne({username: req.params.username}).exec(function(err, user) {
             if (err) {
 				res.send(false);
             }else{
 				//console.log(user);
 				
-				if(user==null){
+				if(user===null){
 					res.send(false);
 				}else{
 					res.send(true);
 				}
 				
 			}
-        })
+        });
     },
-    getUserByEmail: function(req, res, next) {
+    getUserByEmail: function(req, res) {
         User.findOne({email: req.params.email}).exec(function(err, user) {
             if (err) {
 				res.send(false);
             }else{
 				//console.log(user);
 				
-				if(user==null){
+				if(user===null){
 					res.send(false);
 				}else{
 					res.send(true);
 				}
 				
 			}
-        })
+        });
     },
-    deleteUserById: function(req, res, next) {
+    deleteUserById: function(req, res) {
 		
         User.remove({_id: req.params.id}, function(err) {
             if (err) {
-					res.send("false");
+					res.send('false');
             }else{
-					res.send("true");
+					res.send('true');
 					
 			}
         });
     },
     validCaptcha: function(req, res, next) {
 	
-		var captchaData = new Object();
+		var captchaData = {};
 		var stopSignUp = false;
 
 		captchaData.remoteip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 		captchaData.challenge = req.body.captcha.challenge;
 		captchaData.response = req.body.captcha.response;
-		captchaData.privatekey = "6Lcy4csSAAAAANa_TKPxw2JPmHL_lk2Ibl8HmHre";
-		var captchaData = querystring.stringify(captchaData);
+		captchaData.privatekey = '6Lcy4csSAAAAANa_TKPxw2JPmHL_lk2Ibl8HmHre';
+
+		captchaData = querystring.stringify(captchaData);
 		
 		var requestOptions = {
-			host: "www.google.com",
-			path: "/recaptcha/api/verify",
+			host: 'www.google.com',
+			path: '/recaptcha/api/verify',
 			port: 80,
 			method: 'POST',
 			headers: {
@@ -226,6 +227,7 @@ module.exports = {
 			
 			response.on('error', function(err) {
 				//ERROR code
+				console.log(err);
 				stopSignUp = true;
 				
 			});
@@ -235,23 +237,22 @@ module.exports = {
 			});
 
 			response.on('end', function() {
-				var success, error_code, parts;
+				
+				var parts = body.split('\n');
+				var success = parts[0];
+				var errorCode = parts[1];
 
-				parts = body.split('\n');
-				success = parts[0];
-				error_code = parts[1];
-
-				if (success == 'false') {
+				if (success === 'false') {
 					stopSignUp = true;
 					res.status(403);
-					return res.send({reason: "Wrong RECAPTCHA Challenge."});
+					return res.send({reason: 'Wrong RECAPTCHA Challenge.'});
 				}else{
 					
 					next();
 					
 				}
 				
-				console.log(success+' '+error_code);
+				console.log(success + ' ' + errorCode);
 			});
 		});
 		request.write(captchaData, 'utf8');
