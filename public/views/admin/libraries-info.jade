@@ -14,6 +14,18 @@
       tr
         td
           h2 Library Books
+          table.table.table-striped.table-bordered.table-wrapped
+            tr
+              th Book Name
+              th Total Copies 
+              th Copies Available 
+              th Copies Given 
+            tr(ng-repeat='book in libBookInfo')
+              td.col-md-4
+                strong {{ book.bookID }}
+              td {{ book.total }}
+              td {{ book.available }}
+              td {{ book.given }}
       tr
         td
           h2 Library Requests

@@ -1,6 +1,7 @@
 'use strict';
 
 var Library = require('mongoose').model('Library');
+var LibBook = require('mongoose').model('LibBook');
 
 module.exports = {
     getAllLibraries: function(req, res, next) {
@@ -64,6 +65,14 @@ module.exports = {
                 console.log('Library could not be loaded: ' + err);
             }
             res.send(library);
+        })
+    },
+    getLibraryBooksById: function(req, res, next) {
+        LibBook.find({libraryID: req.params.id}).exec(function(err, books) {
+            if (err) {
+                console.log('LibBook could not be loaded: ' + err);
+            }
+            res.send(books);
         })
     },
     updateLibrary: function(req, res, next) {

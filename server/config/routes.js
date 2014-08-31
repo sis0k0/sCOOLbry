@@ -22,6 +22,7 @@ module.exports = function(app) {
     // Libraries
     router.get('/api/libraries', controllers.libraries.getAllLibraries);
     router.get('/api/libraries/:id', controllers.libraries.getLibraryById);
+    router.get('/api/library/books/:id', controllers.libraries.getLibraryBooksById);
 	router.get('/api/library/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.libraries.getAllLibrariesSortable);
     router.get('/api/library/count', controllers.libraries.getLibraryCount);
     router.put('/api/libraries', auth.isAuthenticatedOrAdmin, controllers.libraries.updateLibrary);

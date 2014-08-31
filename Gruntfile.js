@@ -108,7 +108,7 @@ module.exports = function(grunt) {
 
     // JShint: check all javascript files
     grunt.registerTask(
-        'jshint',
+        'JShint',
         [ 'jshint' ]
     );
 

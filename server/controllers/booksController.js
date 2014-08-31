@@ -1,6 +1,7 @@
 'use strict';
 
 var Book = require('mongoose').model('Book');
+var LibBook = require('mongoose').model('LibBook');
 
 module.exports = {
     getAllBooks: function(req, res, next) {
