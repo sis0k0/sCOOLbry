@@ -1,9 +1,7 @@
 'use strict';
 
 var Library = require('mongoose').model('Library');
-
-// !! FILES WEREN'T ADDED
-//var LibBook = require('mongoose').model('LibBook');
+var LibBook = require('mongoose').model('LibBook');
 
 module.exports = {
     getAllLibraries: function(req, res) {
@@ -76,16 +74,14 @@ module.exports = {
         });
     },
 
-    // !! FILES WEREN'T ADDED
-    // getLibraryBooksById: function(req, res) {
-
-    //     LibBook.find({libraryID: req.params.id}).exec(function(err, books) {
-    //         if (err) {
-    //             console.log('LibBook could not be loaded: ' + err);
-    //         }
-    //         res.send(books);
-    //     });
-    // },
+    getLibraryBooksById: function(req, res) {
+		LibBook.find({libraryID: req.params.id}).exec(function(err, books) {
+			if (err) {
+				console.log('LibBook could not be loaded: ' + err);
+			}
+			res.send(books);
+        });
+    },
 
     updateLibrary: function(req, res) {
 
