@@ -6,6 +6,20 @@ var Book = require('mongoose').model('Book');
 //var LibBook = require('mongoose').model('LibBook');
 
 module.exports = {
+    createBook: function(req, res) {
+        var newBookData = req.body;
+		
+		Book.create(newBookData, function(err, book) {
+			if (err) {
+				console.log('Failed to add new book: ' + err);
+				return;
+			}
+
+			res.send(book);
+		});
+   
+   
+    },
     getAllBooks: function(req, res) {
         Book.find({}).exec(function(err, collection) {
             if (err) {

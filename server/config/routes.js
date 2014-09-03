@@ -32,6 +32,7 @@ module.exports = function(app) {
     
     // Books
     router.get('/api/books', controllers.books.getAllBooks);
+    router.post('/api/books', auth.isInRole('admin'), controllers.books.createBook);
     router.get('/api/books/:id', controllers.books.getBookById);
 	router.get('/api/book/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.books.getAllBooksSortable);
     router.get('/api/book/count', controllers.books.getBookCount);
