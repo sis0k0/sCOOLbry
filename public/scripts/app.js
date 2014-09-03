@@ -126,6 +126,11 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             controller: 'BookInfoCtrl',
             resolve: routeUserChecks.adminRole
         })
+        .when('/admin/books/add', {
+            templateUrl: '/partials/admin/book-add',
+            controller: 'AddBookCtrl',
+            resolve: routeUserChecks.adminRole
+        })
         .when('/admin/book/edit/:id', {
             templateUrl: '/partials/admin/book-edit',
             controller: 'editBookAdminCtrl',

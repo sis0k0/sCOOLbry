@@ -70,6 +70,19 @@ app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource
 
             return deferred.promise;
         },
+        addBook: function(book) {
+            var deferred = $q.defer();
+
+            var newBook = new BookResource(book);
+            newBook.$save().then(function() {
+                deferred.resolve();
+            }, function(response) {
+				
+                deferred.reject(response.data.reason);
+            });
+
+            return deferred.promise;
+        },
         login: function(user){
             var deferred = $q.defer();
 

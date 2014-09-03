@@ -7,6 +7,11 @@
         .row
           .col-md-11.col-md-offset-1
             .col-md-5
+              .form-group
+                  label.control-label(for="isbn") ISBN
+                  .row
+                      .col-xs-12
+                          input.form-control(name="isbn", type="text", placeholder="ISBN", ng-model="book.isbn") 
               .form-group(ng-class="{ 'has-success': (bookForm.name.$valid) }")
                   label.control-label(for="title") Title
                   .row

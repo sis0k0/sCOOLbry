@@ -8,6 +8,14 @@
         <div class="row">
           <div class="col-md-11 col-md-offset-1">
             <div class="col-md-5">
+              <div class="form-group">
+                <label for="isbn" class="control-label">ISBN</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <input name="isbn" type="text" placeholder="ISBN" ng-model="book.isbn" class="form-control"/>
+                  </div>
+                </div>
+              </div>
               <div ng-class="{ 'has-success': (bookForm.name.$valid) }" class="form-group">
                 <label for="title" class="control-label">Title</label>
                 <div class="row">

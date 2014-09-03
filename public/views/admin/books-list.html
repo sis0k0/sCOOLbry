@@ -12,6 +12,7 @@
         <thead>
           <tr class="text-bold text-primary">
             <td id="_id" ng-click="sort($event); reloadBooks()">ID<span id="_id" class="glyphicon glyphicon-sort text-right"></span></td>
+            <td id="isbn" ng-click="sort($event); reloadBooks()">ISBN<span id="isbn" class="glyphicon glyphicon-sort text-right"></span></td>
             <td id="name" ng-click="sort($event); reloadBooks()">Title<span id="title" class="glyphicon glyphicon-sort text-right"></span></td>
             <td id="description" ng-click="sort($event); reloadBooks()">Author<span id="author" class="glyphicon glyphicon-sort text-right"></span></td>
             <td id="description" ng-click="sort($event); reloadBooks()">Description<span id="description" class="glyphicon glyphicon-sort text-right"></span></td>
@@ -23,6 +24,7 @@
         </thead>
         <tr ng-repeat="book in books">
           <td class="text-bold">{{ book._id }}</td>
+          <td>{{ book.isbn }}</td>
           <td>{{ book.title }}</td>
           <td>{{ book.author }}</td>
           <td>{{ book.description }}</td>
