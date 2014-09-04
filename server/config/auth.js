@@ -92,15 +92,26 @@ module.exports = {
             next();
         }
     },
-    isInRole: function(role) {
+    isInRole: function(role, role2) {
         return function(req, res, next) {
-            if (req.isAuthenticated() && req.user.roles.indexOf(role) > -1) {
-                next();
-            }
-            else {
-                res.status(403);
-                res.end();
-            }
+			if(typeof role2!==undefined){
+				if (req.isAuthenticated() && ( req.user.roles.indexOf(role) > -1 || req.user.roles.indexOf(role2) > -1 )) {
+					next();
+				}
+				else {
+					res.status(403);
+					res.end();
+				}
+				
+			}else{
+				if (req.isAuthenticated() && req.user.roles.indexOf(role) > -1) {
+					next();
+				}
+				else {
+					res.status(403);
+					res.end();
+				}
+			}
         };
     },
     isAuthenticatedOrAdmin: function(req, res, next) {
