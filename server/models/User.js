@@ -1,20 +1,27 @@
 'use strict';
 
 var mongoose = require('mongoose'),
+    roles = require('../filters/usersRoles'),
     encryption = require('../utilities/encryption');
 
 var userSchema = mongoose.Schema({
     username: { 
-        type: String, require: '{PATH} is required', unique: true 
+        type: String,
+        require: '{PATH} is required',
+        unique: true 
     },
     firstName: { 
-        type: String, require: '{PATH} is required' 
+        type: String,
+        require: '{PATH} is required' 
     },
     lastName: { 
-        type: String, require: '{PATH} is required' 
+        type: String,
+        require: '{PATH} is required' 
     },
     email: {
-        type: String, require: '{PATH} is required', unique: true
+        type: String,
+        require: '{PATH} is required',
+        unique: true
     },
     created: {
         type: Date,
@@ -22,7 +29,11 @@ var userSchema = mongoose.Schema({
     },
     salt: String,
     hashPass: String,
-    roles: [String],
+    roles: {
+        type: [String],
+        default: ['standart'],
+        enum: [roles.getAllRoles]
+    },
     avatar: {
         type: String,
         default: 'images/icon-user-default.png'

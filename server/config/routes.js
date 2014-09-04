@@ -2,11 +2,13 @@
 
 var auth = require('./auth'),
     controllers = require('../controllers'),
+    filters = require('../filters'),
     express = require('express'),
     router = express.Router();
 
 module.exports = function(app) {
 
+    // Controllers -----------------------------------
     // Users
     router.get('/api/users', auth.isInRole('admin'), controllers.users.getAllUsers);
     router.get('/api/users/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.users.getAllUsersSortable);
@@ -39,7 +41,14 @@ module.exports = function(app) {
     router.put('/api/books', auth.isInRole('admin', 'librarian'), controllers.books.updateBook);
     router.get('/api/book/delete/:id', auth.isInRole('admin', 'librarian'), controllers.books.deleteBookById);
     
-    // Partials
+    // Filters -----------------------------------------------
+
+    // Users roles
+    router.get('/api/roles', filters.roles.getAllRoles);
+
+
+
+    // Partials ----------------------------------------------
     router.get('/partials/:partialArea/:partialName', function(req, res) {
         res.render('../../public/views/' + req.params.partialArea + '/' + req.params.partialName);
     });
