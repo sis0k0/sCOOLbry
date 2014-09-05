@@ -55,9 +55,7 @@
                 <label for="roles" class="control-label">Roles</label>
                 <div class="row">
                   <div class="col-xs-12">
-                    <select name="roles" multiple="multiple" select-picker="select-picker" autofocus="standart" form="profileForm" ng-model="user.roles" title="The roles appear after modification" class="form-control">
-                      <option ng-repeat="role in roles" value="{{ role }}">{{ role }}               </option>
-                    </select>
+                    <select ng-options="role for role in roles track by role" ng-model="user.roles" multiple="multiple" class="form-control"></select>
                   </div>
                 </div>
                 <div class="row">Roles: {{ roles }}</div>

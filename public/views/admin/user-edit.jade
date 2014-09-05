@@ -42,8 +42,7 @@
                 label.control-label(for='roles') Roles
                 .row
                   .col-xs-12
-                      select.form-control(name='roles', multiple, select-picker, autofocus='standart', form='profileForm', ng-model='user.roles', title='The roles appear after modification')
-                        option(ng-repeat='role in roles', value='{{ role }}') {{ role }}               
+                      select.form-control(ng-options='role for role in roles track by role', ng-model='user.roles', multiple)
                 .row Roles: {{ roles }}
             .col-md-5.col-md-offset-1
               .form-group(ng-class="{ 'has-success': (profileForm.gender.$valid && (!!user.gender)) }")
