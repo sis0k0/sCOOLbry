@@ -21,7 +21,13 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
         },
         adminOrLibraryRole: {
             authenticate: function(auth) {
-                return (auth.isAuthorizedForRole('admin') || auth.isAuthorizedForRole('librarian'));
+				if(auth.isAuthorizedForRole('admin')===true){
+					return true;
+				}else if(auth.isAuthorizedForRole('librarian')===true){
+					return true;
+				}else if(auth.isAuthorizedForRole('libraryOwner')===true){
+					return true;
+				}
             }
         },
         authenticated: {
@@ -73,7 +79,7 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
         .when('/admin', {
             templateUrl: '/partials/admin/panel',
             controller: 'AdminPanelCtrl',
-            resolve: routeUserChecks.adminRole
+            resolve: routeUserChecks.adminOrLibraryRole
         })
 
         // Users

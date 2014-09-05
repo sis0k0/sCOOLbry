@@ -29,17 +29,17 @@ module.exports = function(app) {
     router.get('/api/library/books/:id', controllers.libraries.getLibraryBooksById);
 	router.get('/api/library/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.libraries.getAllLibrariesSortable);
     router.get('/api/library/count', controllers.libraries.getLibraryCount);
-    router.put('/api/libraries', auth.isInRole('admin', 'librarian'), controllers.libraries.updateLibrary);
+    router.put('/api/libraries', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.updateLibrary);
     router.get('/api/library/delete/:id', auth.isInRole('admin'), controllers.libraries.deleteLibraryById);
     
     // Books
     router.get('/api/books', controllers.books.getAllBooks);
-    router.post('/api/books', auth.isInRole('admin', 'librarian'), controllers.books.createBook);
+    router.post('/api/books', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.books.createBook);
     router.get('/api/books/:id', controllers.books.getBookById);
-	router.get('/api/book/sort/:field/:order/:page/:perPage', auth.isInRole('admin', 'librarian'), controllers.books.getAllBooksSortable);
+	router.get('/api/book/sort/:field/:order/:page/:perPage', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.books.getAllBooksSortable);
     router.get('/api/book/count', controllers.books.getBookCount);
-    router.put('/api/books', auth.isInRole('admin', 'librarian'), controllers.books.updateBook);
-    router.get('/api/book/delete/:id', auth.isInRole('admin', 'librarian'), controllers.books.deleteBookById);
+    router.put('/api/books', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.books.updateBook);
+    router.get('/api/book/delete/:id', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.books.deleteBookById);
     
     // Filters -----------------------------------------------
 

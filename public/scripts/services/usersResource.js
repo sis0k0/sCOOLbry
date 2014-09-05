@@ -7,5 +7,29 @@ app.factory('UsersResource', function($resource) {
         return this.roles && this.roles.indexOf('admin') > -1;
     };
 
+    UsersResource.prototype.isLibrarian = function() {
+        return this.roles && this.roles.indexOf('librarian') > -1;
+    };
+    
+    UsersResource.prototype.isLibraryOwner = function() {
+        return this.roles && this.roles.indexOf('libraryOwner') > -1;
+    };
+    
+	UsersResource.prototype.isAdminOrLibrarian = function() {
+        if(this.roles && this.roles.indexOf('admin') > -1) {
+			return true;
+		}
+		
+		if(this.roles && this.roles.indexOf('librarian') > -1) {
+			return true;
+		}
+		
+		if(this.roles && this.roles.indexOf('libraryOwner') > -1) {
+			return true;
+		}
+		
+		return false;
+    };
+
     return UsersResource;
 });

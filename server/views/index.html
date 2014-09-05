@@ -7,7 +7,7 @@
     <title>sCOOLbry</title>
     <link rel="stylesheet" href="/lib/bootstrap-datepicker/datepicker3.min.css">
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/lib/toastr/toastr.css">
     <link rel="stylesheet" href="/styles/site.css">
     <link rel="stylesheet" href="/styles/font-awesome.min.css">
@@ -39,7 +39,7 @@
             <li><a href="/catalogue" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Catalogue</a></li>
             <li class="dropdown"><a href="" data-toggle="dropdown" class="dropdown-toggle">{{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li ng-show="identity.currentUser.isAdmin()"><a href="/admin" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Admin Panel</a></li>
+                <li ng-show="identity.currentUser.isAdminOrLibrarian()"><a href="/admin" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Admin Panel</a></li>
                 <li ng-show="identity.isAuthenticated()"><a href="/profile" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Profile</a></li>
                 <li class="divider"></li>
                 <li><a href="/" ng-click="logout()" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Sign Out</a></li>
@@ -65,56 +65,13 @@
     <script type="text/javascript" src="/lib/bootstrap-datepicker/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="/lib/bootstrap-datepicker/bootstrap-datepicker.bg.min.js"></script>
     <script type="text/javascript" src="/lib/bootstrap-select/bootstrap-select.min.js"></script>
-    <!-- angularjs scripts-->
-    <script type="text/javascript" src="/scripts/app.js"></script>
-    <!-- controllers-->
-    <script type="text/javascript" src="/scripts/controllers/mainCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/loginCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/signUpCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/profileCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/editProfileCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/userListCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/libraryListCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/librariesListCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/libraryDetailsCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/libraryInfoCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/bookInfoCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/bookListCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/booksListCtrl.js"></script>
-    <!--admin panel controllers-->
-    <script type="text/javascript" src="/scripts/controllers/adminPanelCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/userInfoCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/editProfileAdminCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/editLibraryAdminCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/editBookAdminCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/userDeleteCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/libraryDeleteCtrl.js"></script>
-    <script type="text/javascript" src="/scripts/controllers/bookDeleteCtrl.js"></script>
-    <!-- directives-->
-    <script type="text/javascript" src="/scripts/directives/tooltip.js"></script>
-    <script type="text/javascript" src="/scripts/directives/loadingButton.js"></script>
-    <script type="text/javascript" src="/scripts/directives/selectPicker.js"></script>
-    <script type="text/javascript" src="/scripts/directives/datepicker.js"></script>
-    <script type="text/javascript" src="/scripts/directives/resize.js"></script>
-    <!-- services-->
-    <script type="text/javascript" src="/scripts/services/auth.js"></script>
-    <script type="text/javascript" src="/scripts/services/ajax_post.js"></script>
-    <script type="text/javascript" src="/scripts/services/cachedLibraries.js"></script>
-    <script type="text/javascript" src="/scripts/services/cachedBooks.js"></script>
-    <script type="text/javascript" src="/scripts/services/libraryResource.js"></script>
-    <script type="text/javascript" src="/scripts/services/bookResource.js"></script>
-    <script type="text/javascript" src="/scripts/services/usersResource.js"></script>
-    <script type="text/javascript" src="/scripts/services/usersResourceSortable.js"></script>
-    <script type="text/javascript" src="/scripts/services/bookResourceSortable.js"></script>
-    <script type="text/javascript" src="/scripts/services/libraryResourceSortable.js"></script>
-    <script type="text/javascript" src="/scripts/services/userResource.js"></script>
-    <script type="text/javascript" src="/scripts/services/identity.js"></script>
-    <script type="text/javascript" src="/scripts/services/notifier.js"></script>
+    <script type="text/javascript" src="/lib/angular-re-captcha/angular-re-captcha.js"></script>
     <!-- bootstrap 3 javascript utilities-->
     <script type="text/javascript" src="/lib/bootstrap/js/tooltip.js"></script>
     <script type="text/javascript" src="/lib/bootstrap/js/button.js"></script>
-    <script type="text/javascript" src="/lib/angular-re-captcha/angular-re-captcha.js"></script>
     <!-- css3 media queries polyfill-->
     <script type="text/javascript" src="/lib/mediatizr/mediatizr.js"></script>
+    <!-- angularjs scripts-->
+    <script type="text/javascript" src="/scripts/app.min.js"></script>
   </body>
 </html>

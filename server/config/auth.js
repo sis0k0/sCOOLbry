@@ -92,9 +92,18 @@ module.exports = {
             next();
         }
     },
-    isInRole: function(role, role2) {
+    isInRole: function(role, role2, role3) {
         return function(req, res, next) {
-			if(typeof role2!==undefined){
+			if(typeof role3!==undefined){
+				if (req.isAuthenticated() && ( req.user.roles.indexOf(role) > -1 || req.user.roles.indexOf(role3) > -1 )) {
+					next();
+				}
+				else {
+					res.status(403);
+					res.end();
+				}
+				
+			}else if(typeof role2!==undefined){
 				if (req.isAuthenticated() && ( req.user.roles.indexOf(role) > -1 || req.user.roles.indexOf(role2) > -1 )) {
 					next();
 				}
