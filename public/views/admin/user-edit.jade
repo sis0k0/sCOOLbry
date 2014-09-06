@@ -42,7 +42,7 @@
                 label.control-label(for='roles') Roles
                 .row
                   .col-xs-12
-                      select.form-control(ng-options='role for role in roles track by role', ng-model='user.roles', multiple)
+                      select.form-control.nya-selectpicker(ng-options='role for role in roles track by role', ng-model='user.roles', multiple)
                 .row Roles: {{ roles }}
             .col-md-5.col-md-offset-1
               .form-group(ng-class="{ 'has-success': (profileForm.gender.$valid && (!!user.gender)) }")
@@ -77,6 +77,7 @@
         
         .row
           .col-md-10.col-md-offset-1
+
 
             // TO DO: should show up all the libraries and allow picking one of them + search
             .form-group(ng-show=" user.roles.indexOf('librarian')!=-1 || user.roles.indexOf('libraryOwner')!=-1 ")
