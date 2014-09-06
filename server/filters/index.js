@@ -1,7 +1,9 @@
 'use strict';
 
-var rolesFilter = require('../filters/usersRoles');
+var rolesFilter = require('../filters/usersRoles'),
+	genresFilter = require('../filters/genres');
 
 module.exports = {
-    roles: rolesFilter
+    roles: rolesFilter,
+    genres: genresFilter
 };

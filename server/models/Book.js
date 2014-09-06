@@ -26,7 +26,7 @@ var bookSchema = mongoose.Schema({
     authorNationality: String,
     language: String,
     themes: [String],
-    genre: [String],
+    genres: [String],
     edition: String,
     illustrated: String,
     published: Date
@@ -42,12 +42,12 @@ module.exports.seedInitialBooks = function() {
 		}
 		
         if (collection.length === 0) {
-            Book.create({title: 'Да оцелееш в ПМГ 1 том', author: 'ПМГейци', illustrations: '', description: 'Някои полезни правила за оцеляване в ПМГ', publisher: 'ПМГ', cover: '', authorNationality: 'BG', language: 'BG', themes: ['училище', 'тийнейджърски', 'оцеляване'], genre: ['забавни'], edition: '1', illustrated: 'false', published: new Date('15/09/2015')});
-            Book.create({title: 'Да оцелееш в ПМГ 2 том', author: 'ПМГейци', illustrations: '', description: 'Някои полезни правила за оцеляване в ПМГ', publisher: 'ПМГ', cover: '', authorNationality: 'BG', language: 'BG', themes: ['училище', 'тийнейджърски', 'оцеляване'], genre: ['забавни'], edition: '1', illustrated: 'false', published: new Date('15/09/2015')});
-            Book.create({title: 'Да оцелееш в ПМГ 3 том', author: 'ПМГейци', illustrations: '', description: 'Някои полезни правила за оцеляване в ПМГ', publisher: 'ПМГ', cover: '', authorNationality: 'BG', language: 'BG', themes: ['училище', 'тийнейджърски', 'оцеляване'], genre: ['забавни'], edition: '1', illustrated: 'false', published: new Date('15/09/2015')});
-            Book.create({title: 'Да оцелееш в ПМГ 4 том', author: 'ПМГейци', illustrations: '', description: 'Някои полезни правила за оцеляване в ПМГ', publisher: 'ПМГ', cover: '', authorNationality: 'BG', language: 'BG', themes: ['училище', 'тийнейджърски', 'оцеляване'], genre: ['забавни'], edition: '1', illustrated: 'false', published: new Date('15/09/2015')});
-            Book.create({title: 'Да оцелееш в ПМГ 5 том', author: 'ПМГейци', illustrations: '', description: 'Някои полезни правила за оцеляване в ПМГ', publisher: 'ПМГ', cover: '', authorNationality: 'BG', language: 'BG', themes: ['училище', 'тийнейджърски', 'оцеляване'], genre: ['забавни'], edition: '1', illustrated: 'false', published: new Date('15/09/2015')});
-            Book.create({title: 'Да оцелееш в ПМГ 6 том', author: 'ПМГейци', illustrations: '', description: 'Някои полезни правила за оцеляване в ПМГ', publisher: 'ПМГ', cover: '', authorNationality: 'BG', language: 'BG', themes: ['училище', 'тийнейджърски', 'оцеляване'], genre: ['забавни'], edition: '1', illustrated: 'false', published: new Date('15/09/2015')});
+            Book.create({title: 'Да оцелееш в ПМГ 1 том', author: 'ПМГейци', illustrations: '', description: 'Някои полезни правила за оцеляване в ПМГ', publisher: 'ПМГ', cover: '', authorNationality: 'BG', language: 'BG', themes: ['училище', 'тийнейджърски', 'оцеляване'], genres: ['забавни'], edition: '1', illustrated: 'false', published: new Date('15/09/2015')});
+            Book.create({title: 'Да оцелееш в ПМГ 2 том', author: 'ПМГейци', illustrations: '', description: 'Някои полезни правила за оцеляване в ПМГ', publisher: 'ПМГ', cover: '', authorNationality: 'BG', language: 'BG', themes: ['училище', 'тийнейджърски', 'оцеляване'], genres: ['забавни'], edition: '1', illustrated: 'false', published: new Date('15/09/2015')});
+            Book.create({title: 'Да оцелееш в ПМГ 3 том', author: 'ПМГейци', illustrations: '', description: 'Някои полезни правила за оцеляване в ПМГ', publisher: 'ПМГ', cover: '', authorNationality: 'BG', language: 'BG', themes: ['училище', 'тийнейджърски', 'оцеляване'], genres: ['забавни'], edition: '1', illustrated: 'false', published: new Date('15/09/2015')});
+            Book.create({title: 'Да оцелееш в ПМГ 4 том', author: 'ПМГейци', illustrations: '', description: 'Някои полезни правила за оцеляване в ПМГ', publisher: 'ПМГ', cover: '', authorNationality: 'BG', language: 'BG', themes: ['училище', 'тийнейджърски', 'оцеляване'], genres: ['забавни'], edition: '1', illustrated: 'false', published: new Date('15/09/2015')});
+            Book.create({title: 'Да оцелееш в ПМГ 5 том', author: 'ПМГейци', illustrations: '', description: 'Някои полезни правила за оцеляване в ПМГ', publisher: 'ПМГ', cover: '', authorNationality: 'BG', language: 'BG', themes: ['училище', 'тийнейджърски', 'оцеляване'], genres: ['забавни'], edition: '1', illustrated: 'false', published: new Date('15/09/2015')});
+            Book.create({title: 'Да оцелееш в ПМГ 6 том', author: 'ПМГейци', illustrations: '', description: 'Някои полезни правила за оцеляване в ПМГ', publisher: 'ПМГ', cover: '', authorNationality: 'BG', language: 'BG', themes: ['училище', 'тийнейджърски', 'оцеляване'], genres: ['забавни'], edition: '1', illustrated: 'false', published: new Date('15/09/2015')});
         }
     });
 };

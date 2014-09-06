@@ -45,6 +45,7 @@ module.exports = function(app) {
 
     // Users roles
     router.get('/api/roles', filters.roles.getAllRoles);
+    router.get('/api/genres', filters.genres.getAllGenres);
 
 
 

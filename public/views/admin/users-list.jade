@@ -31,7 +31,8 @@
           td {{ user.lastName }}
           td {{ user.created }}
           td {{ user.email }}
-          td {{ user.roles }}
+          td 
+            p(ng-repeat='role in user.roles track by $index') {{ role | titleCase }}
           td
             a.btn-sm(href='/admin/user/{{ user._id }}', title='Browse', tooltip)
               span.glyphicon.glyphicon-search.text-success

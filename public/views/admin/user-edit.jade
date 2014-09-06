@@ -42,8 +42,7 @@
                 label.control-label(for='roles') Roles
                 .row
                   .col-xs-12
-                      select.form-control.nya-selectpicker(ng-options='role for role in roles track by role', ng-model='user.roles', multiple)
-                .row Roles: {{ roles }}
+                      select.form-control.nya-selectpicker(ng-options='(role | titleCase) for role in roles track by role', ng-model='user.roles', multiple)
             .col-md-5.col-md-offset-1
               .form-group(ng-class="{ 'has-success': (profileForm.gender.$valid && (!!user.gender)) }")
                 label.control-label(for='gender') Gender
@@ -80,16 +79,16 @@
 
 
             // TO DO: should show up all the libraries and allow picking one of them + search
-            .form-group(ng-show=" user.roles.indexOf('librarian')!=-1 || user.roles.indexOf('libraryOwner')!=-1 ")
-                label.control-label(for='roles') Roles
-                .row
-                  .col-xs-12
-                      select.form-control(name='roles', multiple, select-picker, autofocus='standart', form='profileForm', ng-model='user.roles', title='The roles appear after modification')
-                        option(value='standart') Standart
-                        option(value='moderator') Moderator
-                        option(value='admin') Administrator
-                        option(value='libraryOwner') Library owner
-                        option(value='librarian') Librarian 
+            // .form-group(ng-show=" user.roles.indexOf('librarian')!=-1 || user.roles.indexOf('libraryOwner')!=-1 ")
+            //     label.control-label(for='roles') Roles
+            //     .row
+            //       .col-xs-12
+            //           select.form-control(name='roles', multiple, select-picker, autofocus='standart', form='profileForm', ng-model='user.roles', title='The roles appear after modification')
+            //             option(value='standart') Standart
+            //             option(value='moderator') Moderator
+            //             option(value='admin') Administrator
+            //             option(value='libraryOwner') Library owner
+            //             option(value='librarian') Librarian 
 
 
 

@@ -1,22 +1,17 @@
 'use strict';
 
-app.controller('editProfileAdminCtrl', function($scope, $location, $document, auth, ajaxPost, UserResource, UsersRolesResource, $routeParams, $http) {
+app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams, $http, auth, ajaxPost, UserResource) {
 
 	$scope.user = UserResource.get({id: $routeParams.id});
-	// $scope.roles = UsersRolesResource.getRoles();
 
 	$http({
 		method: 'get',
 		url: '/api/roles'
 	}).success(function(data) {
 		$scope.roles = data;
-		console.log($scope.roles);
 	}).error(function(err) {
 		console.log(err);
 	});
-
-
-	console.log('User: ' + $scope.user);
 
 	$scope.upload = false;
 

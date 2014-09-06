@@ -10,7 +10,7 @@ var usersRoles = [
 
 
 module.exports = {
-    getAllRoles: function(req, res) {
+	getAllRoles: function(req, res) {
 		res.send(usersRoles);
 	}
 };

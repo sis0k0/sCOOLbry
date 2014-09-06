@@ -61,13 +61,13 @@
                 .row.input-group.col-xs-12
                     input.form-control(name='themes', type='text', placeholder='Themes', ng-model='book.themes')
               .form-group
-                label.control-label(for='genre') Genre
-                .row.input-group.col-xs-12
-                    input.form-control(name='genre', type='text', placeholder='Genre', ng-model='book.genre')
-              .form-group
                 label.control-label(for='edition') Edition
                 .row.input-group.col-xs-12
                     input.form-control(name='edition', type='text', placeholder='Edition', ng-model='book.edition')
+              .form-group
+                label.control-label(for='genres') Genres
+                .row.input-group.col-xs-12
+                  select.form-control.nya-selectpicker(ng-options='(genre | titleCase) for genre in genres track by genre', data-live-search='true', data-size='4', data-width='100%', ng-model='book.genres', multiple)
         
         .pull-right
           button.btn.btn-primary(ng-click='updateBookAsAdmin(book)', ng-disabled='bookForm.$invalid') Update

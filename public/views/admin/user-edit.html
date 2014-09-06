@@ -55,10 +55,9 @@
                 <label for="roles" class="control-label">Roles</label>
                 <div class="row">
                   <div class="col-xs-12">
-                    <select ng-options="role for role in roles track by role" ng-model="user.roles" multiple="multiple" class="form-control nya-selectpicker"></select>
+                    <select ng-options="(role | titleCase) for role in roles track by role" ng-model="user.roles" multiple="multiple" class="form-control nya-selectpicker"></select>
                   </div>
                 </div>
-                <div class="row">Roles: {{ roles }}</div>
               </div>
             </div>
             <div class="col-md-5 col-md-offset-1">
@@ -110,20 +109,16 @@
         <div class="row">
           <div class="col-md-10 col-md-offset-1">
             <!-- TO DO: should show up all the libraries and allow picking one of them + search-->
-            <div ng-show=" user.roles.indexOf('librarian')!=-1 || user.roles.indexOf('libraryOwner')!=-1 " class="form-group">
-              <label for="roles" class="control-label">Roles</label>
-              <div class="row">
-                <div class="col-xs-12">
-                  <select name="roles" multiple="multiple" select-picker="select-picker" autofocus="standart" form="profileForm" ng-model="user.roles" title="The roles appear after modification" class="form-control">
-                    <option value="standart">Standart</option>
-                    <option value="moderator">Moderator</option>
-                    <option value="admin">Administrator</option>
-                    <option value="libraryOwner">Library owner</option>
-                    <option value="librarian">Librarian </option>
-                  </select>
-                </div>
-              </div>
-            </div>
+            <!-- .form-group(ng-show=" user.roles.indexOf('librarian')!=-1 || user.roles.indexOf('libraryOwner')!=-1 ")-->
+            <!--     label.control-label(for='roles') Roles-->
+            <!--     .row-->
+            <!--       .col-xs-12-->
+            <!--           select.form-control(name='roles', multiple, select-picker, autofocus='standart', form='profileForm', ng-model='user.roles', title='The roles appear after modification')-->
+            <!--             option(value='standart') Standart-->
+            <!--             option(value='moderator') Moderator-->
+            <!--             option(value='admin') Administrator-->
+            <!--             option(value='libraryOwner') Library owner-->
+            <!--             option(value='librarian') Librarian -->
             <div ng-class="{ 'has-success': (profileForm.aboutMe.$valid &amp;&amp; (!!user.aboutMe)) }" class="form-group">
               <label for="aboutMe" class="control-label">About Me</label>
               <div class="row">

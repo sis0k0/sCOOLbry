@@ -57,10 +57,10 @@
                   .col-xs-12
                     input.form-control(name='themes', type='text', placeholder='Themes', ng-model="book.themes")
               .form-group
-                label.control-label(for='genre') Genre
+                label.control-label(for='genres') Genres
                 .row
                   .col-xs-12
-                    input.form-control(name='genre', type='text', placeholder='Genre', ng-model="book.genre")
+                    select.form-control.nya-selectpicker(ng-options='(genre | titleCase) for genre in genres track by genre', ng-model='book.genres', multiple)
               .form-group
                 label.control-label(for='edition') Edition
                 .row
@@ -71,6 +71,7 @@
                 .row
                   .col-xs-12
                     input.form-control(name='published', type='text', datepicker='datepicker', placeholder='Published', ng-model="book.published")
+                .row {{ genres }}
         .pull-right
           button.btn.btn-primary(ng-click='addBook(book)') Add
           a.btn.btn-danger(href='/admin/books', style="margin-left:0.2em") Cancel
