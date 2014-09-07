@@ -44,8 +44,10 @@ block main-content
                             | {{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}
                             b.caret
                         ul.dropdown-menu
-                            li(ng-show="identity.currentUser.isAdminOrLibrarian()")
+                            li(ng-show="identity.currentUser.isAdmin()")
                                 a(href="/admin", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Admin Panel
+                            li(ng-show="identity.currentUser.hasLibraryPanel()")
+                                a(href="/admin", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Library Panel
                             li(ng-show="identity.isAuthenticated()")
                                 a(href="/profile", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Profile
                             li.divider

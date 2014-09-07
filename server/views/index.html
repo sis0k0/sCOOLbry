@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="/lib/bootstrap-datepicker/datepicker3.min.css">
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/lib/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="/lib/toastr/toastr.css">
     <link rel="stylesheet" href="/styles/site.css">
     <link rel="stylesheet" href="/styles/font-awesome.min.css">
-    <link rel="stylesheet" href="/styles/bootstrap-select.min.css">
   </head>
   <body ng-app="app" ng-cloak class="ng-cloak">
     <div class="container-fluid">
@@ -39,7 +39,8 @@
             <li><a href="/catalogue" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Catalogue</a></li>
             <li class="dropdown"><a href="" data-toggle="dropdown" class="dropdown-toggle">{{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li ng-show="identity.currentUser.isAdminOrLibrarian()"><a href="/admin" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Admin Panel</a></li>
+                <li ng-show="identity.currentUser.isAdmin()"><a href="/admin" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Admin Panel</a></li>
+                <li ng-show="identity.currentUser.hasLibraryPanel()"><a href="/admin" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Library Panel</a></li>
                 <li ng-show="identity.isAuthenticated()"><a href="/profile" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Profile</a></li>
                 <li class="divider"></li>
                 <li><a href="/" ng-click="logout()" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Sign Out</a></li>
@@ -64,8 +65,9 @@
     <script type="text/javascript" src="/lib/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="/lib/bootstrap-datepicker/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="/lib/bootstrap-datepicker/bootstrap-datepicker.bg.min.js"></script>
-    <script type="text/javascript" src="/lib/bootstrap-select/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="/lib/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="/lib/angular-re-captcha/angular-re-captcha.js"></script>
+    <script type="text/javascript" src="/lib/nya-bootstrap-select/src/nya-bootstrap-select.js"></script>
     <!-- bootstrap 3 javascript utilities-->
     <script type="text/javascript" src="/lib/bootstrap/js/tooltip.js"></script>
     <script type="text/javascript" src="/lib/bootstrap/js/button.js"></script>

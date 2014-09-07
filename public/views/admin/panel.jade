@@ -3,10 +3,10 @@
 
     ul.nav.nav-pills
 
-      li.active
+      li.active(ng-show="identity.currentUser.isAdmin()")
         a(href='admin/settings') Settings
 
-      li.dropdown
+      li.dropdown(ng-show="identity.currentUser.isAdmin()")
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           | Libraries
           span.caret
@@ -17,6 +17,14 @@
             a(href='admin/libraries') Browse
           li
             a(href='admin/libraries/search') Search
+            
+      li.dropdown(ng-show="identity.currentUser.hasLibraryPanel()")
+        a.dropdown-toggle(href='#', data-toggle='dropdown')
+          | Library
+          span.caret
+        ul.dropdown-menu(role='menu')
+          li
+            a(href='admin/library-details') Library Details
 
       li.dropdown
         a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -26,11 +34,27 @@
           li
             a(href='admin/books/add') Add
           li
-            a(href='admin/books') Browse
+            a(href='admin/books-library') Browse
           li
-            a(href='admin/books/search') Search
+            a(href='admin/books/search-library') Search
 
-      li.dropdown
+      li.dropdown(ng-show="identity.currentUser.hasLibraryPanel()")
+        a.dropdown-toggle(href='#', data-toggle='dropdown')
+          | Library Users
+          span.caret
+        ul.dropdown-menu(role='menu')
+          li
+            a(href='admin/libraries/add-user') Add
+          li
+            a(href='admin/libraries/users') Browse
+          li
+            a(href='admin/libraries/users-search') Search
+          li
+            a(href='admin/libraries/book-requests') Book Requests
+          li
+            a(href='admin/libraries/do') User Interaction
+            
+      li.dropdown(ng-show="identity.currentUser.isAdmin()")
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           | Users
           span.caret
