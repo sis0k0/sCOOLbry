@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LoginCtrl', function($scope, $location, notifier, identity, auth, $window) {
+app.controller('LogInCtrl', function($scope, $location, notifier, identity, auth, $window) {
     $scope.identity = identity;
 
     $scope.login = function(user) {

@@ -21,7 +21,7 @@ module.exports = function(grunt) {
             mangle: false
           },
           files: {
-            'public/scripts/app.min.js': ['public/scripts/app.js', 'public/scripts/*/*.js']
+            'public/build/app.min.js': ['public/scripts/**/*.js']
           }
         }
       },
