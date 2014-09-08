@@ -44,7 +44,7 @@ module.exports = function(grunt) {
         // build every .styl file to a single site.css file
         stylus: {
             options: {
-                compress: false
+                compress: true
             },
             compile: {
                 files: {
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
         },
 
 
-        // watch css and jade files and process the above tasks
+        // watch css and js files and process the above tasks
         watch: {
           css: {
             files: ['public/styles/*.styl'],
