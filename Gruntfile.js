@@ -60,10 +60,6 @@ module.exports = function(grunt) {
             files: ['public/styles/*.styl'],
             tasks: ['newer:stylus']
           },
-          jade: {
-            files: ['**/*.jade'],
-            tasks: ['newer:jade'],
-          },
           js: {
             files: ['public/scripts/app.js', 'public/scripts/*/*.js', 'server/**/*.js'],
             tasks: ['jshint', 'uglify']
@@ -103,7 +99,7 @@ module.exports = function(grunt) {
     // Default: check with jshint, build everything, run server and watch for changes
     grunt.registerTask(
         'default',
-        [ 'jshint', 'newer:stylus', 'newer:jade', 'uglify', 'concurrent' ]
+        [ 'jshint', 'newer:stylus', 'uglify', 'concurrent' ]
     );
 
     // JShint: check all javascript files
@@ -115,7 +111,7 @@ module.exports = function(grunt) {
     // Build: check javascript with jshint, and then build everything
     grunt.registerTask(
         'build',
-        [ 'jshint', 'newer:stylus', 'newer:jade', 'uglify' ]
+        [ 'jshint', 'newer:stylus', 'uglify' ]
     );
 
 };

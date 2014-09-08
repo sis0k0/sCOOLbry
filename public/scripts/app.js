@@ -96,8 +96,6 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
 			resolve: routeUserChecks.adminRole
 		})
 		
-
-		
 		// Users
 		
 		.when('/admin/users', {
