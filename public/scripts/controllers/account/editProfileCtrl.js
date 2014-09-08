@@ -20,11 +20,12 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
     $scope.upload = false;
 
     $scope.emailConfirm = $scope.user.email;
-
+    console.log('lqlq');
 	$scope.update = function(user) {
+		console.log('the ctrl');
         auth.update(user).then(function() {
             $scope.user = user;
-            $window.location = '/profile';
+            $location = '/profile';
         });
     };
 
