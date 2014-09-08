@@ -97,6 +97,11 @@
               .row
                 .col-xs-12
                   textarea.form-control(name='aboutMe', rows='3', placeholder='About Me', ng-model='user.aboutMe')
+            .form-group(ng-class="{ 'has-success': (profileForm.ownLibraryID.$valid && (!!user.ownLibraryID)) }")
+              label.control-label(for='ownLibraryID') Library
+              .row
+                .col-xs-12
+                  input.form-control(name='ownLibraryID', placeholder='Library', ng-model='user.ownLibraryID')
             .form-group(ng-class="{ 'has-success': (avatarUploadSuccessful), 'has-error': (avatarUploadError || avatarTypeError) }")
               label.control-label(for='avatar') Avatar
               .row

@@ -127,6 +127,14 @@
                 </div>
               </div>
             </div>
+            <div ng-class="{ 'has-success': (profileForm.ownLibraryID.$valid &amp;&amp; (!!user.ownLibraryID)) }" class="form-group">
+              <label for="ownLibraryID" class="control-label">Library</label>
+              <div class="row">
+                <div class="col-xs-12">
+                  <input name="ownLibraryID" placeholder="Library" ng-model="user.ownLibraryID" class="form-control"/>
+                </div>
+              </div>
+            </div>
             <div ng-class="{ 'has-success': (avatarUploadSuccessful), 'has-error': (avatarUploadError || avatarTypeError) }" class="form-group">
               <label for="avatar" class="control-label">Avatar</label>
               <div class="row">

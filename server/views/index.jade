@@ -47,7 +47,7 @@ block main-content
                             li(ng-show="identity.currentUser.isAdmin()")
                                 a(href="/admin", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Admin Panel
                             li(ng-show="identity.currentUser.hasLibraryPanel()")
-                                a(href="/admin", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Library Panel
+                                a(href="/libraryPanel", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Library Panel
                             li(ng-show="identity.isAuthenticated()")
                                 a(href="/profile", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Profile
                             li.divider

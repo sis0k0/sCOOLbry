@@ -40,7 +40,7 @@
             <li class="dropdown"><a href="" data-toggle="dropdown" class="dropdown-toggle">{{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}<b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li ng-show="identity.currentUser.isAdmin()"><a href="/admin" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Admin Panel</a></li>
-                <li ng-show="identity.currentUser.hasLibraryPanel()"><a href="/admin" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Library Panel</a></li>
+                <li ng-show="identity.currentUser.hasLibraryPanel()"><a href="/libraryPanel" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Library Panel</a></li>
                 <li ng-show="identity.isAuthenticated()"><a href="/profile" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Profile</a></li>
                 <li class="divider"></li>
                 <li><a href="/" ng-click="logout()" resize ng-attr-data-toggle="{{ dataToggle }}" ng-attr-data-target="{{ dataTarget }}">Sign Out</a></li>

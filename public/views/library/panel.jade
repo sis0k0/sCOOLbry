@@ -1,0 +1,40 @@
+.container
+  .well
+
+    ul.nav.nav-pills
+
+      li.dropdown
+        a.dropdown-toggle(href='#', data-toggle='dropdown')
+          | Library
+          span.caret
+        ul.dropdown-menu(role='menu')
+          li
+            a(href='libraryPanel/library-details') Library Details
+
+      li.dropdown
+        a.dropdown-toggle(href='#', data-toggle='dropdown')
+          | Books
+          span.caret
+        ul.dropdown-menu(role='menu')
+          li
+            a(href='libraryPanel/books/add') Add
+          li
+            a(href='libraryPanel/books-library') Browse
+          li
+            a(href='libraryPanel/books/search-library') Search
+
+      li.dropdown
+        a.dropdown-toggle(href='#', data-toggle='dropdown')
+          | Library Users
+          span.caret
+        ul.dropdown-menu(role='menu')
+          li
+            a(href='libraryPanel/add-user') Add
+          li
+            a(href='libraryPanel/users') Browse
+          li
+            a(href='libraryPanel/users-search') Search
+          li
+            a(href='libraryPanel/book-requests') Book Requests
+          li
+            a(href='libraryPanel/do') User Interaction

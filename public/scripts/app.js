@@ -19,15 +19,14 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
                 return auth.isAuthorizedForRole('admin');
             }
         },
-        adminOrLibraryRole: {
+        librarianRole: {
             authenticate: function(auth) {
-				if(auth.isAuthorizedForRole('admin')===true){
-					return true;
-				}else if(auth.isAuthorizedForRole('librarian')===true){
-					return true;
-				}else if(auth.isAuthorizedForRole('libraryOwner')===true){
-					return true;
-				}
+                return auth.isAuthorizedForRole('librarian');
+            }
+        },
+        libraryOwnerRole: {
+            authenticate: function(auth) {
+                return auth.isAuthorizedForRole('libraryOwner');
             }
         },
         authenticated: {
@@ -79,20 +78,31 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
         .when('/admin', {
             templateUrl: '/partials/admin/panel',
             controller: 'AdminPanelCtrl',
-            resolve: routeUserChecks.adminOrLibraryRole
+            resolve: routeUserChecks.adminRole
         })
-
+		
+		
+		//Library Panel
+		.when('/libraryPanel', {
+            templateUrl: '/partials/library/panel',
+            resolve: routeUserChecks.librarianRole
+        }).when('/libraryPanel/users', {
+            templateUrl: '/partials/library/users-list',
+            controller: 'LibraryUsersCtrl',
+            resolve: routeUserChecks.librarianRole
+        })
+        
         // Users
         
         .when('/admin/users', {
             templateUrl: '/partials/admin/users-list',
             controller: 'UserListCtrl',
-            resolve: routeUserChecks.adminOrLibraryRole
+            resolve: routeUserChecks.adminRole
         })
         .when('/admin/user/:id', {
             templateUrl: '/partials/admin/users-info',
             controller: 'UserInfoCtrl',
-            resolve: routeUserChecks.adminOrLibraryRole
+            resolve: routeUserChecks.adminRole
         })
         .when('/admin/user/edit/:id', {
             templateUrl: '/partials/admin/user-edit',
@@ -112,15 +122,25 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             controller: 'LibraryListCtrl',
             resolve: routeUserChecks.adminRole
         })
+        .when('/admin/libraries/users/:id', {
+            templateUrl: '/partials/admin/library-users',
+            controller: 'LibraryUsersCtrl',
+            resolve: routeUserChecks.adminRole
+        })
         .when('/admin/library/:id', {
             templateUrl: '/partials/admin/libraries-info',
             controller: 'LibraryInfoCtrl',
-            resolve: routeUserChecks.adminOrLibraryRole
+            resolve: routeUserChecks.adminRole
+        })
+        .when('/librarian/library/:id', {
+            templateUrl: '/partials/admin/libraries-info',
+            controller: 'LibraryInfoCtrl',
+            resolve: routeUserChecks.adminRole
         })
         .when('/admin/library/edit/:id', {
             templateUrl: '/partials/admin/library-edit',
             controller: 'editLibraryAdminCtrl',
-            resolve: routeUserChecks.adminOrLibraryRole
+            resolve: routeUserChecks.adminRole
         })
         .when('/admin/library/delete/:id', {
             templateUrl: '/partials/admin/library-delete',
@@ -130,27 +150,27 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
         .when('/admin/books', {
             templateUrl: '/partials/admin/books-list',
             controller: 'BookListCtrl',
-            resolve: routeUserChecks.adminOrLibraryRole
+            resolve: routeUserChecks.adminRole
         })
         .when('/admin/book/:id', {
             templateUrl: '/partials/admin/books-info',
             controller: 'BookInfoCtrl',
-            resolve: routeUserChecks.adminOrLibraryRole
+            resolve: routeUserChecks.adminRole
         })
         .when('/admin/books/add', {
             templateUrl: '/partials/admin/book-add',
             controller: 'AddBookCtrl',
-            resolve: routeUserChecks.adminOrLibraryRole
+            resolve: routeUserChecks.adminRole
         })
         .when('/admin/book/edit/:id', {
             templateUrl: '/partials/admin/book-edit',
             controller: 'editBookAdminCtrl',
-            resolve: routeUserChecks.adminOrLibraryRole
+            resolve: routeUserChecks.adminRole
         })
         .when('/admin/book/delete/:id', {
             templateUrl: '/partials/admin/book-delete',
             controller: 'BookDeleteCtrl',
-            resolve: routeUserChecks.adminOrLibraryRole
+            resolve: routeUserChecks.adminRole
         });
         
 });

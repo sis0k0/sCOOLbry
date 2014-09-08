@@ -28,5 +28,5 @@ module.exports = function(config) {
     library.seedInitialLibraries();
     book.seedInitialBooks();
     libBook.seedInitialLibBook();
-    libBook.seedInitialLibUser();
+    libUser.seedInitialLibUser();
 };

@@ -1,0 +1,34 @@
+
+<div class="container">
+  <div class="well">
+    <h1 class="text-center">Users list</h1>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <input placeholder="Search..." ng-model="search"/>
+      </div>
+    </div>
+    <div id="users-list" ng-init="pages();" class="table-responsive">
+      <table ng-class="{ 'table-wrapped': windowWidth&gt;768 }" resize="resize" class="table table-hover table-bordered">
+        <thead>
+          <tr class="text-bold text-primary">
+            <td id="_id" ng-click="sort($event); reloadUsers()">ID<span id="_id" class="glyphicon glyphicon-sort text-right"></span></td>
+            <td id="username" ng-click="sort($event); reloadUsers()">Username<span id="username" class="glyphicon glyphicon-sort text-right"></span></td>
+            <td id="given" ng-click="sort($event); reloadUsers()">Books Given<span id="given" class="glyphicon glyphicon-sort text-right"></span></td>
+            <td id="toReturn" ng-click="sort($event); reloadUsers()">Books To Return<span id="toReturn" class="glyphicon glyphicon-sort text-right"></span></td>
+            <td>Actions</td>
+          </tr>
+        </thead>
+        <tr ng-repeat="user in users">
+          <td class="text-bold">{{ user.userID }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.given }}</td>
+          <td>{{ user.toReturn }}</td>
+          <td><a href="/libraryPanel/user/{{ user.userID }}" title="Browse" tooltip="tooltip" class="btn-sm"><span class="glyphicon glyphicon-search text-success"></span></a><a href="/libraryPanel/user/{{ user.userID }}" title="Give/Return A Book" tooltip="tooltip" class="btn-sm"><span class="glyphicon glyphicon-book text-success"></span></a><a href="/libraryPanel/user/delete/{{ user.userID }}" title="Delete" tooltip="tooltip" onclick="return window.confirm(&quot;Deleting an user&quot; || &quot;Are you sure that you want to delete this user?&quot;)" class="btn-sm"><span class="glyphicon glyphicon-remove text-danger"></span></a></td>
+        </tr>
+      </table>
+    </div>
+    <div class="pagination">
+      <li ng-repeat="i in range(pagesCount) track by $index"><a href="#" ng-click="setPage($index+1, $event); reloadUsers();" id="page-{{ $index+1 }}" class="pageItem">{{ $index+1 }}</a></li>
+    </div>
+  </div>
+</div>
