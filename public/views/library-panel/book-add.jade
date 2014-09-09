@@ -1,0 +1,92 @@
+.container
+  .well
+    form.form-horizontal(name='bookForm')
+      fieldset
+        legend Add a Book
+        .row
+          .col-md-11.col-md-offset-1
+            .col-md-5
+              .form-group
+                  label.control-label(for="isbn") ISBN
+                  .row
+                      .col-xs-12
+                          input.form-control(name="isbn", type="text", placeholder="ISBN", ng-model="book.isbn")  
+                  label.control-label(for="title") Title
+                  .row
+                      .col-xs-12
+                          input.form-control(name="title", type="text", placeholder="Title", ng-model="book.title" required)
+                  label.control-label(for="author") Author
+                  .row
+                      .col-xs-12
+                          input.form-control(name="author", type="text", placeholder="Author", ng-model="book.author" required)  
+                  label.control-label(for="illustrations") Illustrations
+                  .row
+                      .col-xs-12
+                          input.form-control(name="illustrations", type="text", placeholder="Illustrations Author", ng-model="book.illustrations")             
+              .form-group
+                label.control-label(for='description') Description
+                .row
+                  .col-xs-12
+                    textarea.form-control(name='description', placeholder='Description', ng-model="book.description")
+              .form-group
+                label.control-label(for='publisher') Publisher
+                .row
+                  .col-xs-12
+                  .col-xs-12
+                    input.form-control(name='publisher', type='text', placeholder='Publisher', ng-model="book.publisher")
+              .form-group
+                label.control-label(for='cover') Cover
+                .row
+                  .col-xs-12
+                    input.form-control(name='cover', type='text', placeholder='Cover', ng-model="book.cover")              
+            .col-md-5.col-md-offset-1
+              .form-group
+                label.control-label(for='authorNationality') Author Nationality
+                .row
+                  .col-xs-12
+                    input.form-control(name='authorNationality', type='text', placeholder='Author Nationality', ng-model="book.authorNationality")
+              .form-group
+                label.control-label(for='language') Language
+                .row
+                  .col-xs-12
+                    input.form-control(name='language', type='text', placeholder='Book Language', ng-model="book.language")
+            
+              .form-group
+                label.control-label(for='themes') Themes
+                .row
+                  .col-xs-12
+                    input.form-control(name='themes', type='text', placeholder='Themes', ng-model="book.themes")
+              .form-group
+                label.control-label(for='genres') Genres
+                .row
+                  .col-xs-12
+                    select.form-control.nya-selectpicker(ng-options='(genre | titleCase) for genre in genres track by genre', ng-model='book.genres', multiple)
+              .form-group
+                label.control-label(for='edition') Edition
+                .row
+                  .col-xs-12
+                    input.form-control(name='edition', type='text', placeholder='Edition', ng-model="book.edition")
+              .form-group
+                label.control-label(for='total') Total
+                .row
+                  .col-xs-12
+                    input.form-control(name='total', type='text', placeholder='Total', ng-model="book.total")
+              .form-group
+                label.control-label(for='given') Given
+                .row
+                  .col-xs-12
+                    input.form-control(name='given', type='text', placeholder='Given', ng-model="book.given")
+              .form-group
+                label.control-label(for='available') Available
+                .row
+                  .col-xs-12
+                    input.form-control(name='available', type='text', placeholder='Available', ng-model="book.available")
+              .form-group
+                label.control-label(for='published') Published
+                .row
+                  .col-xs-12
+                    input.form-control(name='published', type='text', datepicker='datepicker', placeholder='Published', ng-model="book.published")
+                .row {{ genres }}
+        .pull-right
+          button.btn.btn-primary(ng-click='addBook(book)') Add
+          a.btn.btn-danger(href='/libraryPanel/books', style="margin-left:0.2em") Cancel

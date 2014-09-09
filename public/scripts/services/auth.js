@@ -82,9 +82,12 @@ app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource
 
             return deferred.promise;
         },
-        addBook: function(book) {
+        addBook: function(book, libraryID) {
             var deferred = $q.defer();
-
+			if(typeof libraryID !== undefined) {
+				book.libraryID = libraryID;
+			}
+			
             var newBook = new BookResource(book);
             newBook.$save().then(function() {
                 deferred.resolve();
