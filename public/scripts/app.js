@@ -82,6 +82,11 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             controller: 'LibraryPanelCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
+		.when('/libraryPanel/library-details', {
+			templateUrl: '/partials/library-panel/library-details',
+            controller: 'LibraryDetailsCtrl',
+			resolve: routeUserChecks.librarianRole
+		})
         .when('/libraryPanel/users', {
 			templateUrl: '/partials/library-panel/users-list',
             controller: 'LibraryUsersCtrl',

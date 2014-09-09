@@ -1,0 +1,110 @@
+
+<div class="container">
+  <div class="well">
+    <form name="bookForm" class="form-horizontal">
+      <fieldset>
+        <input type="hidden" ng-model="book._id" class="form-control"/>
+        <legend>Update Book</legend>
+        <div class="row">
+          <div class="col-md-11 col-md-offset-1">
+            <div class="col-md-5">
+              <div class="form-group">
+                <label for="isbn" class="control-label">ISBN</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <input name="isbn" type="text" placeholder="ISBN" ng-model="book.isbn" class="form-control"/>
+                  </div>
+                </div>
+              </div>
+              <div ng-class="{ 'has-success': (bookForm.name.$valid) }" class="form-group">
+                <label for="title" class="control-label">Title</label>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <input name="title" type="text" placeholder="Book Title" ng-model="book.title" required="required" class="form-control"/>
+                  </div>
+                </div>
+              </div>
+              <div ng-class="{ 'has-success': (bookForm.author.$valid) }" class="form-group">
+                <label for="author" class="control-label">Author</label>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <input name="author" type="text" placeholder="Book Author" ng-model="book.author" required="required" class="form-control"/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="illustrations" class="control-label">Illustrations</label>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <input name="illustrations" type="text" placeholder="Illustrations Author" ng-model="book.illustrations" class="form-control"/>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="description" class="control-label">Description</label>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <textarea name="description" rows="3" placeholder="Book Description" ng-model="book.description" class="form-control"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div ng-class="{ 'has-success': (bookForm.published.$valid &amp;&amp; (!!book.published)) }" class="form-group">
+                <label for="published" class="control-label">Published</label>
+                <div class="row input-group date">
+                  <input name="published" type="text" datepicker="datepicker" placeholder="Published" ng-model="book.published" class="form-control"/><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="publisher" class="control-label">Publisher</label>
+                <div class="row input-group date">
+                  <input name="publisher" type="text" placeholder="Publisher" ng-model="book.publisher" class="form-control"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 col-md-offset-1">
+              <div class="form-group">
+                <label for="cover" class="control-label">Cover</label>
+                <div class="row input-group col-xs-12">
+                  <input name="cover" type="text" placeholder="Cover" ng-model="book.cover" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="authorNationality" class="control-label">Author Nationality</label>
+                <div class="row input-group col-xs-12">
+                  <input name="authorNationality" type="text" placeholder="Author Nationality" ng-model="book.authorNationality" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="language" class="control-label">Language</label>
+                <div class="row input-group col-xs-12">
+                  <input name="language" type="text" placeholder="Language" ng-model="book.language" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="themes" class="control-label">Themes</label>
+                <div class="row input-group col-xs-12">
+                  <input name="themes" type="text" placeholder="Themes" ng-model="book.themes" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="edition" class="control-label">Edition</label>
+                <div class="row input-group col-xs-12">
+                  <input name="edition" type="text" placeholder="Edition" ng-model="book.edition" class="form-control"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="genres" class="control-label">Genres</label>
+                <div class="row input-group col-xs-12">
+                  <select ng-options="(genre | titleCase) for genre in genres track by genre" data-live-search="true" data-size="4" data-width="100%" ng-model="book.genres" multiple="multiple" class="form-control nya-selectpicker"></select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pull-right">
+          <button ng-click="updateBookAsAdmin(book)" ng-disabled="bookForm.$invalid" class="btn btn-primary">Update</button><a href="/admin/books" style="margin-left:0.2em" class="btn btn-danger">Cancel</a>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

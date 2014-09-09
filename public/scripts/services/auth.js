@@ -57,6 +57,18 @@ app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource
 
             return deferred.promise;
         },
+        updateLibraryAsLibrarian: function(library) {
+            var deferred = $q.defer();
+            var updatedLibrary = new LibraryResource(library);
+            updatedLibrary._id = library._id;
+            updatedLibrary.$update().then(function() {
+                deferred.resolve();
+            }, function(response) {
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
+        },
         updateBookAsAdmin: function(book) {
             var deferred = $q.defer();
 

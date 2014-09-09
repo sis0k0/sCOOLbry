@@ -1,0 +1,30 @@
+
+<div class="container">
+  <div class="well">
+    <h1 class="text-center">Title: {{ bookInfo.title }}</h1>
+    <table class="table table-striped table-bordered table-wrapped">
+      <tr ng-repeat="(key, value) in bookInfo">
+        <td class="col-md-4"><strong>{{ key }}</strong></td>
+        <td>{{ value }}</td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td>
+          <h2>Readers</h2>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h2>Libraries Owning the Book</h2>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <h2>Book Reviews</h2>
+        </td>
+      </tr>
+    </table>
+    <div class="row"><a href="/admin/book/delete/{{ bookInfo._id }}" onclick="return window.confirm(&quot;Deleting a book&quot; || &quot;Are you sure that you want to delete this book?&quot;)" class="btn btn-danger pull-right">Delete   </a><a href="/admin/book/edit/{{ bookInfo._id }}" style="margin-right:0.25em" class="btn btn-primary pull-right">Edit</a></div>
+  </div>
+</div>
