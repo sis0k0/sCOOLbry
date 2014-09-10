@@ -3,10 +3,10 @@
 
     ul.nav.nav-pills
 
-      li.active(ng-show="identity.currentUser.isAdmin()")
+      li.active
         a(href='admin/settings') Settings
 
-      li.dropdown(ng-show="identity.currentUser.isAdmin()")
+      li.dropdown
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           | Libraries
           span.caret
@@ -30,7 +30,7 @@
           li
             a(href='admin/books/search-library') Search
             
-      li.dropdown(ng-show="identity.currentUser.isAdmin()")
+      li.dropdown
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           | Users
           span.caret
