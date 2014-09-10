@@ -92,14 +92,24 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             controller: 'LibraryAddBookCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
-		.when('/libraryPanel/books', {
+		.when('/libraryPanel/bookInfo/:id', {
+			templateUrl: '/partials/library-panel/books-info',
+            controller: 'BookInfoCtrl',
+			resolve: routeUserChecks.librarianRole
+		})
+		.when('/libraryPanel/books-library', {
 			templateUrl: '/partials/library-panel/books-list',
-            controller: 'LibraryBooksCtrl',
+            controller: 'LibraryBooksListCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
 		.when('/libraryPanel/books/search', {
 			templateUrl: '/partials/library-panel/books-search',
             controller: 'LibraryBooksSearchCtrl',
+			resolve: routeUserChecks.librarianRole
+		})
+		.when('/libraryPanel/book/delete/:id', {
+			templateUrl: '/partials/library-panel/book-delete',
+            controller: 'LibraryBookDeleteCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
         .when('/libraryPanel/users', {

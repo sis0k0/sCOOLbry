@@ -3,7 +3,7 @@
     ul.nav.nav-pills
 
       li(class=selected=='settings'?'active':undefined)
-        a(href='admin/settings') Settings
+        a(href='/admin/settings') Settings
 
       li.dropdown(class=selected=='libraries'?'active':undefined)
         a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -11,11 +11,11 @@
           span.caret
         ul.dropdown-menu(role='menu')
           li
-            a(href='admin/libraries/add') Add
+            a(href='/admin/libraries/add') Add
           li
-            a(href='admin/libraries') Browse
+            a(href='/admin/libraries') Browse
           li
-            a(href='admin/libraries/search') Search
+            a(href='/admin/libraries/search') Search
 
       li.dropdown(class=selected=='books'?'active':undefined)
         a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -23,11 +23,11 @@
           span.caret
         ul.dropdown-menu(role='menu')
           li
-            a(href='admin/books/add') Add
+            a(href='/admin/books/add') Add
           li
-            a(href='admin/books-library') Browse
+            a(href='/admin/books-library') Browse
           li
-            a(href='admin/books/search-library') Search
+            a(href='/admin/books/search-library') Search
             
       li.dropdown(class=selected=='users'?'active':undefined)
         a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -35,8 +35,8 @@
           span.caret
         ul.dropdown-menu(role='menu')
           li
-            a(href='admin/users/add') Add
+            a(href='/admin/users/add') Add
           li
-            a(href='admin/users') Browse
+            a(href='/admin/users') Browse
           li
-            a(href='admin/users/search') Search
+            a(href='/admin/users/search') Search

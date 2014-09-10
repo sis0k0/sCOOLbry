@@ -43,6 +43,7 @@ module.exports = function(app) {
 	router.get('/api/book/count', controllers.books.getBookCount);
 	router.put('/api/books', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.books.updateBook);
 	router.get('/api/book/delete/:id', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.books.deleteBookById);
+	router.get('/api/book/delete2/:id', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.books.deleteBookFromLibraryById);
 	
 	// Filters -----------------------------------------------
 
@@ -64,6 +65,8 @@ module.exports = function(app) {
 		var requestedView = path.join('../../public/views', req.params[0]);
 
 		res.render(requestedView, function(err, html) {
+			console.log(err);
+			console.log(requestedView);
 			if(err) {
 				res.send('<h1>Page not found.</h1>', 404);
 			}
