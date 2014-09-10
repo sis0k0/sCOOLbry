@@ -1,12 +1,11 @@
 .container
   .well
-
     ul.nav.nav-pills
 
-      li.active
+      li(class=selected=='settings'?'active':undefined)
         a(href='admin/settings') Settings
 
-      li.dropdown
+      li.dropdown(class=selected=='libraries'?'active':undefined)
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           | Libraries
           span.caret
@@ -18,7 +17,7 @@
           li
             a(href='admin/libraries/search') Search
 
-      li.dropdown
+      li.dropdown(class=selected=='books'?'active':undefined)
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           | Books
           span.caret
@@ -30,7 +29,7 @@
           li
             a(href='admin/books/search-library') Search
             
-      li.dropdown
+      li.dropdown(class=selected=='users'?'active':undefined)
         a.dropdown-toggle(href='#', data-toggle='dropdown')
           | Users
           span.caret
