@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource, BookResource) {
+app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource, BookResource, LibBookResource2) {
     return {
         signup: function(user) {
             var deferred = $q.defer();
@@ -73,6 +73,19 @@ app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource
             var deferred = $q.defer();
 
             var updatedBook = new BookResource(book);
+            updatedBook._id = book._id;
+            updatedBook.$update().then(function() {
+                deferred.resolve();
+            }, function(response) {
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
+        },
+        updateLibBookAsLibrarian: function(book) {
+            var deferred = $q.defer();
+
+            var updatedBook = new LibBookResource2(book);
             updatedBook._id = book._id;
             updatedBook.$update().then(function() {
                 deferred.resolve();

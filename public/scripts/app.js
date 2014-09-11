@@ -107,6 +107,11 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             controller: 'LibraryBooksSearchCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
+		.when('/libraryPanel/book/edit/:id', {
+			templateUrl: '/partials/library-panel/book-edit',
+            controller: 'EditBookLibraryCtrl',
+			resolve: routeUserChecks.librarianRole
+		})
 		.when('/libraryPanel/book/delete/:id', {
 			templateUrl: '/partials/library-panel/book-delete',
             controller: 'LibraryBookDeleteCtrl',

@@ -133,6 +133,15 @@ module.exports = {
         });
     },
 
+    getLibBookById: function(req, res) {
+		LibBook.findOne({_id: req.params.id}).exec(function(err, book) {
+			if (err) {
+				console.log('LibBook could not be loaded: ' + err);
+			}
+			res.send(book);
+        });
+    },
+
     updateLibrary: function(req, res) {
 
 		if (req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('librarian') > -1 ) {
@@ -150,7 +159,24 @@ module.exports = {
             res.send({reason: 'You do not have permissions!'});
         }
     },
-    
+    updateLibBook: function(req, res) {
+
+		if (req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('librarian') > -1 ) {
+            var updatedLibraryData = req.body;
+           
+            var updatedId = req.body._id;
+            delete updatedLibraryData._id;
+			
+            LibBook.update({_id: updatedId}, updatedLibraryData, function(err) {
+				console.log(err);
+                res.end();
+            });
+        }
+        else {
+            res.send({reason: 'You do not have permissions!'});
+        }
+    },
+      
     deleteLibraryById: function(req, res) {
 		
         Library.remove({_id: req.params.id}, function(err) {

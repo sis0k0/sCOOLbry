@@ -28,7 +28,7 @@
           td
             a.btn-sm(href='/libraryPanel/bookInfo/{{ book.bookID }}', title='Browse', tooltip)
               span.glyphicon.glyphicon-search.text-success
-            a.btn-sm(href='/libraryPanel/books/edit/{{ book._id }}', title='Edit', tooltip)
+            a.btn-sm(href='/libraryPanel/book/edit/{{ book._id }}', title='Edit', tooltip)
               span.glyphicon.glyphicon-edit.text-primary
             a.btn-sm(href='/libraryPanel/book/delete/{{ book._id }}', title='Delete', tooltip, onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")')
               span.glyphicon.glyphicon-remove.text-danger
