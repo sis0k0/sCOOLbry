@@ -61,7 +61,7 @@ module.exports = function(grunt) {
             tasks: ['newer:stylus']
           },
           js: {
-            files: ['public/scripts/app.js', 'public/scripts/*/*.js', 'server/**/*.js'],
+            files: ['public/scripts/app.js', 'public/scripts/**/*.js', 'server/**/*.js'],
             tasks: ['jshint', 'uglify']
           }
         },

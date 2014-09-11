@@ -126,7 +126,7 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
 		// Administration ---------------------------------------------------------
 
 		.when('/admin', {
-			templateUrl: '/partials/admin-panel/panel',
+			templateUrl: '/partials/admin-panel/settings',
 			controller: 'AdminPanelCtrl',
 			resolve: routeUserChecks.adminRole
 		})
@@ -189,7 +189,7 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
 
         // Books
 
-		.when('/admin/books-library', {
+		.when('/admin/books', {
 			templateUrl: '/partials/admin-panel/books/books-list',
 			controller: 'BookListCtrl',
 			resolve: routeUserChecks.adminRole
