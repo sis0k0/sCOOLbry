@@ -74,6 +74,22 @@ module.exports = function(grunt) {
         },
 
 
+        // imagemin
+        imagemin: {
+          dynamic: {
+            options: {
+              optimizationLevel: 7
+            },
+            files: [{
+              expand: true,
+              cwd: 'public/images/',
+              src: ['**/**.{png,jpg,gif}'],
+              dest: 'public/dist/images/'
+            }]
+          }
+        },
+
+
         // watch css and js files and process the above tasks
         watch: {
           stylus: {
@@ -87,6 +103,10 @@ module.exports = function(grunt) {
           js: {
             files: ['public/scripts/app.js', 'public/scripts/**/*.js', 'server/**/*.js'],
             tasks: ['jshint', 'uglify']
+          },
+          images: {
+            files: ['public/images/**/**.{png,jpg,gif}'],
+            tasks: ['newer:imagemin']
           }
         },
 
@@ -114,6 +134,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jade');
     grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
@@ -124,13 +145,19 @@ module.exports = function(grunt) {
     // Default: check with jshint, build everything, run server and watch for changes
     grunt.registerTask(
         'default',
-        [ 'jshint', 'newer:stylus', 'newer:cssmin', 'uglify', 'concurrent' ]
+        [ 'jshint', 'newer:stylus', 'newer:cssmin', 'newer:imagemin', 'uglify', 'concurrent' ]
     );
 
     // JShint: check all javascript files
     grunt.registerTask(
         'JShint',
         [ 'jshint' ]
+    );
+
+    // Imagemin: minifies all images and moves them to the dist folder
+    grunt.registerTask(
+        'imagemin',
+        [ 'imagemin' ]
     );
 
     // Build: check javascript with jshint, and then build everything
