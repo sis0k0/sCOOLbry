@@ -6,7 +6,7 @@
       li(ng-class="{ 'active' : (menuItem == '') }")
         a(href='/admin', data-toggle="tab") Settings
 
-      li(ng-repeat='obj in menu', ng-class="{ 'active' : (obj.name == menuItem || obj.name == singleMenuItem) }")
+      li(ng-repeat='obj in menu', ng-class="{ 'active' : (obj.name == menuItem) }")
         a(href='#{{obj.name}}', data-toggle='tab', target='_self')
           | {{obj.name | titleCase}}
           span.caret
@@ -14,7 +14,7 @@
 
       .tab-content(style='margin-top:20px;')
 
-        .tab-pane.fade(ng-repeat='obj in menu', ng-class="{ 'active in' : (obj.name == menuItem || obj.name == singleMenuItem) }", id='{{obj.name}}')
+        .tab-pane.fade(ng-repeat='obj in menu', ng-class="{ 'active in' : (obj.name == menuItem) }", id='{{obj.name}}')
           ul.nav.nav-pills.nav-justified(role='menu')
             li(ng-repeat='(name, href) in obj.links', ng-class="{ 'active' : (href == path) }")
               a(href='{{ href }}') {{ name | titleCase }}

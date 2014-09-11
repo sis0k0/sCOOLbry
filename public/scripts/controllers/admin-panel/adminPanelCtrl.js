@@ -26,7 +26,6 @@ app.controller('AdminPanelCtrl', function($scope, $location, identity) {
 
 
 	$scope.menuItem = $scope.getMenuItem($scope.path);
-	$scope.singleMenuItem = $scope.menuItem.substring(1, $scope.menuItem.length);
 
 	$scope.menu = [
 
