@@ -6,6 +6,7 @@ var LibUser = require('mongoose').model('LibUser');
 
 module.exports = {
     getAllLibraries: function(req, res) {
+		
         Library.find({}).exec(function(err, collection) {
             if (err) {
                 console.log('Libraries could not be loaded: ' + err);

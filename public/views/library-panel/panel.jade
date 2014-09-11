@@ -1,40 +1,17 @@
-.container
+.container(ng-controller='LibraryPanelCtrl')
   .well
 
-    ul.nav.nav-pills
+    ul.nav.nav-tabs.nav-justified(role='tablist')
 
-      li.dropdown
-        a.dropdown-toggle(href='#', data-toggle='dropdown')
-          | Library
+      li(ng-repeat='obj in menu', ng-class="{ 'active' : (obj.name == menuItem || obj.name == singleMenuItem) }")
+        a(href='#{{obj.name}}', data-toggle='tab', target='_self')
+          | {{obj.name | titleCase}}
           span.caret
-        ul.dropdown-menu(role='menu')
-          li
-            a(href='libraryPanel/library-details') Library Details
 
-      li.dropdown
-        a.dropdown-toggle(href='#', data-toggle='dropdown')
-          | Books
-          span.caret
-        ul.dropdown-menu(role='menu')
-          li
-            a(href='libraryPanel/books/add') Add
-          li
-            a(href='libraryPanel/books-library') Browse
-          li
-            a(href='libraryPanel/books/search-library') Search
 
-      li.dropdown
-        a.dropdown-toggle(href='#', data-toggle='dropdown')
-          | Library Users
-          span.caret
-        ul.dropdown-menu(role='menu')
-          li
-            a(href='libraryPanel/add-user') Add
-          li
-            a(href='libraryPanel/users') Browse
-          li
-            a(href='libraryPanel/users-search') Search
-          li
-            a(href='libraryPanel/book-requests') Book Requests
-          li
-            a(href='libraryPanel/do') User Interaction
+      .tab-content(style='margin-top:20px;')
+
+        .tab-pane.fade(ng-repeat='obj in menu', ng-class="{ 'active in' : (obj.name == menuItem || obj.name == singleMenuItem) }", id='{{obj.name}}')
+          ul.nav.nav-pills.nav-justified(role='menu')
+            li(ng-repeat='(name, href) in obj.links', ng-class="{ 'active' : (href == path) }")
+              a(href='{{ href }}') {{ name | titleCase }}
