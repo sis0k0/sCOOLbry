@@ -250,7 +250,7 @@ app.run(function($rootScope, $location) {
 	// handling authorization errors
 	$rootScope.$on('$routeChangeError', function(ev, current, previous, rejection) {
 		if (rejection === 'not authorized') {
-			$location.path('/');
+			$location.path('/404');
 		}
 	});
 });
