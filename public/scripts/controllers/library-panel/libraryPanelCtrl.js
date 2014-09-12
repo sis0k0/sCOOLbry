@@ -47,7 +47,7 @@ app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
 		{
 			'name' : 'users',
 			links : {
-				'add' : '/libraryPanel/users/add-user',
+				'add' : '/libraryPanel/users/add',
 				'browse' : '/libraryPanel/users',
 				'search' : '/libraryPanel/users/search',
 				'book requests' : '/libraryPanel/users/book-requests',

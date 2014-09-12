@@ -19,6 +19,8 @@ module.exports = function(app) {
 	router.get('/library/user-count', controllers.libraries.getLibraryUsersCount);
 	router.put('/libraries', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.updateLibrary);
 	router.get('/library/delete/:id', auth.isInRole('admin'), controllers.libraries.deleteLibraryById);
+	router.post('/library/add-user', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.addLibraryUser);
+	router.get('/library/delete-user/:id', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.deleteLibraryUser);
 
 	/*router.get('/*', function(req, res) {
 		console.log(req);

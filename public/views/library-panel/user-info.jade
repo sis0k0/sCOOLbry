@@ -1,0 +1,26 @@
+-var selected = 'users'
+include ./panel
+
+.container
+  .well
+    h1.text-center Username: {{ userInfo.username }}
+    table.table.table-striped.table-bordered.table-wrapped 
+      tr(ng-repeat='(key, value) in userInfo')
+        td.col-md-4
+          strong {{ key }}
+        td {{ value }}
+
+    table
+      tr
+        td
+          h2 User Libraries
+      tr
+        td
+          h2 User Books
+      tr
+        td
+          h2 User Requests
+      tr
+        td
+          h2 User Reviews
+     

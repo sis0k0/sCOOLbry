@@ -14,7 +14,7 @@ module.exports = function(app) {
 	// Partials ----------------------------------------------
 	router.get('/partials/*', function(req, res) {
 		var requestedView = path.join('../../public/views', req.params[0]);
-
+		console.log(requestedView);
 		res.render(requestedView, function(err, html) {
 			if(err) {
 				res.send('<h1>Page not found.</h1>', 404);

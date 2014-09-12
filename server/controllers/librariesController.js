@@ -5,6 +5,25 @@ var LibBook = require('mongoose').model('LibBook');
 var LibUser = require('mongoose').model('LibUser');
 
 module.exports = {
+	addLibraryUser: function(req, res) {
+		
+		var newLibraryUser = new Object({});
+		newLibraryUser.userID = req.body.userID;
+		newLibraryUser.libraryID = req.body.libraryID;
+		newLibraryUser.username = req.body.username;
+		newLibraryUser.given = req.body.given;
+		newLibraryUser.toReturn = req.body.toReturn;
+		console.log(newLibraryUser);
+		LibUser.create(newLibraryUser, function(err, user){
+			if(err) {
+				console.log('Failed to add the user to the library: '+err);
+				return ;
+			}
+			
+			res.send(user);
+		});
+		
+	},
     getAllLibraries: function(req, res) {
 		
         Library.find({}).exec(function(err, collection) {
@@ -182,6 +201,20 @@ module.exports = {
 		
         Library.remove({_id: req.params.id}, function(err) {
             if (err) {
+					res.send('false');
+            }else{
+					res.send('true');
+					
+			}
+        });
+    },
+    
+    deleteLibraryUser: function(req, res) {
+		console.log(req.params);
+		
+        LibUser.remove({userID: req.params.id}, function(err) {
+            if (err) {
+				console.log(err);
 					res.send('false');
             }else{
 					res.send('true');

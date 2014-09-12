@@ -10,7 +10,7 @@ module.exports = function(app) {
 	router.get('/users', auth.isInRole('admin'), controllers.users.getAllUsers);
 	router.get('/users/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.users.getAllUsersSortable);
 	router.get('/users/search/:phrase', auth.isInRole('admin'), controllers.users.getAllUsersSearchable);
-	router.get('/userInfo/:id', auth.isInRole('admin'), controllers.users.getUserById);
+	router.get('/userInfo/:id', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.users.getUserById);
 	router.get('/user/delete/:id', auth.isInRole('admin'), controllers.users.deleteUserById);
 	router.post('/users', controllers.users.validCaptcha, controllers.users.createUser);
 	router.put('/users', auth.isAuthenticatedOrAdmin, controllers.users.updateUser);

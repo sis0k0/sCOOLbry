@@ -122,6 +122,26 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
             controller: 'LibraryUsersCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
+        .when('/libraryPanel/users/add', {
+			templateUrl: '/partials/library-panel/add-user',
+            controller: 'AddUserToLibraryCtrl',
+			resolve: routeUserChecks.librarianRole
+		})
+        .when('/libraryPanel/userInfo/:id', {
+			templateUrl: '/partials/library-panel/user-info',
+            controller: 'UserInfoLibraryCtrl',
+			resolve: routeUserChecks.librarianRole
+		})
+        .when('/libraryPanel/user/interact/:id', {
+			templateUrl: '/partials/library-panel/user-interact',
+            controller: 'UserInteractLibraryCtrl',
+			resolve: routeUserChecks.librarianRole
+		})
+        .when('/libraryPanel/user/delete/:id', {
+			templateUrl: '/partials/library-panel/user-delete',
+            controller: 'UserDeleteFromLibraryCtrl',
+			resolve: routeUserChecks.librarianRole
+		})
 
 		// Administration ---------------------------------------------------------
 
@@ -218,7 +238,7 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
 });
 
 app.run(function($rootScope, $location) {
-
+	
 	// handling authorization errors
 	$rootScope.$on('$routeChangeError', function(ev, current, previous, rejection) {
 		if (rejection === 'not authorized') {
