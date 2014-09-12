@@ -6,19 +6,11 @@ var	filters = require('../../../filters'),
 
 module.exports = function(app) {
 
-
-
 	// Users roles
 	router.get('/roles', filters.roles.getAllRoles);
 
     // Genres
 	router.get('/genres', filters.genres.getAllGenres);
-
-
-	//router.get('/*', function(req, res) {
-	//	res.status(404);
-	//	res.end();
-	//});
 
 	app.use('/api/', router);
 };

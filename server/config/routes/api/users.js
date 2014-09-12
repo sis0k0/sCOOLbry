@@ -20,10 +20,5 @@ module.exports = function(app) {
 
 	router.post('/images', auth.isAuthenticated, controllers.users.uploadAvatar);
 
-	//router.get('/*', function(req, res) {
-		//res.status(404);
-		//res.end();
-	//});
-
 	app.use('/api/', router);
 };

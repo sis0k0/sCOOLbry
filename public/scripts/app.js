@@ -233,6 +233,14 @@ app.config(function($routeProvider, $locationProvider, reCAPTCHAProvider) {
 			templateUrl: '/partials/admin-panel/books/book-delete',
 			controller: 'BookDeleteCtrl',
 			resolve: routeUserChecks.adminRole
+		})
+
+		// 404 Page not found
+		.when('/404', {
+			templateUrl: '/partials/404'
+		})
+		.otherwise({
+			redirectTo: '/404'
 		});
 		
 });

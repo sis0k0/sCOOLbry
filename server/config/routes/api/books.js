@@ -6,10 +6,9 @@ var auth = require('../../auth'),
 	router = express.Router();
 
 module.exports = function(app) {
-
 	
 	// Books
-		router.get('/books', controllers.books.getAllBooks);
+	router.get('/books', controllers.books.getAllBooks);
 	router.post('/books', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.books.createBook);
 	router.get('/books/:id', controllers.books.getBookById);
 	router.get('/book/sort/:field/:order/:page/:perPage', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.books.getAllBooksSortable);
@@ -17,12 +16,6 @@ module.exports = function(app) {
 	router.put('/books', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.books.updateBook);
 	router.get('/book/delete/:id', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.books.deleteBookById);
 	router.get('/book/delete2/:id', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.books.deleteBookFromLibraryById);
-
-	
-	//router.get('/*', function(req, res) {
-	//	res.status(404);
-	//	res.end();
-	//});
 
 	app.use('/api/', router);
 };
