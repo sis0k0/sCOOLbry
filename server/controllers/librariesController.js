@@ -3,6 +3,7 @@
 var Library = require('mongoose').model('Library');
 var LibBook = require('mongoose').model('LibBook');
 var LibUser = require('mongoose').model('LibUser');
+var Reading = require('mongoose').model('Reading');
 
 module.exports = {
 	addLibraryUser: function(req, res) {
@@ -67,7 +68,7 @@ module.exports = {
 		sortObject[field] = order;
         Library.find({}, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage}).exec(function(err, collection) {
             if (err) {
-                console.log('Users could not be loaded: ' + err);
+                console.log('Libraries could not be loaded: ' + err);
             }
 
             res.send(collection);
@@ -222,4 +223,73 @@ module.exports = {
 			}
         });
     },
+    takeBook: function(req, res) {
+		
+		var newReader = req.body;
+		Reading.Create(newReader, function(err, reader) {
+			if(err) {
+				console.log('Failed to add the reading to the library: '+err);
+				return ;
+			}
+			
+			res.send(reader);
+		});
+	},
+    returnBook: function(req, res) {
+		
+		var updatedReader = req.body;
+		var updatedId = req.body._id;
+		delete req.body._id;
+		Reading.update({_id: updatedId}, updatedReader, function(err) {
+				console.log(err);
+                res.end();
+        });
+	},
+	getAllReadings: function(req, res) {
+		Reading.find({}).exec(function(err, collection) {
+            if (err) {
+                console.log('Readings could not be loaded: ' + err);
+            }
+
+            res.send(collection);
+        });
+	},
+	getAllReadingsSortable: function(req, res) {
+
+        var order, field, page, perPage;
+
+		if(req.params.order===undefined) {
+			order = 'asc';
+		}else{
+			order = req.params.order;
+		}
+		
+		if(req.params.field===undefined) {
+			field = '_id';
+		}else{
+			field = req.params.field;
+		}
+		
+		if(req.params.page===undefined) {
+			page = 1;
+		}else{
+			page = req.params.page;
+		}
+		
+		if(req.params.perPage===undefined) {
+			perPage = 10;
+		}else{
+			perPage = req.params.perPage;
+		}
+		
+		var sortObject = {};
+		sortObject[field] = order;
+        Reading.find({}, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage}).exec(function(err, collection) {
+            if (err) {
+                console.log('Readings could not be loaded: ' + err);
+            }
+
+            res.send(collection);
+        });
+    }
 };
