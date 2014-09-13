@@ -36,7 +36,7 @@ var userSchema = mongoose.Schema({
     },
     avatar: {
         type: String,
-        default: 'images/icon-user-default.png'
+        default: 'dist/images/icon-user-default.png'
     },
     gender: {
         type: String,
