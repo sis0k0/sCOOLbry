@@ -1,5 +1,34 @@
 include ../panel
 
 .container
-	.well
-		h1 lqlq
+  .well
+    h1 Give/Return a Book to user {{ userInfo.username }}
+    form.form-horizontal(name='userForm')
+      fieldset
+        legend Return a book
+        .row
+          .col-md-12
+            .col-md-6
+              .form-group
+                label.text-left(for="isbn") Book ISBN
+                  .row
+                    .col-xs-12
+                      input.form-control(name="isbn", type="text", placeholder="ISBN", ng-model="interact.isbn")  
+            .col-md-6
+              .form-group
+                label(for="title") Book Title
+                  .row
+                    .col-xs-12
+                      input.form-control(name="title", type="text", placeholder="Book Title", ng-model="interact.title")  
+        .row
+          .col-md-12
+            .col-md-6
+              .form-group
+                label(for="comment") Comment
+                  .row
+                    .col-xs-12
+                      textarea.form-control(name="comment", cols="50", placeholder="The book has been returned in time and in good condition", ng-model="interact.comment")
+        .pull-right
+          button.btn.btn-primary(ng-click='returnBook(interact)') Return
+          a.btn.btn-danger(href='/libraryPanel/users', style="margin-left:0.2em") Cancel
+          
