@@ -4,28 +4,6 @@ app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
     $scope.identity = identity;
 	$scope.path = $location.path();
 
-	$scope.getMenuItem = function(path) {
-		var menuItem = path.substr(1, path.length);
-
-		var indexOfNextSlash = menuItem.indexOf('/');
-		if(indexOfNextSlash === -1) {
-			return '';
-		}
-		menuItem = menuItem.substring(indexOfNextSlash+1, menuItem.length);
-
-		indexOfNextSlash = menuItem.indexOf('/');
-		if(indexOfNextSlash === -1) {
-			indexOfNextSlash = menuItem.length;
-		}
-		menuItem = menuItem.substring(0, indexOfNextSlash);
-
-		return menuItem;
-	}
-
-
-	$scope.menuItem = $scope.getMenuItem($scope.path);
-	$scope.singleMenuItem = $scope.menuItem.substring(1, $scope.menuItem.length);
-
 	$scope.menu = [
 
 		{
@@ -55,4 +33,21 @@ app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
 			}
 		}
 	]
+
+
+	// Gets the current menu item
+	// using the current location path
+	$scope.getCurrentMenuItem = function(path) {
+		for(var i=0; i<$scope.menu.length; i++) {
+			for (var key in $scope.menu[i].links) {
+				if($scope.menu[i].links[key]===path){
+					return $scope.menu[i].name;
+				}
+			}
+		}
+		return '';
+	};
+
+	$scope.currentMenuItem = $scope.getCurrentMenuItem($scope.path);
+
 });
