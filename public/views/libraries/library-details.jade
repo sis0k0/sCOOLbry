@@ -1,5 +1,6 @@
 .container
+  .well
     h2 {{ library.title }}
     p {{ library.description }}
     ul
-        li(ng-repeat="tag in library.tags") {{ tag }}
+      li(ng-repeat="tag in library.tags") {{ tag }}
