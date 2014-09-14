@@ -2,7 +2,7 @@ include ../panel
 
 .container
   .well
-    h1 Give/Return a Book to user {{ userInfo.username }}
+    h1 Return a Book to user {{ userInfo.username }}
     form.form-horizontal(name='userForm')
       fieldset
         legend Return a book
@@ -10,17 +10,11 @@ include ../panel
           .col-md-12
             .col-md-6
               .form-group
-                label.text-left(for="isbn") Book ISBN
+                label.text-left(for="isbn") Book ISBN (the list below is made of books which are not returned by the user)
                   .row
                     .col-xs-12
-                      input.form-control(name="isbn", type="text", placeholder="ISBN", ng-model="interact.isbn")  
-            .col-md-6
-              .form-group
-                label(for="title") Book Title
-                  .row
-                    .col-xs-12
-                      input.form-control(name="title", type="text", placeholder="Book Title", ng-model="interact.title")  
-        .row
+                      select(ng-model="interact.isbn", ng-options="book.isbn for book in userInfo.books")  
+         .row
           .col-md-12
             .col-md-6
               .form-group
@@ -30,5 +24,43 @@ include ../panel
                       textarea.form-control(name="comment", cols="50", placeholder="The book has been returned in time and in good condition", ng-model="interact.comment")
         .pull-right
           button.btn.btn-primary(ng-click='returnBook(interact)') Return
+          a.btn.btn-danger(href='/libraryPanel/users', style="margin-left:0.2em") Cancel
+          
+    h1 Give a book to {{ userInfo.username }}
+    form.form-horizontal(name='userForm')
+      fieldset
+        legend Give a book
+        .row
+          .col-md-12
+            .col-md-6
+              .form-group
+                label.text-left(for="isbn") Book ISBN 
+                  .row
+                    .col-xs-12
+                      input(type="text", ng-model="interact.isbn")  
+         .row
+          .col-md-12
+            .col-md-6
+              .form-group
+                label.text-left(for="startDate") Start Date
+                  .row
+                    .col-xs-12
+                      input(type="text", ng-model="interact.startDate")  
+            .col-md-6
+              .form-group
+                label.text-left(for="endDate") End Date
+                  .row
+                    .col-xs-12
+                      input(type="text", ng-model="interact.endDate")    
+         .row
+          .col-md-12
+            .col-md-6
+              .form-group
+                label(for="comment") Comment
+                  .row
+                    .col-xs-12
+                      textarea.form-control(name="comment", cols="50", placeholder="The book has been returned in time and in good condition", ng-model="interact.comment")
+        .pull-right
+          button.btn.btn-primary(ng-click='giveBook(interact)') Give
           a.btn.btn-danger(href='/libraryPanel/users', style="margin-left:0.2em") Cancel
           

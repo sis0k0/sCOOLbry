@@ -226,7 +226,7 @@ module.exports = {
     takeBook: function(req, res) {
 		
 		var newReader = req.body;
-		Reading.Create(newReader, function(err, reader) {
+		Reading.create(newReader, function(err, reader) {
 			if(err) {
 				console.log('Failed to add the reading to the library: '+err);
 				return ;
@@ -291,5 +291,14 @@ module.exports = {
 
             res.send(collection);
         });
-    }
+    },
+	getAllNotReturnedReadings: function(req, res) {
+		Reading.find({userID: req.params.userID, libraryID: req.params.libraryID, returnDate: undefined}).exec(function(err, collection) {
+            if (err) {
+                console.log('Readings could not be loaded: ' + err);
+            }
+
+            res.send(collection);
+        });
+	}    
 };

@@ -21,6 +21,9 @@ module.exports = function(app) {
 	router.get('/library/delete/:id', auth.isInRole('admin'), controllers.libraries.deleteLibraryById);
 	router.post('/library/add-user', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.addLibraryUser);
 	router.get('/library/delete-user/:id', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.deleteLibraryUser);
-
+	router.post('/library/add-reading', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.takeBook);
+	router.get('/library/all-readings', controllers.libraries.getAllReadings);
+	router.get('/library/not-returned/:libraryID/:userID', controllers.libraries.getAllNotReturnedReadings);
+	
 	app.use('/api/', router);
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource, BookResource, LibBookResource2, LibUserResource) {
+app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource, BookResource, LibBookResource2, LibUserResource, ReadingResource) {
     return {
         signup: function(user) {
             var deferred = $q.defer();
@@ -175,6 +175,19 @@ app.factory('auth', function($http, $q, identity, UsersResource, LibraryResource
             console.log('dasdsada');
             console.log(user.dateOfBirth); //this works
             console.log(user.dateOfBirth.getMonth()); //this does not! ?!
-        }
+        },
+        giveBook: function(interact) {
+            var deferred = $q.defer();
+			
+            var newReading = new ReadingResource(interact);
+            newReading.$save().then(function() {
+                deferred.resolve();
+            }, function(response) {
+				
+                deferred.reject(response.data.reason);
+            });
+
+            return deferred.promise;
+		}
     };
 });
