@@ -236,11 +236,11 @@ module.exports = {
 		});
 	},
     returnBook: function(req, res) {
-		
+		console.log(req.body);
 		var updatedReader = req.body;
-		var updatedId = req.body._id;
-		delete req.body._id;
-		Reading.update({_id: updatedId}, updatedReader, function(err) {
+		var updatedISBN = req.body.bookISBN;
+		
+		Reading.update({bookISBN: updatedISBN}, updatedReader, function(err) {
 				console.log(err);
                 res.end();
         });
