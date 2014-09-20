@@ -4,3 +4,9 @@
     p {{ library.description }}
     ul
       li(ng-repeat="tag in library.tags") {{ tag }}
+    h2 Library Books
+    ul
+      li(ng-repeat="book in books") {{ book.bookName }}
+    h2 Books That You've Read In This Library
+    ul
+      li(ng-repeat="reading in readings") {{ reading.bookISBN }}

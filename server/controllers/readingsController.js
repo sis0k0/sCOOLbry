@@ -60,6 +60,15 @@ module.exports = {
             res.send(collection);
         });
 	},
+	getAllReadingsInLibraryForUser: function(req, res) {
+		Reading.find({userID: req.params.userID, libraryID: req.params.libraryID}).exec(function(err, collection) {
+            if (err) {
+                console.log('Readings could not be loaded: ' + err);
+            }
+
+            res.send(collection);
+        });
+	},
 	getAllReadingsUserSortable: function(req, res) {
 
         var order, field, page, perPage;

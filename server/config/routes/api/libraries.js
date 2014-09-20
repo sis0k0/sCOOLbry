@@ -25,6 +25,7 @@ module.exports = function(app) {
 	router.post('/library/remove-reading', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.returnBook);
 	router.get('/library/all-readings', controllers.libraries.getAllReadings);
 	router.get('/library/not-returned/:libraryID/:userID', controllers.libraries.getAllNotReturnedReadings);
+	router.get('/library/member/:libraryID/:userID', controllers.libraries.isMember);
 	
 	app.use('/api/', router);
 };
