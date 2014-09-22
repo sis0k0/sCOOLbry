@@ -27,7 +27,7 @@ include ../panel
                   label.control-label(for="confirm-password") Confirm email
                   .row
                     .col-xs-12
-                        input.form-control(name="confirmEmail", type="text", placeholder="Confirm email", ng-value="user.email", ng-model="emailConfirm", ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail)", required)
+                        input.form-control(name="confirmEmail", type="text", placeholder="Confirm email", ng-model="emailConfirm", ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail)", required)
                         span.has-error.help-block(ng-show="profileForm.confirmEmail.$error.notMatching && profileForm.confirmEmail.$dirty") These emails don't match. Try again?
               .form-group(ng-class="{ 'has-error': (profileForm.password.$invalid && profileForm.password.$dirty), 'has-success': (profileForm.password.$valid && profileForm.password.$dirty) }")
                   label.control-label(for="password") New Password
@@ -40,11 +40,6 @@ include ../panel
                     .col-xs-12
                         input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)")
                         span.has-error.help-block(ng-show="profileForm.confirmPassword.$error.notMatching && profileForm.confirmPassword.$dirty") These passwords don't match. Try again?
-              .form-group(ng-class = "{ 'has-success': profileForm.roles.$dirty }")
-                label.control-label(for='roles') Roles
-                .row
-                  .col-xs-12
-                      select.form-control.nya-selectpicker(ng-options='(role | titleCase) for role in roles track by role', ng-model='user.roles', multiple)
             .col-md-5.col-md-offset-1
               .form-group(ng-class="{ 'has-success': (profileForm.gender.$valid && (!!user.gender)) }")
                 label.control-label(for='gender') Gender
@@ -79,18 +74,23 @@ include ../panel
         .row
           .col-md-10.col-md-offset-1
 
+            .form-group(ng-class = "{ 'has-success': profileForm.roles.$dirty }")
+              label.control-label(for='roles') Roles
+              .row
+                .col-xs-12
+                    select.form-control.nya-selectpicker(title='Select user roles', ng-options='(role | titleCase) for role in roles track by role', ng-model='user.roles', multiple)
 
-            // TO DO: should show up all the libraries and allow picking one of them + search
-            // .form-group(ng-show=" user.roles.indexOf('librarian')!=-1 || user.roles.indexOf('libraryOwner')!=-1 ")
-            //     label.control-label(for='roles') Roles
-            //     .row
-            //       .col-xs-12
-            //           select.form-control(name='roles', multiple, select-picker, autofocus='standart', form='profileForm', ng-model='user.roles', title='The roles appear after modification')
-            //             option(value='standart') Standart
-            //             option(value='moderator') Moderator
-            //             option(value='admin') Administrator
-            //             option(value='libraryOwner') Library owner
-            //             option(value='librarian') Librarian 
+
+            .form-group(ng-show="user.roles.indexOf('librarian')!=-1 || user.roles.indexOf('libraryOwner')!=-1")
+                label.control-label(for='library') Library
+                .row
+                  .col-xs-6
+                    select.form-control.nya-selectpicker(title='Select existing', ng-options='value.name for (key, value) in libraries track by value._id', ng-model='user.ownLibraryID', live-search, multiple)
+                  
+                  .col-xs-6
+                    input.form-control(placeholder='or Add New', ng-model='libraries')
+
+
 
 
 

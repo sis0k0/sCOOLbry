@@ -2,7 +2,12 @@
 
 app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams, $http, auth, ajaxPost, UserResource) {
 
-	$scope.user = UserResource.get({id: $routeParams.id});
+	$scope.user = UserResource.get({id: $routeParams.id}, function() {
+		$scope.emailConfirm = $scope.user.email;
+	});
+
+	console.log($scope.user);
+	console.log($scope.user.ownLibraryID);
 
 	$http({
 		method: 'get',
@@ -13,9 +18,20 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 		console.log(err);
 	});
 
+
+	$http({
+		method: 'get',
+		url: '/api/libraries'
+	}).success(function(data) {
+		$scope.libraries = data;
+	}).error(function(err) {
+		console.log('get err');
+		console.log(err);
+	});
+
+
 	$scope.upload = false;
 
-	$scope.emailConfirm = $scope.user.email;
 
 	$scope.updateAsAdmin = function(user) {
 		auth.updateAsAdmin(user).then(function() {
