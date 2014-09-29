@@ -7,6 +7,12 @@
     h2 Library Books
     ul
       li(ng-repeat="book in books") {{ book.bookName }}
-    h2 Books That You've Read In This Library
-    ul
-      li(ng-repeat="reading in readings") {{ reading.bookISBN }}
+    div(ng-show="isMember" class="ng-show")
+      h2 Books That You've Read In This Library
+      ul
+        li(ng-repeat="reading in readings") {{ reading.bookISBN }}
+    div(ng-show="isLoggedIn" class="ng-show")
+      div(ng-hide="isMember" class="ng-hide")
+        h2 Become a Member
+        button.btn.btn-primary(ng-click='subscribeForLibrary()') Subscribe
+
