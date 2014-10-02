@@ -44,5 +44,18 @@ app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, cachedLi
                 notifier.error(reason);
             });
     };
+    
+ 	$scope.unsubscribeForLibrary = function() {
+        var responsePromise = $http.get('/api/library/delete-user/'+identity.currentUser._id+'/'+$routeParams.id);
+		responsePromise.success(function(data) {
+		    notifier.success('You\'ve unsubscribed successfully!');
+            $location.path('/libraries');
+        
+		}).error(function(reason) {
+			notifier.error(reason);
+		    $location.path('/libraries');
+        });      
+		
+    };
 
 });

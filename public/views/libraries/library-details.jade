@@ -15,4 +15,8 @@
       div(ng-hide="isMember" class="ng-hide")
         h2 Become a Member
         button.btn.btn-primary(ng-click='subscribeForLibrary()') Subscribe
+    div(ng-show="isLoggedIn" class="ng-show")
+      div(ng-show="isMember" class="ng-show")
+        h2 Unsubscribe
+        button.btn.btn-primary(ng-click='unsubscribeForLibrary()') Unsubscribe
 

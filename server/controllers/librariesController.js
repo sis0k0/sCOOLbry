@@ -213,7 +213,7 @@ module.exports = {
     deleteLibraryUser: function(req, res) {
 		console.log(req.params);
 		
-        LibUser.remove({userID: req.params.id}, function(err) {
+        LibUser.remove({userID: req.params.id, libraryID: req.params.libraryID}, function(err) {
             if (err) {
 				console.log(err);
 					res.send('false');
