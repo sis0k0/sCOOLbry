@@ -5,8 +5,6 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 	$scope.user = UserResource.get({id: $routeParams.id}, function() {
 		$scope.emailConfirm = $scope.user.email;
 	});
-
-	console.log($scope.user);
 	console.log($scope.user.ownLibraryID);
 
 	$http({
@@ -92,4 +90,8 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 			confirmField.$setValidity('notMatching', true);
 		}
 	};
+
+	$scope.selectLibrary = function(field) {
+		$scope.user.ownLibraryID = $scope.libraryObject[0]._id;
+	}
 });

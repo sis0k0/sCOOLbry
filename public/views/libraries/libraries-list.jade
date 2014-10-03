@@ -1,20 +1,21 @@
 .container
-  .row
-    .col-md-2 Search
-    .col-md-4
-      input.form-control(type="text", placeholder="Search", ng-model="search")
-    .col-md-2 Sort
-    .col-md-4
-      select.form-control(ng-model="sort")
-        option(value=" " ng-selected="'true'") Default
-        option(value="name") Name
-        option(value="description") Description
-  br
-  table.table
-    tr
-      th Title
-      th Description
-    tr(ng-repeat="library in libraries | filter: search | orderBy: sort")
-      td
-        a(href="/libraries/{{ library._id }}") {{ library.name }}
-      td {{ library.description }}
+  .well
+    .row
+      .col-md-10
+        input.form-control(type="text", placeholder="Type to search in {{ libraries.length }} libraries...", ng-model="search")
+      .col-md-2
+        select.form-control.nya-selectpicker(name="sort", ng-model="sort", title="Sort by...")
+          option(value=" " ng-selected="'true'") Default
+          option(value="name") Name
+          option(value="description") Description
+    br
+    table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
+      thead
+        tr
+          th.text-center Title
+          th.text-center Description
+      tbody
+        tr(ng-repeat="library in libraries | filter: search | orderBy: sort")
+          td
+            a(href="/libraries/{{ library._id }}") {{ library.name }}
+          td {{ library.description }}

@@ -22,19 +22,20 @@ include ../panel
             td#tags(ng-click="sort($event); reloadLibraries()") Tags
               span#tags.glyphicon.glyphicon-sort.text-right
             td Actions
-        tr(ng-repeat="library in libraries")
-          td.text-bold {{ library._id }}
-          td {{ library.name }}
-          td {{ library.description }}
-          td {{ library.published }}
-          td {{ library.tags }}
-          td
-            a.btn-sm(href='/admin/library/{{ library._id }}', title='Browse', tooltip)
-              span.glyphicon.glyphicon-search.text-success
-            a.btn-sm(href='/admin/library/edit/{{ library._id }}', title='Edit', tooltip)
-              span.glyphicon.glyphicon-edit.text-primary
-            a.btn-sm(href='/admin/library/delete/{{ library._id }}', title='Delete', tooltip, onclick='return window.confirm("Deleting an library" || "Are you sure that you want to delete this library?")')
-              span.glyphicon.glyphicon-remove.text-danger
+        tbody
+          tr(ng-repeat="library in libraries")
+            td.text-bold {{ library._id }}
+            td {{ library.name }}
+            td {{ library.description }}
+            td {{ library.published }}
+            td {{ library.tags }}
+            td
+              a.btn-sm(href='/admin/library/{{ library._id }}', title='Browse', tooltip)
+                span.glyphicon.glyphicon-search.text-success
+              a.btn-sm(href='/admin/library/edit/{{ library._id }}', title='Edit', tooltip)
+                span.glyphicon.glyphicon-edit.text-primary
+              a.btn-sm(href='/admin/library/delete/{{ library._id }}', title='Delete', tooltip, onclick='return window.confirm("Deleting an library" || "Are you sure that you want to delete this library?")')
+                span.glyphicon.glyphicon-remove.text-danger
     .pagination
         li(ng-repeat="i in range(pagesCount) track by $index")
           a(class="pageItem" href="#" ng-click="setPage($index+1, $event); reloadLibraries();" id="page-{{ $index+1 }}") {{ $index+1 }}
