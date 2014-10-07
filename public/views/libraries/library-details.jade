@@ -6,7 +6,8 @@
       li(ng-repeat="tag in library.tags") {{ tag }}
     h2 Library Books
     ul
-      li(ng-repeat="book in books") {{ book.bookName }}
+      li(ng-repeat="book in books")
+        a(href="/book/{{ book.bookID }}") {{ book.bookName }}
     div(ng-show="isMember" class="ng-show")
       h2 Books That You've Read In This Library
       ul

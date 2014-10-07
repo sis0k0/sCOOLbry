@@ -46,6 +46,10 @@ app.config(function($routeProvider) {
 			templateUrl: '/partials/libraries/library-details',
 			controller: 'LibraryDetailsPageCtrl'
 		})
+		.when('/book/:id', {
+			templateUrl: '/partials/books/book-details',
+			controller: 'BookDetailsCtrl'
+		})
 
 
 		// 404 Page not found
