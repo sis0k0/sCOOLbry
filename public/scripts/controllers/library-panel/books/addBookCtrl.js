@@ -17,7 +17,7 @@ app.controller('LibraryAddBookCtrl', function($scope, $location, $http, auth, no
     $scope.addBook = function(book) {
         auth.addBook(book, identity.currentUser.ownLibraryID).then(function() {
             notifier.success('Book added successfully!');
-            $location.path('/libraryPanel/books');
+            $location.path('/libraryPanel/books-library');
         }, function(reason){
                 notifier.error(reason);
             });
