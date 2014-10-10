@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams, $http, auth, ajaxPost, UserResource) {
+app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams, $window, $http, auth, ajaxPost, UserResource) {
 
 	$scope.user = UserResource.get({id: $routeParams.id}, function() {
 		$scope.emailConfirm = $scope.user.email;
@@ -22,8 +22,9 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 		url: '/api/libraries'
 	}).success(function(data) {
 		$scope.libraries = data;
+		$scope.libraryObject = $scope.user.ownLibraryID;
 	}).error(function(err) {
-		console.log('get err');
+		//console.log('get err');
 		console.log(err);
 	});
 
@@ -34,6 +35,7 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 	$scope.updateAsAdmin = function(user) {
 		auth.updateAsAdmin(user).then(function() {
 			$location.path('/admin/users');
+			$window.location.reload();
 		});
 	};
 
@@ -92,6 +94,9 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 	};
 
 	$scope.selectLibrary = function(field) {
-		$scope.user.ownLibraryID = $scope.libraryObject[0]._id;
+		console.log($scope.libraryObject);
+		$scope.user.ownLibraryID = $scope.libraryObject;
 	}
+
+
 });

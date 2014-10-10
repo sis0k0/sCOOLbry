@@ -1,0 +1,74 @@
+include ../panel
+
+.container
+  .well
+    form.form-horizontal(name='libraryForm')
+      fieldset
+        legend Add new Library
+        .row
+          .col-md-11.col-md-offset-1
+            .col-md-5
+              .form-group(ng-class="{ 'has-success': (libraryForm.name.$valid), 'has-error': (libraryForm.name.$invalid) }")
+                  label.control-label(for='name') Name *
+                  .row
+                    .col-xs-12
+                        input.form-control(name='name', type='text', placeholder='Name', ng-model='library.name', required)
+  
+              .form-group(ng-class="{ 'has-success': (libraryForm.country.$dirty), 'has-error': (libraryForm.country.$invalid) }")
+                label.control-label(for='country') Country *
+                .row
+                  .col-xs-12
+                    select.form-control.nya-selectpicker(name='country', ng-model='library.country', ng-options='value.name for (key, value) in countries track by value.name', data-live-search, ng-attr-title='{{ !!library.country && library.country.name || "Select country" }}', required, novalidate)
+
+              .form-group(ng-class="{ 'has-success': (libraryForm.city.$valid), 'has-error': (libraryForm.city.$invalid) }")
+                  label.control-label(for='city') City *
+                  .row
+                    .col-xs-12
+                        input.form-control(name='city', type='text', placeholder='City', ng-model='library.city', ng-pattern='/^([a-zA-Z\u0080-\u024F]+(?:. |-| |\'))*[a-zA-Z\u0080-\u024F]*$/', required)
+  
+              .form-group(ng-class="{ 'has-success': (libraryForm.address.$valid), 'has-error': (libraryForm.address.$invalid) }")
+                  label.control-label(for='address') Address *
+                  .row
+                    .col-xs-12
+                        input.form-control(name='address', type='text', placeholder='Address', ng-model='library.address', required)
+  
+            .col-md-5.col-md-offset-1
+              
+                .form-group(ng-class="{ 'has-success': (libraryForm.yearOfEstabilishment.$valid && libraryForm.yearOfEstabilishment.$dirty), 'has-error': (libraryForm.yearOfEstabilishment.$invalid) }")
+                  label.control-label(for='yearOfEstabilishment') Year of Estabilishment
+                  .row
+                    .col-xs-12
+                        input.form-control(name='yearOfEstabilishment', type='text', placeholder='Year', ng-model='library.yearOfEstabilishment', ng-pattern='/^(1[0-9][0-9][0-9]|200[0-9]|201[0-4])$/')
+              
+                .form-group(ng-class="{ 'has-success': (libraryForm.tags.$valid && libraryForm.tags.$dirty) }")
+                  label.control-label(for='tags') Tags
+                  .row
+                    .col-xs-12
+                        input.form-control(name='tags', type='text', placeholder='Tags', ng-model='library.tags')
+                .row
+                  .col-xs-3
+                    .form-group(ng-class="{ 'has-success': (library.featured === true) }")
+                      label.control-label(for='featured') Featured
+                        .row
+                          .col-xs-12
+                              input.form-control.checkbox(name='featured', type='checkbox', ng-model='library.featured') 
+                  
+                  .col-xs-3
+                    .form-group(ng-class="{ 'has-success': (library.visible === true) }")
+                      label.control-label(for='visible') Visible
+                        .row
+                          .col-xs-12
+                              input.form-control.checkbox(name='visible', type='checkbox', ng-model='library.visible') 
+                
+
+                .form-group(ng-class="{ 'has-success': (libraryForm.librarians.$dirty), 'has-error': (libraryForm.librarians.$invalid) }")
+                  label.control-label(for='librarians') Librarians *
+                  .row
+                    .col-xs-12
+                      select.form-control.nya-selectpicker(name='librarians', ng-model='library.librarians', ng-options='value._id as value.username for (key, value) in users track by value._id', data-live-search, ng-attr-title='{{ !!library.librarians && library.librarians.name || "Choose librarians" }}', multiple, required)
+       
+
+
+        .pull-right
+          button.btn.btn-primary(ng-disabled='libraryForm.$invalid' ng-click='addLibrary(library)') Add
+          a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') Cancel

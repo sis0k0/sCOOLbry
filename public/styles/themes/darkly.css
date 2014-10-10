@@ -6396,3 +6396,16 @@ textarea:focus {
 .panel-default > .panel-heading {
   background-color: #464545;
 }
+
+/*
+* Theme modifications
+*/
+
+.bootstrap-select-searchbox input, .bootstrap-select-searchbox .form-control {
+  border: 1px solid #375a7f;
+}
+
+.bootstrap-select-searchbox input:focus, .bootstrap-select-searchbox .form-control:focus {
+  border: 1px solid #00bc8c;
+}
+

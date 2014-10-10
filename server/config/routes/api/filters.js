@@ -12,5 +12,8 @@ module.exports = function(app) {
     // Genres
 	router.get('/genres', filters.genres.getAllGenres);
 
+	// Countries
+	router.get('/countries', filters.countries.getAllCountries);
+
 	app.use('/api/', router);
 };

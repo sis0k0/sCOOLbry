@@ -9,7 +9,11 @@ module.exports = function(app) {
 
 	// Libraries
 	router.get('/libraries', controllers.libraries.getAllLibraries);
+	router.post('/libraries', auth.isInRole('admin'), controllers.libraries.createLibrary);
+	
 	router.get('/libraries/:id', controllers.libraries.getLibraryById);
+
+
 	router.get('/library/books/:id', controllers.libraries.getLibraryBooksById);
 	router.get('/library/book/:id', controllers.libraries.getLibBookById);
 	router.put('/library/book', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.updateLibBook);

@@ -1,14 +1,43 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    countries = require('../filters/countries');
 
 var librarySchema = mongoose.Schema({
-    name: String,
-    address: String,
-    featured: String,
+    name: {
+        type: String,
+        required: '{PATH is required}'
+    },
+    yearOfEstabilishment: {
+        type: Date
+    },
+    published: {
+        type: Date,
+        default: Date.now
+    },
+    country: {
+        type: Object,
+        required: '{PATH is required}',
+        enum: [countries.getAllCountries]
+    },
+    city: {
+        type: String,
+        required: '{PATH is required}'
+    },
+    address: {
+        type: String,
+        required: '{PATH is required}'
+    },
+    featured: {
+        type: Boolean,
+        default: false
+    },
+    visible: {
+        type: Boolean,
+        default: false
+    },
     description: String,
-    published: Date,
-    ownerId: String,
+    librarians: [String],
     tags: [String]
 });
 

@@ -2,7 +2,6 @@
 
 app.controller('UserInfoCtrl', function($scope, UserResource, $routeParams) {
     $scope.userInfo = UserResource.get({id: $routeParams.id}, function(data){
-	
 		if(data.dateOfBirth===undefined){
 			data.dateOfBirth = 'N/A';
 		}
@@ -24,6 +23,8 @@ app.controller('UserInfoCtrl', function($scope, UserResource, $routeParams) {
 		}
 
 	});
+
+	console.log($scope.userInfo);
     
    
 });

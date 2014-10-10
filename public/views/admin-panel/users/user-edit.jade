@@ -85,7 +85,7 @@ include ../panel
                 label.control-label(for='library') Library
                 .row
                   .col-xs-6
-                    select.form-control.nya-selectpicker(name='ownLibraryID', title='Select existing', ng-options='value.name for (key, value) in libraries track by value._id', ng-model='libraryObject', data-live-search, multiple, ng-change='selectLibrary(profileForm.ownLibraryID)')
+                    select.form-control.nya-selectpicker(name='ownLibraryID', ng-attr-title='{{ user.ownLibraryID.name }}', ng-options='value.name for (key, value) in libraries track by value._id', ng-model='user.ownLibraryID', data-live-search)
                   
                   .col-xs-6
                     input.form-control(placeholder='or Add New', ng-model='libraryObject')

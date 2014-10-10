@@ -5,9 +5,11 @@ app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, cachedLi
         collection.forEach(function(library) {
             if (library._id === $routeParams.id) {
                 $scope.library = library;
+                console.log(library);
             }
         });
     });
+
     
     $scope.books = LibBookResource.query({id: $routeParams.id});
 

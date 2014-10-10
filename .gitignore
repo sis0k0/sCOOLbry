@@ -1,10 +1,10 @@
-.idea
-node_modules
-Theme - Soda
-server/uploads
-uploads
-npm-debug.log
-.c9
-heroku-client.tgz
-heroku-client
-database
+/.idea
+/node_modules
+/Theme - Soda
+/server/uploads
+/uploads
+/npm-debug.log
+/.c9
+/heroku-client.tgz
+/heroku-client
+/database
