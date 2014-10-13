@@ -17,16 +17,13 @@ var librarySchema = mongoose.Schema({
     },
     country: {
         type: Object,
-        required: '{PATH is required}',
         enum: [countries.getAllCountries]
     },
     city: {
-        type: String,
-        required: '{PATH is required}'
+        type: String
     },
     address: {
-        type: String,
-        required: '{PATH is required}'
+        type: String
     },
     featured: {
         type: Boolean,
@@ -35,6 +32,13 @@ var librarySchema = mongoose.Schema({
     visible: {
         type: Boolean,
         default: false
+    },
+    certified: {
+        type: Boolean,
+        default: false
+    },
+    certificate: {
+        type: String
     },
     description: String,
     librarians: [String],

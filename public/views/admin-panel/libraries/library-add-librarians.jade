@@ -1,0 +1,27 @@
+include ../panel
+
+.container
+  .well
+    form.form-horizontal(name='libraryForm')
+      fieldset
+        legend Add Librarians to the Library
+        .row
+          .col-md-11.col-md-offset-1
+            .col-md-5
+                .form-group(ng-class="{ 'has-success': (libraryForm.librarians.$dirty), 'has-error': (libraryForm.librarians.$invalid) }")
+                  label.control-label(for='librarians') Select from existing users
+                  .row
+                    .col-xs-12
+                      select.form-control.nya-selectpicker(name='librarians', ng-model='library.librarians', ng-options='value._id as value.username for (key, value) in users track by value._id', data-live-search, ng-attr-title='{{ !!library.librarians && library.librarians.name || "Choose librarians" }}', multiple, required)
+       
+            .col-md-5.col-md-offset-1
+                .form-group(ng-class="{ 'has-success': (libraryForm.librarians.$dirty), 'has-error': (libraryForm.librarians.$invalid) }")
+                  label.control-label(for='librarians') Or create new user
+                  .row
+                    .col-xs-12
+                      select.form-control.nya-selectpicker(name='librarians', ng-model='library.librarians', ng-options='value._id as value.username for (key, value) in users track by value._id', data-live-search, ng-attr-title='{{ !!library.librarians && library.librarians.name || "Choose librarians" }}', multiple, required)
+       
+
+        .pull-right
+          button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='addLibrary(library)') Add
+          a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') Cancel

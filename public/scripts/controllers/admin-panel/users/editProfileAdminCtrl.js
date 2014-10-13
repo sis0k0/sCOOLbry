@@ -40,14 +40,14 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 	};
 
 	$scope.setFileEventListener = function(element) {
-			$scope.uploadedFile = element.files[0];
+		$scope.uploadedFile = element.files[0];
 
-			if ($scope.uploadedFile) {
-				$scope.$apply(function() {
-					$scope.uploadButtonState = true;
-				});   
-			}
-		};
+		if ($scope.uploadedFile) {
+			$scope.$apply(function() {
+				$scope.uploadButtonState = true;
+			});   
+		}
+	};
 
 	$scope.uploadFile = function() {
 		if (!$scope.uploadedFile) {
