@@ -24,7 +24,6 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 		$scope.libraries = data;
 		$scope.libraryObject = $scope.user.ownLibraryID;
 	}).error(function(err) {
-		//console.log('get err');
 		console.log(err);
 	});
 
@@ -34,8 +33,7 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 
 	$scope.updateAsAdmin = function(user) {
 		auth.updateAsAdmin(user).then(function() {
-			$location.path('/admin/users');
-			$window.location.reload();
+			$window.location.href('/admin/users');
 		});
 	};
 
