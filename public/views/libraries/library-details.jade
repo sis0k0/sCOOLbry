@@ -19,15 +19,17 @@
           h1.text-center {{ library.name }}
           h4.text-center.text-primary {{ library.address }}, {{ library.city }}, {{ library.country.name }}
 
-          p {{ library.description }}
+          div(ng-show='!!library.description')
+            h2.text-success Description
+            p {{ library.description }}
 
-          div(ng-show="isLoggedIn" class="ng-show")
-            div(ng-hide="isMember" class="ng-hide")
-              h3 Become a Member
+          div(ng-show="isLoggedIn")
+            div(ng-hide="isMember")
+              h2.text-success Become a Member
               button.btn.btn-primary(ng-click='subscribeForLibrary()') Subscribe
-          div(ng-show="isLoggedIn" class="ng-show")
-            div(ng-show="isMember" class="ng-show")
-              h3 Unsubscribe
+          div(ng-show="isLoggedIn")
+            div(ng-show="isMember")
+              h2.text-success Unsubscribe
               button.btn.btn-primary(ng-click='unsubscribeForLibrary()') Unsubscribe
 
 
