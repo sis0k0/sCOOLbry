@@ -44,6 +44,7 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 			return deferred.promise;
 		},
 		addLibrary: function(library) {
+			console.log(library);
 			var deferred = $q.defer();
 			
 			var libraryID;

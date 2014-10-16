@@ -71,14 +71,36 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
 				$scope.certificateError = error.data;
 			});
 	};
+	
+	$scope.librarians_count = 1;
 
+	$scope.librarians = new Array();
+    
+    for(var i = 0; i < $scope.librarians_count; i++) $scope.librarians[i] = new Object(i);
+    
 
-    $scope.addLibrary = function(library) {
-        auth.addLibrary(library);
-        $window.location.href = '/admin/libraries';
+    $scope.addLibrarian = function(){
+
+    	$scope.librarians[$scope.librarians_count] = new Object($scope.librarians_count);
+    	$scope.librarians_count++;
+
+    };
+
+    $scope.addLibrary = function(library, librarians) {
+        console.log(librarians);
+        console.log(library);
+        librarians.forEach(function(key, value){
+        	alert(key);
+        	console.log(value);
+ //       	alert(value);
+
+        });
+        //auth.addLibrary(library);
+        //$window.location.href = '/admin/libraries';
         notifier.success('Library added successfully!');
 
     };
+
 
 
 });
