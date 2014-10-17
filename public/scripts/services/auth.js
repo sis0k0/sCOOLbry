@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('auth', function($http, $q, identity, UsersResource, UserResource, LibraryResource, BookResource, LibBookResource2, LibUserResource, ReadingResource, ReadingResource2) {
+app.factory('auth', function($http, $q, identity, UsersResource, UserResource, LibraryResource, BookResource, LibBookResource2, LibUserResource, ReadingResource, ReadingResource2, LibrarianResource) {
 	return {
 		signup: function(user) {
 			var deferred = $q.defer();
@@ -43,8 +43,8 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 			});
 			return deferred.promise;
 		},
-		addLibrary: function(library) {
-			console.log(library);
+		addLibrary: function(library, librarians) {
+			
 			var deferred = $q.defer();
 			
 			var libraryID;
@@ -64,12 +64,31 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 					updatedUser.$update();
 				}
 
-				deferred.resolve();
+				librarians.forEach(function(element){
+        			element.ownLibraryID = libraryID;
+		  			var newUser = new LibrarianResource(element);
+					newUser.$save().then(function(data) {
+						library.librarians.push(data._id);
+					});
+
+
+
+       			});
+
+       			library._id = libraryID;
+
+				console.log(library);
+        		var updatedLibrary = new LibraryResource(library);
+        		updatedLibrary.$update();
+       	
 			}, function(response) {
 				
 				deferred.reject(response.data.reason);
 			});
 
+
+				
+				
 			return deferred.promise;
 		},
 		updateLibraryAsAdmin: function(library) {

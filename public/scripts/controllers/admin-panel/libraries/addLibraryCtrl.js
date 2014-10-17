@@ -76,12 +76,12 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
 
 	$scope.librarians = new Array();
     
-    for(var i = 0; i < $scope.librarians_count; i++) $scope.librarians[i] = new Object(i);
+    for(var i = 0; i < $scope.librarians_count; i++) $scope.librarians[i] = new Object({'index': i});
     
 
     $scope.addLibrarian = function(){
 
-    	$scope.librarians[$scope.librarians_count] = new Object($scope.librarians_count);
+    	$scope.librarians[$scope.librarians_count] = new Object({'index': $scope.librarians_count});
     	$scope.librarians_count++;
 
     };
@@ -89,13 +89,9 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
     $scope.addLibrary = function(library, librarians) {
         console.log(librarians);
         console.log(library);
-        librarians.forEach(function(key, value){
-        	alert(key);
-        	console.log(value);
- //       	alert(value);
 
-        });
-        //auth.addLibrary(library);
+        auth.addLibrary(library, librarians);
+
         //$window.location.href = '/admin/libraries';
         notifier.success('Library added successfully!');
 

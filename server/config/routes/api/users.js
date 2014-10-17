@@ -13,6 +13,7 @@ module.exports = function(app) {
 	router.get('/userInfo/:id', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.users.getUserById);
 	router.get('/user/delete/:id', auth.isInRole('admin'), controllers.users.deleteUserById);
 	router.post('/users', controllers.users.validCaptcha, controllers.users.createUser);
+	router.post('/librarianCreate', auth.isInRole('admin'), controllers.users.createLibrarian);
 	router.put('/users', auth.isAuthenticatedOrAdmin, controllers.users.updateUser);
 	router.get('/usernameTaken/:username', controllers.users.getUserByUsername);
 	router.get('/emailTaken/:email', controllers.users.getUserByEmail);
