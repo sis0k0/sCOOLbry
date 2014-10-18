@@ -30,6 +30,7 @@ module.exports = function(app) {
 	router.get('/library/all-readings', controllers.libraries.getAllReadings);
 	router.get('/library/not-returned/:libraryID/:userID', controllers.libraries.getAllNotReturnedReadings);
 	router.get('/library/member/:libraryID/:userID', controllers.libraries.isMember);
-	
+	router.get('/library/addLibrarian/:libraryID/:userID', auth.isInRole('admin'), controllers.libraries.addLibrarian);
+	router.get('/library/subscribers/:libraryID', controllers.libraries.getLibraryUsersInLibraryCount);
 	app.use('/api/', router);
 };
