@@ -1,0 +1,5 @@
+.tab-pane.fade#interactions(ng-show='isMember')
+
+  h2 Books That You've Read In This Library
+  ul
+    li(ng-repeat='reading in readings') {{ reading.bookISBN }}

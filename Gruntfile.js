@@ -160,10 +160,10 @@ module.exports = function(grunt) {
         [ 'imagemin' ]
     );
 
-    // Build: check javascript with jshint, and then build everything
+    // Build: check javascript with jshint, and then make a new build of everything
     grunt.registerTask(
         'build',
-        [ 'jshint', 'newer:stylus', 'newer:cssmin', 'uglify' ]
+        [ 'jshint', 'stylus', 'cssmin', 'uglify' ]
     );
 
 };

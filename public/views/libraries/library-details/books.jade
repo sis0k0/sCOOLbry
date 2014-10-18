@@ -1,0 +1,6 @@
+.tab-pane.fade#books
+
+  h2 Library Books
+  ul
+    li(ng-repeat='book in books')
+      a(href='/book/{{ book.bookID }}') {{ book.bookName }}

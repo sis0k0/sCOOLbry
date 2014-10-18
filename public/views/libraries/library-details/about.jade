@@ -1,0 +1,39 @@
+.tab-pane.fade.active.in#about
+
+  h1.text-center {{ library.name }}
+  div(ng-show='!isLoggedIn')
+    h3.text-success.text-center
+      a(href='/login').text-primary Log in
+      |  or 
+      a(href='/signup').text-primary Register
+      |  to subscribe
+  //- h4.text-center.text-primary {{ library.address }}, {{ library.city }}, {{ library.country.name }}
+  
+  .row
+    .col-md-6
+      div
+        h2.text-success Description
+        p {{ library.description }}
+
+      div(ng-show='isLoggedIn && !isMember')
+        h2.text-success Become a Member
+        button.btn.btn-primary(ng-click='subscribeForLibrary()') Subscribe
+      div(ng-show='isLoggedIn && isMember')
+        h2.text-success Unsubscribe
+        button.btn.btn-primary(ng-click='unsubscribeForLibrary()') Unsubscribe
+
+    .col-md-5.col-md-offset-1
+
+      .panel.panel-primary(style='margin-top:2em')
+        .panel-heading
+          h4 Additional information
+        .panel-body
+          p
+            span.text-success.text-bold Location:
+            | &nbsp;&nbsp;{{ library.address }}, {{ library.city }}, {{ library.country }}
+          p
+            span.text-success.text-bold Books:
+            //- Here sould be placed the count of library books
+          p
+            span.text-success.text-bold Members:
+            //- Here should be placed the count of library members

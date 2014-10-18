@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, cachedLibraries, LibBookResource, UserReadingResource, identity, $http, auth, notifier, $location) {
+app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, cachedLibraries, LibBookResource, UserReadingResource, identity, $http, auth, notifier, $location) {
     $scope.library = cachedLibraries.query().$promise.then(function(collection) {
         collection.forEach(function(library) {
             if (library._id === $routeParams.id) {
@@ -41,7 +41,7 @@ app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, cachedLi
 		identity.currentUser.userID = identity.currentUser._id;
         auth.addUserToLibrary(identity.currentUser, $routeParams.id).then(function() {
             notifier.success('You\'ve subscribed successfully!');
-            $location.path('/libraries');
+            $route.reload();
         }, function(reason){
                 notifier.error(reason);
             });
@@ -51,11 +51,10 @@ app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, cachedLi
         var responsePromise = $http.get('/api/library/delete-user/'+identity.currentUser._id+'/'+$routeParams.id);
 		responsePromise.success(function(data) {
 		    notifier.success('You\'ve unsubscribed successfully!');
-            $location.path('/libraries');
+            $route.reload();
         
 		}).error(function(reason) {
 			notifier.error(reason);
-		    $location.path('/libraries');
         });      
 		
     };
