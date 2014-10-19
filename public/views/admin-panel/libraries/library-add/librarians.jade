@@ -1,0 +1,53 @@
+.tab-pane.fade.active.in#librarians
+
+  .row
+    .col-md-11.col-md-offset-1
+      .col-md-8.col-md-offset-2
+        .form-group
+          h3.text-center Select from existing users
+          .row
+            .col-xs-12
+              select.form-control.nya-selectpicker(name='librarians', ng-model='library.librarians', ng-options='value._id as value.username for (key, value) in users track by value._id', data-live-search, ng-attr-title='{{ !!library.librarians && library.librarians.name || "Choose librarians" }}', multiple, required)
+
+            
+        div(ng-repeat='librarian in librarians')
+          ng-form(name='librarianForm', novalidate)
+
+            h3.text-left.col-xs-6.col-xs-offset-4(style="margin-top:0.5em; margin-bottom:0", ng-class="{ 'text-success': (librarianForm.firstName.$valid), 'text-danger': (librarianForm.$invalid) }") Librarian {{ $index+1 }}
+            button.btn.btn-danger.col-xs-2(style="margin-top:0.5em", ng-click='removeLibrarian($index)') Remove
+
+            .form-group(ng-class="{ 'has-success': (librarianForm.firstName.$valid && librarianForm.lastName.$valid), 'has-error': (librarianForm.firstName.$invalid || librarianForm.lastName.$invalid) }")
+              label.control-label(for="first-name") Name
+              .row
+                .col-xs-6
+                  input.form-control(name="firstName", type="text", placeholder="First Name", ng-model="librarian.firstName", required)
+                .col-xs-6
+                  input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model="librarian.lastName", required)
+            .form-group(ng-class="{ 'has-error': (librarianForm.username.$invalid), 'has-success': (librarianForm.username.$valid) }")
+              label.control-label(for="username") Username
+              .row
+                .col-xs-12
+                  input.form-control(name="username", type="text", placeholder="Username", tooltip, data-placement='left',  data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 3-16 characters", ng-model="librarian.username", ng-pattern="/^[a-z0-9_-]{3,16}$/", ng-change="checkIfTaken(librarianForm.username)", required)
+                  span.help-block(ng-show="librarianForm.username.$error.taken") Username already taken
+            .form-group(ng-class="{ 'has-error': (librarianForm.email.$invalid), 'has-success': (librarianForm.email.$valid) }")
+              label.control-label(for="email") Email
+              .row
+                .col-xs-12
+                  input.form-control(name="email", type="text", placeholder="Email", ng-model="librarian.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="checkIfTaken(librarianForm.email)", required)
+                  span.has-error.help-block(ng-show="librarianForm.email.$error.taken") Email already taken
+                  span.has-error.help-block(ng-show="librarianForm.email.$invalid && librarianForm.email.$dirty") Please enter valid email
+            .form-group(ng-class="{ 'has-error': (librarianForm.password.$invalid), 'has-success': (librarianForm.password.$valid) }")
+              label.control-label(for="password") Password
+              .row
+                .col-xs-12
+                    input.form-control(name="password", type="password", placeholder="Password", tooltip, data-placement='left',  data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="librarian.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
+            .form-group(ng-class="{ 'has-error': (librarianForm.confirmPassword.$invalid), 'has-success': (librarianForm.confirmPassword.$valid) }")
+              label.control-label(for="confirm-password") Confirm password
+              .row
+                .col-xs-12
+                    input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", ng-change="fieldsMatch(librarianForm.password, librarianForm.confirmPassword)", required)
+                    span.has-error.help-block(ng-show="librarianForm.confirmPassword.$error.notMatching") These passwords don't match. Try again?
+        
+        h3.text-center(ng-hide='librariansCount>0') Or Add New User
+        .text-center
+          button.btn.btn-primary(ng-click='addLibrarian()') Add New Librarian

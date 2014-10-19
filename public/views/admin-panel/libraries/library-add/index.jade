@@ -1,0 +1,26 @@
+include ../../panel
+
+.container
+  .well
+    form.form-horizontal(name='libraryForm', novalidate)
+      fieldset
+        legend Add new Library
+        .row
+        
+        ul.nav.nav-tabs(style="margin-bottom: 25px")
+          li.active
+            a(href="#main-information", data-toggle="tab", target="_self")
+              |  Main information
+          li
+            a(href="#librarians", data-toggle="tab", target="_self").active
+              | Librarians
+
+        #myTabContent.tab-content
+
+          include ./main-information
+          include ./librarians
+            
+
+        .pull-right
+          button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='addLibrary(library, librarians)') Add
+          a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') Cancel

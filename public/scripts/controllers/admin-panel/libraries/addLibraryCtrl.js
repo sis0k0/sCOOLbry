@@ -2,6 +2,19 @@
 
 app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier, UserResource, ajaxPost) {
 
+	// Add library
+
+	$scope.addLibrary = function(library, librarians) {
+		// console.log(librarians);
+		// console.log(library);
+
+		auth.addLibrary(library, librarians);
+
+		$window.location.href = '/admin/libraries';
+		notifier.success('Library added successfully!');
+
+	};
+
 	// Get list of all countries to choose from for library's location
 	$http({
 		method: 'get',
@@ -71,31 +84,50 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
 				$scope.certificateError = error.data;
 			});
 	};
+
+	// Librarians
 	
-	$scope.librarians_count = 1;
+	$scope.librariansCount = 0;
 
 	$scope.librarians = new Array();
-    
-    for(var i = 0; i < $scope.librarians_count; i++) $scope.librarians[i] = new Object({'index': i});
-    
+	
+	for(var i = 0; i < $scope.librariansCount; i++) {
+		$scope.librarians[i] = new Object({'index': i});
+	}
+	
 
-    $scope.addLibrarian = function(){
+	$scope.addLibrarian = function(){
+		$scope.librarians[$scope.librariansCount] = new Object({'index': $scope.librariansCount});
+		$scope.librariansCount++;
+	};
 
-    	$scope.librarians[$scope.librarians_count] = new Object({'index': $scope.librarians_count});
-    	$scope.librarians_count++;
+	$scope.removeLibrarian = function(index){
+		$scope.librarians.splice(index,1);
+		$scope.librariansCount--;
+	};
+	
+	// Librarian profile's checks
 
-    };
+	$scope.checkIfTaken = function(field){
+		var responsePromise = $http.get('/api/' + field.$name + 'Taken/' + field.$viewValue);
+		responsePromise.success(function(data) {
+			if(data==='true'){
+				field.$setValidity('taken', false);
+			}else{
+				field.$setValidity('taken', true);
+			}
+		});		   
+	};
 
-    $scope.addLibrary = function(library, librarians) {
-        console.log(librarians);
-        console.log(library);
+	$scope.fieldsMatch = function(field, confirmField) {
+		if(field.$viewValue !== confirmField.$viewValue){
+			confirmField.$setValidity('notMatching', false);
+		}else{
+			confirmField.$setValidity('notMatching', true);
+		}
+	};
 
-        auth.addLibrary(library, librarians);
 
-        //$window.location.href = '/admin/libraries';
-        notifier.success('Library added successfully!');
-
-    };
 
 
 

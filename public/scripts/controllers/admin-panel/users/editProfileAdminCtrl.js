@@ -94,7 +94,7 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 	$scope.selectLibrary = function(field) {
 		console.log($scope.libraryObject);
 		$scope.user.ownLibraryID = $scope.libraryObject;
-	}
+	};
 
 
 });
