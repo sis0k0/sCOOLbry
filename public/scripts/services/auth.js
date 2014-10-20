@@ -51,9 +51,8 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 
 			var newLibrary = new LibraryResource(library);
 			newLibrary.$save(function(data) {
-					// Add library
-					libraryID = data._id;
-			}).then(function() {
+				// Add library
+				libraryID = data._id;
 				librarians.forEach(function(element){
         			element.ownLibraryID = libraryID;
 		  			var newUser = new LibrarianResource(element);
@@ -84,12 +83,15 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 				
 
        			library._id = libraryID;
-
-				
-       	
+       			
+       		}).then(function() {
+	
+				deferred.resolve();
+	
 			}, function(response) {
 				
 				deferred.reject(response.data.reason);
+	
 			});
 
 

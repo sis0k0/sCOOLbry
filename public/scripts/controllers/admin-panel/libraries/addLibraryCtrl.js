@@ -5,14 +5,12 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
 	// Add library
 
 	$scope.addLibrary = function(library, librarians) {
-		// console.log(librarians);
-		// console.log(library);
-
-		auth.addLibrary(library, librarians);
-
-		$window.location.href = '/admin/libraries';
-		notifier.success('Library added successfully!');
-
+		
+		auth.addLibrary(library, librarians).finally(function(){
+			notifier.success('Library added successfully!');
+			
+		});
+	//	
 	};
 
 	// Get list of all countries to choose from for library's location
