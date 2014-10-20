@@ -8,22 +8,23 @@ var librarySchema = mongoose.Schema({
         type: String,
         required: '{PATH is required}'
     },
-    yearOfEstabilishment: {
-        type: Date
-    },
+    yearOfEstabilishment: Date,
     published: {
         type: Date,
         default: Date.now
     },
     country: {
         type: Object,
-        enum: [countries.getAllCountries]
+        enum: [countries.getAllCountries],
+        required: '{PATH is required}'
     },
     city: {
-        type: String
+        type: String,
+        required: '{PATH is required}'
     },
     address: {
-        type: String
+        type: String,
+        required: '{PATH is required}'
     },
     featured: {
         type: Boolean,
@@ -38,7 +39,8 @@ var librarySchema = mongoose.Schema({
         default: false
     },
     certificate: {
-        type: String
+        type: String,
+        required: '{PATH is required}'
     },
     description: String,
     librarians: [String],
