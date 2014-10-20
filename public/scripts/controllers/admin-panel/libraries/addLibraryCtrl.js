@@ -106,13 +106,48 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
 	
 	// Librarian profile's checks
 
-	$scope.checkIfTaken = function(field){
-		var responsePromise = $http.get('/api/' + field.$name + 'Taken/' + field.$viewValue);
+	$scope.checkIfTakenUsername = function(field, index){
+		var responsePromise = $http.get('/api/usernameTaken/' + field.$viewValue);
 		responsePromise.success(function(data) {
 			if(data==='true'){
+				console.log('taken');
 				field.$setValidity('taken', false);
 			}else{
-				field.$setValidity('taken', true);
+				var flag = false;
+				for(var i=0; i<$scope.librariansCount; i++) {
+					if(field.$viewValue === $scope.librarians[i].username && i!==index) {
+						field.$setValidity('taken', false);
+						flag = true;
+						console.log('taken');
+						break;
+					}
+				}
+				if(flag===false) {
+					field.$setValidity('taken', true);
+				}
+			}
+		});		   
+	};
+
+	$scope.checkIfTakenEmail = function(field, index){
+		var responsePromise = $http.get('/api/emailTaken/' + field.$viewValue);
+		responsePromise.success(function(data) {
+			if(data==='true'){
+				console.log('taken');
+				field.$setValidity('taken', false);
+			}else{
+				var flag = false;
+				for(var i=0; i<$scope.librariansCount; i++) {
+					if(field.$viewValue === $scope.librarians[i].email && i!==index) {
+						field.$setValidity('taken', false);
+						flag = true;
+						console.log('taken');
+						break;
+					}
+				}
+				if(flag===false) {
+					field.$setValidity('taken', true);
+				}
 			}
 		});		   
 	};
@@ -124,9 +159,5 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
 			confirmField.$setValidity('notMatching', true);
 		}
 	};
-
-
-
-
 
 });
