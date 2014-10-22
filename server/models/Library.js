@@ -39,8 +39,7 @@ var librarySchema = mongoose.Schema({
         default: false
     },
     certificate: {
-        type: String,
-        required: '{PATH is required}'
+        type: String
     },
     description: String,
     librarians: [String],
