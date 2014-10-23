@@ -49,6 +49,9 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 
 
 	$scope.updateAsAdmin = function(user) {
+		if($scope.newLibrary===true) {
+			auth.addNewLibrary($scope.libraryForm);
+		}
 		auth.updateAsAdmin(user).then(function() {
             $location.path('/admin/users');
 

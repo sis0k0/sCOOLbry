@@ -109,7 +109,7 @@ include ../panel
                     label.control-label(for='newLibrary') Or add new Library
                     button.form-control.btn.btn-success(ng-click='addNewLibrary()', ng-disabled="!!user.ownLibraryID || newLibrary===true") Add new Library
 
-            ng-form(name='libraryForm', ng-if="newLibrary===true", novalidate)
+            ng-form(name='libraryForm', ng-if='newLibrary===true && !user.ownLibraryID', novalidate)
               .row
                 .col-md-11.col-md-offset-1
                   h3.text-center(ng-class="{ 'text-danger':(libraryForm.$invalid), 'text-success':(libraryForm.name.$valid) }") Add new Library
@@ -194,7 +194,7 @@ include ../panel
                           span.has-error.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
                       .col-xs-4
                         img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
-
+                        input(type='hidden', ng-model='library.certificate', required)
 
 
 

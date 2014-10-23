@@ -3,11 +3,12 @@
 app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier, UserResource, ajaxPost) {
 
 	// Add library
-
+	
 	$scope.addLibrary = function(library, librarians) {
 		
 		auth.addLibrary(library, librarians).finally(function(){
 			notifier.success('Library added successfully!');
+			$window.location.href = '/admin/libraries';
 			
 		});
 	//	
@@ -51,7 +52,12 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
 
 	$scope.setFileEventListener = function(element) {
 		$scope.uploadedFile = element.files[0];
-
+		
+		if($scope.library==undefined) {
+			$scope.library = new Object({});
+		}
+		
+		$scope.library.active = true;
 		if ($scope.uploadedFile) {
 			$scope.$apply(function() {
 				$scope.uploadButtonState = true;
@@ -70,9 +76,16 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
 					$scope.library.certificate = result.data;
 					$scope.certificateUploadSuccessful = true;
 					$scope.certificateUploadError = false;
-					$scope.certificateTypeError = false;   
+					$scope.certificateTypeError = false;  
+					$scope.uploadButtonState = true;
+					$scope.uploadedFile = true;
+					
 				}
+				console.log(result);
+				console.log($scope.uploadButtonState);
+				console.log($scope.uploadedFile);
 			}, function(error) {
+				console.log(error);
 				if(error.data==='Invalid mime type'){
 					$scope.certificateTypeError = true;
 				}
