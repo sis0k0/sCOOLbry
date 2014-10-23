@@ -31,17 +31,51 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 
 			return deferred.promise;
 		},
-		updateAsAdmin: function(user) {
+		updateAsAdmin: function(user, library, newLibrary) {
 			var deferred = $q.defer();
 			var updatedUser = new UsersResource(user);
 			updatedUser._id = user._id;
 
-			updatedUser.$update().then(function() {
-				deferred.resolve();
-			}, function(response) {
-				deferred.reject(response);
-			});
-			return deferred.promise;
+			if(library!==undefined) {
+				if(newLibrary===true) {
+					// Create new library and update the user after that
+					var newLibraryResource = new LibraryResource(library);
+					newLibraryResource.$save(function(data) {
+						updatedUser.ownLibraryID = data._id;
+						updatedUser.$update().then(function() {
+							deferred.resolve();
+						}, function(response) {
+							deferred.reject(response);
+						});
+					});
+					return deferred.promise;
+				} else {
+					// Update existing library and the user after that
+					library.librarians.push(user._id);
+					console.log(library);
+					var updatedLibrary = new LibraryResource(library);
+					updatedLibrary._id = library._id;
+					updatedLibrary.$update(function(data) {
+						updatedUser.ownLibraryID = data._id;
+						updatedUser.$update().then(function() {
+							deferred.resolve();
+						}, function(response) {
+							deferred.reject(response);
+						});
+					});
+					return deferred.promise;
+				}
+			} else {
+				// Update the user if he's not a librarian
+				updatedUser.$update().then(function() {
+					deferred.resolve();
+				}, function(response) {
+					deferred.reject(response);
+				});
+				return deferred.promise;
+			}
+
+
 		},
 		addLibrary: function(library, librarians) {
 			

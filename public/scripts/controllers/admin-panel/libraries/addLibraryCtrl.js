@@ -11,7 +11,6 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
 			$window.location.href = '/admin/libraries';
 			
 		});
-	//	
 	};
 
 	// Get list of all countries to choose from for library's location

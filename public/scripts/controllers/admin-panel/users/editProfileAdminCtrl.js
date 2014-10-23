@@ -43,19 +43,29 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 
 	$scope.addNewLibrary = function() {
 		$scope.library = new Object({'librarians' : [$scope.user._id]});
-		console.log($scope.library);
 		$scope.newLibrary = true;
+	}
+
+	$scope.removeNewLibrary = function() {
+		$scope.library = undefined;
+		$scope.newLibrary = false;
 	}
 
 
 	$scope.updateAsAdmin = function(user) {
-		if($scope.newLibrary===true) {
-			auth.addNewLibrary($scope.libraryForm);
+		if(!!user.ownLibraryID) {
+			auth.updateAsAdmin(user, user.ownLibraryID, false).then(function() {
+				$location.path('/admin/users');
+			});
+		} else if($scope.newLibrary===true) {
+			auth.updateAsAdmin(user, $scope.library, true).then(function() {
+				$location.path('/admin/users');
+			});
+		} else {
+			auth.updateAsAdmin(user).then(function() {
+				$location.path('/admin/users');
+			});
 		}
-		auth.updateAsAdmin(user).then(function() {
-            $location.path('/admin/users');
-
-		});
 	};
 
 	$scope.setFileEventListener = function(element, field) {

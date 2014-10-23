@@ -85,7 +85,7 @@ include ../panel
               .row
                 .col-xs-8
                     input.form-control(name='avatar', type='file', ng-model='upFile', onchange="angular.element(this).scope().setFileEventListener(this, 'avatar')")
-                    button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click="uploadFile('avatar')", ng-disabled='!uploadAvatarButtonState', style='margin-top:0.5em', required) Upload file
+                    button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click="uploadFile('avatar')", ng-disabled='!uploadAvatarButtonState', style='margin-top:0.5em') Upload file
                     span.has-error.help-block(ng-show='avatarTypeError') The supported types are GIF, JPEG, PNG and TIFF
                     span.has-error.help-block(ng-show='avatarUploadError') An error occured. Please try again later.
                 .col-xs-4
@@ -102,17 +102,19 @@ include ../panel
             .form-group(ng-show="user.roles.indexOf('librarian')!=-1 || user.roles.indexOf('libraryOwner')!=-1")
                 .row
                   .col-xs-9
-                    label.control-label(for='ownLibraryID') Choose from existing...
+                    label.control-label(for='ownLibraryID') Choose existing library...
                     select.form-control.nya-selectpicker(name='ownLibraryID', ng-attr-title='{{ user.ownLibraryID.name }}', ng-options='value.name for (key, value) in libraries track by value._id', ng-model='user.ownLibraryID', data-live-search)
                   
                   .col-xs-3
-                    label.control-label(for='newLibrary') Or add new Library
+                    label.control-label(for='newLibrary') Or add new
                     button.form-control.btn.btn-success(ng-click='addNewLibrary()', ng-disabled="!!user.ownLibraryID || newLibrary===true") Add new Library
 
             ng-form(name='libraryForm', ng-if='newLibrary===true && !user.ownLibraryID', novalidate)
               .row
                 .col-md-11.col-md-offset-1
-                  h3.text-center(ng-class="{ 'text-danger':(libraryForm.$invalid), 'text-success':(libraryForm.name.$valid) }") Add new Library
+                  h3.text-left.col-xs-6.col-xs-offset-4(ng-class="{ 'text-danger':(libraryForm.$invalid), 'text-success':(libraryForm.name.$valid) }") Add new Library
+                  button.btn.btn-danger.col-xs-2(style="margin-top:0.5em", ng-click='removeNewLibrary()') Remove
+
 
                   .col-md-5
                     .form-group(ng-class="{ 'has-success': (libraryForm.name.$valid), 'has-error': (libraryForm.name.$invalid) }")
@@ -188,13 +190,14 @@ include ../panel
                     label.control-label(for='certificate') Certificate
                     .row
                       .col-xs-8
-                          input.form-control(name='certificate', type='file', ng-model='upFileCertificate', onchange="angular.element(this).scope().setFileEventListener(this, 'certificate')", required)
+                          input.form-control(name='certificate', type='file', ng-model='upFileCertificate', onchange="angular.element(this).scope().setFileEventListener(this, 'certificate')")
                           button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click="uploadFile('certificate')", ng-disabled='!uploadCertificateButtonState', style='margin-top:0.5em') Upload file
                           span.has-error.help-block(ng-show='certificateTypeError') The supported types are GIF, JPEG, PNG and TIFF
                           span.has-error.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
                       .col-xs-4
                         img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
                         input(type='hidden', ng-model='library.certificate', required)
+
 
 
 
