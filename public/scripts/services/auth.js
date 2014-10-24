@@ -31,11 +31,58 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 
 			return deferred.promise;
 		},
+		addUserAsAdmin: function(user, library, newLibrary) {
+			var deferred = $q.defer();
+			var newUser = new UsersResource(user);
+			newUser._id = user._id;
+			console.log('auth js');
+			if(library!==undefined) {
+				if(newLibrary===true) {
+					// Create new library and save the user after that
+					var newLibraryResource = new LibraryResource(library);
+					newLibraryResource.$save(function(data) {
+						newUser.ownLibraryID = data._id;
+						newUser.$save().then(function() {
+							deferred.resolve();
+						}, function(response) {
+							deferred.reject(response);
+						});
+					});
+					return deferred.promise;
+				} else {
+					// Update existing library and the user after that
+					library.librarians.push(user._id);
+					var updatedLibrary = new LibraryResource(library);
+					updatedLibrary._id = library._id;
+					updatedLibrary.$update(function(data) {
+						newUser.ownLibraryID = data._id;
+						newUser.$save().then(function() {
+							deferred.resolve();
+						}, function(response) {
+							deferred.reject(response);
+						});
+					});
+					return deferred.promise;
+				}
+			} else {
+				// Update the user if he's not a librarian
+				console.log('before save');
+				newUser.$save().then(function() {
+					console.log('saved');
+					deferred.resolve();
+
+				}, function(response) {
+					deferred.reject(response);
+				});
+				return deferred.promise;
+			}
+
+
+		},
 		updateAsAdmin: function(user, library, newLibrary) {
 			var deferred = $q.defer();
 			var updatedUser = new UsersResource(user);
 			updatedUser._id = user._id;
-
 			if(library!==undefined) {
 				if(newLibrary===true) {
 					// Create new library and update the user after that
@@ -52,7 +99,6 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 				} else {
 					// Update existing library and the user after that
 					library.librarians.push(user._id);
-					console.log(library);
 					var updatedLibrary = new LibraryResource(library);
 					updatedLibrary._id = library._id;
 					updatedLibrary.$update(function(data) {

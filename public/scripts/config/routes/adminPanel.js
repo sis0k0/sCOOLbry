@@ -49,6 +49,11 @@ app.config(function($routeProvider) {
 			controller: 'UserInfoCtrl',
 			resolve: routeUserChecks.adminRole
 		})
+		.when('/admin/users/add', {
+			templateUrl: '/partials/admin-panel/users/user-add',
+			controller: 'addUserAdminCtrl',
+			resolve: routeUserChecks.adminRole
+		})
 		.when('/admin/user/edit/:id', {
 			templateUrl: '/partials/admin-panel/users/user-edit',
 			controller: 'editProfileAdminCtrl',

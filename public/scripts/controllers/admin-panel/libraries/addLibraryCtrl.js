@@ -5,6 +5,17 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
 	// Add library
 	
 	$scope.addLibrary = function(library, librarians) {
+		console.log(librarians);
+		for(var i=0; i<librarians.length; i++) {
+
+			// TO DO !! SHOULD UPDATE USER TO HAVE LIBRARIAN ROLES
+			// !! NOTE - SHOULD UPDATE EXISTING USERS TOO
+			// !! NOTE - SHOULD BE ADDED OPTION FOR CHOOSING A LIBRARY OWNER, AMONGST THE LIBRARIANS
+			//
+			// console.log(librarians[i]);
+			// console.log(librarians[i].roles);
+			// librarians[i].roles = ['standart', 'librarian'];
+		}
 		
 		auth.addLibrary(library, librarians).finally(function(){
 			notifier.success('Library added successfully!');

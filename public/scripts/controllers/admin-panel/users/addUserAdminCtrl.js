@@ -1,11 +1,7 @@
 'use strict';
 
-app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams, $http, auth, ajaxPost, UserResource) {
+app.controller('addUserAdminCtrl', function($scope, $location, $routeParams, $http, auth, ajaxPost, notifier) {
 
-	$scope.user = UserResource.get({id: $routeParams.id}, function() {
-		$scope.emailConfirm = $scope.user.email;
-	});
-	console.log($scope.user.ownLibraryID);
 
 	$http({
 		method: 'get',
@@ -22,7 +18,7 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 		url: '/api/libraries'
 	}).success(function(data) {
 		$scope.libraries = data;
-		$scope.libraryObject = $scope.user.ownLibraryID;
+		// $scope.libraryObject = $scope.user.ownLibraryID;
 	}).error(function(err) {
 		console.log(err);
 	});
@@ -52,20 +48,30 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 	}
 
 
-	$scope.updateAsAdmin = function(user) {
-		if(user.roles.indexOf('librarian')!==-1 || user.roles.indexOf('libraryOwner')!==-1) {
-			auth.updateAsAdmin(user, user.ownLibraryID, false).then(function() {
+	$scope.addUserAsAdmin = function(user) {
+		if(!!user.roles && (user.roles.indexOf('librarian')!==-1 || user.roles.indexOf('libraryOwner')!==-1)) {
+			auth.addUserAsAdmin(user, user.ownLibraryID, false).then(function() {
 				$location.path('/admin/users');
-			});
+			}, function(reason){
+                notifier.error(reason);
+                $window.Recaptcha.reload();
+            });
 		} else if($scope.newLibrary===true) {
-			auth.updateAsAdmin(user, $scope.library, true).then(function() {
+			auth.addUserAsAdmin(user, $scope.library, true).then(function() {
 				$location.path('/admin/users');
-			});
+			}, function(reason){
+                notifier.error(reason);
+                $window.Recaptcha.reload();
+            });
 		} else {
-			user.ownLibraryID='';
-			auth.updateAsAdmin(user).then(function() {
+			console.log('controller');
+			auth.addUserAsAdmin(user).then(function() {
+				console.log('auth completed');
 				$location.path('/admin/users');
-			});
+			}, function(reason){
+                notifier.error(reason);
+                $window.Recaptcha.reload();
+            });
 		}
 	};
 
@@ -164,7 +170,7 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 	};
 
 	$scope.selectLibrary = function(field) {
-		$scope.user.ownLibraryID = $scope.libraryObject;
+		// $scope.user.ownLibraryID = $scope.libraryObject;
 	};
 
 

@@ -73,8 +73,8 @@
           .col-xs-12
             textarea.form-control(name='description', placeholder='Description', ng-model='library.description', rows='3')
 
-      .form-group(ng-class="{ 'has-success': (certificateUploadSuccessful), 'has-error': (certificateUploadError || certificateTypeError) }")
-        label.control-label(for='certificate') Certificate
+      .form-group(ng-class="{ 'has-success': (!!library.certificate), 'has-error': (!library.certificate) }")
+        label.control-label(for='certificate') Certificate *
         .row
           .col-xs-8
               input.form-control(name='certificate', type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
