@@ -75,12 +75,16 @@ module.exports = {
             
             if(!(req.files.uploadedFile.mimetype==='image/gif' || req.files.uploadedFile.mimetype==='image/jpeg' || req.files.uploadedFile.mimetype==='image/png' || req.files.uploadedFile.mimetype==='image/tiff')){
 				res.status('403');
-				res.send('Invalid mime type');
+				res.send('Invalid mime type.');
 			}else{
 				var imgur = require('imgur-node-api');
 				var imgurURL = '';
 				imgur.setClientID('de1c5c887fbf774');
 				imgur.upload(path.join(__dirname, currentPath),function(err, res2){
+					if(res2 === undefined || res2.data === undefined) {
+						res.status('403');
+						res.send('Cannot connect to server.');
+					}
 					imgurURL= res2.data.link;
 					imgurURL = imgurURL.substring(0,imgurURL.lastIndexOf('.')) + 'm.' + imgurURL.substring(imgurURL.lastIndexOf('.')+1, imgurURL.length);
 					res.send(imgurURL);

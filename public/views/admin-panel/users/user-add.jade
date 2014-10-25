@@ -110,13 +110,13 @@ include ../panel
                 .row
                   .col-xs-9
                     label.control-label(for='ownLibraryID') Choose existing library...
-                    select.form-control.nya-selectpicker(name='ownLibraryID', ng-attr-title='{{ user.ownLibraryID.name }}', ng-options='value.name for (key, value) in libraries track by value._id', ng-model='user.ownLibraryID', data-live-search)
+                    select.form-control.nya-selectpicker(name='ownLibraryID', ng-disabled="!!newLibrary", ng-attr-title='{{ user.ownLibraryID.name }}', ng-options='value.name for (key, value) in libraries track by value._id', ng-model='user.ownLibraryID', data-live-search)
                   
                   .col-xs-3
                     label.control-label(for='newLibrary') Or add new
-                    button.form-control.btn.btn-success(ng-click='addNewLibrary()', ng-disabled="!!user.ownLibraryID || newLibrary===true") Add new Library
+                    button.form-control.btn.btn-success(ng-click='addNewLibrary()', ng-disabled="!!user.ownLibraryID || !!newLibrary") Add new Library
 
-            ng-form(name='libraryForm', ng-if='newLibrary===true && !user.ownLibraryID', novalidate)
+            ng-form(name='libraryForm', ng-if='!!newLibrary && !user.ownLibraryID', novalidate)
               .row
                 .col-md-11.col-md-offset-1
                   h3.text-left.col-xs-6.col-xs-offset-4(ng-class="{ 'text-danger':(libraryForm.$invalid), 'text-success':(libraryForm.name.$valid) }") Add new Library

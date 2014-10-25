@@ -49,28 +49,24 @@ app.controller('addUserAdminCtrl', function($scope, $location, $routeParams, $ht
 
 
 	$scope.addUserAsAdmin = function(user) {
-		if(!!user.roles && (user.roles.indexOf('librarian')!==-1 || user.roles.indexOf('libraryOwner')!==-1)) {
-			auth.addUserAsAdmin(user, user.ownLibraryID, false).then(function() {
-				$location.path('/admin/users');
-			}, function(reason){
-                notifier.error(reason);
-                $window.Recaptcha.reload();
-            });
-		} else if($scope.newLibrary===true) {
+		if($scope.newLibrary===true) {
 			auth.addUserAsAdmin(user, $scope.library, true).then(function() {
 				$location.path('/admin/users');
 			}, function(reason){
                 notifier.error(reason);
-                $window.Recaptcha.reload();
+            });
+		} else if(!!user.ownLibraryID) {
+            auth.addUserAsAdmin(user, user.ownLibraryID, false).then(function() {
+				$location.path('/admin/users');
+			}, function(reason){
+                notifier.error(reason);
             });
 		} else {
 			console.log('controller');
 			auth.addUserAsAdmin(user).then(function() {
-				console.log('auth completed');
 				$location.path('/admin/users');
 			}, function(reason){
                 notifier.error(reason);
-                $window.Recaptcha.reload();
             });
 		}
 	};

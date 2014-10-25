@@ -38,30 +38,49 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 			console.log('auth js');
 			if(library!==undefined) {
 				if(newLibrary===true) {
-					// Create new library and save the user after that
+					// Create new library, save the user and update library's librarians
+
+					// Create the library
 					var newLibraryResource = new LibraryResource(library);
 					newLibraryResource.$save(function(data) {
+
+						// Create the user
 						newUser.ownLibraryID = data._id;
-						newUser.$save().then(function() {
-							deferred.resolve();
+						newUser.$save(function(userData) {
+
+							// Update the library to hold the user's ID in its librarians
+							library.librarians = userData._id;
+							var updatedLibrary = new LibraryResource(library);
+							updatedLibrary._id = userData.ownLibraryID;
+
+							updatedLibrary.$update().then(function() {
+								deferred.resolve();
+							}, function(response) {
+								deferred.reject(response);
+							});
+
 						}, function(response) {
 							deferred.reject(response);
 						});
+					}, function(response) {
+						deferred.reject(response);
 					});
 					return deferred.promise;
 				} else {
-					// Update existing library and the user after that
-					library.librarians.push(user._id);
-					var updatedLibrary = new LibraryResource(library);
-					updatedLibrary._id = library._id;
-					updatedLibrary.$update(function(data) {
-						newUser.ownLibraryID = data._id;
-						newUser.$save().then(function() {
+					// Update existing library and create the user after that
+
+					newUser.$save(function(data) {
+						library.librarians.push(data._id);
+						var updatedLibrary = new LibraryResource(library);
+						updatedLibrary.$update().then(function() {
 							deferred.resolve();
 						}, function(response) {
 							deferred.reject(response);
 						});
+					}, function(response) {
+						deferred.reject(response);
 					});
+
 					return deferred.promise;
 				}
 			} else {
