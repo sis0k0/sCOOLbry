@@ -1,11 +1,11 @@
 'use strict';
 
 var usersRoles = [
-	'standart',
-	'moderator',
 	'admin',
+	'moderator',
 	'libraryOwner',
-	'librarian'
+	'librarian',
+	'standart'
 	];
 
 

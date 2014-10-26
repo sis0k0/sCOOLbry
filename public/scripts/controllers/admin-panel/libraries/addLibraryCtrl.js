@@ -3,24 +3,26 @@
 app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier, UserResource, ajaxPost) {
 
 	// Add library
-	
 	$scope.addLibrary = function(library, librarians) {
 		console.log(librarians);
 		for(var i=0; i<librarians.length; i++) {
-
-			// TO DO !! SHOULD UPDATE USER TO HAVE LIBRARIAN ROLES
-			// !! NOTE - SHOULD UPDATE EXISTING USERS TOO
-			// !! NOTE - SHOULD BE ADDED OPTION FOR CHOOSING A LIBRARY OWNER, AMONGST THE LIBRARIANS
-			//
-			// console.log(librarians[i]);
-			// console.log(librarians[i].roles);
-			// librarians[i].roles = ['standart', 'librarian'];
+			librarians[i].roles = [];
+			librarians[i].roles.push('librarian');
+			// TO DO !! - SHOULD BE ADDED OPTION FOR CHOOSING A LIBRARY OWNER, AMONGST THE LIBRARIANS
 		}
-		
+
+		for(var i=0; i<library.librarians.length; i++) {
+			console.log($scope.users);
+			for(var j=0; j<$scope.users.length; j++) {
+				if($scope.users[j]._id === library.librarians[i]) {
+					$scope.users[j].roles.push('librarian');
+					auth.updateAsAdmin($scope.users[j]);
+				}
+			}
+		}
 		auth.addLibrary(library, librarians).finally(function(){
 			notifier.success('Library added successfully!');
 			$window.location.href = '/admin/libraries';
-			
 		});
 	};
 

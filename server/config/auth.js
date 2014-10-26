@@ -6,7 +6,7 @@ var passport = require('passport'),
 
 module.exports = {
 
-    login: function(req, res, next) {
+	login: function(req, res, next) {
 		var captchaData = {};
 		var stopLogin = false;
 
@@ -78,24 +78,71 @@ module.exports = {
 		request.write(captchaData, 'utf8');
 		request.end();
    
-    },
-    logout: function(req, res) {
-        req.logout();
-        res.end();
-    },
-    isAuthenticated: function(req, res, next) {
-        if (!req.isAuthenticated()) {
-            res.status(403);
-            res.end();
-        }
-        else {
-            next();
-        }
-    },
-    isInRole: function(role, role2, role3) {
-        return function(req, res, next) {
+	},
+	logout: function(req, res) {
+		req.logout();
+		res.end();
+	},
+	isAuthenticated: function(req, res, next) {
+		if (!req.isAuthenticated()) {
+			res.status(403);
+			res.end();
+		}
+		else {
+			next();
+		}
+	},
+	isInRole: function(role, role2, role3) {
+		return function(req, res, next) {
+
+
+			function inInRoleHierarchy(userRole) {
+				if(!req.isAuthenticated()) {
+					return false;
+				}
+
+				switch(userRole) {
+					case 'admin':
+						if(req.user.roles.indexOf('admin') > -1) {
+							return true;
+						} else {
+							return false;
+						}
+						break;
+					case 'moderator': 
+						if(req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('moderator') > -1) {
+							return true;
+						} else {
+							return false;
+						}
+						break;
+					case 'libraryOwner':
+						if(req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('libraryOwner') > -1) {
+							return true;
+						} else {
+							return false;
+						}
+						break;
+					case 'librarian':
+						if(req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('libraryOwner') > -1 || req.user.roles.indexOf('librarian') > -1) {
+							return true;
+						} else {
+							return false;
+						}
+						break;
+					case 'standart':
+						return true;
+					default:
+						return false;
+				}
+			}
+
+
+
+
+
 			if(typeof role3!==undefined){
-				if (req.isAuthenticated() && ( req.user.roles.indexOf(role) > -1 || req.user.roles.indexOf(role3) > -1 )) {
+				if (!!inInRoleHierarchy(role) || !!inInRoleHierarchy(role3) ) {
 					next();
 				}
 				else {
@@ -104,7 +151,7 @@ module.exports = {
 				}
 				
 			}else if(typeof role2!==undefined){
-				if (req.isAuthenticated() && ( req.user.roles.indexOf(role) > -1 || req.user.roles.indexOf(role2) > -1 )) {
+				if (!!inInRoleHierarchy(role) || !!inInRoleHierarchy(role2) ) {
 					next();
 				}
 				else {
@@ -113,7 +160,7 @@ module.exports = {
 				}
 				
 			}else{
-				if (req.isAuthenticated() && req.user.roles.indexOf(role) > -1) {
+				if (!!inInRoleHierarchy(role)) {
 					next();
 				}
 				else {
@@ -121,15 +168,15 @@ module.exports = {
 					res.end();
 				}
 			}
-        };
-    },
-    isAuthenticatedOrAdmin: function(req, res, next) {
+		};
+	},
+	isAuthenticatedOrAdmin: function(req, res, next) {
 		
 		if(req.isAuthenticated() || req.user.roles.indexOf('admin') > -1){
 			next();
 		}else{
 			res.status(403);
-            res.end();
+			res.end();
 		}
-    },
+	},
 };

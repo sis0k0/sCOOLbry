@@ -11,8 +11,47 @@ app.factory('identity', function($window, UsersResource) {
         isAuthenticated: function() {
             return !!this.currentUser;
         },
-        isAuthorizedForRole: function(role) {
-            return !!this.currentUser && this.currentUser.roles.indexOf(role) > -1;
+        isAuthorizedForRole: function(userRole) {
+
+
+            if(!this.currentUser) {
+                return false;
+            }
+
+            switch(userRole) {
+                case 'admin':
+                    if(this.currentUser.roles.indexOf('admin') > -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                    break;
+                case 'moderator': 
+                    if(this.currentUser.roles.indexOf('admin') > -1 || this.currentUser.roles.indexOf('moderator') > -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                    break;
+                case 'libraryOwner':
+                    if(this.currentUser.roles.indexOf('admin') > -1 || this.currentUser.roles.indexOf('libraryOwner') > -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                    break;
+                case 'librarian':
+                    if(this.currentUser.roles.indexOf('admin') > -1 || this.currentUser.roles.indexOf('libraryOwner') > -1 || this.currentUser.roles.indexOf('librarian') > -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                    break;
+                case 'standart':
+                    return true;
+                default:
+                    return false;
+            }
         }
     };
 });

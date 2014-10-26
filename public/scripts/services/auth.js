@@ -117,7 +117,11 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 					return deferred.promise;
 				} else {
 					// Update existing library and the user after that
-					library.librarians.push(user._id);
+					console.log(library);
+					console.log(library.librarians);
+					if(library.librarians!==undefined && library.librarians.indexOf(user._id)===-1) {
+						library.librarians.push(user._id);
+					}
 					var updatedLibrary = new LibraryResource(library);
 					updatedLibrary._id = library._id;
 					updatedLibrary.$update(function(data) {
@@ -148,11 +152,14 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 			
 			var libraryID;
 
+			console.log('auth');
+
 			var newLibrary = new LibraryResource(library);
 			newLibrary.$save(function(data) {
 				// Add library
 				libraryID = data._id;
 				librarians.forEach(function(element){
+					console.log(element);
         			element.ownLibraryID = libraryID;
 		  			var newUser = new LibrarianResource(element);
 					newUser.$save().then(function(data) {
@@ -170,6 +177,7 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
        			});
 
 				for (var userID in library.librarians) {
+					console.log(library.librarians[userID]);
 					// Link library to the librarians' profiles
 					var user = UserResource.get({id: library.librarians[userID]});
 					user.ownLibraryID = libraryID;
@@ -189,7 +197,7 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 	
 			}, function(response) {
 				
-				deferred.reject(response.data.reason);
+				deferred.reject(response);
 	
 			});
 

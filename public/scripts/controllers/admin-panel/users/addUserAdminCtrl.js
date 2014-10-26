@@ -53,21 +53,21 @@ app.controller('addUserAdminCtrl', function($scope, $location, $routeParams, $ht
 			auth.addUserAsAdmin(user, $scope.library, true).then(function() {
 				$location.path('/admin/users');
 			}, function(reason){
-                notifier.error(reason);
-            });
+				notifier.error(reason);
+			});
 		} else if(!!user.ownLibraryID) {
-            auth.addUserAsAdmin(user, user.ownLibraryID, false).then(function() {
+			auth.addUserAsAdmin(user, user.ownLibraryID, false).then(function() {
 				$location.path('/admin/users');
 			}, function(reason){
-                notifier.error(reason);
-            });
+				notifier.error(reason);
+			});
 		} else {
 			console.log('controller');
 			auth.addUserAsAdmin(user).then(function() {
 				$location.path('/admin/users');
 			}, function(reason){
-                notifier.error(reason);
-            });
+				notifier.error(reason);
+			});
 		}
 	};
 
