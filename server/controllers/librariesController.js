@@ -4,6 +4,7 @@ var Library = require('mongoose').model('Library');
 var LibBook = require('mongoose').model('LibBook');
 var LibUser = require('mongoose').model('LibUser');
 var Reading = require('mongoose').model('Reading');
+var Booking = require('mongoose').model('Booking');
 
 module.exports = {
 	createLibrary: function(req, res) {
@@ -185,6 +186,40 @@ module.exports = {
 			}
 			res.send(book);
 		});
+	},
+
+	getLibBook: function(req, res) {
+		LibBook.findOne({libraryID: req.params.libraryID, bookID: req.params.bookID}).exec(function(err, book) {
+			if (err) {
+				console.log('LibBook could not be loaded: ' + err);
+			}
+			res.send(book);
+		});
+	},
+
+	addBooking: function(req, res) {
+		var newBookingData = req.body;
+		
+		Booking.create(newBookingData, function(err, booking) {
+			if (err) {
+				console.log('Failed to add new booking: ' + err);
+				return;
+			}
+			console.log(booking);
+			res.send(booking);
+		});
+	},
+
+	getBookingCount: function(req, res) {
+		var now = new Date();
+		Booking.count({bookID: req.params.bookID, libraryID: req.params.libraryID, bookDate: {$gte: now } }).exec(function(err, count) {
+			if(err) {
+				console.log(err);
+			}
+
+			res.send('' + count);
+		});
+
 	},
 
 	updateLibrary: function(req, res) {

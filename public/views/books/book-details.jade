@@ -27,6 +27,7 @@
       tr
         td
           h2 Book Reviews
-      tr
+      tr(ng-show='bookable')
         td
           h2 Book This Book
+          button.btn.btn-primary(ng-click="addBooking()") Book This Book

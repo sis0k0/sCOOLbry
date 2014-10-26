@@ -10,12 +10,10 @@ module.exports = function(app) {
 	// Libraries
 	router.get('/libraries', controllers.libraries.getAllLibraries);
 	router.post('/libraries', auth.isInRole('admin'), controllers.libraries.createLibrary);
-	
 	router.get('/libraries/:id', controllers.libraries.getLibraryById);
-
-
 	router.get('/library/books/:id', controllers.libraries.getLibraryBooksById);
 	router.get('/library/book/:id', controllers.libraries.getLibBookById);
+	router.get('/library/book2/:bookID/:libraryID', controllers.libraries.getLibBook);
 	router.put('/library/book', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.updateLibBook);
 	router.get('/library/users/:id/:field/:order/:page/:perPage', controllers.libraries.getLibraryUsersById);
 	router.get('/library/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.libraries.getAllLibrariesSortable);
@@ -32,5 +30,7 @@ module.exports = function(app) {
 	router.get('/library/member/:libraryID/:userID', controllers.libraries.isMember);
 	router.get('/library/addLibrarian/:libraryID/:userID', auth.isInRole('admin'), controllers.libraries.addLibrarian);
 	router.get('/library/subscribers/:libraryID', controllers.libraries.getLibraryUsersInLibraryCount);
+	router.post('/library/addbooking', controllers.libraries.addBooking);
+	router.get('/library/booking/:libraryID/:bookID', controllers.libraries.getBookingCount);
 	app.use('/api/', router);
 };

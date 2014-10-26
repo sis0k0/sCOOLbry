@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var bookingSchema = mongoose.Schema({
     userID: String,
     libraryID: String,
-    bookISBN: String,
+    bookID: String,
     bookDate: Date
 });
 

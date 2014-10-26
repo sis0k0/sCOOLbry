@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('auth', function($http, $q, identity, UsersResource, UserResource, LibraryResource, BookResource, LibBookResource2, LibUserResource, ReadingResource, ReadingResource2, LibrarianResource) {
+app.factory('auth', function($http, $q, identity, UsersResource, UserResource, LibraryResource, BookResource, LibBookResource2, LibUserResource, ReadingResource, ReadingResource2, LibrarianResource, BookingResource) {
 	return {
 		signup: function(user) {
 			var deferred = $q.defer();
@@ -350,6 +350,20 @@ app.factory('auth', function($http, $q, identity, UsersResource, UserResource, L
 			});
 
 			return deferred.promise;
+		},
+		addBooking: function(booking){
+			var deferred = $q.defer();
+			
+			var newBooking = new BookingResource(booking);
+			newBooking.$save().then(function() {
+				deferred.resolve();
+			}, function(response) {
+				
+				deferred.reject(response.data.reason);
+			});
+
+			return deferred.promise;
+			
 		}
 	};
 });
