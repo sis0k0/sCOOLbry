@@ -2,11 +2,24 @@ include ../panel
 
 .container
   .well
-    form.form-horizontal(name='bookForm')
-      fieldset
-        legend Add a Book
-        .row
-          .col-md-11.col-md-offset-1
+    fieldset
+      .row
+        .col-md-11.col-md-offset-1
+
+          .col-md-5
+            h3 Find book by ISBN
+            .col-md-9(style="padding:0")
+              input.form-control(name="isbn", type="text", placeholder="ISBN", style="border-radius: 0", ng-model='ISBNSearch', ng-pattern="/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/")
+            button.btn.btn-success.pull-right.col-md-3(style="border-radius: 0", ng-disabled="!ISBNSearch") Search
+
+          .col-md-5.col-md-offset-1
+            h3.text-center Or fill in a Book Form
+            .text-center.col-xs-12
+              button.btn.btn-primary Add book form
+
+
+          form.form-horizontal(name='bookForm')
+            legend Add a Book
             .col-md-5
               .form-group(ng-class="{ 'has-success': (bookForm.isbn.$valid && bookForm.isbn.$dirty), 'has-error': (bookForm.isbn.$invalid && bookForm.isbn.$dirty) }")
                   label.control-label(for='isbn') ISBN
