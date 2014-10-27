@@ -31,6 +31,8 @@ module.exports = function(app) {
 	router.get('/library/addLibrarian/:libraryID/:userID', auth.isInRole('admin'), controllers.libraries.addLibrarian);
 	router.get('/library/subscribers/:libraryID', controllers.libraries.getLibraryUsersInLibraryCount);
 	router.post('/library/addbooking', controllers.libraries.addBooking);
-	router.get('/library/booking/:libraryID/:bookID', controllers.libraries.getBookingCount);
+	router.get('/library/booking/:libraryID/:bookID', controllers.libraries.getBookingCountBook);
+	router.get('/library/booking-sort/:libraryID/:field/:order/:page/:perPage', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.getAllBookingsSortable);
+	router.get('/library/booking-count/:libraryID', controllers.libraries.getBookingCountLibrary);
 	app.use('/api/', router);
 };

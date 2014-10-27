@@ -210,9 +210,21 @@ module.exports = {
 		});
 	},
 
-	getBookingCount: function(req, res) {
+	getBookingCountBook: function(req, res) {
 		var now = new Date();
 		Booking.count({bookID: req.params.bookID, libraryID: req.params.libraryID, bookDate: {$gte: now } }).exec(function(err, count) {
+			if(err) {
+				console.log(err);
+			}
+
+			res.send('' + count);
+		});
+
+	},
+
+	getBookingCountLibrary: function(req, res) {
+		var now = new Date();
+		Booking.count({libraryID: req.params.libraryID, bookDate: {$gte: now } }).exec(function(err, count) {
 			if(err) {
 				console.log(err);
 			}
@@ -347,6 +359,45 @@ module.exports = {
 		Reading.find({}, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage}).exec(function(err, collection) {
 			if (err) {
 				console.log('Readings could not be loaded: ' + err);
+			}
+
+			res.send(collection);
+		});
+	},
+	getAllBookingsSortable: function(req, res) {
+
+		var order, field, page, perPage;
+
+		if(req.params.order===undefined) {
+			order = 'asc';
+		}else{
+			order = req.params.order;
+		}
+		
+		if(req.params.field===undefined) {
+			field = '_id';
+		}else{
+			field = req.params.field;
+		}
+		
+		if(req.params.page===undefined) {
+			page = 1;
+		}else{
+			page = req.params.page;
+		}
+		
+		if(req.params.perPage===undefined) {
+			perPage = 10;
+		}else{
+			perPage = req.params.perPage;
+		}
+		
+		var sortObject = {};
+		sortObject[field] = order;
+		var now = new Date();
+		Booking.find({bookDate: {$gte: now }, libraryID: req.params.libraryID}, null, { sort: sortObject, limit: perPage, skip: (page-1)*perPage}).exec(function(err, collection) {
+			if (err) {
+				console.log('Bookings could not be loaded: ' + err);
 			}
 
 			res.send(collection);
