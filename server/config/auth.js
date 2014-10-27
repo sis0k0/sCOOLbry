@@ -92,82 +92,55 @@ module.exports = {
 			next();
 		}
 	},
-	isInRole: function(role, role2, role3) {
+	isInRole: function(role) {
 		return function(req, res, next) {
 
-
-			function inInRoleHierarchy(userRole) {
-				if(!req.isAuthenticated()) {
-					return false;
-				}
-
-				switch(userRole) {
-					case 'admin':
-						if(req.user.roles.indexOf('admin') > -1) {
-							return true;
-						} else {
-							return false;
-						}
-						break;
-					case 'moderator': 
-						if(req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('moderator') > -1) {
-							return true;
-						} else {
-							return false;
-						}
-						break;
-					case 'libraryOwner':
-						if(req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('libraryOwner') > -1) {
-							return true;
-						} else {
-							return false;
-						}
-						break;
-					case 'librarian':
-						if(req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('libraryOwner') > -1 || req.user.roles.indexOf('librarian') > -1) {
-							return true;
-						} else {
-							return false;
-						}
-						break;
-					case 'standart':
-						return true;
-					default:
-						return false;
-				}
+			if(!req.isAuthenticated()) {
+				res.status(403);
+				res.end();
 			}
 
-
-
-
-
-			if(typeof role3!==undefined){
-				if (!!inInRoleHierarchy(role) || !!inInRoleHierarchy(role3) ) {
+			switch(role) {
+				case 'admin':
+					if(req.user.roles.indexOf('admin') > -1) {
+						next();
+					} else {
+						res.status(403);
+						res.end();
+					}
+					break;
+				case 'moderator': 
+					if(req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('moderator') > -1) {
+						next();
+					} else {
+						res.status(403);
+						res.end();
+					}
+					break;
+				case 'libraryOwner':
+					if(req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('libraryOwner') > -1) {
+						next();
+					} else {
+						res.status(403);
+						res.end();
+					}
+					break;
+				case 'librarian':
+					if(req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('libraryOwner') > -1 || req.user.roles.indexOf('librarian') > -1) {
+						next();
+					} else {
+						res.status(403);
+						res.end();
+					}
+					break;
+				case 'standart':
 					next();
-				}
-				else {
+					break;
+				default:
 					res.status(403);
 					res.end();
-				}
-				
-			}else if(typeof role2!==undefined){
-				if (!!inInRoleHierarchy(role) || !!inInRoleHierarchy(role2) ) {
-					next();
-				}
-				else {
-					res.status(403);
-					res.end();
-				}
-				
-			}else{
-				if (!!inInRoleHierarchy(role)) {
-					next();
-				}
-				else {
-					res.status(403);
-					res.end();
-				}
 			}
+
 		};
 	},
 	isAuthenticatedOrAdmin: function(req, res, next) {

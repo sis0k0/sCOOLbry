@@ -9,22 +9,25 @@ module.exports = function(app) {
 
 	// Libraries
 	router.get('/libraries', controllers.libraries.getAllLibraries);
+
 	router.post('/libraries', auth.isInRole('admin'), controllers.libraries.createLibrary);
+
 	router.get('/libraries/:id', controllers.libraries.getLibraryById);
 	router.get('/library/books/:id', controllers.libraries.getLibraryBooksById);
 	router.get('/library/book/:id', controllers.libraries.getLibBookById);
 	router.get('/library/book2/:bookID/:libraryID', controllers.libraries.getLibBook);
-	router.put('/library/book', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.updateLibBook);
+	
+	router.put('/library/book', auth.isInRole('librarian'), controllers.libraries.updateLibBook);
 	router.get('/library/users/:id/:field/:order/:page/:perPage', controllers.libraries.getLibraryUsersById);
 	router.get('/library/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.libraries.getAllLibrariesSortable);
 	router.get('/library/count', controllers.libraries.getLibraryCount);
 	router.get('/library/user-count', controllers.libraries.getLibraryUsersCount);
-	router.put('/libraries', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.updateLibrary);
+	router.put('/libraries', auth.isInRole('librarian'), controllers.libraries.updateLibrary);
 	router.get('/library/delete/:id', auth.isInRole('admin'), controllers.libraries.deleteLibraryById);
-	router.post('/library/add-user', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.addLibraryUser);
-	router.get('/library/delete-user/:id/:libraryID', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.deleteLibraryUser);
-	router.post('/library/add-reading', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.takeBook);
-	router.post('/library/remove-reading', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.returnBook);
+	router.post('/library/add-user', auth.isInRole('librarian'), controllers.libraries.addLibraryUser);
+	router.get('/library/delete-user/:id/:libraryID', auth.isInRole('librarian'), controllers.libraries.deleteLibraryUser);
+	router.post('/library/add-reading', auth.isInRole('librarian'), controllers.libraries.takeBook);
+	router.post('/library/remove-reading', auth.isInRole('librarian'), controllers.libraries.returnBook);
 	router.get('/library/all-readings', controllers.libraries.getAllReadings);
 	router.get('/library/not-returned/:libraryID/:userID', controllers.libraries.getAllNotReturnedReadings);
 	router.get('/library/member/:libraryID/:userID', controllers.libraries.isMember);
@@ -32,7 +35,7 @@ module.exports = function(app) {
 	router.get('/library/subscribers/:libraryID', controllers.libraries.getLibraryUsersInLibraryCount);
 	router.post('/library/addbooking', controllers.libraries.addBooking);
 	router.get('/library/booking/:libraryID/:bookID', controllers.libraries.getBookingCountBook);
-	router.get('/library/booking-sort/:libraryID/:field/:order/:page/:perPage', auth.isInRole('admin', 'librarian', 'libraryOwner'), controllers.libraries.getAllBookingsSortable);
+	router.get('/library/booking-sort/:libraryID/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.libraries.getAllBookingsSortable);
 	router.get('/library/booking-count/:libraryID', controllers.libraries.getBookingCountLibrary);
 	app.use('/api/', router);
 };

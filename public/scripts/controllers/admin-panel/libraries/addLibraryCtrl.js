@@ -8,11 +8,9 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
 		for(var i=0; i<librarians.length; i++) {
 			librarians[i].roles = [];
 			librarians[i].roles.push('librarian');
-			// TO DO !! - SHOULD BE ADDED OPTION FOR CHOOSING A LIBRARY OWNER, AMONGST THE LIBRARIANS
 		}
 
 		for(var i=0; i<library.librarians.length; i++) {
-			console.log($scope.users);
 			for(var j=0; j<$scope.users.length; j++) {
 				if($scope.users[j]._id === library.librarians[i]) {
 					$scope.users[j].roles.push('librarian');
