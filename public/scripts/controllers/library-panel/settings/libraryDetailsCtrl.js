@@ -5,12 +5,22 @@ app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routePar
     $scope.user = identity.currentUser;
 	$scope.library = LibraryResource.get({
 		id: $scope.user.ownLibraryID
+	}, function(library) {
+		//library.monday = true; TODO set monday, tuesday + hours to values
 	});
+
 	
 	$scope.updateLibraryAsLibrarian = function(library) {
         auth.updateLibraryAsLibrarian(library).then(function() {
 			console.log(library);
             $location.path('/libraryPanel');
         });
+    };
+
+    $scope.get24hours = function(){
+    	var a = new Array(24);
+    	console.log(a);
+
+    	return a;
     };
 });

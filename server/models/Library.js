@@ -43,7 +43,15 @@ var librarySchema = mongoose.Schema({
     },
     description: String,
     librarians: [String],
-    tags: [String]
+    tags: [String],
+    workdays: {
+        type: Array,
+        default: [1, 2, 3, 4, 5]
+    },
+    workhours: {
+        type: Array,
+        default: [ '10-18', '10-18', '10-18', '10-18', '10-18' ]
+    }
 });
 
 var Library = mongoose.model('Library', librarySchema);

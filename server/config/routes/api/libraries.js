@@ -37,5 +37,6 @@ module.exports = function(app) {
 	router.get('/library/booking/:libraryID/:bookID', controllers.libraries.getBookingCountBook);
 	router.get('/library/booking-sort/:libraryID/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.libraries.getAllBookingsSortable);
 	router.get('/library/booking-count/:libraryID', controllers.libraries.getBookingCountLibrary);
+	router.get('/library/available/:bookID/:libraryID', controllers.libraries.isBookAvailable);
 	app.use('/api/', router);
 };

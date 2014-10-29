@@ -3,4 +3,4 @@
   h2 Library Books
   ul
     li(ng-repeat='book in books')
-      a(href='/book/{{ book.bookID }}') {{ book.bookName }}
+      a(href='/book/{{ book.bookID }}/{{ library._id }}') {{ book.bookName }}

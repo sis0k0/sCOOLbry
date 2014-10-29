@@ -36,8 +36,10 @@ app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeP
 	}).error(function(err) {
 		console.log(err);
 	});
-	    
+	
+
     $scope.giveBook = function(interact) {
+		
 		interact.userID = $routeParams.id;
 		interact.libraryID = identity.currentUser.ownLibraryID;
 		interact.librarian1ID = identity.currentUser._id;
