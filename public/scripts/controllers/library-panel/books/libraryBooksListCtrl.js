@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryBooksListCtrl', function($scope, LibBookResource, $routeParams, $http, identity) {
+app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, $routeParams, $http, identity) {
 	$scope.user = identity.currentUser;
  /*   $scope.page = 1;
     $scope.perPage = 10;
@@ -20,7 +20,7 @@ app.controller('LibraryBooksListCtrl', function($scope, LibBookResource, $routeP
 	};
 */	
     
-    $scope.books = LibBookResource.query({id: $scope.user.ownLibraryID});
+    $scope.books = LibBooksResource.query({id: $scope.user.ownLibraryID});
     console.log($scope.books);
     /*
     	field: $scope.field,

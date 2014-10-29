@@ -5,23 +5,23 @@ app.config(function($routeProvider) {
 	// router authorization checker for roles
 	var routeUserChecks = {
 		adminRole: {
-			authenticate: function(auth) {
-				return auth.isAuthorizedForRole('admin');
+			authenticate: function(User) {
+				return User.isAuthorizedForRole('admin');
 			}
 		},
 		librarianRole: {
-			authenticate: function(auth) {
-				return auth.isAuthorizedForRole('librarian');
+			authenticate: function(User) {
+				return User.isAuthorizedForRole('librarian');
 			}
 		},
 		libraryOwnerRole: {
-			authenticate: function(auth) {
-				return auth.isAuthorizedForRole('libraryOwner');
+			authenticate: function(User) {
+				return User.isAuthorizedForRole('libraryOwner');
 			}
 		},
 		authenticated: {
-			authenticate: function(auth) {
-				return auth.isAuthenticated();
+			authenticate: function(User) {
+				return User.isAuthenticated();
 			}
 		}
 	};

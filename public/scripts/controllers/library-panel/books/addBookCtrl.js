@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryAddBookCtrl', function($scope, $location, $http, auth, notifier, identity) {
+app.controller('LibraryAddBookCtrl', function($scope, $location, $http, Book, notifier, identity) {
     $scope.user = identity.currentUser;
     $scope.libraryID = identity.currentUser.ownLibraryID;
 	$http({
@@ -15,7 +15,7 @@ app.controller('LibraryAddBookCtrl', function($scope, $location, $http, auth, no
 
 
     $scope.addBook = function(book) {
-        auth.addBook(book, identity.currentUser.ownLibraryID).then(function() {
+        Book.addBook(book, identity.currentUser.ownLibraryID).then(function() {
             notifier.success('Book added successfully!');
             $location.path('/libraryPanel/books-library');
         }, function(reason){

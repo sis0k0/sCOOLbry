@@ -1,10 +1,9 @@
 'use strict';
 
-app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier, UserResource, ajaxPost) {
+app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User, notifier, UserResource, ajaxPost) {
 
 	// Add library
 	$scope.addLibrary = function(library, librarians) {
-		console.log(librarians);
 		for(var i=0; i<librarians.length; i++) {
 			librarians[i].roles = [];
 			librarians[i].roles.push('librarian');
@@ -14,11 +13,11 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, auth, notifier
 			for(var j=0; j<$scope.users.length; j++) {
 				if($scope.users[j]._id === library.librarians[i]) {
 					$scope.users[j].roles.push('librarian');
-					auth.updateAsAdmin($scope.users[j]);
+					User.updateAsAdmin($scope.users[j]);
 				}
 			}
 		}
-		auth.addLibrary(library, librarians).finally(function(){
+		Library.addLibrary(library, librarians).finally(function(){
 			notifier.success('Library added successfully!');
 			$window.location.href = '/admin/libraries';
 		});

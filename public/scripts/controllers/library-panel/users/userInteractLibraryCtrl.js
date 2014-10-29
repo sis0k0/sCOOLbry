@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeParams, identity, auth, notifier, $http, $location) {
+app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeParams, identity, LibraryUsersInteractions, notifier, $http, $location) {
 	
     $scope.userInfo = UserResource.get({id: $routeParams.id}, function(data){
 	
@@ -43,7 +43,7 @@ app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeP
 		interact.userID = $routeParams.id;
 		interact.libraryID = identity.currentUser.ownLibraryID;
 		interact.librarian1ID = identity.currentUser._id;
-        auth.giveBook(interact).then(function() {
+        LibraryUsersInteractions.giveBook(interact).then(function() {
             notifier.success('Book given successfully!');
             $location.path('/libraryPanel/users');
         }, function(reason){
@@ -56,7 +56,7 @@ app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeP
 		interact.libraryID = identity.currentUser.ownLibraryID;
 		interact.librarian2ID = identity.currentUser._id;
 		interact.returnDate = new Date();
-        auth.returnBook(interact).then(function() {
+        LibraryUsersInteractions.returnBook(interact).then(function() {
             notifier.success('Book returned successfully!');
             $location.path('/libraryPanel/users');
         }, function(reason){

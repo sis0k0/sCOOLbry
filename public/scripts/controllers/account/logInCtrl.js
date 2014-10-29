@@ -1,10 +1,10 @@
 'use strict';
 
-app.controller('LogInCtrl', function($scope, $location, notifier, identity, auth, $window) {
+app.controller('LogInCtrl', function($scope, $location, notifier, identity, User, $window) {
     $scope.identity = identity;
 
     $scope.login = function(user) {
-        auth.login(user).then(function(success) {
+        User.login(user).then(function(success) {
             if (success) {
                 notifier.success('Successful login!');
                 $location.path('/');
@@ -20,7 +20,7 @@ app.controller('LogInCtrl', function($scope, $location, notifier, identity, auth
     };
 
     $scope.logout = function() {
-        auth.logout().then(function() {
+        User.logout().then(function() {
             notifier.success('Successful logout!');
             if ($scope.user) {
                 $scope.user.username = '';

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams, $http, auth, ajaxPost, UserResource) {
+app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, UserResource) {
 
 	$scope.user = UserResource.get({id: $routeParams.id}, function() {
 		$scope.emailConfirm = $scope.user.email;
@@ -54,16 +54,16 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 
 	$scope.updateAsAdmin = function(user) {
 		if(user.roles.indexOf('librarian')!==-1 || user.roles.indexOf('libraryOwner')!==-1) {
-			auth.updateAsAdmin(user, user.ownLibraryID, false).then(function() {
+			User.updateAsAdmin(user, user.ownLibraryID, false).then(function() {
 				$location.path('/admin/users');
 			});
 		} else if($scope.newLibrary===true) {
-			auth.updateAsAdmin(user, $scope.library, true).then(function() {
+			User.updateAsAdmin(user, $scope.library, true).then(function() {
 				$location.path('/admin/users');
 			});
 		} else {
 			user.ownLibraryID='';
-			auth.updateAsAdmin(user).then(function() {
+			User.updateAsAdmin(user).then(function() {
 				$location.path('/admin/users');
 			});
 		}

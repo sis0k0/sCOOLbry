@@ -1,8 +1,8 @@
 'use strict';
 
-app.controller('SignUpCtrl', function($scope, $location, auth, notifier, $http, $window) {
+app.controller('SignUpCtrl', function($scope, $location, User, notifier, $http, $window) {
     $scope.signup = function(user) {
-        auth.signup(user).then(function() {
+        User.signup(user).then(function() {
             notifier.success('Registration successful!');
             $location.path('/');
         }, function(reason){

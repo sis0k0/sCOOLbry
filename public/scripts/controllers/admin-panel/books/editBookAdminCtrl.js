@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('editBookAdminCtrl', function($scope, $location, $http, auth, ajaxPost, BookResource, $routeParams) {
+app.controller('editBookAdminCtrl', function($scope, $location, $http, Book, ajaxPost, BookResource, $routeParams) {
 
     $scope.book = BookResource.get({id: $routeParams.id});
 
@@ -14,7 +14,7 @@ app.controller('editBookAdminCtrl', function($scope, $location, $http, auth, aja
 	});
 
 	$scope.updateBookAsAdmin = function(book) {
-        auth.updateBookAsAdmin(book).then(function() {
+        Book.updateBookAsAdmin(book).then(function() {
             $location.path('/admin/books');
         });
     };

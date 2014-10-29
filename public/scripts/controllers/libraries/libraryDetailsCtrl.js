@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, cachedLibraries, LibBookResource, UserReadingResource, identity, $http, auth, notifier, $location) {
+app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier, $location) {
     $scope.library = cachedLibraries.query().$promise.then(function(collection) {
         collection.forEach(function(library) {
             if (library._id === $routeParams.id) {
@@ -11,7 +11,7 @@ app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, 
     });
 
     
-    $scope.books = LibBookResource.query({id: $routeParams.id});
+    $scope.books = LibBooksResource.query({id: $routeParams.id});
 
     if(identity.currentUser===undefined) {
 		$scope.isMember = false;
@@ -39,7 +39,7 @@ app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, 
 		identity.currentUser.given = 0;
 		identity.currentUser.toReturn = 0;
 		identity.currentUser.userID = identity.currentUser._id;
-        auth.addUserToLibrary(identity.currentUser, $routeParams.id).then(function() {
+        LibraryUsers.addUserToLibrary(identity.currentUser, $routeParams.id).then(function() {
             notifier.success('You\'ve subscribed successfully!');
             $route.reload();
         }, function(reason){

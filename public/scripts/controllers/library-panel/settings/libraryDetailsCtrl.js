@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routeParams, $http, identity, auth, $location) {
+app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routeParams, $http, identity, Library, $location) {
 	
     $scope.user = identity.currentUser;
 	$scope.library = LibraryResource.get({
@@ -10,8 +10,8 @@ app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routePar
 	});
 
 	
-	$scope.updateLibraryAsLibrarian = function(library) {
-        auth.updateLibraryAsLibrarian(library).then(function() {
+	$scope.updateLibrary = function(library) {
+        Library.updateLibrary(library).then(function() {
 			console.log(library);
             $location.path('/libraryPanel');
         });

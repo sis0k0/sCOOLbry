@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('EditProfileCtrl', function($scope, $location, auth, identity, ajaxPost, $window, $http) {
+app.controller('EditProfileCtrl', function($scope, $location, User, identity, ajaxPost, $window, $http) {
 
 	$scope.user = {
         username: identity.currentUser.username,
@@ -23,7 +23,7 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
     console.log('lqlq');
 	$scope.update = function(user) {
 		console.log('the ctrl');
-        auth.update(user).then(function() {
+        User.update(user).then(function() {
             $scope.user = user;
             $location = '/profile';
         });
@@ -31,7 +31,7 @@ app.controller('EditProfileCtrl', function($scope, $location, auth, identity, aj
 
     $scope.getMonth = function(user) {
         console.log('test');
-        auth.getMonth(user);
+        User.getMonth(user);
     };
 
 

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('AddBookCtrl', function($scope, $window, $http, auth, notifier) {
+app.controller('AddBookCtrl', function($scope, $window, $http, Book, notifier) {
 
 	$http({
 		method: 'get',
@@ -13,7 +13,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, auth, notifier) {
 
 
     $scope.addBook = function(book) {
-        auth.addBook(book).then(function() {
+        Book.addBook(book).then(function() {
             $window.location.href = '/admin/books';
             notifier.success('Book added successfully!');
         }, function(reason){

@@ -1,12 +1,12 @@
 'use strict';
 
-app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http, auth, notifier, $location, BookResource, LibraryReadingResource, LibBookResource3, $window) {
+app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http, LibraryUsersInteractions, notifier, $location, BookResource, LibraryReadingResource, LibBookResource, $window) {
     $scope.bookInfo = BookResource.get({id: $routeParams.id});
 
     if($routeParams.libraryID!=undefined) {
     	$scope.libraryID = $routeParams.libraryID;
     	$scope.readers = LibraryReadingResource.get({libraryID: $scope.libraryID});
-    	$scope.quantity = LibBookResource3.get({libraryID: $scope.libraryID, bookID: $routeParams.id});
+    	$scope.quantity = LibBookResource.get({libraryID: $scope.libraryID, bookID: $routeParams.id});
         $scope.bookable = false;
 
         $http.get('/api/library/booking/'+$scope.libraryID+'/'+$routeParams.id).success(function(data){
@@ -53,7 +53,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
         booking.bookID = $routeParams.id;
         booking.bookDate = bookDate;
 
-        auth.addBooking(booking).then(function(){
+        LibraryUsersInteractions.addBooking(booking).then(function(){
            notifier.success('Booking added successfully!');
            $window.location.href = '/libraries';
            

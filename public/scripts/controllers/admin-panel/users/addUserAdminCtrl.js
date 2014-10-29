@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('addUserAdminCtrl', function($scope, $location, $routeParams, $http, auth, ajaxPost, notifier) {
+app.controller('addUserAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, notifier) {
 
 
 	$http({
@@ -50,20 +50,20 @@ app.controller('addUserAdminCtrl', function($scope, $location, $routeParams, $ht
 
 	$scope.addUserAsAdmin = function(user) {
 		if($scope.newLibrary===true) {
-			auth.addUserAsAdmin(user, $scope.library, true).then(function() {
+			User.addAsAdmin(user, $scope.library, true).then(function() {
 				$location.path('/admin/users');
 			}, function(reason){
 				notifier.error(reason);
 			});
 		} else if(!!user.ownLibraryID) {
-			auth.addUserAsAdmin(user, user.ownLibraryID, false).then(function() {
+			User.addAsAdmin(user, user.ownLibraryID, false).then(function() {
 				$location.path('/admin/users');
 			}, function(reason){
 				notifier.error(reason);
 			});
 		} else {
 			console.log('controller');
-			auth.addUserAsAdmin(user).then(function() {
+			User.addAsAdmin(user).then(function() {
 				$location.path('/admin/users');
 			}, function(reason){
 				notifier.error(reason);
