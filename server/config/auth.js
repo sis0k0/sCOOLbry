@@ -85,8 +85,7 @@ module.exports = {
 	},
 	isAuthenticated: function(req, res, next) {
 		if (!req.isAuthenticated()) {
-			res.status(403);
-			res.end();
+			res.status(403).send('Sorry, you are not authenticated!');
 		}
 		else {
 			next();
@@ -95,9 +94,10 @@ module.exports = {
 	isInRole: function(role) {
 		return function(req, res, next) {
 
-			if(!req.isAuthenticated()) {
-				res.status(403);
-				res.end();
+			if(!req.isAuthenticated() || typeof req.user === 'undefined') {
+				console.log('not auth');
+				res.status(403).send('Sorry, you are not authenticated!');
+				
 			}
 
 			switch(role) {
@@ -105,40 +105,35 @@ module.exports = {
 					if(req.user.roles.indexOf('admin') > -1) {
 						next();
 					} else {
-						res.status(403);
-						res.end();
+						res.status(403).send('Sorry, you are not authorized!');
 					}
 					break;
 				case 'moderator': 
 					if(req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('moderator') > -1) {
 						next();
 					} else {
-						res.status(403);
-						res.end();
+						res.status(403).send('Sorry, you are not authorized!');
 					}
 					break;
 				case 'libraryOwner':
 					if(req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('libraryOwner') > -1) {
 						next();
 					} else {
-						res.status(403);
-						res.end();
+						res.status(403).send('Sorry, you are not authorized!');
 					}
 					break;
 				case 'librarian':
 					if(req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('libraryOwner') > -1 || req.user.roles.indexOf('librarian') > -1) {
 						next();
 					} else {
-						res.status(403);
-						res.end();
+						res.status(403).send('Sorry, you are not authorized!');
 					}
 					break;
 				case 'standart':
 					next();
 					break;
 				default:
-					res.status(403);
-					res.end();
+					res.status(403).send('Sorry, you are not authorized!');
 			}
 
 		};
@@ -148,8 +143,7 @@ module.exports = {
 		if(req.isAuthenticated() || req.user.roles.indexOf('admin') > -1){
 			next();
 		}else{
-			res.status(403);
-			res.end();
+			res.status(403).send('Sorry, you are not authorized!');
 		}
 	},
 };

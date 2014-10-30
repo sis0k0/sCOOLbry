@@ -8,9 +8,9 @@ include ../panel
 
           .col-md-5
             h3 Find book by ISBN
-            .col-md-9(style="padding:0")
-              input.form-control(name="isbn", type="text", placeholder="ISBN", style="border-radius: 0", ng-model='ISBNSearch', ng-pattern="/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/")
-            button.btn.btn-success.pull-right.col-md-3(style="border-radius: 0", ng-disabled="!ISBNSearch") Search
+            .col-md-9(style='padding:0')
+              input.form-control(name='isbn', type='text', placeholder='ISBN', style='border-radius: 0', ng-model='ISBNSearch', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/')
+            button.btn.btn-success.pull-right.col-md-3(style='border-radius: 0', ng-disabled='!ISBNSearch', ng-click='findBook()') Search
 
           .col-md-5.col-md-offset-1
             h3.text-center Or fill in a Book Form

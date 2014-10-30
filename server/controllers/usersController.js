@@ -163,12 +163,10 @@ module.exports = {
     getUserById: function(req, res) {
         User.findOne({_id: req.params.id}).exec(function(err, user) {
             if (err) {
-				res.send('null');
+				res.send('User cannot be found');
 				
             }else{
-				
-					res.send(user);
-					
+				res.send(user);		
 			}
         });
     },

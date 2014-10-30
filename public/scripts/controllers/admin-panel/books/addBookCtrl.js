@@ -11,7 +11,6 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, notifier) {
 		console.log(err);
 	});
 
-
     $scope.addBook = function(book) {
         Book.addBook(book).then(function() {
             $window.location.href = '/admin/books';
@@ -20,6 +19,11 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, notifier) {
                 notifier.error(reason);
             });
     };
+
+    $scope.findBook = function() {
+    	console.log($scope.ISBNSearch);
+    	Book.findBook($scope.ISBNSearch);
+    }
 
 
 });
