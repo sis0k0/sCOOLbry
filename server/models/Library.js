@@ -1,6 +1,6 @@
 'use strict';
 
-var mongoose = require('mongoose'),
+var mongoose  = require('mongoose'),
     countries = require('../filters/countries');
 
 var librarySchema = mongoose.Schema({

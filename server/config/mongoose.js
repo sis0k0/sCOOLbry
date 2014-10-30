@@ -1,13 +1,13 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    user = require('../models/User'),
-    library = require('../models/Library'),
-    book = require('../models/Book'),
-    libBook = require('../models/LibBook'),
-    libUser = require('../models/LibUser'),
-    reading = require('../models/Reading'),
-    booking = require('../models/Booking');
+    user     = require('../models/User'),
+    library  = require('../models/Library'),
+    book     = require('../models/Book'),
+    libBook  = require('../models/LibBook'),
+    libUser  = require('../models/LibUser'),
+    reading  = require('../models/Reading'),
+    booking  = require('../models/Booking');
 
 module.exports = function(config) {
     mongoose.connect(config.db);

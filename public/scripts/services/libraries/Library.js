@@ -14,15 +14,18 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, LibraryR
 				// Link the librarians to the created library
 				librarians.forEach(function(element){
 
-        			element.ownLibraryID = libraryID;
-		  			var newUser = new LibrarianResource(element);
+					element.ownLibraryID = libraryID;
+					element.ownLibraryID = libraryID;
+					element.ownLibraryID = libraryID;
+					element.ownLibraryID = libraryID;
+					var newUser = new LibrarianResource(element);
 					newUser.$save().then(function(data) {
 						$http({
 							method: 'get',
 							url: '/api/library/addLibrarian/'+libraryID+'/'+data._id
 						});
 					});
-       			});
+				});
 
 				// Link the library to the librarians' profiles
 				for (var userID in library.librarians) {
@@ -33,9 +36,9 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, LibraryR
 					updatedUser._id = library.librarians[userID];
 					updatedUser.$update();
 				}
-       			library._id = libraryID;
-       			
-       		}).then(function() {
+				library._id = libraryID;
+				
+			}).then(function() {
 				deferred.resolve();
 			}, function(response) {
 				deferred.reject(response);

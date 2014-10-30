@@ -4,10 +4,11 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
     $scope.bookInfo = BookResource.get({id: $routeParams.id});
 
     if($routeParams.libraryID!=undefined) {
-    	$scope.libraryID = $routeParams.libraryID;
-    	$scope.readers = LibraryReadingResource.get({libraryID: $scope.libraryID});
-    	$scope.quantity = LibBookResource.get({libraryID: $scope.libraryID, bookID: $routeParams.id});
-        $scope.bookable = false;
+
+        $scope.libraryID = $routeParams.libraryID;
+        $scope.readers   = LibraryReadingResource.get({libraryID: $scope.libraryID});
+        $scope.quantity  = LibBookResource.get({libraryID: $scope.libraryID, bookID: $routeParams.id});
+        $scope.bookable  = false;
 
         $http.get('/api/library/booking/'+$scope.libraryID+'/'+$routeParams.id).success(function(data){
 
@@ -48,10 +49,11 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
         var booking = new Object({});
         var bookDate = new Date(new Date().getTime() + 60 * 60 * 24 * 1000);
         console.log(bookDate);
-        booking.userID = identity.currentUser._id;
+        
+        booking.userID    = identity.currentUser._id;
         booking.libraryID = $scope.libraryID;
-        booking.bookID = $routeParams.id;
-        booking.bookDate = bookDate;
+        booking.bookID    = $routeParams.id;
+        booking.bookDate  = bookDate;
 
         LibraryUsersInteractions.addBooking(booking).then(function(){
            notifier.success('Booking added successfully!');

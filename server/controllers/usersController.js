@@ -1,9 +1,9 @@
 'use strict';
 
-var encryption = require('../utilities/encryption'),
-	http = require('http'),
+var encryption  = require('../utilities/encryption'),
+	http        = require('http'),
 	querystring = require('querystring'),
-	User = require('mongoose').model('User');
+	User        = require('mongoose').model('User');
 
 module.exports = {
     createUser: function(req, res) {

@@ -2,8 +2,8 @@
 
 //var auth = require('../../auth'),
 var	controllers = require('../../../controllers'),
-	express = require('express'),
-	router = express.Router();
+	express     = require('express'),
+	router      = express.Router();
 
 module.exports = function(app) {
 

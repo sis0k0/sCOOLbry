@@ -1,12 +1,12 @@
 'use strict';
 
-var express = require('express'),
-    stylus = require('stylus'),
-    bodyParser = require('body-parser'),
+var express      = require('express'),
+    stylus       = require('stylus'),
+    bodyParser   = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    session = require('express-session'),
-    passport = require('passport'),
-    multer  = require('multer');
+    session      = require('express-session'),
+    passport     = require('passport'),
+    multer       = require('multer');
 
 module.exports = function(app, config) {
     app.set('view engine', 'jade');

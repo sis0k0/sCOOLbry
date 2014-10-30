@@ -2,7 +2,6 @@
 
 app.config(function($routeProvider) {
 
-
 	// router authorization checker for roles
 	var routeUserChecks = {
 		adminRole: {

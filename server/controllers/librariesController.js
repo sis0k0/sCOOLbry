@@ -1,10 +1,10 @@
 'use strict';
 
-var Library = require('mongoose').model('Library');
-var LibBook = require('mongoose').model('LibBook');
-var LibUser = require('mongoose').model('LibUser');
-var Reading = require('mongoose').model('Reading');
-var Booking = require('mongoose').model('Booking');
+var Library = require('mongoose').model('Library'),
+	LibBook = require('mongoose').model('LibBook'),
+	LibUser = require('mongoose').model('LibUser'),
+	Reading = require('mongoose').model('Reading'),
+	Booking = require('mongoose').model('Booking');
 
 module.exports = {
 	createLibrary: function(req, res) {

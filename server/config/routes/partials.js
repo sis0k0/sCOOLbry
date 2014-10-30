@@ -1,9 +1,9 @@
 'use strict';
 
-var auth = require('../auth'),
+var auth    = require('../auth'),
 	express = require('express'),
-	router = express.Router(),
-	path = require('path');
+	router  = express.Router(),
+	path    = require('path');
 
 module.exports = function(app) {
 

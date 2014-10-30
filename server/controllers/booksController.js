@@ -1,7 +1,7 @@
 'use strict';
 
-var Book = require('mongoose').model('Book');
-var LibBook = require('mongoose').model('LibBook');
+var Book    = require('mongoose').model('Book'),
+	LibBook = require('mongoose').model('LibBook');
 
 module.exports = {
 	createBook: function(req, res) {

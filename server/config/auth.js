@@ -1,7 +1,7 @@
 'use strict';
 
-var passport = require('passport'),
-	http = require('http'),
+var passport    = require('passport'),
+	http        = require('http'),
 	querystring = require('querystring');
 
 module.exports = {

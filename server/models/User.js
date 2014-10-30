@@ -1,7 +1,7 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-    roles = require('../filters/usersRoles'),
+var mongoose   = require('mongoose'),
+    roles      = require('../filters/usersRoles'),
     encryption = require('../utilities/encryption');
 
 var userSchema = mongoose.Schema({

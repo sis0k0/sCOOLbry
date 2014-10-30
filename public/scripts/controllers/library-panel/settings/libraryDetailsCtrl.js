@@ -16,10 +16,14 @@ app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routePar
             closingTime = times[1];
             openingTime = openingTime.split(":");
             closingTime = closingTime.split(":");
-            library.workHoursMondayOpeningHour = openingTime[0];
+
+
+            library.workHoursMondayOpeningHour    = openingTime[0];
             library.workHoursMondayOpeningMinutes = openingTime[1];
-            library.workHoursMondayClosingHour = closingTime[0];
+
+            library.workHoursMondayClosingHour    = closingTime[0];
             library.workHoursMondayClosingMinutes = closingTime[1];
+
         }else{
             library.monday = false;
         }
@@ -33,9 +37,12 @@ app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routePar
             closingTime = times[1];
             openingTime = openingTime.split(":");
             closingTime = closingTime.split(":");
-            library.workHoursTuesdayOpeningHour = openingTime[0];
+
+
+            library.workHoursTuesdayOpeningHour    = openingTime[0];
             library.workHoursTuesdayOpeningMinutes = openingTime[1];
-            library.workHoursTuesdayClosingHour = closingTime[0];
+
+            library.workHoursTuesdayClosingHour    = closingTime[0];
             library.workHoursTuesdayClosingMinutes = closingTime[1];
         }else{
             library.tuesday = false;
@@ -49,9 +56,12 @@ app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routePar
             closingTime = times[1];
             openingTime = openingTime.split(":");
             closingTime = closingTime.split(":");
-            library.workHoursWednesdayOpeningHour = openingTime[0];
+
+
+            library.workHoursWednesdayOpeningHour    = openingTime[0];
             library.workHoursWednesdayOpeningMinutes = openingTime[1];
-            library.workHoursWednesdayClosingHour = closingTime[0];
+
+            library.workHoursWednesdayClosingHour    = closingTime[0];
             library.workHoursWednesdayClosingMinutes = closingTime[1];
         }else{
             library.wednesday = false;
@@ -65,8 +75,11 @@ app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routePar
             closingTime = times[1];
             openingTime = openingTime.split(":");
             closingTime = closingTime.split(":");
+
+
             library.workHoursThursdayOpeningHour = openingTime[0];
             library.workHoursThursdayOpeningMinutes = openingTime[1];
+
             library.workHoursThursdayClosingHour = closingTime[0];
             library.workHoursThursdayClosingMinutes = closingTime[1];
         
@@ -82,9 +95,12 @@ app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routePar
             closingTime = times[1];
             openingTime = openingTime.split(":");
             closingTime = closingTime.split(":");
-            library.workHoursFridayOpeningHour = openingTime[0];
+
+
+            library.workHoursFridayOpeningHour    = openingTime[0];
             library.workHoursFridayOpeningMinutes = openingTime[1];
-            library.workHoursFridayClosingHour = closingTime[0];
+
+            library.workHoursFridayClosingHour    = closingTime[0];
             library.workHoursFridayClosingMinutes = closingTime[1];
         }else{
             library.friday = false;
@@ -98,9 +114,12 @@ app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routePar
             closingTime = times[1];
             openingTime = openingTime.split(":");
             closingTime = closingTime.split(":");
-            library.workHoursSaturdayOpeningHour = openingTime[0];
+
+
+            library.workHoursSaturdayOpeningHour    = openingTime[0];
             library.workHoursSaturdayOpeningMinutes = openingTime[1];
-            library.workHoursSaturdayClosingHour = closingTime[0];
+
+            library.workHoursSaturdayClosingHour    = closingTime[0];
             library.workHoursSaturdayClosingMinutes = closingTime[1];
         
         }else{
@@ -115,9 +134,12 @@ app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routePar
             closingTime = times[1];
             openingTime = openingTime.split(":");
             closingTime = closingTime.split(":");
-            library.workHoursSundayOpeningHour = openingTime[0];
+
+
+            library.workHoursSundayOpeningHour    = openingTime[0];
             library.workHoursSundayOpeningMinutes = openingTime[1];
-            library.workHoursSundayClosingHour = closingTime[0];
+            
+            library.workHoursSundayClosingHour    = closingTime[0];
             library.workHoursSundayClosingMinutes = closingTime[1];
         
         }else{
