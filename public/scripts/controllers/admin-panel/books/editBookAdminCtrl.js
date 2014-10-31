@@ -14,7 +14,7 @@ app.controller('editBookAdminCtrl', function($scope, $location, $http, Book, aja
 	});
 
 	$scope.updateBookAsAdmin = function(book) {
-        Book.updateBookAsAdmin(book).then(function() {
+        Book.updateAsAdmin(book).then(function() {
             $location.path('/admin/books');
         });
     };

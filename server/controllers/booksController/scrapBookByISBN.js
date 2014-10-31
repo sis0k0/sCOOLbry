@@ -66,8 +66,66 @@ module.exports = function(req, res) {
 							}
 						}
 
+
+						// Make a book object that has properties, analogous to the app's Book Model
+						var book = {};
+
+						if(json.hasOwnProperty('Заглавие')) {
+							book.title = json['Заглавие'];
+						}
+
+						if(json.hasOwnProperty('Автори')) {
+							book.author = json['Автори'];
+						}
+
+						if(json.hasOwnProperty('Илюстрирано')) {
+							book.illustrated = json['Илюстрирано'];
+						}
+
+						if(json.hasOwnProperty('Илюстрации на корица')) {
+							book.cover = json['Илюстрации на корица'];
+						}
+
+						if(json.hasOwnProperty('Издател')) {
+							book.publisher = json['Издател'];
+						}
+
+						if(json.hasOwnProperty('Националност на автора')) {
+							book.authorNationality = json['Националност на автора'];
+						}
+
+						if(json.hasOwnProperty('Език')) {
+							book.language = json['Език'];
+						}
+
+						if(json.hasOwnProperty('Тематики')) {
+							book.themes = json['Тематики'].split(',');
+						}
+
+						if(json.hasOwnProperty('Жанр')) {
+							book.genres = [];
+							book.genres.push(json['Жанр']);
+						}
+
+
+						if(json.hasOwnProperty('Описание')) {
+							book.description = json['Описание'];
+						}
+
+						if(json.hasOwnProperty('Поредност на изданието')) {
+							book.edition = json['Поредност на изданието'];
+						}
+
+						if(json.hasOwnProperty('Планирана дата на издаване')) {
+							book.published = json['Планирана дата на издаване'];
+						}
+
+						if(json.hasOwnProperty('Страници')) {
+							book.pages = json['Страници'];
+						}
+
 						console.log(json);
-						res.send(json);
+						res.send(book);
 
 
 					}

@@ -11,10 +11,12 @@ module.exports = function(app) {
 	router.get('/books', controllers.books.getAllBooks);
 	router.post('/books', auth.isInRole('librarian'), controllers.books.createBook);
 
+	// Search book
 	router.get('/books/:id', controllers.books.getBookById);
 	router.get('/book/findByISBN/:isbn', controllers.books.getBookByISBN);
 	router.get('/book/booksinprint/:isbn', auth.isInRole('librarian'), controllers.books.scrapBookByISBN);
 	router.get('/book/amazonSearch/:isbn', auth.isInRole('librarian'), controllers.books.searchBookInAmazon);
+	router.get('/book/googleBooksSearch/:isbn', auth.isInRole('librarian'), controllers.books.searchBookInGoogleBooks);
 
 
 	router.get('/book/sort/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.books.getAllBooksSortable);

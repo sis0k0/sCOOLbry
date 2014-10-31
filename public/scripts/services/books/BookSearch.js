@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('BookSearch', function($q, $http) {
+app.factory('bookSearch', function($q, $http) {
 	return {
 
 		search: function(isbn) {
@@ -16,14 +16,13 @@ app.factory('BookSearch', function($q, $http) {
 			var isbnJustNumber = isbn.replace(/-/gi, '');
 			var countryCode = '';
 			if(isbnJustNumber.length===13) {
-				countryCode = isbnJustNumber.substring(3,6);
+				countryCode = isbnJustNumber.substring(0,6);
 			} else {
-				countryCode = isbnJustNumber.substring(0,3);
+				countryCode = '978' + isbnJustNumber.substring(0,3);
 			}
 
-
 			// If the book is bulgarian, perform web scrapping of the Bulgarian national register
-			if(countryCode==='619' || countryCode==='954') {
+			if(countryCode==='978619' || countryCode==='978954') {
 
 				// Make http request for scrapping booksinprint.bg
 				var scrapBgBooksInPrintPromise = $http.get('/api/book/booksinprint/' + isbn, {timeout: deferred.promise});
@@ -31,8 +30,6 @@ app.factory('BookSearch', function($q, $http) {
 				scrapBgBooksInPrintPromise.success(function(data) {
 					if(data!=='false') {
 						deferred.resolve(data);
-					} else {
-						console.log('not found!');
 					}
 				});
 			}
@@ -44,12 +41,8 @@ app.factory('BookSearch', function($q, $http) {
 			findInDatabasePromise.success(function(data) {
 				if(data!=='false') {
 					deferred.resolve(data);
-				} else {
-					console.log('not found!');
 				}
 			});
-
-
 
 			// Make http request to the Amazon API, implemented within our server side
 			var findInAmazonPromise = $http.get('/api/book/amazonSearch/' + isbn, {timeout: deferred.promise});
@@ -57,8 +50,15 @@ app.factory('BookSearch', function($q, $http) {
 			findInAmazonPromise.success(function(data) {
 				if(data!=='false') {
 					deferred.resolve(data);
-				} else {
-					console.log('not found!');
+				}
+			});
+
+			// Make http request to the Google Books API, implemented within our server side
+			var findInGoogleBooksPromise = $http.get('/api/book/googleBooksSearch/' + isbn, {timeout: deferred.promise});
+			promisesArray.push(findInGoogleBooksPromise);
+			findInGoogleBooksPromise.success(function(data) {
+				if(data!=='false') {
+					deferred.resolve(data);
 				}
 			});
 

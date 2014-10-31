@@ -3,15 +3,48 @@
 var Book = require('mongoose').model('Book');
 
 module.exports = function(req, res) {
-	Book.findOne({isbn: req.params.isbn}).exec(function(err, book) {
-		if (err) {
-			res.send(false);
+
+	var bookISBN = req.params.isbn;
+
+
+
+	Book.findOne({isbn: bookISBN}).exec(function(err, book) {
+		if(book!==null && !err) {
+			res.send(book);
 		} else {
-			if(book===null) {
-				res.send(false);
-			} else {
-				res.send(book);
+
+			if(bookISBN.length===13) {
+				bookISBN = bookISBN.substring(3,13);
+
+				Book.findOne({isbn: bookISBN}).exec(function(error, returnedBook) {
+					if(error) {
+						res.send(false);
+					} else {
+						if(returnedBook===null) {
+							res.send(false);
+						} else {
+							res.send(returnedBook);
+						}
+					}
+				});
+
+			} else if(bookISBN.length===10) {
+				bookISBN = '978' + bookISBN;
+
+				Book.findOne({isbn: bookISBN}).exec(function(error, returnedBook) {
+					if(error) {
+						res.send(false);
+					} else {
+						if(returnedBook===null) {
+							res.send(false);
+						} else {
+							res.send(returnedBook);
+						}
+					}
+				});
+
 			}
+
 		}
 	});
 };

@@ -16,7 +16,6 @@ var bookSchema = mongoose.Schema({
         type: String,
         require: '{PATH} is required'
     },
-    illustrations: String,
     description: String,
     publisher: {
         type: String,
@@ -25,6 +24,7 @@ var bookSchema = mongoose.Schema({
     cover: String,
     authorNationality: String,
     language: String,
+    pages: String,
     themes: [String],
     genres: [String],
     edition: String,

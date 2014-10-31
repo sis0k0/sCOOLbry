@@ -1,6 +1,8 @@
 'use strict';
 
-app.controller('AddBookCtrl', function($scope, $window, $http, Book, BookSearch, notifier) {
+app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch, notifier, ajaxPost) {
+
+    $scope.displayForm = false;
 
 	$http({
 		method: 'get',
@@ -12,7 +14,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, BookSearch,
 	});
 
     $scope.addBook = function(book) {
-        Book.addBook(book).then(function() {
+        Book.add(book).then(function() {
             $window.location.href = '/admin/books';
             notifier.success('Book added successfully!');
         }, function(reason){
@@ -21,15 +23,55 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, BookSearch,
     };
 
     $scope.findBook = function() {
-    	console.log($scope.ISBNSearch);
 
-    	var bookPromise = BookSearch.search($scope.ISBNSearch);
+    	var bookPromise = bookSearch.search($scope.ISBNSearch);
     	bookPromise.then(function success(data) {
-    		console.log(data);
+            console.log(data);
+    		$scope.book = data;
+            $scope.book.isbn = $scope.ISBNSearch.replace(/-/gi, '');
+            $scope.displayForm = true;
     	}, function error(msg) {
+            $scope.searchState = false;
     		console.log('not found');
     	});
     }
+
+    $scope.setFileEventListener = function(element) {
+        if($scope.book==undefined) {
+            $scope.book = new Object({});
+        }
+        $scope.uploadedFile = element.files[0];
+
+        if ($scope.uploadedFile) {
+            $scope.$apply(function() {
+                $scope.uploadButtonState = true;
+            });
+        }
+    };
+
+    $scope.uploadFile = function() {
+        if (!$scope.uploadedFile) {
+            return;
+        }
+
+        ajaxPost.uploadFileInit($scope.uploadedFile)
+            .then(function(result) {
+                if (result.status === 200) {
+                    $scope.book.cover = result.data;
+                    $scope.coverUploadSuccessful = true;
+                    $scope.coverUploadError = false;
+                    $scope.coverTypeError = false;   
+                }
+            }, function(error) {
+                if(error.data==='Invalid mime type'){
+                    $scope.coverTypeError = true;
+                }
+                else{
+                    $scope.coverUploadError = true;
+                }
+                $scope.coverError = error.data;
+            });           
+    };
 
 
 });

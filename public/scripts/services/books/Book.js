@@ -2,7 +2,7 @@
 
 app.factory('Book', function($q, $http, BookResource) {
 	return {
-		addBook: function(book, libraryID) {
+		add: function(book, libraryID) {
 			var deferred = $q.defer();
 			if(typeof libraryID !== undefined) {
 				book.libraryID = libraryID;
@@ -18,7 +18,7 @@ app.factory('Book', function($q, $http, BookResource) {
 
 			return deferred.promise;
 		},
-		updateBookAsAdmin: function(book) {
+		updateAsAdmin: function(book) {
 			var deferred = $q.defer();
 
 			var updatedBook = new BookResource(book);
