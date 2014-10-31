@@ -85,9 +85,9 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
         var workingHoursIndex = workingDays.indexOf(todayWeekDay);
         var newBookingDate = new Date();
         if(add==true){
-            newBookingDate.setDate(checkDay.getDate() + (Math.abs(6-initialDay)+(Math.abs(0-todayWeekDay)+1)));
+            newBookingDate = new Date(checkDay.getTime() + 60 * 60 * 24 * 1000 * ((Math.abs(7-initialDay)+(Math.abs(0-todayWeekDay)+1))));
         }else{
-            newBookingDate.setDate(checkDay.getDate() + (Math.abs(todayWeekDay-initialDay)+add));
+            newBookingDate = new Date(checkDay.getTime() + 60 * 60 * 24 * 1000 * (Math.abs(todayWeekDay-initialDay)+add));
         }
         
         newBookingDate.setHours(workingHours[workingHoursIndex][1]);
