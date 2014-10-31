@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('AddBookCtrl', function($scope, $window, $http, Book, notifier) {
+app.controller('AddBookCtrl', function($scope, $window, $http, Book, BookSearch, notifier) {
 
 	$http({
 		method: 'get',
@@ -22,7 +22,13 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, notifier) {
 
     $scope.findBook = function() {
     	console.log($scope.ISBNSearch);
-    	Book.findBook($scope.ISBNSearch);
+
+    	var bookPromise = BookSearch.search($scope.ISBNSearch);
+    	bookPromise.then(function success(data) {
+    		console.log(data);
+    	}, function error(msg) {
+    		console.log('not found');
+    	});
     }
 
 

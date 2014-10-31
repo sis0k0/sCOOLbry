@@ -30,48 +30,6 @@ app.factory('Book', function($q, $http, BookResource) {
 			});
 
 			return deferred.promise;
-		},
-		findBook: function(isbn) {
-			var deferred = $q.defer();
-			var foundBook = {};
-
-			var findInDatabasePromise = $http.get('/api/book/findByISBN/' + isbn);
-			findInDatabasePromise
-				.success(function(data) {
-					if(data!=='false') {
-						console.log(data);
-						foundBook = data;
-					} else {
-						console.log('not found!');
-					}
-				});
-
-
-			var scrapBgBooksInPrintPromise = $http.get('/api/book/booksinprint/' + isbn);
-			scrapBgBooksInPrintPromise
-				.success(function(data) {
-					if(data!=='false') {
-						console.log('found');
-						console.log(data);
-						foundBook = data;
-					} else {
-						console.log('not found!');
-					}
-				});
-
-			var findInAmazonPromise = $http.get('/api/book/amazonSearch/' + isbn);
-			findInAmazonPromise
-				.success(function(data) {
-					if(data!=='false') {
-						console.log('found');
-						console.log(data);
-						foundBook = data;
-					} else {
-						console.log('not found!');
-					}
-				});
-
-
 		}
 	};
 });
