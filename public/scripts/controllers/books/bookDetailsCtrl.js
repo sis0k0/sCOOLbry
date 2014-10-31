@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http, LibraryUsersInteractions, notifier, $location, BookResource, LibraryReadingResource, LibBookResource, $window) {
+app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http, LibraryUsersInteractions, notifier, $location, BookResource, LibraryReadingResource, LibBookResource, $window, LibraryResource) {
     $scope.bookInfo = BookResource.get({id: $routeParams.id});
 
     if($routeParams.libraryID!=undefined) {
@@ -8,6 +8,8 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
         $scope.libraryID = $routeParams.libraryID;
         $scope.readers   = LibraryReadingResource.get({libraryID: $scope.libraryID});
         $scope.quantity  = LibBookResource.get({libraryID: $scope.libraryID, bookID: $routeParams.id});
+        $scope.library = LibraryResource.get({id: $scope.libraryID});
+
         $scope.bookable  = false;
 
         $http.get('/api/library/booking/'+$scope.libraryID+'/'+$routeParams.id).success(function(data){
@@ -47,8 +49,53 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
     
     $scope.addBooking = function(){
         var booking = new Object({});
-        var bookDate = new Date(new Date().getTime() + 60 * 60 * 24 * 1000);
-        console.log(bookDate);
+        var checkDay = new Date(new Date().getTime() + 60 * 60 * 24 * 1000);
+        var workingDays = $scope.library.workdays;
+        var workingHoursStr = $scope.library.workhours;
+        var bookDate;
+
+        var workingHours = new Array();
+        workingHoursStr.forEach(function(element) {
+            var currentDay = new Array();
+            var currentSplit = element.split("-");
+            var openingSplit = currentSplit[0];
+            var closingSplit = currentSplit[1];
+            openingSplit = openingSplit.split(":");
+            openingSplit = openingSplit[0];
+            closingSplit = closingSplit.split(":");
+            closingSplit = closingSplit[0];
+            currentDay.push(openingSplit);
+            currentDay.push(closingSplit);
+            workingHours.push(currentDay);
+        });
+   
+
+        var todayWeekDay = checkDay.getDay();
+        var initialDay = checkDay.getDay();
+        var add = 0;
+
+        while(!(workingDays.indexOf(todayWeekDay)>=0)) {
+            todayWeekDay++;
+            if(todayWeekDay==initialDay){
+                break;
+            }
+            if(todayWeekDay==7) { todayWeekDay = 0; add = true; }
+        }
+            
+        var workingHoursIndex = workingDays.indexOf(todayWeekDay);
+        var newBookingDate = new Date();
+        if(add==true){
+            newBookingDate.setDate(checkDay.getDate() + (Math.abs(6-initialDay)+(Math.abs(0-todayWeekDay)+1)));
+        }else{
+            newBookingDate.setDate(checkDay.getDate() + (Math.abs(todayWeekDay-initialDay)+add));
+        }
+        
+        newBookingDate.setHours(workingHours[workingHoursIndex][1]);
+        newBookingDate.setMinutes(0);
+        newBookingDate.setSeconds(0);
+        
+        bookDate = newBookingDate;
+
         
         booking.userID    = identity.currentUser._id;
         booking.libraryID = $scope.libraryID;
