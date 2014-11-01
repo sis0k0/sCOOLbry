@@ -33,12 +33,18 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
 	$scope.fields.push('illustrated');
 	$scope.fields.push('published');
 
-	console.log($scope.fields);
 
-	$scope.columns = new Array();
 
-	function displayColumns() {
-		console.log($scope.columns);
+	$scope.displayColumns = function() {
+		var results = $scope.csv.result[0];
+
+		for(var i=0; i<results.length; i++) {
+			console.log(results[i]);
+		}
+
+		for(var i=0; i<$scope.csv.result[0]; i++) {
+			console.log($scope.csv.result[0][i])
+		}
 	}
 
 	// Add book

@@ -29,21 +29,20 @@ include ../panel
 
           .row(ng-if='csv.result')
 
-            h1.text-center Please choose 
-              span.text-warning value 
-              | does what every 
-              span.text-warning column 
-              | hold
-
+            div
+              .row.text-center.text-info
+                h3.col-xs-4 Column
+                h3.col-xs-3.text-center holds
+                h3.col-xs-4 Value
 
 
             div(ng-repeat='(key, value) in csv.result[0]')
               .row.text-center
                 h3.col-xs-4 {{ ::value }}
-                h3.col-xs-4.text-center -->
+                h3.col-xs-3.text-center -->
                 .col-xs-4
-                  select.form-control.nya-selectpicker(name='field', ng-attr-title='{{ key }}', ng-options='field for field in fields', data-live-search, ng-model='value')
-            button(ng-click='displayColumns()')
+                  select.form-control(style='margin-top:15px', name='field', ng-attr-title='{{ key }}', ng-options="field for field in fields track by field", ng-model='value')
+            button(ng-click='displayColumns()') Show
 
 
 
