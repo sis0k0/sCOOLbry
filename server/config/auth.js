@@ -97,6 +97,7 @@ module.exports = {
 			if(!req.isAuthenticated() || typeof req.user === 'undefined') {
 				console.log('not auth');
 				res.status(403).send('Sorry, you are not authenticated!');
+				res.end();
 				
 			}
 

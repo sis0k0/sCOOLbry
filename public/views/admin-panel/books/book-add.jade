@@ -6,114 +6,141 @@ include ../panel
       .row
         .col-md-11.col-md-offset-1
 
-          .row(ng-hide='displayForm')
+          .row(ng-hide='displayForm || csv.result')
+
             .col-md-4
-              h3 Find book by ISBN
+              h3.text-center.col-xs-12 Fill in a form
+                .row
+                  button.btn.btn-primary(ng-click='newForm()' style='margin-top:11px') Add book form
+
+            .col-md-4
+              h3.text-center Find book by ISBN
               .col-xs-8(style='padding:0')
                 input.form-control(name='isbn', type='text', placeholder='ISBN', style='border-radius: 0', ng-model='ISBNSearch', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/')
-              button.btn.btn-success.pull-right.col-xs-4(style='border-radius: 0',loading-button, data-loading-text='Searching...',  ng-disabled='!ISBNSearch', ng-click='findBook()') Search
+              button.btn.btn-success.pull-right.col-xs-4(style='border-radius: 0', loading-button, data-loading-text='Searching...',  ng-disabled='!ISBNSearch', ng-click='findBook()') Search
+            
 
-            .col-md-3.col-md-offset-1
-              h3.text-center Import from CSV
-              .text-center.col-xs-12
-                button.btn.btn-primary Choose a file...
+            .import.ng-isolate-scope.col-md-4(csv-import content='csv.content', header='csv.header', separator='csv.separator', result='csv.result')
 
-            .col-md-3.col-md-offset-1
-              h3.text-center Fill in a form
-              .text-center.col-xs-12
-                button.btn.btn-primary(ng-click='displayForm=true') Add book form
 
             .row
-              h3.text-info.text-center(ng-show='searchState===false', style='padding-top:4.5em') The book was not found! Please try something else!
+              h3.text-center.text-danger.text-danger(ng-show='searchState===false') The book was not found! Please try something else!
+        
 
-          form.form-horizontal(name='bookForm', ng-if='displayForm', novalidate)
-            legend 
-              h1.text-center(ng-class="{ 'text-success': (bookForm.title.$valid), 'text-danger': (bookForm.$invalid) }") Add a Book
-            .col-md-5
-              .form-group(ng-class="{ 'has-success': (bookForm.isbn.$valid && (!!book.isbn)), 'has-error': (bookForm.isbn.$invalid && bookForm.isbn.$dirty) }")
-                  label.control-label(for='isbn') ISBN
+          .row(ng-if='csv.result')
+
+            h1.text-center Please choose 
+              span.text-warning value 
+              | does what every 
+              span.text-warning column 
+              | hold
+
+
+
+            div(ng-repeat='(key, value) in csv.result[0]')
+              .row.text-center
+                h3.col-xs-4 {{ ::value }}
+                h3.col-xs-4.text-center -->
+                .col-xs-4
+                  select.form-control.nya-selectpicker(name='field', ng-attr-title='{{ key }}', ng-options='field for field in fields', data-live-search, ng-model='value')
+            button(ng-click='displayColumns()')
+
+
+
+
+
+
+
+
+          div(ng-repeat='book in books', ng-if='displayForm')
+            ng-form.form-horizontal(name='bookForm', novalidate)
+              legend 
+                h1.text-center(ng-class="{ 'text-success': (bookForm.title.$valid), 'text-danger': (bookForm.$invalid) }") Add a Book ({{$index+1}})
+              .col-md-5
+                .form-group(ng-class="{ 'has-success': (bookForm.isbn.$valid && (!!book.isbn)), 'has-error': (bookForm.isbn.$invalid && bookForm.isbn.$dirty) }")
+                    label.control-label(for='isbn') ISBN
+                    .row
+                      .col-xs-12
+                          input.form-control(name='isbn', type='text', placeholder='ISBN', ng-model='book.isbn', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/')  
+                .form-group(ng-class="{ 'has-success': (bookForm.title.$valid), 'has-error': (bookForm.title.$invalid) }")
+                    label.control-label(for='title') Title *
+                    .row
+                      .col-xs-12
+                          input.form-control(name='title', type='text', placeholder='Title', ng-model='book.title' required)
+                .form-group(ng-class="{ 'has-success': (bookForm.author.$valid), 'has-error': (bookForm.author.$invalid) }")
+                    label.control-label(for='author') Author *
+                    .row
+                      .col-xs-12
+                          input.form-control(name='author', type='text', placeholder='Author', ng-model='book.author' required)  
+                .form-group(ng-class="{ 'has-success': !!book.pages }")
+                    label.control-label(for='pages') Pages
+                    .row
+                      .col-xs-12
+                          input.form-control(name='pages', type='text', placeholder='Pages', ng-model='book.pages')
+                .form-group(ng-class="{ 'has-success': !!book.language }")
+                  label.control-label(for='language') Language
                   .row
                     .col-xs-12
-                        input.form-control(name='isbn', type='text', placeholder='ISBN', ng-model='book.isbn', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/')  
-              .form-group(ng-class="{ 'has-success': (bookForm.title.$valid), 'has-error': (bookForm.title.$invalid) }")
-                  label.control-label(for='title') Title *
+                      input.form-control(name='language', type='text', placeholder='Book Language', ng-model='book.language')
+                .form-group(ng-class="{ 'has-success': (bookForm.publisher.$valid), 'has-error': (bookForm.publisher.$invalid) }")
+                  label.control-label(for='publisher') Publisher *
                   .row
                     .col-xs-12
-                        input.form-control(name='title', type='text', placeholder='Title', ng-model='book.title' required)
-              .form-group(ng-class="{ 'has-success': (bookForm.author.$valid), 'has-error': (bookForm.author.$invalid) }")
-                  label.control-label(for='author') Author *
+                      input.form-control(name='publisher', type='text', placeholder='Publisher', ng-model='book.publisher', required)             
+              .col-md-5.col-md-offset-1
+                .form-group(ng-class="{ 'has-success': !!book.authorNationality }")
+                  label.control-label(for='authorNationality') Author Nationality
                   .row
                     .col-xs-12
-                        input.form-control(name='author', type='text', placeholder='Author', ng-model='book.author' required)  
-              .form-group(ng-class="{ 'has-success': !!book.pages }")
-                  label.control-label(for='pages') Pages
+                      input.form-control(name='authorNationality', type='text', placeholder='Author Nationality', ng-model='book.authorNationality')
+                .form-group(ng-class="{ 'has-success': book.themes.length>0 }")
+                  label.control-label(for='themes') Themes
                   .row
                     .col-xs-12
-                        input.form-control(name='pages', type='text', placeholder='Pages', ng-model='book.pages')
-              .form-group(ng-class="{ 'has-success': !!book.language }")
-                label.control-label(for='language') Language
-                .row
-                  .col-xs-12
-                    input.form-control(name='language', type='text', placeholder='Book Language', ng-model='book.language')
-              .form-group(ng-class="{ 'has-success': (bookForm.publisher.$valid), 'has-error': (bookForm.publisher.$invalid) }")
-                label.control-label(for='publisher') Publisher *
-                .row
-                  .col-xs-12
-                    input.form-control(name='publisher', type='text', placeholder='Publisher', ng-model='book.publisher', required)             
-            .col-md-5.col-md-offset-1
-              .form-group(ng-class="{ 'has-success': !!book.authorNationality }")
-                label.control-label(for='authorNationality') Author Nationality
-                .row
-                  .col-xs-12
-                    input.form-control(name='authorNationality', type='text', placeholder='Author Nationality', ng-model='book.authorNationality')
-              .form-group(ng-class="{ 'has-success': book.themes.length>0 }")
-                label.control-label(for='themes') Themes
-                .row
-                  .col-xs-12
-                    input.form-control(name='themes', type='text', placeholder='Themes', ng-model='book.themes')
-              .form-group(ng-class="{ 'has-success': book.genres.length>0 }")
-                label.control-label(for='genres') Genres
-                .row
-                  .col-xs-12
-                    select.form-control.nya-selectpicker(name='genres', data-live-search='true', ng-options='(genre | titleCase) for genre in genres track by genre', ng-model='book.genres', multiple)
-              .form-group(ng-class="{ 'has-success': !!book.edition }")
-                label.control-label(for='edition') Edition
-                .row
-                  .col-xs-12
-                    input.form-control(name='edition', type='text', placeholder='Edition', ng-model='book.edition')
-              .form-group(ng-class="{ 'has-success': !!book.published }")
-                label.control-label(for='published') Published
-                .row.input-group.date
-                  input.form-control(name='published', type='text', datepicker='datepicker', placeholder='Published', ng-model='book.published')
-                  span.input-group-addon
-                    i.glyphicon.glyphicon-th
-
-            .row
-
-
-              .col-xs-7
-
-
-                .form-group(ng-class="{ 'has-success': (coverUploadSuccessful || (!!book.cover)), 'has-error': (coverUploadError || coverTypeError) }")
-                  label.control-label(for='cover') Cover
+                      input.form-control(name='themes', type='text', placeholder='Themes', ng-model='book.themes')
+                .form-group(ng-class="{ 'has-success': book.genres.length>0 }")
+                  label.control-label(for='genres') Genres
                   .row
-                    .col-xs-11
-                        input.form-control(name='cover', type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
-                        button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadFile()', ng-disabled='!uploadButtonState', style='margin-top:0.5em') Upload file
-                        span.has-error.help-block(ng-show='coverTypeError') The supported types are GIF, JPEG, PNG and TIFF
-                        span.has-error.help-block(ng-show='coverUploadError') An error occured. Please try again later.
-
-
-              .col-xs-4
-                  img.image-responsive.img-thumbnail(ng-src='{{ book.cover }}')
-
-
-              .col-xs-12              
-                .form-group(ng-class="{ 'has-success': !!book.description }")
-                  label.control-label(for='description') Book review
+                    .col-xs-12
+                      select.form-control.nya-selectpicker(name='genres', data-live-search='true', ng-options='(genre | titleCase) for genre in genres track by genre', ng-model='book.genres', multiple)
+                .form-group(ng-class="{ 'has-success': !!book.edition }")
+                  label.control-label(for='edition') Edition
                   .row
-                    .col-xs-11
-                      textarea.form-control(name='description', placeholder='Book review', ng-model='book.description', rows='4').col-xs-4
+                    .col-xs-12
+                      input.form-control(name='edition', type='text', placeholder='Edition', ng-model='book.edition')
+                .form-group(ng-class="{ 'has-success': !!book.published }")
+                  label.control-label(for='published') Published
+                  .row.input-group.date
+                    input.form-control(name='published', type='text', datepicker='datepicker', placeholder='Published', ng-model='book.published')
+                    span.input-group-addon
+                      i.glyphicon.glyphicon-th
+
+              .row
+
+
+                .col-xs-7
+
+
+                  .form-group(ng-class="{ 'has-success': (coverUploadSuccessful || (!!book.cover)), 'has-error': (coverUploadError || coverTypeError) }")
+                    label.control-label(for='cover') Cover
+                    .row
+                      .col-xs-11
+                          input.form-control(name='cover', type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
+                          button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadFile($index)', ng-disabled='!uploadButtonState', style='margin-top:0.5em') Upload file
+                          span.has-error.help-block(ng-show='coverTypeError') The supported types are GIF, JPEG, PNG and TIFF
+                          span.has-error.help-block(ng-show='coverUploadError') An error occured. Please try again later.
+
+
+                .col-xs-4
+                    img.image-responsive.img-thumbnail(ng-src='{{ book.cover }}')
+
+
+                .col-xs-12              
+                  .form-group(ng-class="{ 'has-success': !!book.description }")
+                    label.control-label(for='description') Book review
+                    .row
+                      .col-xs-11
+                        textarea.form-control(name='description', placeholder='Book review', ng-model='book.description', rows='4').col-xs-4
 
 
         .pull-right(ng-if='displayForm')
