@@ -1,20 +1,30 @@
 .container(ng-controller='AdminPanelCtrl')
   .well
 
-    ul.nav.nav-tabs.nav-justified(role='tablist')
 
-      li(ng-class="{ 'active' : (path == '/admin') }")
-        a(href='/admin', data-toggle="tab") Settings
-
-      li(ng-repeat='obj in menu', ng-class="{ 'active' : (obj.name == currentMenuItem) }")
-        a(href='#{{obj.name}}', data-toggle='tab', target='_self')
-          | {{obj.name | titleCase}}
-          span.caret
+    div(role='navigation').nav
 
 
-      .tab-content(style='margin-top:20px;')
+      .navbar-header
+        button.btn.btn-success.pull-left.navbar-toggle(type='button', data-toggle='collapse', data-target='#admin-menu') Toggle Admin Menu
+        a.navbar-brand(href="/")
 
-        .tab-pane.fade(ng-repeat='obj in menu', ng-class="{ 'active in' : (obj.name == currentMenuItem) }", id='{{obj.name}}')
-          ul.nav.nav-pills.nav-justified(role='menu')
-            li(ng-repeat='(name, href) in obj.links', ng-class="{ 'active' : (href == path) }")
-              a(href='{{ href }}') {{ name | titleCase }}
+      #admin-menu.navbar-collapse.collapse
+
+        ul.nav.nav-tabs.nav-justified(role='tablist')
+
+          li(ng-class="{ 'active' : (path == '/admin') }")
+            a(href='/admin', data-toggle="tab") Settings
+
+          li(ng-repeat='obj in menu', ng-class="{ 'active' : (obj.name == currentMenuItem) }")
+            a(href='#{{obj.name}}', data-toggle='tab', target='_self')
+              | {{obj.name | titleCase}}
+              b.caret
+
+
+          .tab-content(style='margin-top:20px;')
+
+            .tab-pane.fade(ng-repeat='obj in menu', ng-class="{ 'active in' : (obj.name == currentMenuItem) }", id='{{obj.name}}')
+              ul.nav.nav-pills.nav-justified(role='menu')
+                li(ng-repeat='(name, href) in obj.links', ng-class="{ 'active' : (href == path) }")
+                  a(href='{{ href }}') {{ name | titleCase }}

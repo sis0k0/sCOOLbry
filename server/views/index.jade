@@ -1,62 +1,62 @@
 extends includes/layout
 block main-content
 
-    .container-fluid.ng-cloak
-        header(role="navigation").nav.navbar-default.navbar-fixed-top
-            .navbar-header
-                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-inverse-collapse')
-                    span.icon-bar
-                    span.icon-bar
-                    span.icon-bar
-                a.navbar-brand(href="/")
+  .container-fluid.ng-cloak
+    header(role="navigation").nav.navbar-default.navbar-fixed-top
+      .navbar-header
+        button.navbar-toggle(type='button', data-toggle='collapse', data-target='#site-navigation')
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand(href="/")
 
-            .navbar-collapse.collapse
+      #site-navigation.navbar-collapse.collapse
 
-                form.navbar-form.navbar-left#search-header(role='search').vcenter
-                    .form-group.input-group
-                        input.form-control(type='text', placeholder='Search for books by title, author, genre, ISBN or citation')
-                        .input-group-btn
-                            button(type="submit").btn.btn-default
-                                i.glyphicon.glyphicon-search
-
-
-                ul#top-menu.nav.navbar-nav.navbar-right.vcenter(ng-hide="identity.isAuthenticated()", ng-controller="LogInCtrl")
-                    li
-                        a(href='/libraries', resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Libraries
-                    li
-                        a(href='/catalogue', resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Catalogue
-                    li
-                        a(href="/login", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Log in
-                    li
-                        a(href="/signup", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}").sign-up Sign Up
-
-            
+        form.navbar-form.navbar-left#search-header(role='search').vcenter
+          .form-group.input-group
+            input.form-control(type='text', placeholder='Search for books by title, author, genre, ISBN or citation')
+            .input-group-btn
+              button(type="submit").btn.btn-default
+                i.glyphicon.glyphicon-search
 
 
-                
-                ul#top-menu.nav.navbar-nav.navbar-right.vcenter(ng-show="identity.isAuthenticated()", ng-controller="LogInCtrl", resize, data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}")
-                    li
-                        a(href='/libraries', resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Libraries
-                    li
-                        a(href='/catalogue', resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Catalogue
-                    li.dropdown
-                        a.dropdown-toggle(href="", data-toggle="dropdown")
-                            | {{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}
-                            b.caret
-                        ul.dropdown-menu
-                            li(ng-show="identity.currentUser.isAdmin()")
-                                a(href="/admin", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Admin Panel
-                            li(ng-show="identity.currentUser.hasLibraryPanel()")
-                                a(href="/libraryPanel", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Library Panel
-                            li(ng-show="identity.isAuthenticated()")
-                                a(href="/profile", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Profile
-                            li.divider
-                            li
-                                a(href="/" ng-click="logout()", resize, ng-attr-data-toggle="{{ dataToggle }}", ng-attr-data-target="{{ dataTarget }}") Sign Out
+        ul#top-menu.nav.navbar-nav.navbar-right.vcenter.ng-cloak(ng-hide="identity.isAuthenticated()", ng-controller="LogInCtrl")
+          li
+            a(href='/libraries') Libraries
+          li
+            a(href='/catalogue') Catalogue
+          li
+            a(href="/login") Log in
+          li
+            a(href="/signup").sign-up Sign Up
 
-    section
-        div(ng-view)
+      
 
-    footer
-        p.text-center
-            | &copy; sCOOLbry 2014
+
+        
+        ul#top-menu.nav.navbar-nav.navbar-right.vcenter.ng-cloak(ng-show="identity.isAuthenticated()", ng-controller="LogInCtrl", data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}")
+          li
+            a(href='/libraries') Libraries
+          li
+            a(href='/catalogue') Catalogue
+          li.dropdown
+            a.dropdown-toggle(href="", data-toggle="dropdown")
+              | {{ identity.currentUser.firstName + ' ' + identity.currentUser.lastName }}
+              b.caret
+            ul.dropdown-menu
+              li(ng-show="identity.currentUser.isAdmin()")
+                a(href="/admin") Admin Panel
+              li(ng-show="identity.currentUser.hasLibraryPanel()")
+                a(href="/libraryPanel") Library Panel
+              li(ng-show="identity.isAuthenticated()")
+                a(href="/profile") Profile
+              li.divider
+              li
+                a(href="/" ng-click="logout()") Sign Out
+
+  section
+    div(ng-view)
+
+  footer
+    p.text-center
+      | &copy; sCOOLbry 2014

@@ -1,17 +1,25 @@
 .container(ng-controller='LibraryPanelCtrl')
   .well
 
-    ul.nav.nav-tabs.nav-justified(role='tablist')
+    div(role='navigation').nav
 
-      li(ng-repeat='obj in menu', ng-class="{ 'active' : (obj.name == currentMenuItem) }")
-        a(href='#{{obj.name}}', data-toggle='tab', target='_self')
-          | {{obj.name | titleCase}}
-          span.caret
+    .navbar-header
+      button.btn.btn-success.pull-left.navbar-toggle(type='button', data-toggle='collapse', data-target='#library-menu') Toggle Library Menu
+      a.navbar-brand(href="/")
+
+    #library-menu.navbar-collapse.collapse
+
+      ul.nav.nav-tabs.nav-justified(role='tablist')
+
+        li(ng-repeat='obj in menu', ng-class="{ 'active' : (obj.name == currentMenuItem) }")
+          a(href='#{{obj.name}}', data-toggle='tab', target='_self')
+            | {{obj.name | titleCase}}
+            b.caret
 
 
-      .tab-content(style='margin-top:20px;')
+        .tab-content(style='margin-top:20px;')
 
-        .tab-pane.fade(ng-repeat='obj in menu', ng-class="{ 'active in' : (obj.name == currentMenuItem)}", id='{{obj.name}}')
-          ul.nav.nav-pills.nav-justified(role='menu')
-            li(ng-repeat='(name, href) in obj.links', ng-class="{ 'active' : (href == path) }")
-              a(href='{{ href }}') {{ name | titleCase }}
+          .tab-pane.fade(ng-repeat='obj in menu', ng-class="{ 'active in' : (obj.name == currentMenuItem)}", id='{{obj.name}}')
+            ul.nav.nav-pills.nav-justified(role='menu')
+              li(ng-repeat='(name, href) in obj.links', ng-class="{ 'active' : (href == path) }")
+                a(href='{{ href }}') {{ name | titleCase }}
