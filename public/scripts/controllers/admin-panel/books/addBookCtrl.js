@@ -17,7 +17,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
 	// Define schema's fields
 
 	$scope.fields = new Array();
-
+    $scope.matches = new Object();
 	$scope.fields.push('isbn');
 	$scope.fields.push('title');
 	$scope.fields.push('author');
@@ -45,7 +45,15 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
 		for(var i=0; i<$scope.csv.result[0]; i++) {
 			console.log($scope.csv.result[0][i])
 		}
+
 	}
+
+    $scope.updatedval = function(key, value) {
+        $scope.matches[$scope.csv.result[0][key]] = value;
+        console.log(value);
+        delete $scope.fields[$scope.fields.indexOf(value)];
+        console.log($scope.fields);
+    }
 
 	// Add book
 

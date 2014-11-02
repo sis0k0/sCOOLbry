@@ -38,11 +38,11 @@ include ../panel
 
             div(ng-repeat='(key, value) in csv.result[0]')
               .row.text-center
-                h3.col-xs-4 {{ ::value }}
+                h3.col-xs-4 {{ key }} {{ ::value }}
                 h3.col-xs-3.text-center -->
                 .col-xs-4
-                  select.form-control(style='margin-top:15px', name='field', ng-attr-title='{{ key }}', ng-options="field for field in fields track by field", ng-model='value')
-            button(ng-click='displayColumns()') Show
+                  select.form-control(style='margin-top:15px', name='field', ng-attr-title='{{ key }}', ng-options="field for field in fields track by field", ng-model='value', ng-change="updatedval(key, value)")
+            button(ng-click='displayColumns(value)') Show
 
 
 
