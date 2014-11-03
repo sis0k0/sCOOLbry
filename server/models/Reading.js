@@ -7,7 +7,7 @@ var readingSchema = mongoose.Schema({
     libraryID: String,
     librarian1ID: String,
     librarian2ID: String,
-    bookISBN: String,
+    bookID: String,
     startDate: {
 		type: Date,
 		default: Date.now

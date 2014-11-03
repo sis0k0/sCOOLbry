@@ -30,26 +30,33 @@ app.factory('bookSearch', function($q, $http) {
 				scrapBgBooksInPrintPromise.success(function(data) {
 					if(data!=='false') {
 						deferred.resolve(data);
+					} else {
+						console.log('scrapping not found');
 					}
 				});
 			}
 
 
 			// Make http request to our database
-			var findInDatabasePromise = $http.get('/api/book/findByISBN/' + isbn, {timeout: deferred.promise});
-			promisesArray.push(findInDatabasePromise);
-			findInDatabasePromise.success(function(data) {
-				if(data!=='false') {
-					deferred.resolve(data);
-				}
-			});
+			// var findInDatabasePromise = $http.get('/api/book/findByISBN/' + isbn, {timeout: deferred.promise});
+			// promisesArray.push(findInDatabasePromise);
+			// findInDatabasePromise.success(function(data) {
+			// 	if(data!=='false') {
+			// 		deferred.resolve(data);
+			// 	} else {
+			// 		console.log('database not found');
+			// 	}
+			// });
 
 			// Make http request to the Amazon API, implemented within our server side
 			var findInAmazonPromise = $http.get('/api/book/amazonSearch/' + isbn, {timeout: deferred.promise});
 			promisesArray.push(findInAmazonPromise);
 			findInAmazonPromise.success(function(data) {
-				if(data!=='false') {
+				if(data!=='false' || data!==false) {
+					console.log(data);
 					deferred.resolve(data);
+				} else {
+					console.log('amazon not found');
 				}
 			});
 
@@ -59,6 +66,8 @@ app.factory('bookSearch', function($q, $http) {
 			findInGoogleBooksPromise.success(function(data) {
 				if(data!=='false') {
 					deferred.resolve(data);
+				} else {
+					console.log('google not found');
 				}
 			});
 

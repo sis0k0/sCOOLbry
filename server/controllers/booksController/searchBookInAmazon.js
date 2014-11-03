@@ -73,8 +73,11 @@ module.exports = function (req, res) {
 				book.title = returnedObject.Title[0];
 			}
 
+			console.log(returnedObject); 
+
 			res.send(book);
 		} else {
+			console.log('i am false maafaka');
 			res.send(false);
 		}
 	});

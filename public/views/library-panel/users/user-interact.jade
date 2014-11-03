@@ -13,7 +13,7 @@ include ../panel
                 label.text-left(for="isbn") Book ISBN (the list below is made of books which are not returned by the user)
                   .row
                     .col-xs-12
-                      select(ng-model="interact.bookISBN", ng-options="book.bookISBN as book.bookISBN for book in userInfo.books")  
+                      select(ng-model="interact.bookID", ng-options="book.bookD as book.bookD for book in userInfo.books")  
          .row
           .col-md-12
             .col-md-6
@@ -34,10 +34,10 @@ include ../panel
           .col-md-12
             .col-md-6
               .form-group
-                label.text-left(for="isbn") Book ISBN 
+                label.text-left(for="isbn") Book ID 
                   .row
                     .col-xs-12
-                      input(type="text", ng-model="interact.bookISBN")  
+                      input(type="text", ng-model="interact.bookID")  
          .row
           .col-md-12
             .col-md-6
@@ -45,13 +45,13 @@ include ../panel
                 label.text-left(for="startDate") Start Date
                   .row
                     .col-xs-12
-                      input(type="text", ng-model="interact.startDate")  
+                      input(type="text", ng-model="interact.startDate", ng-init="interact.startDate = Date")  
             .col-md-6
               .form-group
                 label.text-left(for="endDate") End Date
                   .row
                     .col-xs-12
-                      input(type="text", ng-model="interact.endDate")    
+                      input(type="text", ng-model="interact.endDate", ng-init="interact.endDate = Date30Days")    
          .row
           .col-md-12
             .col-md-6
@@ -59,7 +59,7 @@ include ../panel
                 label(for="comment") Comment
                   .row
                     .col-xs-12
-                      textarea.form-control(name="comment", cols="50", placeholder="The book has been returned in time and in good condition", ng-model="interact.comment")
+                      textarea.form-control(name="comment", cols="50", placeholder="The book has been given in time and in good condition", ng-model="interact.comment")
         .pull-right
           button.btn.btn-primary(ng-click='giveBook(interact)') Give
           a.btn.btn-danger(href='/libraryPanel/users', style="margin-left:0.2em") Cancel

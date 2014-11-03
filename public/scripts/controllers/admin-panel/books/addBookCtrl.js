@@ -90,11 +90,11 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
     }
 
     $scope.findBook = function() {
-
+        console.log('in find book');
     	$scope.searchState = true;
     	var bookPromise = bookSearch.search($scope.ISBNSearch);
     	bookPromise.then(function success(data) {
-            console.log(data);
+            console.log('book found');
     		$scope.books = new Array();
     		$scope.books[0] = data;
             $scope.books[0].isbn = $scope.ISBNSearch.replace(/-/gi, '');

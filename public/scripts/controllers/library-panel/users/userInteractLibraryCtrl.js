@@ -2,6 +2,8 @@
 
 app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeParams, identity, LibraryUsersInteractions, notifier, $http, $location) {
 	
+	$scope.Date = new Date();
+	$scope.Date30Days = new Date( new Date().getTime() + 60*60*24*30*1000 );
     $scope.userInfo = UserResource.get({id: $routeParams.id}, function(data){
 	
 		if(data.dateOfBirth===undefined){
