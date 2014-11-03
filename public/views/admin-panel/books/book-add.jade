@@ -41,7 +41,7 @@ include ../panel
                 h3.col-xs-4 {{ key }} {{ ::value }}
                 h3.col-xs-3.text-center -->
                 .col-xs-4
-                  select.form-control(style='margin-top:15px', name='field', ng-attr-title='{{ key }}', ng-options="field for field in fields track by field", ng-model='value', ng-change="updatedval(key, value)")
+                  select.form-control(style='margin-top:15px', name='field', ng-init="value = value + ' '"  ng-attr-title='{{ key }}', ng-options="field for field in fields[ {{ key }} ] track by field", ng-model='value', ng-change="updateSelections(key, value)")
             button(ng-click='displayColumns(value)') Show
 
 

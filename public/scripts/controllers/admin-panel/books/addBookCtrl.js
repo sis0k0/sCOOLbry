@@ -16,23 +16,29 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
 
 	// Define schema's fields
 
-	$scope.fields = new Array();
-    $scope.matches = new Object();
-	$scope.fields.push('isbn');
-	$scope.fields.push('title');
-	$scope.fields.push('author');
-	$scope.fields.push('description');
-	$scope.fields.push('publisher');
-	$scope.fields.push('cover');
-	$scope.fields.push('authorNationality');
-	$scope.fields.push('language');
-	$scope.fields.push('pages');
-	$scope.fields.push('themes');
-	$scope.fields.push('genres');
-	$scope.fields.push('edition');
-	$scope.fields.push('illustrated');
-	$scope.fields.push('published');
+	var fieldsOptions = new Array(), fieldsOptionsCopy = new Array();
+    $scope.fields = new Array();
+    $scope.matches = new Array();
+	fieldsOptions.push('isbn');
+	fieldsOptions.push('title');
+	fieldsOptions.push('author');
+	fieldsOptions.push('description');
+	fieldsOptions.push('publisher');
+	fieldsOptions.push('cover');
+	fieldsOptions.push('authorNationality');
+	fieldsOptions.push('language');
+	fieldsOptions.push('pages');
+	fieldsOptions.push('themes');
+	fieldsOptions.push('genres');
+	fieldsOptions.push('edition');
+	fieldsOptions.push('illustrated');
+	fieldsOptions.push('published');
+    fieldsOptionsCopy = fieldsOptions;
 
+    console.log(fieldsOptions);
+    for(var i = 0; i < 10; i++){
+        $scope.fields.push(fieldsOptions);
+    }
 
 
 	$scope.displayColumns = function() {
@@ -48,10 +54,21 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
 
 	}
 
-    $scope.updatedval = function(key, value) {
-        $scope.matches[$scope.csv.result[0][key]] = value;
-        console.log(value);
-        delete $scope.fields[$scope.fields.indexOf(value)];
+    $scope.updateSelections = function(key, value) {
+        $scope.matches[key] = value;
+        for(var i = 0; i < Object.keys($scope.csv.result[0]).length; i++) {
+            $scope.fields[i] = [];
+            for(var j = 0; j < fieldsOptionsCopy.length; j++){
+                if(!($scope.matches.indexOf(fieldsOptionsCopy[j])>=0)) {
+                    $scope.fields[i].push(fieldsOptionsCopy[j]);
+                }
+            }
+        }
+
+        $scope.matches.forEach(function(element, index) {
+            $scope.fields[index].push(element);
+        });
+
         console.log($scope.fields);
     }
 
