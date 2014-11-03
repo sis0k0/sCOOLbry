@@ -7,11 +7,8 @@ module.exports = function(req, res) {
 	var bookISBN = req.params.isbn;
 
 
-	console.log('inside find book');
 	Book.findOne({isbn: bookISBN}).exec(function(err, book) {
 		if(book!==null && !err) {
-			console.log('book found in database');
-			console.log(book);
 			res.send(book);
 		} else {
 

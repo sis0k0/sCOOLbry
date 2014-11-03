@@ -94,7 +94,7 @@ module.exports = {
 	isInRole: function(role) {
 		return function(req, res, next) {
 
-			if(!req.isAuthenticated() || typeof req.user === 'undefined') {
+			if(!req.isAuthenticated() || typeof(req.user) === 'undefined') {
 				console.log('not auth');
 				res.status(403).send('Sorry, you are not authenticated!');
 				res.end();
