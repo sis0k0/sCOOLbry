@@ -5,6 +5,7 @@ app.factory('Book', function($q, $http, BookResource) {
 	return {
 		add: function(book, libraryID) {
 			var deferred = $q.defer();
+			console.log(book);
 			if(typeof(libraryID) !== "undefined") {
 				book.libraryID = libraryID;
 			}

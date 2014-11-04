@@ -7,8 +7,6 @@ app.directive('csvImport', function() {
 		replace: true,
 		scope:{
 			content:'=',
-			header: '=',
-			headerVisible: '=',
 			separator: '=',
 			result: '='
 		},
@@ -17,8 +15,7 @@ app.directive('csvImport', function() {
 			element.on('keyup', function(){
 				if ( scope.content !== null ) {
 					var content = {
-						csv: scope.content,
-						header: scope.header
+						csv: scope.content
 					};
 					scope.result = csvToJSON(content);
 					scope.$apply();
@@ -33,8 +30,7 @@ app.directive('csvImport', function() {
 				reader.onload = function(onLoadEvent) {
 					scope.$apply(function() {
 						var content = {
-							csv: onLoadEvent.target.result,
-							header: scope.header
+							csv: onLoadEvent.target.result
 						};
 
 						scope.content = content.csv;
@@ -46,8 +42,7 @@ app.directive('csvImport', function() {
 				} else {
 					if ( scope.content !== null ) {
 						var content = {
-							csv: scope.content,
-							header: !scope.header
+							csv: scope.content
 						};
 						scope.result = csvToJSON(content);
 					}
@@ -60,27 +55,14 @@ app.directive('csvImport', function() {
 				var start = 0;
 				var columnCount = lines[0].split(',').length;
 
-				var headers = [];
-				if (content.header) {
-					headers=lines[0].split(',');
-					start = 1;
-				}
-
 				for (var i=start; i<lines.length; i++) {
-					var obj = {};
+					var arr = [];
 					var currentline=lines[i].split(',');
-					console.log(currentline);
 					if ( currentline.length === columnCount ) {
-						if (content.header) {
-							for (var j=0; j<headers.length; j++) {
-								obj[headers[j]] = currentline[j];
-							}
-						} else {
-							for (var k=0; k<currentline.length; k++) {
-								obj[k] = currentline[k];
-							}
+						for (var k=0; k<currentline.length; k++) {
+							arr.push(currentline[k]);
 						}
-						result.push(obj);
+						result.push(arr);
 					}
 				}
 				return result;

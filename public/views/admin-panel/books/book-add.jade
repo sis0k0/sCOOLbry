@@ -23,9 +23,11 @@ include ../panel
             .import.ng-isolate-scope.col-md-4(csv-import content='csv.content', header='csv.header', separator='csv.separator', result='csv.result')
 
 
-            .row
-              h3.text-center.text-danger.text-danger(ng-show='searchState===false') The book was not found! Please try something else!
-        
+          .row
+            h3.text-center.text-danger(ng-if='searchState===false') The book was not found! Please try something else!
+            h3.text-center.text-success(ng-if='searchState===true') The book was found! Please check the fields, because there may be differences.
+
+
 
           .row(ng-if='csv.result')
 
@@ -42,8 +44,16 @@ include ../panel
                 h3.col-xs-3.text-center -->
                 .col-xs-4
                   select.form-control(style='margin-top:15px', name='field', ng-init="value = value + ' '"  ng-attr-title='{{ key }}', ng-options="field for field in fields[ {{ key }} ] track by field", ng-model='value', ng-change="updateSelections(key, value)")
-            button(ng-click='displayColumns(value)') Show
 
+
+            .col-xs-11(style='margin-top:0.5em')
+
+              h3.text-info.text-center Include the top row as a book: 
+                input(type='checkbox', ng-model='includeTopRow')
+
+              .pull-right
+                button.btn.btn-primary(ng-click='showCSVForms()') Next
+                a.btn.btn-danger(href='/admin/books', style='margin-left:0.2em') Cancel
 
 
 
@@ -114,6 +124,7 @@ include ../panel
                     span.input-group-addon
                       i.glyphicon.glyphicon-th
 
+
               .row
 
 
@@ -142,6 +153,8 @@ include ../panel
                         textarea.form-control(name='description', placeholder='Book review', ng-model='book.description', rows='4').col-xs-4
 
 
-        .pull-right(ng-if='displayForm')
-          button.btn.btn-primary(ng-disabled='bookForm.$invalid' ng-click='addBook(book)') Add
-          a.btn.btn-danger(href='/admin/books', style='margin-left:0.2em') Cancel
+
+                  .col-xs-11
+                    .pull-right
+                      button.btn.btn-primary(ng-disabled='bookForm.$invalid' ng-click='addBook(book)') Add
+                      a.btn.btn-danger(href='/admin/books', style='margin-left:0.2em') Cancel

@@ -16,6 +16,8 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
 
 	// Define schema's fields
 
+    $scope.includeTopRow = false;
+
 	var fieldsOptions = new Array(), fieldsOptionsCopy = new Array();
     $scope.fields = new Array();
     $scope.matches = new Array();
@@ -35,24 +37,9 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
 	fieldsOptions.push('published');
     fieldsOptionsCopy = fieldsOptions;
 
-    console.log(fieldsOptions);
     for(var i = 0; i < 10; i++){
         $scope.fields.push(fieldsOptions);
     }
-
-
-	$scope.displayColumns = function() {
-		var results = $scope.csv.result[0];
-
-		for(var i=0; i<results.length; i++) {
-			console.log(results[i]);
-		}
-
-		for(var i=0; i<$scope.csv.result[0]; i++) {
-			console.log($scope.csv.result[0][i])
-		}
-
-	}
 
     $scope.updateSelections = function(key, value) {
         $scope.matches[key] = value;
@@ -69,7 +56,35 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
             $scope.fields[index].push(element);
         });
 
-        console.log($scope.fields);
+        //console.log($scope.matches);
+
+        //console.log($scope.fields);
+    }
+
+    $scope.showCSVForms = function() {
+        $scope.books = new Array();
+        var b=-1;
+
+        var i;
+        console.log($scope.includeTopRow);
+        if($scope.includeTopRow===true) {
+            i=0;
+        } else {
+            i=1;
+        }
+
+        for(i; i<$scope.csv.result.length; i++) {
+
+            b++;
+            $scope.books[b] = new Object({});
+
+            for(var j=0; j<$scope.csv.result[i].length; j++) {
+                if(typeof($scope.matches[j]) !== 'undefined') {
+                    $scope.books[b][$scope.matches[j]] = $scope.csv.result[i][j];
+                }
+            }
+        }
+        $scope.displayForm = true;
     }
 
 	// Add book
@@ -90,13 +105,13 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
     }
 
     $scope.findBook = function() {
-    	$scope.searchState = true;
     	var bookPromise = bookSearch.search($scope.ISBNSearch);
     	bookPromise.then(function success(data) {
     		$scope.books = new Array();
             data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
     		$scope.books[0] = data;
             $scope.displayForm = true;
+            $scope.searchState = true;
     	}, function error(msg) {
             $scope.searchState = false;
     		console.log('not found');
