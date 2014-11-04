@@ -49,10 +49,10 @@ include ../panel
             .col-xs-11(style='margin-top:0.5em')
 
               h3.text-info.text-center Include the top row as a book: 
-                input(type='checkbox', ng-model='includeTopRow')
+                input(type='checkbox', ng-model='checkbox.includeTopRow', ng-true-value="'true'", ng-false-value="'false'")
 
               .pull-right
-                button.btn.btn-primary(ng-click='showCSVForms()') Next
+                button.btn.btn-primary(ng-click='showCSVForms(checkbox)') Next
                 a.btn.btn-danger(href='/admin/books', style='margin-left:0.2em') Cancel
 
 

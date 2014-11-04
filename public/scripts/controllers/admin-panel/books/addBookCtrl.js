@@ -16,8 +16,6 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
 
 	// Define schema's fields
 
-    $scope.includeTopRow = false;
-
 	var fieldsOptions = new Array(), fieldsOptionsCopy = new Array();
     $scope.fields = new Array();
     $scope.matches = new Array();
@@ -61,13 +59,13 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
         //console.log($scope.fields);
     }
 
-    $scope.showCSVForms = function() {
+    $scope.showCSVForms = function(includeTopRow) {
         $scope.books = new Array();
         var b=-1;
 
         var i;
-        console.log($scope.includeTopRow);
-        if($scope.includeTopRow===true) {
+        console.log(includeTopRow);
+        if($scope.includeTopRow==='true') {
             i=0;
         } else {
             i=1;
