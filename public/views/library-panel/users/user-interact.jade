@@ -13,7 +13,7 @@ include ../panel
                 label.text-left(for="isbn") Book ISBN (the list below is made of books which are not returned by the user)
                   .row
                     .col-xs-12
-                      select(ng-model="interact.bookID", ng-options="book.bookD as book.bookD for book in userInfo.books")  
+                      select.form-control(ng-model="interact.bookID", ng-options="book.bookID as book.bookID for book in userInfo.books")  
          .row
           .col-md-12
             .col-md-6
@@ -34,10 +34,12 @@ include ../panel
           .col-md-12
             .col-md-6
               .form-group
-                label.text-left(for="isbn") Book ID 
+                label.text-left(for="isbn") Book
                   .row
                     .col-xs-12
-                      input(type="text", ng-model="interact.bookID")  
+                      select.form-control(name='bookID', ng-model='interact.bookID')
+                        option(ng-repeat="book in books" value="{{ book.bookID }}") {{ book.bookName }}
+
          .row
           .col-md-12
             .col-md-6

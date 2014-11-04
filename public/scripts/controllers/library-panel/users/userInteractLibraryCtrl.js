@@ -1,7 +1,10 @@
 'use strict';
 
-app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeParams, identity, LibraryUsersInteractions, notifier, $http, $location) {
+app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeParams, identity, LibraryUsersInteractions, notifier, $http, $location, LibBooksResource) {
 	
+	$scope.books = LibBooksResource.query({id: identity.currentUser.ownLibraryID});
+	console.log($scope.books);
+	console.log("PANIC");
 	$scope.Date = new Date();
 	$scope.Date30Days = new Date( new Date().getTime() + 60*60*24*30*1000 );
     $scope.userInfo = UserResource.get({id: $routeParams.id}, function(data){
@@ -45,12 +48,13 @@ app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeP
 		interact.userID = $routeParams.id;
 		interact.libraryID = identity.currentUser.ownLibraryID;
 		interact.librarian1ID = identity.currentUser._id;
+
         LibraryUsersInteractions.giveBook(interact).then(function() {
             notifier.success('Book given successfully!');
             $location.path('/libraryPanel/users');
         }, function(reason){
                 notifier.error(reason);
-            });
+        });
     };
     
     $scope.returnBook = function(interact) {
