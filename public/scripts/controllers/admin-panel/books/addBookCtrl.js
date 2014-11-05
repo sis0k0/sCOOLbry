@@ -8,6 +8,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
 		method: 'get',
 		url: '/api/genres'
 	}).success(function(data) {
+        console.log(data);
 		$scope.genres = data;
 	}).error(function(err) {
 		console.log(err);
@@ -54,10 +55,8 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
             $scope.fields[index].push(element);
         });
 
-        //console.log($scope.matches);
-
-        //console.log($scope.fields);
     }
+
 
     $scope.showCSVForms = function(includeTopRow) {
         $scope.books = new Array();
@@ -65,7 +64,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
 
         var i;
         console.log(includeTopRow);
-        if($scope.includeTopRow==='true') {
+        if(includeTopRow==='true') {
             i=0;
         } else {
             i=1;
@@ -85,15 +84,32 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
         $scope.displayForm = true;
     }
 
+    // Remove book form
+
+    $scope.removeBookForm = function(index) {
+        $scope.books.splice(index,1);
+        notifier.success('Book Form removed successfully!');
+        if($scope.books.length<1) {
+            $scope.displayForm = false;
+            $scope.csv = false;
+            $scope.searchState = undefined;
+        }
+    }
+
 	// Add book
 
-    $scope.addBook = function(book) {
+    $scope.addBook = function(book, index) {
         Book.add(book).then(function() {
-            $window.location.href = '/admin/books';
             notifier.success('Book added successfully!');
+
+            $scope.books.splice(index,1);
+            if($scope.books.length<1) {
+                $window.location.href = '/admin/books';
+            };
+
         }, function(reason){
-                notifier.error(reason);
-            });
+            notifier.error(reason);
+        });
     };
 
     $scope.newForm = function() {

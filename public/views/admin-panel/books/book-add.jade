@@ -29,7 +29,7 @@ include ../panel
 
 
 
-          .row(ng-if='csv.result')
+          .row(ng-if='csv.result && !displayForm')
 
             div
               .row.text-center.text-info
@@ -49,10 +49,10 @@ include ../panel
             .col-xs-11(style='margin-top:0.5em')
 
               h3.text-info.text-center Include the top row as a book: 
-                input(type='checkbox', ng-model='checkbox.includeTopRow', ng-true-value="'true'", ng-false-value="'false'")
+                input.form-control(type='checkbox', ng-model='checkbox.includeTopRow', ng-true-value="'true'", ng-false-value="'false'")
 
               .pull-right
-                button.btn.btn-primary(ng-click='showCSVForms(checkbox)') Next
+                button.btn.btn-primary(ng-click='showCSVForms(checkbox.includeTopRow)') Next
                 a.btn.btn-danger(href='/admin/books', style='margin-left:0.2em') Cancel
 
 
@@ -64,13 +64,19 @@ include ../panel
           div(ng-repeat='book in books', ng-if='displayForm')
             ng-form.form-horizontal(name='bookForm', novalidate)
               legend 
-                h1.text-center(ng-class="{ 'text-success': (bookForm.title.$valid), 'text-danger': (bookForm.$invalid) }") Add a Book ({{$index+1}})
+
+              .row
+
+                h1.text-center.col-xs-8.col-xs-offset-1(ng-class="{ 'text-success': (bookForm.title.$valid), 'text-danger': (bookForm.$invalid) }") Add a Book ({{$index+1}})
+                button.btn.btn-danger.col-xs-2(style="margin-top:1.5em", ng-click='removeBookForm($index)') Remove
+                .col-xs-1
+  
               .col-md-5
                 .form-group(ng-class="{ 'has-success': (bookForm.isbn.$valid && (!!book.isbn)), 'has-error': (bookForm.isbn.$invalid && bookForm.isbn.$dirty) }")
                     label.control-label(for='isbn') ISBN
                     .row
                       .col-xs-12
-                          input.form-control(name='isbn', type='text', placeholder='ISBN', ng-model='book.isbn', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/')  
+                          input.form-control(name='isbn', type='text', placeholder='ISBN', ng-model='book.isbn', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/', autofocus)  
                 .form-group(ng-class="{ 'has-success': (bookForm.title.$valid), 'has-error': (bookForm.title.$invalid) }")
                     label.control-label(for='title') Title *
                     .row
@@ -156,5 +162,5 @@ include ../panel
 
                   .col-xs-11
                     .pull-right
-                      button.btn.btn-primary(ng-disabled='bookForm.$invalid' ng-click='addBook(book)') Add
+                      button.btn.btn-primary(ng-disabled='bookForm.$invalid' ng-click='addBook(book, $index)') Add
                       a.btn.btn-danger(href='/admin/books', style='margin-left:0.2em') Cancel

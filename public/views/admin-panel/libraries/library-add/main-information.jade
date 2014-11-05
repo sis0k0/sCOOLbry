@@ -6,7 +6,7 @@
             label.control-label(for='name') Name *
             .row
               .col-xs-12
-                  input.form-control(name='name', type='text', placeholder='Name', ng-model='library.name', required)
+                  input.form-control(name='name', type='text', placeholder='Name', ng-model='library.name', required, autofocus)
 
         .form-group(ng-class="{ 'has-success': (libraryForm.country.$dirty), 'has-error': (libraryForm.country.$invalid) }")
           label.control-label(for='country') Country *

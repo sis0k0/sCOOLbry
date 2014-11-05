@@ -17,7 +17,7 @@ app.directive('csvImport', function() {
 					var content = {
 						csv: scope.content
 					};
-					scope.result = csvToJSON(content);
+					scope.result = csvToArray(content);
 					scope.$apply();
 				}
 			});
@@ -34,7 +34,7 @@ app.directive('csvImport', function() {
 						};
 
 						scope.content = content.csv;
-						scope.result = csvToJSON(content);
+						scope.result = csvToArray(content);
 					});
 				};
 				if ( (onChangeEvent.target.type === 'file') && (onChangeEvent.target.files !== null || onChangeEvent.srcElement.files !== null) )  {
@@ -44,12 +44,12 @@ app.directive('csvImport', function() {
 						var content = {
 							csv: scope.content
 						};
-						scope.result = csvToJSON(content);
+						scope.result = csvToArray(content);
 					}
 				}
 			});
 
-			var csvToJSON = function(content) {
+			var csvToArray = function(content) {
 				var lines=content.csv.split('\n');
 				var result = [];
 				var start = 0;
