@@ -2,15 +2,15 @@
 
 app.controller('BookListCtrl', function($scope, BookResourceSortable, $routeParams, $http) {
 	
-    $scope.page = 1;
-    $scope.perPage = 10;
-    $scope.field = '_id';
-    $scope.order = 'asc';
-    
-    $scope.range = function(n) {
-        return new Array(n);
-    };
-    
+	$scope.page = 1;
+	$scope.perPage = 10;
+	$scope.field = '_id';
+	$scope.order = 'asc';
+	
+	$scope.range = function(n) {
+		return new Array(n);
+	};
+	
 
 	$scope.pages = function(){
 		$http.get('/api/book/count').success(function(data){
@@ -19,13 +19,13 @@ app.controller('BookListCtrl', function($scope, BookResourceSortable, $routePara
 		});
 	};
 	
-    
-    $scope.books = BookResourceSortable.query({
-    	field: $scope.field,
-    	order: $scope.order,
-    	page: $scope.page,
-    	perPage: $scope.perPage
-    });
+	
+	$scope.books = BookResourceSortable.query({
+		field: $scope.field,
+		order: $scope.order,
+		page: $scope.page,
+		perPage: $scope.perPage
+	});
 	
 	
 	$scope.setPage = function(page, event){

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch, notifier, ajaxPost) {
+app.controller('AddBookCtrl', function($scope, $window, $http, $location, $anchorScroll, Book, bookSearch, notifier, ajaxPost) {
 
     $scope.displayForm = false;
 
@@ -13,6 +13,37 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
 	}).error(function(err) {
 		console.log(err);
 	});
+
+    // Set pagination
+
+    $scope.page = 1;
+    $scope.perPage = 3;
+    $scope.field = '_id';
+    
+    $scope.range = function(n) {
+        return new Array(n);
+    };
+    
+
+    $scope.getPagesCount = function(){
+        $scope.booksCount = $scope.books.length;
+        $scope.pagesCount = Math.ceil($scope.booksCount/$scope.perPage);
+        return $scope.pagesCount;
+    };
+
+    $scope.setPage = function(page, event){
+        
+        $scope.page = page;
+
+        $anchorScroll();
+
+        angular.element('.pagination li').removeClass('active');
+        angular.element('#'+event.target.id).parent().addClass('active');
+    };
+    
+    $scope.setPerPage = function(perPage){
+        $scope.perPage = perPage;
+    };
 
 
 	// Define schema's fields
@@ -82,6 +113,8 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
             }
         }
         $scope.displayForm = true;
+
+        $anchorScroll();
     }
 
     // Remove book form
@@ -116,6 +149,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, Book, bookSearch,
     	$scope.books = new Array();
  		$scope.books[0] = new Object({});
  		$scope.displayForm = true;
+        $scope.searchState = undefined;
     }
 
     $scope.findBook = function() {
