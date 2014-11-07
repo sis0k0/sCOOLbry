@@ -175,6 +175,7 @@ module.exports = {
 			if (err) {
 				console.log('LibBook could not be loaded: ' + err);
 			}
+			
 			res.send(books);
 		});
 	},
