@@ -8,6 +8,8 @@ var readingSchema = mongoose.Schema({
     librarian1ID: String,
     librarian2ID: String,
     bookID: String,
+    bookName: String,
+    bookISBN: String,
     startDate: {
 		type: Date,
 		default: Date.now
@@ -16,7 +18,7 @@ var readingSchema = mongoose.Schema({
     returnDate: Date,
     comment: {
 		type: String,
-		default: 'The book has been returned in time and in good condition.'
+		default: ''
 	}
 });
 

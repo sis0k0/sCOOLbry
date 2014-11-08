@@ -1,10 +1,9 @@
 'use strict';
 
-app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeParams, identity, LibraryUsersInteractions, notifier, $http, $location, LibBooksResource) {
+app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeParams, identity, LibraryUsersInteractions, notifier, $http, $location, LibBooksResource, UserNotReturnedResource) {
 	
 	$scope.books = LibBooksResource.query({id: identity.currentUser.ownLibraryID});
-	console.log($scope.books);
-	console.log("PANIC");
+
 	$scope.Date = new Date();
 	$scope.Date30Days = new Date( new Date().getTime() + 60*60*24*30*1000 );
     $scope.userInfo = UserResource.get({id: $routeParams.id}, function(data){
@@ -31,25 +30,24 @@ app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeP
 		
 		
 	});
-    
-    $http({
-		method: 'get',
-		url: '/api/library/not-returned/'+identity.currentUser.ownLibraryID+'/'+$routeParams.id
-	}).success(function(data) {
-		$scope.userInfo.books = data;
-		console.log($scope.userInfo.books);
-	}).error(function(err) {
-		console.log(err);
-	});
-	
+    $scope.userInfo.books = UserNotReturnedResource.get({userID: $routeParams.id, libraryID: identity.currentUser.ownLibraryID});
 
-    $scope.giveBook = function(interact) {
-		
-		interact.userID = $routeParams.id;
-		interact.libraryID = identity.currentUser.ownLibraryID;
-		interact.librarian1ID = identity.currentUser._id;
+	console.log($scope.userInfo.books);
+	$scope.bookOption = function(bookName, bookISBN) {
+		return bookName+' ('+bookISBN+')';
+	};
 
-        LibraryUsersInteractions.giveBook(interact).then(function() {
+    $scope.giveBook = function(give) {
+
+		give.userID = $routeParams.id;
+		give.libraryID = identity.currentUser.ownLibraryID;
+		give.librarian1ID = identity.currentUser._id;
+		give.bookID = give.bookInfo.bookID;
+		give.bookISBN = give.bookInfo.bookISBN;
+		give.bookName = give.bookInfo.bookName;
+		delete give.bookInfo;
+
+        LibraryUsersInteractions.giveBook(give).then(function() {
             notifier.success('Book given successfully!');
             $location.path('/libraryPanel/users');
         }, function(reason){
@@ -67,6 +65,6 @@ app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeP
             $location.path('/libraryPanel/users');
         }, function(reason){
                 notifier.error(reason);
-            });
+        });
     };
 });

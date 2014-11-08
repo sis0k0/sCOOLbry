@@ -321,6 +321,7 @@ module.exports = {
 	takeBook: function(req, res) {
 		
 		var newReader = req.body;
+		console.log(newReader);
 		Reading.create(newReader, function(err, reader) {
 			if(err) {
 				console.log('Failed to add the reading to the library: '+err);

@@ -13,7 +13,7 @@ include ../panel
                 label.text-left(for="isbn") Book ISBN (the list below is made of books which are not returned by the user)
                   .row
                     .col-xs-12
-                      select.form-control.nya-selectpicker(ng-model="interact.bookID", ng-options="book.bookID as book.bookID for book in userInfo.books", data-live-search)  
+                      select.form-control.nya-selectpicker(ng-model="interact.bookID", ng-options="bookOption(book.bookName, book.bookISBN) for book in userInfo.books", data-live-search)  
          .row
           .col-md-12
             .col-md-6
@@ -21,7 +21,7 @@ include ../panel
                 label(for="comment") Comment
                   .row
                     .col-xs-12
-                      textarea.form-control(name="comment", cols="50", placeholder="The book has been returned in time and in good condition", ng-model="interact.comment")
+                      textarea.form-control(name="comment", cols="50", ng-model="interact.comment")
         .pull-right
           button.btn.btn-primary(ng-click='returnBook(interact)') Return
           a.btn.btn-danger(href='/libraryPanel/users', style="margin-left:0.2em") Cancel
@@ -37,9 +37,7 @@ include ../panel
                 label.text-left(for="isbn") Book
                   .row
                     .col-xs-12
-                      select.form-control.nya-selectpicker(name='bookID', ng-model='interact.bookID', data-live-search)
-                        option(ng-repeat="book in books" value="{{ book.bookID }}") {{ book.bookName }} ({{ book.bookISBN }})
-
+                      select.form-control.nya-selectpicker(name='bookID', ng-model='give.bookInfo', ng-options="bookOption(book.bookName, book.bookISBN) for book in books", data-live-search)
          .row
           .col-md-12
             .col-md-6
@@ -47,13 +45,13 @@ include ../panel
                 label.text-left(for="startDate") Start Date
                   .row
                     .col-xs-12
-                      input(type="text", ng-model="interact.startDate", ng-init="interact.startDate = Date")  
+                      input(type="text", ng-model="give.startDate", ng-init="give.startDate = Date")  
             .col-md-6
               .form-group
                 label.text-left(for="endDate") End Date
                   .row
                     .col-xs-12
-                      input(type="text", ng-model="interact.endDate", ng-init="interact.endDate = Date30Days")    
+                      input(type="text", ng-model="give.endDate", ng-init="give.endDate = Date30Days")    
          .row
           .col-md-12
             .col-md-6
@@ -61,8 +59,8 @@ include ../panel
                 label(for="comment") Comment
                   .row
                     .col-xs-12
-                      textarea.form-control(name="comment", cols="50", placeholder="The book has been given in time and in good condition", ng-model="interact.comment")
+                      textarea.form-control(name="comment", cols="50", ng-model="give.comment")
         .pull-right
-          button.btn.btn-primary(ng-click='giveBook(interact)') Give
+          button.btn.btn-primary(ng-click='giveBook(give)') Give
           a.btn.btn-danger(href='/libraryPanel/users', style="margin-left:0.2em") Cancel
           
