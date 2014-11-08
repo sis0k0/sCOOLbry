@@ -7,6 +7,8 @@ module.exports = function(req, res) {
 		var updatedBookData = req.body;
 		var updatedId = req.body._id;
 		delete updatedBookData._id;
+		delete updatedBookData.$resolved;
+		delete updatedBookData.$promise;
 		
 		Book.update({_id: updatedId}, updatedBookData, function(err) {
 			console.log(err);

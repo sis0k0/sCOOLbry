@@ -3,17 +3,17 @@ include ../panel
 .container
   .well
     h1 Return a Book to user {{ userInfo.username }}
-    form.form-horizontal(name='userForm')
+    form.form-horizontal(name='returnForm')
       fieldset
         legend Return a book
         .row
           .col-md-12
             .col-md-6
               .form-group
-                label.text-left(for="isbn") Book ISBN (the list below is made of books which are not returned by the user)
+                label.text-left(for="book") Book
                   .row
                     .col-xs-12
-                      select.form-control.nya-selectpicker(ng-model="interact.bookID", ng-options="bookOption(book.bookName, book.bookISBN) for book in userInfo.books", data-live-search)  
+                      select.form-control.nya-selectpicker(name="book", ng-model="return.bookInfo", ng-options="bookOption(book.bookName, book.bookISBN) for book in books", data-live-search)  
          .row
           .col-md-12
             .col-md-6
@@ -21,9 +21,9 @@ include ../panel
                 label(for="comment") Comment
                   .row
                     .col-xs-12
-                      textarea.form-control(name="comment", cols="50", ng-model="interact.comment")
+                      textarea.form-control(name="comment", cols="50", ng-model="return.comment")
         .pull-right
-          button.btn.btn-primary(ng-click='returnBook(interact)') Return
+          button.btn.btn-primary(ng-click='returnBook(return)') Return
           a.btn.btn-danger(href='/libraryPanel/users', style="margin-left:0.2em") Cancel
           
     h1 Give a book to {{ userInfo.username }}

@@ -52,6 +52,8 @@ module.exports = {
             
             var updatedId = req.body._id;
             delete updatedUserData._id;
+			delete updatedUserData.$promise;
+			delete updatedUserData.$resolved;
             
             if(req.user.roles.indexOf('admin') > -1 && req.body.roles!==undefined) {
 				updatedUserData.roles = req.body.roles;
