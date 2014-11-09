@@ -2,11 +2,48 @@
 
 app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, UserResource) {
 
+	// Get user resource
 	$scope.user = UserResource.get({id: $routeParams.id}, function() {
 		$scope.emailConfirm = $scope.user.email;
 	});
-	console.log($scope.user.ownLibraryID);
 
+	// Update User
+	$scope.updateAsAdmin = function(user) {
+		console.log('im inside update as admin');
+
+		if(user.roles.indexOf('librarian')!==-1 || user.roles.indexOf('libraryOwner')!==-1) {
+
+			console.log('librarian or owner');
+
+			if($scope.newLibrary===true) {
+
+				console.log('new library');
+
+				User.updateAsAdmin(user, $scope.library, true).then(function() {
+					$location.path('/admin/users');
+				});
+			} else {
+
+				if(user.hasOwnProperty('ownLibraryID') && user.hasOwnProperty!=='') {
+					User.updateAsAdmin(user, user.ownLibraryID, false).then(function() {
+						$location.path('/admin/users');
+					});
+				} else {
+					User.updateAsAdmin(user).then(function() {
+						$location.path('/admin/users');
+					});
+				}
+			}
+
+		} else {
+			user.ownLibraryID='';
+			User.updateAsAdmin(user).then(function() {
+				$location.path('/admin/users');
+			});
+		}
+	};
+
+	// Get website's available roles
 	$http({
 		method: 'get',
 		url: '/api/roles'
@@ -16,7 +53,7 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 		console.log(err);
 	});
 
-
+	// Get all libraries
 	$http({
 		method: 'get',
 		url: '/api/libraries'
@@ -37,9 +74,13 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 		console.log(err);
 	});
 
-	$scope.upload = false;
 
+	// Linking user to library
 	$scope.newLibrary = false;
+
+	$scope.selectLibrary = function(field) {
+		$scope.user.ownLibraryID = $scope.libraryObject;
+	};
 
 	$scope.addNewLibrary = function() {
 		$scope.library = new Object({'librarians' : [$scope.user._id]});
@@ -52,22 +93,9 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 	}
 
 
-	$scope.updateAsAdmin = function(user) {
-		if(user.roles.indexOf('librarian')!==-1 || user.roles.indexOf('libraryOwner')!==-1) {
-			User.updateAsAdmin(user, user.ownLibraryID, false).then(function() {
-				$location.path('/admin/users');
-			});
-		} else if($scope.newLibrary===true) {
-			User.updateAsAdmin(user, $scope.library, true).then(function() {
-				$location.path('/admin/users');
-			});
-		} else {
-			user.ownLibraryID='';
-			User.updateAsAdmin(user).then(function() {
-				$location.path('/admin/users');
-			});
-		}
-	};
+	// Upload avatar
+
+	$scope.upload = false;
 
 	$scope.setFileEventListener = function(element, field) {
 
@@ -143,6 +171,8 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 		}
 	};
 
+	// Fields checkers
+
 	$scope.checkIfTaken = function(field){
 		
 		var responsePromise = $http.get('/api/' + field.$name + 'Taken/' + field.$viewValue);
@@ -162,10 +192,5 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 			confirmField.$setValidity('notMatching', true);
 		}
 	};
-
-	$scope.selectLibrary = function(field) {
-		$scope.user.ownLibraryID = $scope.libraryObject;
-	};
-
 
 });

@@ -43,27 +43,39 @@ module.exports = {
 		});
     },
     updateUser: function(req, res) {
+    	console.log(req.body);
     	if (req.user._id === req.body._id || req.user.roles.indexOf('admin') > -1) {
+
+    		console.log('able to update');
+
             var updatedUserData = req.body;
             if (updatedUserData.password && updatedUserData.password.length > 0) {
                 updatedUserData.salt = encryption.generateSalt();
                 updatedUserData.hashPass = encryption.generateHashedPassword(updatedUserData.salt, updatedUserData.password);
             }
-            
+
+            console.log(updatedUserData);
+
             var updatedId = req.body._id;
             delete updatedUserData._id;
 			delete updatedUserData.$promise;
 			delete updatedUserData.$resolved;
             
-            if(req.user.roles.indexOf('admin') > -1 && req.body.roles!==undefined) {
+            if(req.user.roles.indexOf('admin') > -1 && req.body.hasOwnProperty('roles')) {
 				updatedUserData.roles = req.body.roles;
             }else{
 				delete updatedUserData.roles;
 			}
+
+            console.log(updatedUserData);
+			console.log(updatedId);
 			
-            User.update({_id: updatedId}, updatedUserData, function(err) {
-				console.log(err);
-                res.end();
+            User.update({_id: updatedId}, updatedUserData, function(err, user) {
+            	if(err) {
+            		console.log(err);
+            		res.end();
+            	}
+            	res.send(user);
             });
         }
         else {

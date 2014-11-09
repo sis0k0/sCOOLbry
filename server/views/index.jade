@@ -20,7 +20,7 @@ block main-content
                 i.glyphicon.glyphicon-search
 
 
-        ul#top-menu.nav.navbar-nav.navbar-right.vcenter.ng-cloak(ng-hide="identity.isAuthenticated()", ng-controller="LogInCtrl")
+        ul#top-menu.nav.navbar-nav.navbar-right.vcenter(ng-hide="identity.isAuthenticated()", ng-controller="LogInCtrl")
           li
             a(href='/libraries') Libraries
           li
@@ -34,7 +34,7 @@ block main-content
 
 
         
-        ul#top-menu.nav.navbar-nav.navbar-right.vcenter.ng-cloak(ng-show="identity.isAuthenticated()", ng-controller="LogInCtrl", data-toggle="{{ dataToggle }}", data-target="{{ dataTarget }}")
+        ul#top-menu.nav.navbar-nav.navbar-right.vcenter(ng-show="identity.isAuthenticated()", ng-controller="LogInCtrl")
           li
             a(href='/libraries') Libraries
           li
