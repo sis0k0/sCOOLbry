@@ -241,6 +241,7 @@ module.exports = {
 			var updatedLibraryData = req.body;
 		   
 			var updatedId = req.body._id;
+			
 
 			delete updatedLibraryData._id;
 			delete updatedLibraryData.$promise;
@@ -332,7 +333,12 @@ module.exports = {
 				console.log('Failed to add the reading to the library: '+err);
 				return ;
 			}
-			//TODO: update count and delete bookings if any
+			
+			LibBook.update({libraryID: newReader.libraryID, bookID: newReader.bookID}, {$inc: {available: -1, given: +1}}, function(err) {
+				console.log(err);
+			});
+
+			//TODO: delete bookings
 			
 			res.send(reader);
 		});
@@ -342,9 +348,18 @@ module.exports = {
 		var updatedReader = req.body;
 		var updatedISBN = req.body.bookISBN;
 		
-		Reading.update({bookISBN: updatedISBN}, updatedReader, function(err) {
-				console.log(err);
-				//TODO: update count
+		Reading.update({bookISBN: updatedISBN, userID: req.body.userID, libraryID: req.body.libraryID}, updatedReader, function(err) {
+				
+				if(err) {
+					console.log(err);
+				}
+				
+				LibBook.update({libraryID: req.body.libraryID, bookID: req.body.bookID}, {$inc: {available: +1, given: -1}}, function(err) {
+					if(err) {
+						console.log(err);
+					}
+				});
+
 				res.end();
 		});
 	},

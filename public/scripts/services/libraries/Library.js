@@ -47,10 +47,14 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, LibraryR
 		},
 		updateLibrary: function(library) {
 			var deferred = $q.defer();
-
-			var updatedLibrary = new LibraryResource(library);
-			console.log(updatedLibrary);
 			
+			var updatedLibrary = new LibraryResource(library);
+			
+			delete updatedLibrary.$resolved;
+			delete updatedLibrary.$promise;
+			
+			console.log(updatedLibrary);
+
 			updatedLibrary.$update().then(function() {
 				deferred.resolve();
 			}, function(response) {
