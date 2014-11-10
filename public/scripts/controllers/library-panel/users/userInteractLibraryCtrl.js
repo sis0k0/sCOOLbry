@@ -2,8 +2,9 @@
 
 app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeParams, identity, LibraryUsersInteractions, notifier, $http, $location, LibBooksResource, UserNotReturnedResource) {
 	
-	$scope.books = LibBooksResource.query({id: identity.currentUser.ownLibraryID});
-	console.log($scope.books);
+	$scope.booksToReturn = UserNotReturnedResource.query({userID: $routeParams.id, libraryID: identity.currentUser.ownLibraryID});
+    $scope.books = LibBooksResource.query({id: identity.currentUser.ownLibraryID});
+	
 	$scope.Date = new Date();
 	$scope.Date30Days = new Date( new Date().getTime() + 60*60*24*30*1000 );
     $scope.userInfo = UserResource.get({id: $routeParams.id}, function(data){
@@ -30,10 +31,10 @@ app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeP
 		
 		
 	});
-    $scope.booksToReturn = UserNotReturnedResource.query({userID: $routeParams.id, libraryID: identity.currentUser.ownLibraryID});
-
+    console.log($scope.books);
 	console.log($scope.booksToReturn);
 	$scope.bookOption = function(bookName, bookISBN) {
+
 		return bookName+' ('+bookISBN+')';
 	};
 

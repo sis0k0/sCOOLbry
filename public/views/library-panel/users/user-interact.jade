@@ -1,6 +1,6 @@
 include ../panel
 
-.container
+.container(ng-controller='UserInteractLibraryCtrl')
   .well
     h1 Return a Book to user {{ userInfo.username }}
     form.form-horizontal(name='returnForm')
@@ -13,7 +13,7 @@ include ../panel
                 label.text-left(for="book") Book
                   .row
                     .col-xs-12
-                      select.form-control.nya-selectpicker(name="book", ng-model="return.bookInfo", ng-options="bookOption(book.bookName, book.bookISBN) for book in books", data-live-search)  
+                      select.form-control.nya-selectpicker(name="book", ng-model="return.bookInfo", ng-options="book as bookOption(book.bookName, book.bookISBN) for book in booksToReturn", data-live-search)  
          .row
           .col-md-12
             .col-md-6
