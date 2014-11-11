@@ -26,21 +26,6 @@ module.exports = function(grunt) {
         }
       },
 
-        // compile all jade files
-        jade: {
-          compile: {
-            options: {
-              data: {},
-              pretty: true
-            },
-            files: [{
-              expand: true,
-              src: [ 'public/**/*.jade', 'server/**/*.jade' ],
-              ext: '.html'
-            }]
-          }
-        },
-
         // build every .styl file to a single site.css file
         stylus: {
           options: {
@@ -111,7 +96,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-jade');
     grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
