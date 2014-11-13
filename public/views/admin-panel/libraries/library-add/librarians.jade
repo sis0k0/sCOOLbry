@@ -7,7 +7,7 @@
           h3.text-center Select from existing users
           .row
             .col-xs-12
-              select.form-control.nya-selectpicker(name='librarians', ng-model='library.librarians', ng-options='value._id as value.username for (key, value) in users track by value._id', data-live-search, ng-attr-title='{{ !!library.librarians && library.librarians.name || "Choose librarians" }}', multiple)
+              select.form-control.nya-selectpicker(name='librarians', ng-model='library.librarians', ng-options='value.username for (key, value) in users track by value._id', multiple, data-live-search)
 
             
         div(ng-repeat='librarian in librarians')

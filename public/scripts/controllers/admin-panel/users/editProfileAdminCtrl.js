@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, UserResource) {
+app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, UserResource, notifier) {
 
 	// Get user resource
 	$scope.user = UserResource.get({id: $routeParams.id}, function() {
@@ -9,15 +9,12 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 
 	// Update User
 	$scope.updateAsAdmin = function(user) {
-		console.log('im inside update as admin');
 
 		if(user.roles.indexOf('librarian')!==-1 || user.roles.indexOf('libraryOwner')!==-1) {
 
-			console.log('librarian or owner');
 
 			if($scope.newLibrary===true) {
 
-				console.log('new library');
 
 				User.updateAsAdmin(user, $scope.library, true).then(function() {
 					$location.path('/admin/users');
@@ -39,6 +36,9 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 			user.ownLibraryID='';
 			User.updateAsAdmin(user).then(function() {
 				$location.path('/admin/users');
+				notifier.success('User ' + user.username + ' updated!');
+			}, function(reason) {
+				notifier.error(reason);
 			});
 		}
 	};
@@ -126,23 +126,24 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 				return;
 			}
 
-			ajaxPost.uploadFileInit($scope.uploadedAvatar)
-				.then(function(result) {
-					if (result.status === 200) {
-						$scope.user.avatar = result.data;
-						$scope.avatarUploadSuccessful = true;
-						$scope.avatarUploadError = false;
-						$scope.avatarTypeError = false;  
-					}
-				}, function(error) {
-					if(error.data==='Invalid mime type'){
-						$scope.avatarTypeError = true;
-					}
-					else{
-						$scope.avatarUploadError = true;
-					}
-					$scope.avatarError = error.data;
-				});
+		ajaxPost.uploadFileInit($scope.uploadedAvatar)
+			.then(function(result) {
+				if (result.status === 200) {
+					$scope.user.avatar = result.data;
+					$scope.avatarUploadSuccessful = true;
+					$scope.avatarUploadError = false;
+					$scope.avatarTypeError = false;  
+				}
+			}, function(error) {
+				console.log(error);
+				if(error.data==='Invalid mime type'){
+					$scope.avatarTypeError = true;
+				}
+				else{
+					$scope.avatarUploadError = true;
+				}
+				$scope.avatarError = error.data;
+			});
 
 		} else {
 
@@ -177,7 +178,7 @@ app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams,
 		
 		var responsePromise = $http.get('/api/' + field.$name + 'Taken/' + field.$viewValue);
 		responsePromise.success(function(data) {
-			if(data==='true'){
+			if(data===true){
 				field.$setValidity('taken', false);
 			}else{
 				field.$setValidity('taken', true);

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('EditProfileCtrl', function($scope, $location, User, identity, ajaxPost, $window, $http) {
+app.controller('EditProfileCtrl', function($scope, $location, User, identity, ajaxPost, $window, $http, notifier) {
 
 	$scope.user = {
 		username: identity.currentUser.username,
@@ -24,13 +24,11 @@ app.controller('EditProfileCtrl', function($scope, $location, User, identity, aj
 		console.log('the ctrl');
 		User.update(user).then(function() {
 			$scope.user = user;
-			$location = '/profile';
+			$location.path('/profile');
+			notifier.success('Profile updated!');
+		}, function(reason) {
+			notifier.error(reason);
 		});
-	};
-
-	$scope.getMonth = function(user) {
-		console.log('test');
-		User.getMonth(user);
 	};
 
 
@@ -49,30 +47,31 @@ app.controller('EditProfileCtrl', function($scope, $location, User, identity, aj
 			return;
 	}
 
-		ajaxPost.uploadFileInit($scope.uploadedFile)
-			.then(function(result) {
-				if (result.status === 200) {
-					$scope.user.avatar = result.data;
-					$scope.avatarUploadSuccessful = true;
-					$scope.avatarUploadError = false;
-					$scope.avatarTypeError = false;   
-				}
-			}, function(error) {
-				if(error.data==='Invalid mime type'){
-					$scope.avatarTypeError = true;
-				}
-				else{
-					$scope.avatarUploadError = true;
-				}
-				$scope.avatarError = error.data;
-			});			  
+	ajaxPost.uploadFileInit($scope.uploadedFile)
+		.then(function(result) {
+			if (result.status === 200) {
+				$scope.user.avatar = result.data;
+				$scope.avatarUploadSuccessful = true;
+				$scope.avatarUploadError = false;
+				$scope.avatarTypeError = false;   
+			}
+		}, function(error) {
+			console.log(error);
+			if(error.data==='Invalid mime type'){
+				$scope.avatarTypeError = true;
+			}
+			else{
+				$scope.avatarUploadError = true;
+			}
+			$scope.avatarError = error.data;
+		});			  
 	};
 
 	$scope.checkIfTaken = function(field){
 		
 		var responsePromise = $http.get('/api/' + field.$name + 'Taken/' + field.$viewValue);
 		responsePromise.success(function(data) {
-			if(data==='true'){
+			if(data===true){
 				field.$setValidity('taken', false);
 			}else{
 				field.$setValidity('taken', true);

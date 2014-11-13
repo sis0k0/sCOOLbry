@@ -7,7 +7,6 @@ var encryption  = require('../utilities/encryption'),
 
 module.exports = {
     createUser: function(req, res) {
-        
         var newUserData = req.body;
 		newUserData.salt = encryption.generateSalt();
 		newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
@@ -16,11 +15,10 @@ module.exports = {
 				console.log('Failed to register new user: ' + err);
 				return;
 			}
-			if(req.user.roles.indexOf('admin')===-1) {
+			if(req.hasOwnProperty('user') && req.user.roles.indexOf('admin')===-1) {
 				req.logIn(user, function(err) {
 					if (err) {
-						res.status(403);
-						return res.send({reason: err.toString()});
+						res.status(403).send({reason: err});
 					}
 				});
 			}
@@ -43,19 +41,16 @@ module.exports = {
 		});
     },
     updateUser: function(req, res) {
-    	console.log(req.body);
-    	if (req.user._id === req.body._id || req.user.roles.indexOf('admin') > -1) {
 
-    		console.log('able to update');
-
+    	console.log(req.user._id);
+    	console.log(req.body._id);
+    	
+    	if ((req.user._id.toString() === req.body._id.toString()) || (typeof(req.user.roles)!=='undefined' && req.user.roles.indexOf('admin') > -1)) {
             var updatedUserData = req.body;
             if (updatedUserData.password && updatedUserData.password.length > 0) {
                 updatedUserData.salt = encryption.generateSalt();
                 updatedUserData.hashPass = encryption.generateHashedPassword(updatedUserData.salt, updatedUserData.password);
             }
-
-            console.log(updatedUserData);
-
             var updatedId = req.body._id;
             delete updatedUserData._id;
 			delete updatedUserData.$promise;
@@ -66,38 +61,34 @@ module.exports = {
             }else{
 				delete updatedUserData.roles;
 			}
-
-            console.log(updatedUserData);
-			console.log(updatedId);
 			
-            User.update({_id: updatedId}, updatedUserData, function(err, user) {
+            User.update({_id: updatedId}, updatedUserData, function(err) {
             	if(err) {
-            		console.log(err);
-            		res.end();
+            		res.status(503).send({reason: 'Cannot connect to database!'});
             	}
-            	res.send(user);
+            	res.status(200).end();
             });
         }
         else {
-            res.send({reason: 'You do not have permissions!'});
+            res.status(403).send({reason: 'You are not authorized!'});
         }
     },
     uploadAvatar: function(req, res) {
            
             var currentPath = '../../'+req.files.uploadedFile.path;
             var path = require('path');
+
+            var mimetype = req.files.uploadedFile.mimetype.toString();
             
-            if(!(req.files.uploadedFile.mimetype==='image/gif' || req.files.uploadedFile.mimetype==='image/jpeg' || req.files.uploadedFile.mimetype==='image/png' || req.files.uploadedFile.mimetype==='image/tiff')){
-				res.status('403');
-				res.send('Invalid mime type.');
+            if(!(mimetype==='image/gif' || mimetype==='image/jpeg' || mimetype==='image/png' || mimetype==='image/tiff')){
+				res.status(403).send('Invalid mime type');
 			}else{
 				var imgur = require('imgur-node-api');
 				var imgurURL = '';
 				imgur.setClientID('de1c5c887fbf774');
 				imgur.upload(path.join(__dirname, currentPath),function(err, res2){
 					if(res2 === undefined || res2.data === undefined) {
-						res.status('403');
-						res.send('Cannot connect to server.');
+						res.status(502).send('Cannot connect to server.');
 					}
 					imgurURL= res2.data.link;
 					imgurURL = imgurURL.substring(0,imgurURL.lastIndexOf('.')) + 'm.' + imgurURL.substring(imgurURL.lastIndexOf('.')+1, imgurURL.length);
@@ -189,8 +180,6 @@ module.exports = {
             if (err) {
 				res.send(false);
             }else{
-				//console.log(user);
-				
 				if(user===null){
 					res.send(false);
 				}else{
@@ -205,7 +194,6 @@ module.exports = {
             if (err) {
 				res.send(false);
             }else{
-				//console.log(user);
 				
 				if(user===null){
 					res.send(false);
@@ -228,18 +216,12 @@ module.exports = {
         });
     },
     validCaptcha: function(req, res, next) {
-		console.log('inside valid captcha');
-
-
-		if(req.user.roles.indexOf('admin') > -1){
-			console.log('is admin');
+		if(req.hasOwnProperty('user') && req.user.roles.indexOf('admin') > -1){
 			next();
 		} else if(req.isAuthenticated()) {
-			console.log('is not admin');
 			res.status(403);
 			return res.send({reason: 'You are already logged in.'});
 		} else {
-			console.log('is not auth');
 			var captchaData = {};
 			var stopSignUp = false;
 

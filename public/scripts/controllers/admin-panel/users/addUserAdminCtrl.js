@@ -62,7 +62,6 @@ app.controller('addUserAdminCtrl', function($scope, $location, $routeParams, $ht
 				notifier.error(reason);
 			});
 		} else {
-			console.log('controller');
 			User.addAsAdmin(user).then(function() {
 				$location.path('/admin/users');
 			}, function(reason){
@@ -149,7 +148,7 @@ app.controller('addUserAdminCtrl', function($scope, $location, $routeParams, $ht
 		
 		var responsePromise = $http.get('/api/' + field.$name + 'Taken/' + field.$viewValue);
 		responsePromise.success(function(data) {
-			if(data==='true'){
+			if(data===true){
 				field.$setValidity('taken', false);
 			}else{
 				field.$setValidity('taken', true);

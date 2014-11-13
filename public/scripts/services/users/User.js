@@ -44,15 +44,17 @@ app.factory('User', function($http, $q, identity, UsersResource, UserResource, L
 		},
 		update: function(user) {
 			var deferred = $q.defer();
-
 			var updatedUser = new UsersResource(user);
 			updatedUser._id = identity.currentUser._id;
 
 			updatedUser.$update().then(function() {
+				if(!updatedUser.hasOwnProperty('roles')) {
+					updatedUser.roles = identity.currentUser.roles;
+				}
 				identity.currentUser = updatedUser;
 				deferred.resolve();
 			}, function(response) {
-				deferred.reject(response);
+				deferred.reject(response.data.reason);
 			});
 
 			return deferred.promise;
@@ -82,14 +84,14 @@ app.factory('User', function($http, $q, identity, UsersResource, UserResource, L
 							updatedLibrary.$update().then(function() {
 								deferred.resolve();
 							}, function(response) {
-								deferred.reject(response);
+								deferred.reject(response.data.reason);
 							});
 
 						}, function(response) {
-							deferred.reject(response);
+							deferred.reject(response.data.reason);
 						});
 					}, function(response) {
-						deferred.reject(response);
+						deferred.reject(response.data.reason);
 					});
 					return deferred.promise;
 				} else {
@@ -99,13 +101,22 @@ app.factory('User', function($http, $q, identity, UsersResource, UserResource, L
 						// Push user's ID in library's librarians' array
 						library.librarians.push(data._id);
 						var updatedLibrary = new LibraryResource(library);
-						updatedLibrary.$update().then(function() {
-							deferred.resolve();
+
+						updatedLibrary.$update(function(data) {
+
+							// Update the user so that he holds library's ID
+							newUser.ownLibraryID = data._id;
+							newUser.$update().then(function() {
+								deferred.resolve();
+							}, function(response) {
+								deferred.reject(response.data.reason);
+							});
+
 						}, function(response) {
-							deferred.reject(response);
+							deferred.reject(response.data.reason);
 						});
 					}, function(response) {
-						deferred.reject(response);
+						deferred.reject(response.data.reason);
 					});
 
 					return deferred.promise;
@@ -116,7 +127,7 @@ app.factory('User', function($http, $q, identity, UsersResource, UserResource, L
 				newUser.$save().then(function() {
 					deferred.resolve();
 				}, function(response) {
-					deferred.reject(response);
+					deferred.reject(response.data.reason);
 				});
 				return deferred.promise;
 			}
@@ -125,53 +136,59 @@ app.factory('User', function($http, $q, identity, UsersResource, UserResource, L
 		},
 		updateAsAdmin: function(user, library, newLibrary) {
 			var deferred = $q.defer();
-			var updatedUser = new UsersResource(user);
-			updatedUser._id = user._id;
-			if(library!==undefined) {
-				if(newLibrary===true) {
-					// Create new library and update the user after that
 
-					var newLibraryResource = new LibraryResource(library);
-					newLibraryResource.$save(function(data) {
-						updatedUser.ownLibraryID = data._id;
-						updatedUser.$update().then(function() {
-							deferred.resolve();
-						}, function(response) {
-							deferred.reject(response);
+			if(identity.currentUser.hasOwnProperty('roles') && identity.currentUser.roles.indexOf('admin')>-1) {
+
+				var updatedUser = new UsersResource(user);
+				updatedUser._id = user._id;
+				if(library!==undefined) {
+					if(newLibrary===true) {
+						// Create new library and update the user after that
+
+						var newLibraryResource = new LibraryResource(library);
+						newLibraryResource.$save(function(data) {
+							updatedUser.ownLibraryID = data._id;
+							updatedUser.$update().then(function() {
+								deferred.resolve();
+							}, function(response) {
+								deferred.reject(response.data.reason);
+							});
 						});
-					});
-					return deferred.promise;
-				} else {
-					// Update existing library and the user after that
+						return deferred.promise;
+					} else {
+						// Update existing library and the user after that
 
-					if(library.librarians!==undefined && library.librarians.indexOf(user._id)===-1) {
-						library.librarians.push(user._id);
+						if(library.librarians!==undefined && library.librarians.indexOf(user._id)===-1) {
+							library.librarians.push(user._id);
+						}
+						var updatedLibrary = new LibraryResource(library);
+						updatedLibrary._id = library._id;
+
+						// Update the library
+						updatedLibrary.$update(function(data) {
+
+							// Update the user so that he holds library's ID
+							updatedUser.ownLibraryID = data._id;
+							updatedUser.$update().then(function() {
+								deferred.resolve();
+							}, function(response) {
+								deferred.reject(response.data.reason);
+							});
+						});
+						return deferred.promise;
 					}
-					var updatedLibrary = new LibraryResource(library);
-					updatedLibrary._id = library._id;
+				} else {
+					// Simply update the user if he's not a librarian
 
-					// Update the library
-					updatedLibrary.$update(function(data) {
-
-						// Update the user so that he holds library's ID
-						updatedUser.ownLibraryID = data._id;
-						updatedUser.$update().then(function() {
-							deferred.resolve();
-						}, function(response) {
-							deferred.reject(response);
-						});
+					updatedUser.$update().then(function() {
+						deferred.resolve();
+					}, function(response) {
+						deferred.reject(response.data.reason);
 					});
 					return deferred.promise;
 				}
 			} else {
-				// Simply update the user if he's not a librarian
-
-				updatedUser.$update().then(function() {
-					deferred.resolve();
-				}, function(response) {
-					deferred.reject(response);
-				});
-				return deferred.promise;
+				deferred.reject('You are not authorized for this action!');
 			}
 		},
 		isAuthenticated: function() {

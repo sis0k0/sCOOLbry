@@ -135,7 +135,7 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 	$scope.checkIfTakenUsername = function(field, index){
 		var responsePromise = $http.get('/api/usernameTaken/' + field.$viewValue);
 		responsePromise.success(function(data) {
-			if(data==='true'){
+			if(data===true){
 				console.log('taken');
 				field.$setValidity('taken', false);
 			}else{
@@ -158,7 +158,7 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 	$scope.checkIfTakenEmail = function(field, index){
 		var responsePromise = $http.get('/api/emailTaken/' + field.$viewValue);
 		responsePromise.success(function(data) {
-			if(data==='true'){
+			if(data===true){
 				console.log('taken');
 				field.$setValidity('taken', false);
 			}else{
