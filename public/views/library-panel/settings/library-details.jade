@@ -38,136 +38,136 @@ include ../panel
                 label.control-label(for='workdays') Workdays
                 .row
                   .col-xs-12
-                    input.form-control(name='monday', type='checkbox' ng-model='library.monday')
+                    input.form-control(name='monday', type='checkbox' ng-model='library.workdays[1]')
                     label.control-label(for='monday') Monday
                  .row
                   .col-xs-12
-                    input.form-control(name='tuesday', type='checkbox' ng-model='library.tuesday')
+                    input.form-control(name='tuesday', type='checkbox' ng-model='library.workdays[2]')
                     label.control-label(for='tuesday') Tuesday
                 .row
                   .col-xs-12
-                    input.form-control(name='wednesday', type='checkbox' ng-model='library.wednesday')
+                    input.form-control(name='wednesday', type='checkbox' ng-model='library.workdays[3]')
                     label.control-label(for='wednesday') Wednesday
                 .row
                   .col-xs-12
-                    input.form-control(name='thursday', type='checkbox' ng-model='library.thursday')
+                    input.form-control(name='thursday', type='checkbox' ng-model='library.workdays[4]')
                     label.control-label(for='thursday') Thursday
                 .row
                   .col-xs-12
-                    input.form-control(name='friday', type='checkbox' ng-model='library.friday')
+                    input.form-control(name='friday', type='checkbox' ng-model='library.workdays[5]')
                     label.control-label(for='friday') Friday
                 .row
                   .col-xs-12
-                    input.form-control(name='saturday', type='checkbox' ng-model='library.saturday')
+                    input.form-control(name='saturday', type='checkbox' ng-model='library.workdays[6]')
                     label.control-label(for='saturday') Saturday
                 .row
                   .col-xs-12
-                    input.form-control(name='sunday', type='checkbox' ng-model='library.sunday')
+                    input.form-control(name='sunday', type='checkbox' ng-model='library.workdays[0]')
                     label.control-label(for='sunday') Sunday
               .form-group
                 label.control-label(for='workHours') Working Hours Monday
                 .row
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursMondayOpeningHour' ng-model='library.workHoursMondayOpeningHour')
+                      input.form-control(name='workHoursMondayOpeningHour' ng-model='library.workHoursOpeningHour[1]')
                     .col-xs-6
-                      input.form-control(name='workHoursMondayOpeningMinutes' ng-model='library.workHoursMondayOpeningMinutes')
+                      input.form-control(name='workHoursMondayOpeningMinutes' ng-model='library.workHoursOpeningMinutes[1]')
 
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursMondayClosingHour' ng-model='library.workHoursMondayClosingHour')
+                      input.form-control(name='workHoursMondayClosingHour' ng-model='library.workHoursClosingHour[1]')
                     .col-xs-6
-                      input.form-control(name='workHoursMondayClosingMinutes' ng-model='library.workHoursMondayClosingMinutes')
+                      input.form-control(name='workHoursMondayClosingMinutes' ng-model='library.workHoursClosingMinutes[1]')
 
               .form-group
                 label.control-label(for='workHours') Working Hours Tuesday
                 .row
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursTuesdayOpeningHour' ng-model='library.workHoursTuesdayOpeningHour')
+                      input.form-control(name='workHoursTuesdayOpeningHour' ng-model='library.workHoursOpeningHour[2]')
                     .col-xs-6
-                      input.form-control(name='workHoursTuesdayOpeningMinutes' ng-model='library.workHoursTuesdayOpeningMinutes')
+                      input.form-control(name='workHoursTuesdayOpeningMinutes' ng-model='library.workHoursOpeningMinutes[2]')
 
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursTuesdayClosingHour' ng-model='library.workHoursTuesdayClosingHour')
+                      input.form-control(name='workHoursTuesdayClosingHour' ng-model='library.workHoursClosingHour[2]')
                     .col-xs-6
-                      input.form-control(name='workHoursTuesdayClosingMinutes' ng-model='library.workHoursTuesdayClosingMinutes')
+                      input.form-control(name='workHoursTuesdayClosingMinutes' ng-model='library.workHoursClosingMinutes[2]')
 
               .form-group
                 label.control-label(for='workHours') Working Hours Wednesday
                 .row
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursWednesdayOpeningHour' ng-model='library.workHoursWednesdayOpeningHour')
+                      input.form-control(name='workHoursWednesdayOpeningHour' ng-model='library.workHoursOpeningHour[3]')
                     .col-xs-6
-                      input.form-control(name='workHoursWednesdayOpeningMinutes' ng-model='library.workHoursWednesdayOpeningMinutes')
+                      input.form-control(name='workHoursWednesdayOpeningMinutes' ng-model='library.workHoursOpeningMinutes[3]')
 
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursWednesdayClosingHour' ng-model='library.workHoursWednesdayClosingHour')
+                      input.form-control(name='workHoursWednesdayClosingHour' ng-model='library.workHoursClosingHour[3]')
                     .col-xs-6
-                      input.form-control(name='workHoursWednesdayClosingMinutes' ng-model='library.workHoursWednesdayClosingMinutes')
+                      input.form-control(name='workHoursWednesdayClosingMinutes' ng-model='library.workHoursClosingMinutes[3]')
 
               .form-group
                 label.control-label(for='workHours') Working Hours Thursday
                 .row
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursThursdayOpeningHour' ng-model='library.workHoursThursdayOpeningHour')
+                      input.form-control(name='workHoursThursdayOpeningHour' ng-model='library.workHoursOpeningHour[4]')
                     .col-xs-6
-                      input.form-control(name='workHoursThursdayOpeningMinutes' ng-model='library.workHoursThursdayOpeningMinutes')
+                      input.form-control(name='workHoursThursdayOpeningMinutes' ng-model='library.workHoursOpeningMinutes[4]')
 
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursThursdayClosingHour' ng-model='library.workHoursThursdayClosingHour')
+                      input.form-control(name='workHoursThursdayClosingHour' ng-model='library.workHoursClosingHour[4]')
                     .col-xs-6
-                      input.form-control(name='workHoursThursdayClosingMinutes' ng-model='library.workHoursThursdayClosingMinutes')
+                      input.form-control(name='workHoursThursdayClosingMinutes' ng-model='library.workHoursClosingMinutes[4]')
 
               .form-group
                 label.control-label(for='workHours') Working Hours Friday
                 .row
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursFridayOpeningHour' ng-model='library.workHoursFridayOpeningHour')
+                      input.form-control(name='workHoursFridayOpeningHour' ng-model='library.workHoursOpeningHour[5]')
                     .col-xs-6
-                      input.form-control(name='workHoursFridayOpeningMinutes' ng-model='library.workHoursFridayOpeningMinutes')
+                      input.form-control(name='workHoursFridayOpeningMinutes' ng-model='library.workHoursOpeningMinutes[5]')
 
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursFridayClosingHour' ng-model='library.workHoursFridayClosingHour')
+                      input.form-control(name='workHoursFridayClosingHour' ng-model='library.workHoursClosingHour[5]')
                     .col-xs-6
-                      input.form-control(name='workHoursFridayClosingMinutes' ng-model='library.workHoursFridayClosingMinutes')
+                      input.form-control(name='workHoursFridayClosingMinutes' ng-model='library.workHoursClosingMinutes[5]')
 
               .form-group
                 label.control-label(for='workHours') Working Hours Saturday
                 .row
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursSaturdayOpeningHour' ng-model='library.workHoursSaturdayOpeningHour')
+                      input.form-control(name='workHoursSaturdayOpeningHour' ng-model='library.workHoursOpeningHour[6]')
                     .col-xs-6
-                      input.form-control(name='workHoursSaturdayOpeningMinutes' ng-model='library.workHoursSaturdayOpeningMinutes')
+                      input.form-control(name='workHoursSaturdayOpeningMinutes' ng-model='library.workHoursOpeningMinutes[6]')
 
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursSaturdayClosingHour' ng-model='library.workHoursSaturdayClosingHour')
+                      input.form-control(name='workHoursSaturdayClosingHour' ng-model='library.workHoursClosingHour[6]')
                     .col-xs-6
-                      input.form-control(name='workHoursSaturdayClosingMinutes' ng-model='library.workHoursSaturdayClosingMinutes')
+                      input.form-control(name='workHoursSaturdayClosingMinutes' ng-model='library.workHoursClosingMinutes[6]')
 
               .form-group
                 label.control-label(for='workHours') Working Hours Sunday
                 .row
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursSundayOpeningHour' ng-model='library.workHoursSundayOpeningHour')
+                      input.form-control(name='workHoursSundayOpeningHour' ng-model='library.workHoursOpeningHour[0]')
                     .col-xs-6
-                      input.form-control(name='workHoursSundayOpeningMinutes' ng-model='library.workHoursSundayOpeningMinutes')
+                      input.form-control(name='workHoursSundayOpeningMinutes' ng-model='library.workHoursOpeningMinutes[0]')
 
                   .col-xs-6
                     .col-xs-6
-                      input.form-control(name='workHoursSundayClosingHour' ng-model='library.workHoursSundayClosingHour')
+                      input.form-control(name='workHoursSundayClosingHour' ng-model='library.workHoursClosingHour[0]')
                     .col-xs-6
-                      input.form-control(name='workHoursSundayClosingMinutes' ng-model='library.workHoursSundayClosingMinutes')
+                      input.form-control(name='workHoursSundayClosingMinutes' ng-model='library.workHoursClosingMinutes[0]')
 
         
         .pull-right

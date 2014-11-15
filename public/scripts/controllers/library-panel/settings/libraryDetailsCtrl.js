@@ -7,157 +7,49 @@ app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routePar
 		id: $scope.user.ownLibraryID
 	}, function(library) {
 		//library.monday = true; TODO set monday, tuesday + hours to values
-        console.log(library);
+        
+        if(library.workHoursOpeningHour==undefined) {
+            library.workHoursOpeningHour = new Array(7);
+        }
+
+        if(library.workHoursClosingHour==undefined) {
+            library.workHoursClosingHour = new Array(7);
+        }
+
+
+        if(library.workHoursOpeningMinutes==undefined) {
+            library.workHoursOpeningMinutes = new Array(7);
+        }
+
+        if(library.workHoursClosingMinutes==undefined) {
+            library.workHoursClosingMinutes = new Array(7);
+        }
+
         var openingTime, closingTime, times;
-        if(library.workdays.indexOf(1)>=0) {
-            library.monday = true;
-            times = library.workhours[library.workdays.indexOf(1)].split("-");
 
-            openingTime = times[0];
-            closingTime = times[1];
+        for(var i = 0; i < 7; i++) {
 
-            openingTime = openingTime.split(":");
-            closingTime = closingTime.split(":");
+            if(library.workdays[i]==true && library.workdays[i]!=undefined) {
+                
+                times = library.workhours[i].split("-");
+                
+                openingTime = times[0];
+                closingTime = times[1];
 
+                openingTime = openingTime.split(":");
+                closingTime = closingTime.split(":");
 
-            library.workHoursMondayOpeningHour    = openingTime[0];
-            library.workHoursMondayOpeningMinutes = openingTime[1];
-
-            library.workHoursMondayClosingHour    = closingTime[0];
-            library.workHoursMondayClosingMinutes = closingTime[1];
-
-        }else{
-            library.monday = false;
-        }
-
-
-        if(library.workdays.indexOf(2)>=0) {
-            library.tuesday = true;
-
-            times = library.workhours[library.workdays.indexOf(2)].split("-");
+                library.workHoursOpeningHour[i]    = openingTime[0];
+                library.workHoursOpeningMinutes[i] = openingTime[1];
+                library.workHoursClosingHour[i]    = closingTime[0];
+                library.workHoursClosingMinutes[i] = closingTime[1];
             
-            openingTime = times[0];
-            closingTime = times[1];
+            }else{
 
-            openingTime = openingTime.split(":");
-            closingTime = closingTime.split(":");
+                library.workdays[i] = false;
 
+            }
 
-            library.workHoursTuesdayOpeningHour    = openingTime[0];
-            library.workHoursTuesdayOpeningMinutes = openingTime[1];
-
-            library.workHoursTuesdayClosingHour    = closingTime[0];
-            library.workHoursTuesdayClosingMinutes = closingTime[1];
-        }else{
-            library.tuesday = false;
-        }
-
-
-        if(library.workdays.indexOf(3)>=0) {
-            library.wednesday = true;
-            times = library.workhours[library.workdays.indexOf(3)].split("-");
-
-            openingTime = times[0];
-            closingTime = times[1];
-
-            openingTime = openingTime.split(":");
-            closingTime = closingTime.split(":");
-
-
-            library.workHoursWednesdayOpeningHour    = openingTime[0];
-            library.workHoursWednesdayOpeningMinutes = openingTime[1];
-
-            library.workHoursWednesdayClosingHour    = closingTime[0];
-            library.workHoursWednesdayClosingMinutes = closingTime[1];
-        }else{
-            library.wednesday = false;
-        }
-
-
-        if(library.workdays.indexOf(4)>=0) {
-            library.thursday = true;
-            times = library.workhours[library.workdays.indexOf(4)].split("-");
-            
-            openingTime = times[0];
-            closingTime = times[1];
-
-            openingTime = openingTime.split(":");
-            closingTime = closingTime.split(":");
-
-
-            library.workHoursThursdayOpeningHour = openingTime[0];
-            library.workHoursThursdayOpeningMinutes = openingTime[1];
-
-            library.workHoursThursdayClosingHour = closingTime[0];
-            library.workHoursThursdayClosingMinutes = closingTime[1];
-        
-        }else{
-            library.thursday = false;
-        }
-
-
-        if(library.workdays.indexOf(5)>=0) {
-            library.friday = true;
-            times = library.workhours[library.workdays.indexOf(5)].split("-");
-            
-            openingTime = times[0];
-            closingTime = times[1];
-
-            openingTime = openingTime.split(":");
-            closingTime = closingTime.split(":");
-
-
-            library.workHoursFridayOpeningHour    = openingTime[0];
-            library.workHoursFridayOpeningMinutes = openingTime[1];
-
-            library.workHoursFridayClosingHour    = closingTime[0];
-            library.workHoursFridayClosingMinutes = closingTime[1];
-        }else{
-            library.friday = false;
-        }
-
-
-        if(library.workdays.indexOf(6)>=0) {
-            library.saturday = true;
-            times = library.workhours[library.workdays.indexOf(6)].split("-");
-            
-            openingTime = times[0];
-            closingTime = times[1];
-            
-            openingTime = openingTime.split(":");
-            closingTime = closingTime.split(":");
-
-
-            library.workHoursSaturdayOpeningHour    = openingTime[0];
-            library.workHoursSaturdayOpeningMinutes = openingTime[1];
-
-            library.workHoursSaturdayClosingHour    = closingTime[0];
-            library.workHoursSaturdayClosingMinutes = closingTime[1];
-        
-        }else{
-            library.saturday = false;
-        }
-
-
-        if(library.workdays.indexOf(0)>=0) {
-            library.sunday = true;
-            times = library.workhours[library.workdays.indexOf(0)].split("-");
-           
-            openingTime = times[0];
-            closingTime = times[1];
-            
-            openingTime = openingTime.split(":");
-            closingTime = closingTime.split(":");
-
-
-            library.workHoursSundayOpeningHour    = openingTime[0];
-            library.workHoursSundayOpeningMinutes = openingTime[1];
-            
-            library.workHoursSundayClosingHour    = closingTime[0];
-            library.workHoursSundayClosingMinutes = closingTime[1];
-        
-        }else{
-            library.sunday = false;
         }
 
 
@@ -168,53 +60,21 @@ app.controller('LibraryDetailsCtrl', function($scope, LibraryResource, $routePar
         var workdays = new Array();
         var workhours = new Array();
         var workhoursString = ''; 
-            
-        if(library.monday==true) {
-            workdays.push(1);
-            workhoursString = library.workHoursMondayOpeningHour+':'+library.workHoursMondayOpeningMinutes+'-'+library.workHoursMondayClosingHour+':'+library.workHoursMondayClosingMinutes;
-            workhours.push(workhoursString);
+        
+        for(var i = 0; i < 7; i++) {            
+            if(library.workdays[i]==true) {
+                workdays[i] = true;
+                workhoursString = library.workHoursOpeningHour[i]+':'+library.workHoursOpeningMinutes[i]+'-'+library.workHoursClosingHour[i]+':'+library.workHoursClosingMinutes[i];
+                workhours[i] = workhoursString;
+            }
+
         }
 
-        if(library.tuesday==true) {
-            workdays.push(2);
-            workhoursString = library.workHoursTuesdayOpeningHour+':'+library.workHoursTuesdayOpeningMinutes+'-'+library.workHoursTuesdayClosingHour+':'+library.workHoursTuesdayClosingMinutes;
-            workhours.push(workhoursString);
-        }
-                    
-        if(library.wednesday==true) {
-            workdays.push(3);
-            workhoursString = library.workHoursWednesdayOpeningHour+':'+library.workHoursWednesdayOpeningMinutes+'-'+library.workHoursWednesdayClosingHour+':'+library.workHoursWednesdayClosingMinutes;
-            workhours.push(workhoursString);
-        }
-            
-        if(library.thursday==true) {
-            workdays.push(4);
-            workhoursString = library.workHoursThursdayOpeningHour+':'+library.workHoursThursdayOpeningMinutes+'-'+library.workHoursThursdayClosingHour+':'+library.workHoursThursdayClosingMinutes;
-            workhours.push(workhoursString);
-        }
-            
-        if(library.friday==true) {
-            workdays.push(5);
-            workhoursString = library.workHoursFridayOpeningHour+':'+library.workHoursFridayOpeningMinutes+'-'+library.workHoursFridayClosingHour+':'+library.workHoursFridayClosingMinutes;
-            workhours.push(workhoursString);
-        }
-
-        if(library.saturday==true) {
-            workdays.push(6);
-            workhoursString = library.workHoursSaturdayOpeningHour+':'+library.workHoursSaturdayOpeningMinutes+'-'+library.workHoursSaturdayClosingHour+':'+library.workHoursSaturdayClosingMinutes;
-            workhours.push(workhoursString);
-        }
-
-        if(library.sunday==true) {
-            workdays.push(0);
-            workhoursString = library.workHoursSundayOpeningHour+':'+library.workHoursSundayOpeningMinutes+'-'+library.workHoursSundayClosingHour+':'+library.workHoursSundayClosingMinutes;
-            workhours.push(workhoursString);
-        }
         delete library.workdays;
         delete library.workhours;
         library.workdays = workdays;
         library.workhours = workhours;
-
+        console.log(library);
         Library.updateLibrary(library).then(function() {
             $location.path('/libraryPanel');
 

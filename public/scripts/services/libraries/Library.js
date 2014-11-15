@@ -15,9 +15,6 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, LibraryR
 				librarians.forEach(function(element){
 
 					element.ownLibraryID = libraryID;
-					element.ownLibraryID = libraryID;
-					element.ownLibraryID = libraryID;
-					element.ownLibraryID = libraryID;
 					var newUser = new LibrarianResource(element);
 					newUser.$save().then(function(data) {
 						$http({
