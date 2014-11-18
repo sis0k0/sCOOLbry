@@ -23,7 +23,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
                 var responsePromise = $http.get('/api/library/member/'+$scope.libraryID+'/'+identity.currentUser._id);
                 responsePromise.success(function(data) {
 
-                    if(data==='true'){
+                    if(data===true){
                         $scope.isMember = true;
                     }else{
                         $scope.isMember = false;
@@ -52,21 +52,26 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
         var checkDay = new Date(new Date().getTime() + 60 * 60 * 24 * 1000);
         var workingDays = $scope.library.workdays;
         var workingHoursStr = $scope.library.workhours;
+        console.log($scope.library);
         var bookDate;
 
         var workingHours = new Array();
-        workingHoursStr.forEach(function(element) {
-            var currentDay = new Array();
-            var currentSplit = element.split("-");
-            var openingSplit = currentSplit[0];
-            var closingSplit = currentSplit[1];
-            openingSplit = openingSplit.split(":");
-            openingSplit = openingSplit[0];
-            closingSplit = closingSplit.split(":");
-            closingSplit = closingSplit[0];
-            currentDay.push(openingSplit);
-            currentDay.push(closingSplit);
-            workingHours.push(currentDay);
+        workingHoursStr.forEach(function(element, index) {
+
+            if(element!==null) {
+                var currentDay = new Array();
+                var currentSplit = element.split("-");
+                var openingSplit = currentSplit[0];
+                var closingSplit = currentSplit[1];
+                openingSplit = openingSplit.split(":");
+                openingSplit = openingSplit[0];
+                closingSplit = closingSplit.split(":");
+                closingSplit = closingSplit[0];
+                currentDay.push(openingSplit);
+                currentDay.push(closingSplit);
+                workingHours[index] = currentDay;
+            }
+
         });
    
 
@@ -74,7 +79,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
         var initialDay = checkDay.getDay();
         var add = 0;
 
-        while(!(workingDays.indexOf(todayWeekDay)>=0)) {
+        while(workingDays[todayWeekDay]!=true) {
             todayWeekDay++;
             if(todayWeekDay==initialDay){
                 break;
@@ -82,15 +87,18 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
             if(todayWeekDay==7) { todayWeekDay = 0; add = true; }
         }
             
-        var workingHoursIndex = workingDays.indexOf(todayWeekDay);
+        var workingHoursIndex = todayWeekDay;
         var newBookingDate = new Date();
         if(add==true){
             newBookingDate = new Date(checkDay.getTime() + 60 * 60 * 24 * 1000 * ((Math.abs(7-initialDay)+(Math.abs(0-todayWeekDay)+1))));
         }else{
             newBookingDate = new Date(checkDay.getTime() + 60 * 60 * 24 * 1000 * (Math.abs(todayWeekDay-initialDay)+add));
         }
-        
+
+        console.log(workingHours);
+        console.log(workingHoursIndex+'!');   
         newBookingDate.setHours(workingHours[workingHoursIndex][1]);
+
         newBookingDate.setMinutes(0);
         newBookingDate.setSeconds(0);
         

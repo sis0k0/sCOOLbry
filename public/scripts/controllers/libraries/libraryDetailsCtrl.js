@@ -5,7 +5,6 @@ app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, 
         collection.forEach(function(library) {
             if (library._id === $routeParams.id) {
                 $scope.library = library;
-                console.log(library);
             }
         });
     });
@@ -19,13 +18,13 @@ app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, 
 	}else{
 		var responsePromise = $http.get('/api/library/member/'+$routeParams.id+'/'+identity.currentUser._id);
 		responsePromise.success(function(data) {
-			if(data==='true'){
+			if(data===true){
 				$scope.isMember = true;
 			}else{
 				$scope.isMember = false;
 			}
 		});      
-		
+		console.log($scope.isMember);
 		$scope.isLoggedIn = true;     
 	}
 	
