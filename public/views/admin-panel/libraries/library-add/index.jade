@@ -8,8 +8,12 @@ include ../../panel
         .row
         
         ul.nav.nav-tabs(style='margin-bottom: 25px')
+          
           li.active
-            a(href='#main-information', data-toggle='tab', target='_self').active
+            a(href='#working-time', data-toggle='tab', target='_self').active
+              | Working time
+          li
+            a(href='#main-information', data-toggle='tab', target='_self')
               |  Main information
           li
             a(href='#librarians', data-toggle='tab', target='_self')
@@ -18,6 +22,7 @@ include ../../panel
         #myTabContent.tab-content
 
           include ./main-information
+          include ./working-time
           include ./librarians
             
 

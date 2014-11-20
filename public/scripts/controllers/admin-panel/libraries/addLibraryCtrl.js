@@ -2,8 +2,53 @@
 
 app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User, notifier, UserResource, ajaxPost) {
 
+	$scope.library = new Object({});
+	$scope.library.workdays = new Array();
+	$scope.library.workHoursOpeningHour = new Array();
+	$scope.library.workHoursClosingHour = new Array();
+	$scope.library.workHoursOpeningMinutes = new Array();
+	$scope.library.workHoursClosingMinutes = new Array();
+
+	for(var i=0; i<7; i++) {
+		$scope.library.workdays[i] = true;
+		$scope.library.workHoursOpeningHour[i] = 10;
+		$scope.library.workHoursClosingHour[i] = 18;
+		$scope.library.workHoursOpeningMinutes[i] = 0;
+		$scope.library.workHoursClosingMinutes[i] = 0;
+	}
+
+    console.log($scope.library.workdays);
+    console.log($scope.library.workhours);
+    console.log($scope.library);
+
 	// Add library
 	$scope.addLibrary = function(library, librarians) {
+
+
+        var workdays = new Array();
+        var workhours = new Array();
+        var workhoursString = ''; 
+        console.log(library.workdays);
+        console.log(library.workhours);
+        console.log(library);
+        
+        for(var i = 0; i < 7; i++) {            
+            if(library.workdays[i]==true) {
+                workdays[i] = true;
+                workhoursString = library.workHoursOpeningHour[i]+':'+library.workHoursOpeningMinutes[i]+'-'+library.workHoursClosingHour[i]+':'+library.workHoursClosingMinutes[i];
+                workhours[i] = workhoursString;
+            }
+
+        }
+
+        delete library.workdays;
+        delete library.workhours;
+        library.workdays = workdays;
+        library.workhours = workhours;
+
+
+		console.log(library);
+
 		for(var i=0; i<librarians.length; i++) {
 			librarians[i].roles = [];
 			librarians[i].roles.push('librarian');
