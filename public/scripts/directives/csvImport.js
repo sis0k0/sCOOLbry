@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('csvImport', function() {
+app.directive('csvImport', function(notifier) {
 	return {
 		restrict: 'A',
 		transclude: true,
@@ -52,20 +52,29 @@ app.directive('csvImport', function() {
 						}
 					}
 				} else {
-					console.log('Wrong type!');
+					notifier.error('Wrong file type! Please upload CSV file!');
 				}
 
 			});
 
 			var csvToArray = function(content) {
-				var lines=content.csv.split('\n');
-				var result = [];
-				var start = 0;
-				var columnCount = lines[0].split(',').length;
+				var lines = content.csv.split('\n'),
+					result = [],
+					start = 0,
+					separator = '';
+
+
+				if(lines[0].indexOf(',')!==-1 && lines[0].indexOf(',')>lines[0].indexOf(';')) {
+					separator = ',';
+				} else {
+					separator = ';';
+				}
+
+				var columnCount = lines[0].split(separator).length;
 
 				for (var i=start; i<lines.length; i++) {
 					var arr = [];
-					var currentline=lines[i].split(',');
+					var currentline=lines[i].split(separator);
 					if ( currentline.length === columnCount ) {
 						for (var k=0; k<currentline.length; k++) {
 							arr.push(currentline[k]);

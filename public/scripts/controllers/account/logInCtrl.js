@@ -10,10 +10,7 @@ account.controller('LogInCtrl', function($scope, $location, notifier, identity, 
                 $location.path('/');
             }
             else {
-				
 				notifier.error('Username/Password combination is not valid or the RECAPTCHA Challenge is not complete!');
-				
-				
 				$window.Recaptcha.reload();
             }
         });
