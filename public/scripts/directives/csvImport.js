@@ -26,27 +26,35 @@ app.directive('csvImport', function() {
 
 
 			element.on('change', function(onChangeEvent) {
-				var reader = new FileReader();
-				reader.onload = function(onLoadEvent) {
-					scope.$apply(function() {
-						var content = {
-							csv: onLoadEvent.target.result
-						};
-
-						scope.content = content.csv;
-						scope.result = csvToArray(content);
-					});
-				};
-				if ( (onChangeEvent.target.type === 'file') && (onChangeEvent.target.files !== null || onChangeEvent.srcElement.files !== null) )  {
-					reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
-				} else {
-					if ( scope.content !== null ) {
-						var content = {
-							csv: scope.content
-						};
-						scope.result = csvToArray(content);
+				if(onChangeEvent.target.files[0].type==='application/vnd.ms-excel')
+				{
+					var reader = new FileReader();
+					reader.onload = function(onLoadEvent) {
+						scope.$apply(function() {
+							var content = {
+								csv: onLoadEvent.target.result
+							};
+							console.log(content.csv);
+							console.log(onChangeEvent.target.files[0]);
+							console.log(onChangeEvent.target.files[0].mimetype);
+							scope.content = content.csv;
+							scope.result = csvToArray(content);
+						});
+					};
+					if ( (onChangeEvent.target.type === 'file') && (onChangeEvent.target.files !== null || onChangeEvent.srcElement.files !== null) )  {
+						reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
+					} else {
+						if ( scope.content !== null ) {
+							var content = {
+								csv: scope.content
+							};
+							scope.result = csvToArray(content);
+						}
 					}
+				} else {
+					console.log('Wrong type!');
 				}
+
 			});
 
 			var csvToArray = function(content) {
