@@ -2,6 +2,7 @@
 
 app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User, notifier, UserResource, ajaxPost) {
 
+	// Define library and default working hours
 	$scope.library = new Object({});
 	$scope.library.workdays = new Array();
 	$scope.library.workHoursOpeningHour = new Array();
@@ -17,9 +18,6 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 		$scope.library.workHoursClosingMinutes[i] = 0;
 	}
 
-    console.log($scope.library.workdays);
-    console.log($scope.library.workhours);
-    console.log($scope.library);
 
 	// Add library
 	$scope.addLibrary = function(library, librarians) {
@@ -28,9 +26,6 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
         var workdays = new Array();
         var workhours = new Array();
         var workhoursString = ''; 
-        console.log(library.workdays);
-        console.log(library.workhours);
-        console.log(library);
         
         for(var i = 0; i < 7; i++) {            
             if(library.workdays[i]==true) {
@@ -47,25 +42,28 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
         library.workhours = workhours;
 
 
-		console.log(library);
-
 		for(var i=0; i<librarians.length; i++) {
 			librarians[i].roles = [];
 			librarians[i].roles.push('librarian');
 		}
 
-		console.log(library.librarians);
 		if(library.hasOwnProperty('librarians')) {
 			for(var i=0; i<library.librarians.length; i++) {
-				for(var j=0; j<$scope.users.length; j++) {
-					if($scope.users[j]._id === library.librarians[i]) {
-						$scope.users[j].roles.push('librarian');
-						User.updateAsAdmin($scope.users[j]);
+
+				if(library.librarians[i].hasOwnProperty('roles')===false || library.librarians[i].roles.indexOf('librarian')===-1)
+				{
+					for(var j=0; j<$scope.users.length; j++) {
+						if($scope.users[j]._id === library.librarians[i]._id) {
+							$scope.users[j].roles.push('librarian');
+							User.updateAsAdmin($scope.users[j]).then(function() {
+							}, function(reason){
+								notifier.error(reason);
+							});
+						}
 					}
 				}
 			}
 		}
-
 		Library.addLibrary(library, librarians).finally(function(){
 			notifier.success('Library added successfully!');
 			$window.location.href = '/admin/libraries';
@@ -88,19 +86,12 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 		method: 'get',
 		url: '/api/users'
 	}).success(function(data) {
-
 		$scope.users = new Array();
-		var b = 0;
-
-
 		// Check if user is	not already a librarian (you can't be librarian at two places)
 		for (var user in data) {
-
 			if(data[user].ownLibraryID==='' || !data[user].ownLibraryID) {
-				$scope.users[b] = data[user];
-				b++;
+				$scope.users.push(data[user]);
 			}
-
 		}
 	}).error(function(err) {
 		console.log(err);
@@ -139,9 +130,6 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 					$scope.uploadedFile = true;
 					
 				}
-				console.log(result);
-				console.log($scope.uploadButtonState);
-				console.log($scope.uploadedFile);
 			}, function(error) {
 				console.log(error);
 				if(error.data==='Invalid mime type'){
@@ -181,7 +169,6 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 		var responsePromise = $http.get('/api/usernameTaken/' + field.$viewValue);
 		responsePromise.success(function(data) {
 			if(data===true){
-				console.log('taken');
 				field.$setValidity('taken', false);
 			}else{
 				var flag = false;
@@ -189,7 +176,6 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 					if(field.$viewValue === $scope.librarians[i].username && i!==index) {
 						field.$setValidity('taken', false);
 						flag = true;
-						console.log('taken');
 						break;
 					}
 				}
@@ -204,7 +190,6 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 		var responsePromise = $http.get('/api/emailTaken/' + field.$viewValue);
 		responsePromise.success(function(data) {
 			if(data===true){
-				console.log('taken');
 				field.$setValidity('taken', false);
 			}else{
 				var flag = false;
@@ -212,7 +197,6 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 					if(field.$viewValue === $scope.librarians[i].email && i!==index) {
 						field.$setValidity('taken', false);
 						flag = true;
-						console.log('taken');
 						break;
 					}
 				}

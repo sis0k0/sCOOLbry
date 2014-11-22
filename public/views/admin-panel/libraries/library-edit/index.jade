@@ -1,0 +1,31 @@
+include ../../panel
+
+.container
+  .well
+    form.form-horizontal(name='libraryForm', novalidate)
+      fieldset
+        legend Edit library {{library.name}}
+        .row
+        
+        ul.nav.nav-tabs(style='margin-bottom: 25px')
+          
+          li.active
+            a(href='#main-information', data-toggle='tab', target='_self').active
+              |  Main information
+          li
+            a(href='#working-time', data-toggle='tab', target='_self')
+              | Working time
+          li
+            a(href='#librarians', data-toggle='tab', target='_self')
+              | Librarians
+
+        #myTabContent.tab-content
+
+          include ./main-information
+          include ./working-time
+          include ./librarians
+            
+
+        .pull-right
+          button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='updateLibrary(library, librarians)') Add
+          a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') Cancel

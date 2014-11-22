@@ -1,0 +1,86 @@
+.active.in.tab-pane.fade#main-information
+  .row
+    .col-md-11.col-md-offset-1
+      .col-md-5
+        .form-group(ng-class="{ 'has-success': (libraryForm.name.$valid), 'has-error': (libraryForm.name.$invalid) }")
+            label.control-label(for='name') Name *
+            .row
+              .col-xs-12
+                  input.form-control(name='name', type='text', placeholder='Name', ng-model='library.name', required, autofocus)
+
+        .form-group(ng-class="{ 'has-success': (libraryForm.country.$dirty), 'has-error': (libraryForm.country.$invalid) }")
+          label.control-label(for='country') Country *
+          .row
+            .col-xs-12
+              select.form-control.nya-selectpicker(name='country', ng-model='library.country', ng-options='value.name for (key, value) in countries track by value.name', data-live-search, ng-attr-title='{{ !!library.country && library.country.name || "Select country" }}', required)
+
+        .form-group(ng-class="{ 'has-success': (libraryForm.city.$valid), 'has-error': (libraryForm.city.$invalid) }")
+            label.control-label(for='city') City *
+            .row
+              .col-xs-12
+                  input.form-control(name='city', type='text', placeholder='City', ng-model='library.city', ng-pattern='/^([a-zA-Z\u0080-\u024F]+(?:. |-| |\'))*[a-zA-Z\u0080-\u024F]*$/', required)
+
+        .form-group(ng-class="{ 'has-success': (libraryForm.address.$valid), 'has-error': (libraryForm.address.$invalid) }")
+            label.control-label(for='address') Address *
+            .row
+              .col-xs-12
+                  input.form-control(name='address', type='text', placeholder='Address', ng-model='library.address', required)
+
+      .col-md-5.col-md-offset-1
+        
+          .form-group(ng-class="{ 'has-success': (libraryForm.yearOfEstabilishment.$valid && libraryForm.yearOfEstabilishment.$dirty), 'has-error': (libraryForm.yearOfEstabilishment.$invalid) }")
+            label.control-label(for='yearOfEstabilishment') Year of Estabilishment
+            .row
+              .col-xs-12
+                  input.form-control(name='yearOfEstabilishment', type='text', placeholder='Year', ng-model='library.yearOfEstabilishment', ng-pattern='/^(1[0-9][0-9][0-9]|200[0-9]|201[0-4])$/')
+        
+          .form-group(ng-class="{ 'has-success': (libraryForm.tags.$valid && libraryForm.tags.$dirty) }")
+            label.control-label(for='tags') Tags
+            .row
+              .col-xs-12
+                  input.form-control(name='tags', type='text', placeholder='Tags', ng-model='library.tags')
+          .row
+            .col-xs-3
+              .form-group(ng-class="{ 'has-success': (library.featured === true) }")
+                label.control-label(for='featured') Featured
+                  .row
+                    .col-xs-12
+                        input.form-control.checkbox(name='featured', type='checkbox', ng-model='library.featured') 
+            
+            .col-xs-3
+              .form-group(ng-class="{ 'has-success': (library.visible === true) }")
+                label.control-label(for='visible') Visible
+                  .row
+                    .col-xs-12
+                        input.form-control.checkbox(name='visible', type='checkbox', ng-model='library.visible')
+
+            .col-xs-3
+              .form-group(ng-class="{ 'has-success': (library.certified === true) }")
+                label.control-label(for='certified') Certified
+                  .row
+                    .col-xs-12
+                        input.form-control.checkbox(name='certified', type='checkbox', ng-model='library.certified') 
+          
+
+
+  .row
+
+    .col-md-10.col-md-offset-1
+
+      .form-group(ng-class="{ 'has-success': (libraryForm.description.$dirty)}")
+        label.control-label(for='description') Description
+        .row
+          .col-xs-12
+            textarea.form-control(name='description', placeholder='Description', ng-model='library.description', rows='3')
+
+      .form-group(ng-class="{ 'has-success': (!!library.certificate), 'has-error': (!library.certificate) }")
+        label.control-label(for='certificate') Certificate *
+        .row
+          .col-xs-8
+              input.form-control(name='certificate', type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
+              button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadFile()', ng-disabled='!uploadButtonState', style='margin-top:0.5em') Upload file
+              span.has-error.help-block(ng-show='certificateTypeError') The supported types are GIF, JPEG, PNG and TIFF
+              span.has-error.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
+          .col-xs-4
+            img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
+            input(type='hidden', ng-model='library.certificate', required)
