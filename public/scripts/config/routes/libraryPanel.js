@@ -31,7 +31,7 @@ app.config(function($routeProvider) {
 
 		//Library Panel
 		.when('/libraryPanel', {
-			templateUrl: '/partials/library-panel/panel',
+			templateUrl: '/partials/library-panel/settings',
             controller: 'LibraryPanelCtrl',
 			resolve: routeUserChecks.librarianRole
 		})

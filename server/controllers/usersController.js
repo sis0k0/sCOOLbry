@@ -45,7 +45,7 @@ module.exports = {
     	console.log(req.user._id);
     	console.log(req.body._id);
     	
-    	if ((req.user._id.toString() === req.body._id.toString()) || (typeof(req.user.roles)!=='undefined' && req.user.roles.indexOf('admin') > -1)) {
+    	if ((req.user._id.toString() === req.body._id.toString()) || (typeof(req.user.roles)!=='undefined' && req.user.roles.indexOf('admin') > -1) || (typeof(req.user.roles)!=='undefined' && req.user.roles.indexOf('libraryOwner') > -1)) {
             var updatedUserData = req.body;
             if (updatedUserData.password && updatedUserData.password.length > 0) {
                 updatedUserData.salt = encryption.generateSalt();

@@ -6,12 +6,12 @@ app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
 
 	$scope.menu = [
 
-		{
-			'name' : 'library',
-			links : {
-				'Details' : '/libraryPanel/library-details',
-			}
-		},
+		// {
+		// 	'name' : 'library',
+		// 	links : {
+		// 		'Details' : '/libraryPanel/library-details',
+		// 	}
+		// },
 
 		{
 			'name' : 'books',

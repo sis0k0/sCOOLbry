@@ -62,6 +62,9 @@ app.controller('editLibraryAdminCtrl', function($scope, $http, $window, Library,
         library.workdays = workdays;
         library.workhours = workhours;
 
+        for(var i=0; i<$scope.removedLibrarians.length; i++) {
+        	User.updateAsAdmin($scope.removedLibrarians[i]);
+        }
 
 		for(var i=0; i<librarians.length; i++) {
 			librarians[i].roles = [];
@@ -96,13 +99,23 @@ app.controller('editLibraryAdminCtrl', function($scope, $http, $window, Library,
     };
 
 
-
-
     // Remove current librarian
+    $scope.removedLibrarians = new Array();
+
     $scope.removeCurrentLibrarian = function(librarian) {
-    	var index = $scope.library.librarians.indexOf(librarian._id);
-    	$scope.library.librarians.splice(index, 1);
-    	$scope.currentLibrarians.splice(index, 1);
+        $scope.currentLibrarians.splice($scope.currentLibrarians.indexOf(librarian), 1);
+
+        librarian.ownLibraryID = '';
+
+        if(librarian.roles.indexOf('librarian')>-1) {
+            librarian.roles.splice(librarian.roles.indexOf('librarian'), 1);
+        }
+        if(librarian.roles.indexOf('libraryOwner')>-1) {
+            librarian.roles.splice(librarian.roles.indexOf('libraryOwner'), 1);
+        }
+
+        $scope.removedLibrarians.push(librarian);
+
     }
 
 	// Get list of all countries to choose from for library's location
