@@ -1,0 +1,30 @@
+
+.container
+  .well
+    form.form-horizontal(name='libraryForm', novalidate)
+      fieldset
+        legend Register a Library
+        .row
+        
+        ul.nav.nav-tabs(style='margin-bottom: 25px')
+          
+          li.active
+            a(href='#main-information', data-toggle='tab', target='_self').active
+              |  Main information
+          li
+            a(href='#working-schedule', data-toggle='tab', target='_self')
+              | Working schedule
+          li
+            a(href='#librarians', data-toggle='tab', target='_self')
+              | Librarian profile
+
+        #myTabContent.tab-content
+
+          include ./main-information
+          include ./working-time
+          include ./librarians
+            
+
+        .pull-right
+          button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='addLibrary(library)') Register
+          a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') Cancel

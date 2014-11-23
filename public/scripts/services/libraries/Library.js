@@ -1,11 +1,51 @@
 'use strict';
 
-app.factory('Library', function($http, $q, UsersResource, UserResource, LibraryResource, LibrarianResource) {
+app.factory('Library', function($http, $q, UsersResource, UserResource, identity, LibraryResource, LibrarianResource) {
 	return {
+
+		registerLibrary: function(library, librarian) {
+			var deferred = $q.defer(),
+				libraryID,
+				newUser = new UsersResource(librarian);
+
+			// Create new user - the library owner's profile
+			newUser.$save().then(function(userData) {
+
+				// Create the new library
+				library.librarians = userData._id;
+				var newLibrary = new LibraryResource(library);
+				newLibrary._id = userData.ownLibraryID;
+
+				newLibrary.$save().then(function(libraryData) {
+
+					// Update the owner's profile to hold the library ID as ownLibraryID
+					librarian.ownLibraryID = libraryData._id;
+					var updatedUser = new UsersResource(librarian);
+					updatedUser._id = userData._id;
+
+					updatedUser.$update().then(function(someData) {
+						identity.currentUser = updatedUser;
+
+						deferred.resolve();
+					}, function(response) {
+						deferred.reject(response.data.reason);
+					})
+				}, function(response) {
+					deferred.reject(response.data.reason);
+				});
+
+			}, function(response) {
+				deferred.reject(response.data.reason);
+			});
+
+			return deferred.promise;
+
+		},
+
 		addLibrary: function(library, librarians) {
-			var deferred = $q.defer();
-			var libraryID;
-			var newLibrary = new LibraryResource(library);
+			var deferred = $q.defer(),
+				libraryID,
+				newLibrary = new LibraryResource(library);
 			
 			// Save the library
 			newLibrary.$save(function(data) {

@@ -237,25 +237,18 @@ module.exports = {
 
 	updateLibrary: function(req, res) {
 		
-		if (req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('librarian') > -1  || req.user.roles.indexOf('libraryOwner')) {
-			var updatedLibraryData = req.body;
-		   
-			var updatedId = req.body._id;
-			
+		var updatedLibraryData = req.body;
+		var updatedId = req.body._id;
 
-			delete updatedLibraryData._id;
-			delete updatedLibraryData.$promise;
-			delete updatedLibraryData.$resolved;
+		delete updatedLibraryData._id;
+		delete updatedLibraryData.$promise;
+		delete updatedLibraryData.$resolved;
 
-			
-			Library.update({_id: updatedId}, updatedLibraryData, function(err) {
-				console.log(err);
-				res.end();
-			});
-		}
-		else {
-			res.send({reason: 'You do not have permissions!'});
-		}
+		
+		Library.update({_id: updatedId}, updatedLibraryData, function(err) {
+			console.log(err);
+			res.end();
+		});
 	},
 	updateLibBook: function(req, res) {
 

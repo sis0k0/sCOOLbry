@@ -10,7 +10,7 @@ module.exports = function(app) {
 	// Libraries
 	router.get('/libraries', controllers.libraries.getAllLibraries);
 
-	router.post('/libraries', auth.isInRole('admin'), controllers.libraries.createLibrary);
+	router.post('/libraries', controllers.libraries.createLibrary);
 
 	router.get('/libraries/:id', controllers.libraries.getLibraryById);
 	router.get('/library/books/:id', controllers.libraries.getLibraryBooksById);
@@ -22,7 +22,7 @@ module.exports = function(app) {
 	router.get('/library/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.libraries.getAllLibrariesSortable);
 	router.get('/library/count', controllers.libraries.getLibraryCount);
 	router.get('/library/user-count', controllers.libraries.getLibraryUsersCount);
-	router.put('/libraries', auth.isInRole('librarian'), controllers.libraries.updateLibrary);
+	router.put('/libraries', controllers.libraries.updateLibrary);
 	router.get('/library/delete/:id', auth.isInRole('admin'), controllers.libraries.deleteLibraryById);
 	router.post('/library/add-user', auth.isInRole('librarian'), controllers.libraries.addLibraryUser);
 	router.get('/library/delete-user/:id/:libraryID', auth.isInRole('librarian'), controllers.libraries.deleteLibraryUser);
@@ -31,10 +31,15 @@ module.exports = function(app) {
 	router.get('/library/all-readings', controllers.libraries.getAllReadings);
 	router.get('/library/not-returned/:libraryID/:userID', controllers.libraries.getAllNotReturnedReadings);
 	router.get('/library/member/:libraryID/:userID', controllers.libraries.isMember);
+
 	router.get('/library/addLibrarian/:libraryID/:userID', auth.isInRole('admin'), controllers.libraries.addLibrarian);
+
 	router.get('/library/subscribers/:libraryID', controllers.libraries.getLibraryUsersInLibraryCount);
+
 	router.post('/library/addbooking', controllers.libraries.addBooking);
+
 	router.get('/library/booking/:libraryID/:bookID', controllers.libraries.getBookingCountBook);
+
 	router.get('/library/booking-sort/:libraryID/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.libraries.getAllBookingsSortable);
 	router.get('/library/booking-count/:libraryID', controllers.libraries.getBookingCountLibrary);
 	router.get('/library/available/:bookID/:libraryID', controllers.libraries.isBookAvailable);

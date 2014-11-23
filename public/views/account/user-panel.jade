@@ -1,4 +1,4 @@
-.navbar-right(ng-controller="LogInCtrl")
+.navbar-right(ng-controller="LogInCtrl", ng-cloak)
     ul.nav.navbar-nav.navbar-right(ng-hide="identity.isAuthenticated()")
         li
             a(href='/libraries') Libraries

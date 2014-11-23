@@ -42,36 +42,29 @@ module.exports = {
     },
     updateUser: function(req, res) {
 
-    	console.log(req.user._id);
-    	console.log(req.body._id);
     	
-    	if ((req.user._id.toString() === req.body._id.toString()) || (typeof(req.user.roles)!=='undefined' && req.user.roles.indexOf('admin') > -1) || (typeof(req.user.roles)!=='undefined' && req.user.roles.indexOf('libraryOwner') > -1)) {
-            var updatedUserData = req.body;
-            if (updatedUserData.password && updatedUserData.password.length > 0) {
-                updatedUserData.salt = encryption.generateSalt();
-                updatedUserData.hashPass = encryption.generateHashedPassword(updatedUserData.salt, updatedUserData.password);
-            }
-            var updatedId = req.body._id;
-            delete updatedUserData._id;
-			delete updatedUserData.$promise;
-			delete updatedUserData.$resolved;
-            
-            if(req.user.roles.indexOf('admin') > -1 && req.body.hasOwnProperty('roles')) {
-				updatedUserData.roles = req.body.roles;
-            }else{
-				delete updatedUserData.roles;
-			}
-			
-            User.update({_id: updatedId}, updatedUserData, function(err) {
-            	if(err) {
-            		res.status(503).send({reason: 'Cannot connect to database!'});
-            	}
-            	res.status(200).end();
-            });
+        var updatedUserData = req.body;
+        if (updatedUserData.password && updatedUserData.password.length > 0) {
+            updatedUserData.salt = encryption.generateSalt();
+            updatedUserData.hashPass = encryption.generateHashedPassword(updatedUserData.salt, updatedUserData.password);
         }
-        else {
-            res.status(403).send({reason: 'You are not authorized!'});
-        }
+        var updatedId = req.body._id;
+        delete updatedUserData._id;
+		delete updatedUserData.$promise;
+		delete updatedUserData.$resolved;
+        
+        if(req.hasOwnProperty('user') && req.user.roles.indexOf('admin') > -1 && req.body.hasOwnProperty('roles')) {
+			updatedUserData.roles = req.body.roles;
+        }else{
+			delete updatedUserData.roles;
+		}
+		
+        User.update({_id: updatedId}, updatedUserData, function(err) {
+        	if(err) {
+        		res.status(503).send({reason: 'Cannot connect to database!'});
+        	}
+        	res.status(200).end();
+        });
     },
     uploadAvatar: function(req, res) {
            

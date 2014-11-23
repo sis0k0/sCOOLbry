@@ -1,74 +1,83 @@
 .container
-    .well
-        form.form-horizontal(name="signUpForm", ng-controller='SignUpCtrl')
-            fieldset
-                legend
-                    .row
-                        .col-md-4.col-xs-4.vcenter
-                            h2 Sign up
-                        .col-md-8.col-xs-8.vcenter
-                            h6.text-right Already have an account?
-                                a(href="../login") &nbsp;Login
-                
-                
+  .well
+    form.form-horizontal(name="signUpForm", ng-controller='SignUpCtrl')
+      fieldset
+        legend
+          .row
+            .col-md-4.col-xs-4.vcenter
+              h2 Sign up
+            .col-md-8.col-xs-8.vcenter
+              h6.text-right Already have an account?
+                a(href="../login") &nbsp;Login
+        
+        
+        .row
+          .col-md-7
+          
+            .col-xs-10.col-xs-offset-1
+
+              .form-group(ng-class="{ 'has-success': (signUpForm.firstName.$valid && signUpForm.lastName.$valid) }")
+                label.control-label(for="first-name") Name
                 .row
-                    .col-md-5
-                        
-                        .col-md-10.col-md-offset-1
-                            .form-group
-                                btn.btn.btn-lg.btn-facebook.btn-block
-                                    i.fa.fa-facebook
-                                    |&nbsp;| Connect with Facebook
-                            .form-group
-                                btn.btn.btn-lg.btn-twitter.btn-block
-                                    i.fa.fa-twitter
-                                    |&nbsp;| Connect with Twitter
-                            .form-group
-                                btn.btn.btn-lg.btn-google-plus.btn-block
-                                    i.fa.fa-google-plus
-                                    |&nbsp;| Connect with Google+
+                  .col-xs-6
+                    input.form-control(name="firstName", type="text", placeholder="First Name", ng-model="user.firstName", required, autofocus)
+                  .col-xs-6
+                    input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model="user.lastName", required)
+              .form-group(ng-class="{ 'has-error': (signUpForm.username.$invalid && signUpForm.username.$dirty), 'has-success': (signUpForm.username.$valid) }")
+                label.control-label(for="username") Username
+                .row
+                  .col-xs-12
+                    input.form-control(name="username", type="text", placeholder="Username", tooltip, data-placement='left',  data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 3-16 characters", ng-model="user.username", ng-pattern="/^[a-z0-9_-]{3,16}$/", ng-change="checkIfTaken(signUpForm.username)", required)
+                    span.help-block(ng-show="signUpForm.username.$error.taken") Username already taken
+              .form-group(ng-class="{ 'has-error': (signUpForm.email.$invalid && signUpForm.email.$dirty), 'has-success': (signUpForm.email.$valid) }")
+                label.control-label(for="email") Email
+                .row
+                  .col-xs-12
+                    input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="checkIfTaken(signUpForm.email)", required)
+                    span.has-error.help-block(ng-show="signUpForm.email.$error.taken") Email already taken
+                    span.has-error.help-block(ng-show="signUpForm.email.$invalid && signUpForm.email.$dirty") Please enter valid email
+              .form-group(ng-class="{ 'has-error': (signUpForm.password.$invalid && signUpForm.password.$dirty), 'has-success': (signUpForm.password.$valid) }")
+                label.control-label(for="password") Password
+                .row
+                  .col-xs-12
+                    input.form-control(name="password", type="password", placeholder="Password", tooltip, data-placement='left',  data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
+              .form-group(ng-class="{ 'has-error': (signUpForm.confirmPassword.$invalid && signUpForm.confirmPassword.$dirty), 'has-success': (signUpForm.confirmPassword.$valid) }")
+                label.control-label(for="confirm-password") Confirm password
+                .row
+                  .col-xs-12
+                    input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", ng-change="passwordMatch(signUpForm.password, signUpForm.confirmPassword)", required)
+                    span.has-error.help-block(ng-show="signUpForm.confirmPassword.$error.notMatching") These passwords don't match. Try again?
+              .form-group
+                label.control-label(for="recaptcha") RECAPTCHA Challenge
+                .row
+                  .col-xs-12
+                    div(name="recaptcha", re-captcha, ng-model="user.captcha")
 
-                    .col-md-6
-                        .row
-                            .col-md-10.col-md-offset-2
-                                .form-group(ng-class="{ 'has-success': (signUpForm.firstName.$valid && signUpForm.lastName.$valid) }")
-                                    label.control-label(for="first-name") Name
-                                    .row
-                                        .col-xs-6
-                                            input.form-control(name="firstName", type="text", placeholder="First Name", ng-model="user.firstName", required, autofocus)
-                                        .col-xs-6
-                                            input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model="user.lastName", required)
-                                .form-group(ng-class="{ 'has-error': (signUpForm.username.$invalid && signUpForm.username.$dirty), 'has-success': (signUpForm.username.$valid) }")
-                                    label.control-label(for="username") Username
-                                    .row
-                                        .col-xs-12
-                                            input.form-control(name="username", type="text", placeholder="Username", tooltip, data-placement='left',  data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 3-16 characters", ng-model="user.username", ng-pattern="/^[a-z0-9_-]{3,16}$/", ng-change="checkIfTaken(signUpForm.username)", required)
-                                            span.help-block(ng-show="signUpForm.username.$error.taken") Username already taken
-                                .form-group(ng-class="{ 'has-error': (signUpForm.email.$invalid && signUpForm.email.$dirty), 'has-success': (signUpForm.email.$valid) }")
-                                    label.control-label(for="email") Email
-                                    .row
-                                        .col-xs-12
-                                            input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="checkIfTaken(signUpForm.email)", required)
-                                            span.has-error.help-block(ng-show="signUpForm.email.$error.taken") Email already taken
-                                            span.has-error.help-block(ng-show="signUpForm.email.$invalid && signUpForm.email.$dirty") Please enter valid email
-                                .form-group(ng-class="{ 'has-error': (signUpForm.password.$invalid && signUpForm.password.$dirty), 'has-success': (signUpForm.password.$valid) }")
-                                    label.control-label(for="password") Password
-                                    .row
-                                        .col-xs-12
-                                            input.form-control(name="password", type="password", placeholder="Password", tooltip, data-placement='left',  data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
-                                .form-group(ng-class="{ 'has-error': (signUpForm.confirmPassword.$invalid && signUpForm.confirmPassword.$dirty), 'has-success': (signUpForm.confirmPassword.$valid) }")
-                                    label.control-label(for="confirm-password") Confirm password
-                                    .row
-                                        .col-xs-12
-                                            input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", ng-change="passwordMatch(signUpForm.password, signUpForm.confirmPassword)", required)
-                                            span.has-error.help-block(ng-show="signUpForm.confirmPassword.$error.notMatching") These passwords don't match. Try again?
-                                .form-group
-                                    label.control-label(for="recaptcha") RECAPTCHA Challenge
-                                    .row
-                                        .col-xs-12
-                                            div(name="recaptcha", re-captcha, ng-model="user.captcha")
+              .form-group
+                .pull-right
+                  button.btn.btn-primary(ng-click="signup(user)", ng-disabled="signUpForm.$invalid") Create
+                  a.btn.btn-danger(href="/", style="margin-left:0.2em") Cancel
 
-                                .form-group
-                                    .pull-right
-                                        button.btn.btn-primary(ng-click="signup(user)", ng-disabled="signUpForm.$invalid") Create
-                                        a.btn.btn-danger(href="/", style="margin-left:0.2em") Cancel
+
+          .col-md-5
+            .row
+              .col-xs-10.col-xs-offset-1
+
+                .form-group(style='margin-top:2em')
+                  btn.btn.btn-lg.btn-facebook.btn-block
+                    i.fa.fa-facebook
+                    |&nbsp; Connect with Facebook
+                .form-group
+                  btn.btn.btn-lg.btn-twitter.btn-block
+                    i.fa.fa-twitter
+                    |&nbsp; Connect with Twitter
+                .form-group
+                  btn.btn.btn-lg.btn-google-plus.btn-block
+                    i.fa.fa-google-plus
+                    |&nbsp; Connect with Google+
+
+                .form-group
+                  h2.text-center.text-info(style='margin: 1em 0') Or
+                  a.btn.btn-lg.btn-primary.btn-block(href='/register-library')
+                    i.glyphicon.glyphicon-book
+                    |&nbsp; Register a Library

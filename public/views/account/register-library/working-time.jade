@@ -1,0 +1,153 @@
+.tab-pane.fade#working-schedule
+
+  .row
+    .col-md-11.col-md-offset-1
+      .col-md-8.col-md-offset-2
+          h1.text-center.text-info Select working schedule
+          .row            
+
+
+              .form-group
+                h2.col-xs-5.text-success Day
+                h2.col-xs-4.text-success From
+                h2.col-xs-2.text-success.text-center To
+
+                .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour0.$invalid || libraryForm.workHoursOpeningMinutes0.$invalid || libraryForm.workHoursClosingHour0.$invalid || libraryForm.workHoursClosingMinutes0.$invalid), 'has-success': (libraryForm.workHoursOpeningHour0.$valid && libraryForm.workHoursOpeningMinutes0.$valid && libraryForm.workHoursClosingHour0.$valid && libraryForm.workHoursClosingMinutes0.$valid) }")
+                  .col-xs-12
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='monday') Monday
+                    .col-xs-2
+                      input.form-control(name='monday', type='checkbox' ng-model='library.workdays[0]')
+
+                    .col-md-4.col-md-offset-1.col-sm-4.col-sm-offset-1.col-xs-12(ng-if='library.workdays[0]===true')
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningHour0' ng-model='library.workHoursOpeningHour[0]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningMinutes0' ng-model='library.workHoursOpeningMinutes[0]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+                    .col-md-4.col-sm-4.col-xs-12(ng-if='library.workdays[0]===true')
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingHour0' ng-model='library.workHoursClosingHour[0]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingMinutes0' ng-model='library.workHoursClosingMinutes[0]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+
+
+                .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour1.$invalid || libraryForm.workHoursOpeningMinutes1.$invalid || libraryForm.workHoursClosingHour1.$invalid || libraryForm.workHoursClosingMinutes1.$invalid), 'has-success': (libraryForm.workHoursOpeningHour1.$valid && libraryForm.workHoursOpeningMinutes1.$valid && libraryForm.workHoursClosingHour1.$valid && libraryForm.workHoursClosingMinutes1.$valid) }")
+                  .col-xs-12
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='tuesday') Tuesday
+                    .col-xs-2
+                      input.form-control(name='tuesday', type='checkbox' ng-model='library.workdays[1]')
+
+                    .col-md-4.col-md-offset-1.col-sm-4.col-sm-offset-1.col-xs-12(ng-if='library.workdays[1]===true')
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningHour1' ng-model='library.workHoursOpeningHour[1]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningMinutes1' ng-model='library.workHoursOpeningMinutes[1]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+                    .col-md-4.col-sm-4.col-xs-12(ng-if='library.workdays[1]===true')
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingHour1' ng-model='library.workHoursClosingHour[1]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingMinutes1' ng-model='library.workHoursClosingMinutes[1]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+
+                .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour2.$invalid || libraryForm.workHoursOpeningMinutes2.$invalid || libraryForm.workHoursClosingHour2.$invalid || libraryForm.workHoursClosingMinutes2.$invalid), 'has-success': (libraryForm.workHoursOpeningHour2.$valid && libraryForm.workHoursOpeningMinutes2.$valid && libraryForm.workHoursClosingHour2.$valid && libraryForm.workHoursClosingMinutes2.$valid) }")
+                  .col-xs-12
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='wednesday') Wednesday
+                    .col-xs-2
+                      input.form-control(name='wednesday', type='checkbox' ng-model='library.workdays[2]')
+
+                    .col-md-4.col-md-offset-1.col-sm-4.col-sm-offset-1.col-xs-12(ng-if='library.workdays[2]===true')
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningHour2' ng-model='library.workHoursOpeningHour[2]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningMinutes2' ng-model='library.workHoursOpeningMinutes[2]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+                    .col-md-4.col-sm-4.col-xs-12(ng-if='library.workdays[2]===true')
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingHour2' ng-model='library.workHoursClosingHour[2]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingMinutes2' ng-model='library.workHoursClosingMinutes[2]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+
+
+                .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour3.$invalid || libraryForm.workHoursOpeningMinutes3.$invalid || libraryForm.workHoursClosingHour3.$invalid || libraryForm.workHoursClosingMinutes3.$invalid), 'has-success': (libraryForm.workHoursOpeningHour3.$valid && libraryForm.workHoursOpeningMinutes3.$valid && libraryForm.workHoursClosingHour3.$valid && libraryForm.workHoursClosingMinutes3.$valid) }")
+                  .col-xs-12
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='thursday') Thursday
+                    .col-xs-2
+                      input.form-control(name='thursday', type='checkbox' ng-model='library.workdays[3]')
+
+                    .col-md-4.col-md-offset-1.col-sm-4.col-sm-offset-1.col-xs-12(ng-if='library.workdays[3]===true')
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningHour3' ng-model='library.workHoursOpeningHour[3]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningMinutes3' ng-model='library.workHoursOpeningMinutes[3]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+                    .col-md-4.col-sm-4.col-xs-12(ng-if='library.workdays[3]===true')
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingHour3' ng-model='library.workHoursClosingHour[3]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingMinutes3' ng-model='library.workHoursClosingMinutes[3]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+
+
+
+                .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour4.$invalid || libraryForm.workHoursOpeningMinutes4.$invalid || libraryForm.workHoursClosingHour4.$invalid || libraryForm.workHoursClosingMinutes4.$invalid), 'has-success': (libraryForm.workHoursOpeningHour4.$valid && libraryForm.workHoursOpeningMinutes4.$valid && libraryForm.workHoursClosingHour4.$valid && libraryForm.workHoursClosingMinutes4.$valid) }")
+                  .col-xs-12
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='friday') Friday
+                    .col-xs-2
+                      input.form-control(name='friday', type='checkbox' ng-model='library.workdays[4]')
+
+                    .col-md-4.col-md-offset-1.col-sm-4.col-sm-offset-1.col-xs-12(ng-if='library.workdays[4]===true')
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningHour4' ng-model='library.workHoursOpeningHour[4]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningMinutes4' ng-model='library.workHoursOpeningMinutes[4]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+                    .col-md-4.col-sm-4.col-xs-12(ng-if='library.workdays[4]===true')
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingHour4' ng-model='library.workHoursClosingHour[4]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingMinutes4' ng-model='library.workHoursClosingMinutes[4]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+
+                .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour5.$invalid || libraryForm.workHoursOpeningMinutes5.$invalid || libraryForm.workHoursClosingHour5.$invalid || libraryForm.workHoursClosingMinutes5.$invalid), 'has-success': (libraryForm.workHoursOpeningHour5.$valid && libraryForm.workHoursOpeningMinutes5.$valid && libraryForm.workHoursClosingHour5.$valid && libraryForm.workHoursClosingMinutes5.$valid) }")
+                  .col-xs-12
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='saturday') Saturday
+                    .col-xs-2
+                      input.form-control(name='saturday', type='checkbox' ng-model='library.workdays[5]')
+
+                    .col-md-4.col-md-offset-1.col-sm-4.col-sm-offset-1.col-xs-12(ng-if='library.workdays[5]===true')
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningHour5' ng-model='library.workHoursOpeningHour[5]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningMinutes5' ng-model='library.workHoursOpeningMinutes[5]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+                    .col-md-4.col-sm-4.col-xs-12(ng-if='library.workdays[5]===true')
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingHour5' ng-model='library.workHoursClosingHour[5]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingMinutes5' ng-model='library.workHoursClosingMinutes[5]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+
+
+                .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour6.$invalid || libraryForm.workHoursOpeningMinutes6.$invalid || libraryForm.workHoursClosingHour6.$invalid || libraryForm.workHoursClosingMinutes6.$invalid), 'has-success': (libraryForm.workHoursOpeningHour6.$valid && libraryForm.workHoursOpeningMinutes6.$valid && libraryForm.workHoursClosingHour6.$valid && libraryForm.workHoursClosingMinutes6.$valid) }")
+                  .col-xs-12
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='sunday') Sunday
+                    .col-xs-2
+                      input.form-control(name='sunday', type='checkbox' ng-model='library.workdays[6]')
+
+                    .col-md-4.col-md-offset-1.col-sm-4.col-sm-offset-1.col-xs-12(ng-if='library.workdays[6]===true')
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningHour6' ng-model='library.workHoursOpeningHour[6]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                        .col-xs-6
+                          input.form-control.text-center(name='workHoursOpeningMinutes6' ng-model='library.workHoursOpeningMinutes[6]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+                    .col-md-4.col-sm-4.col-xs-12(ng-if='library.workdays[6]===true')
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingHour6' ng-model='library.workHoursClosingHour[6]' ng-pattern='/^([01]?[0-9]|2[0-3])$/' required)
+                      .col-xs-6
+                        input.form-control.text-center(name='workHoursClosingMinutes6' ng-model='library.workHoursClosingMinutes[6]' ng-pattern='/^([0-5]?[0-9])$/' required)
+
+
+

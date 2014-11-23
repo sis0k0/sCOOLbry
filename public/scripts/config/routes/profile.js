@@ -31,27 +31,31 @@ app.config(function($routeProvider) {
 
 		// Profile
 
+		.when('/register-library', {
+			templateUrl: '/partials/account/register-library',
+			controller: 'RegisterLibraryCtrl'
+		})
 		.when('/signup', {
 			templateUrl: '/partials/account/sign-up',
 			resolve: {
 				lazy: ['$ocLazyLoad', function($ocLazyLoad) {
-                	return $ocLazyLoad.load([{
-	                    name: 'account',
-	                    files: ['scripts/controllers/account/signUpCtrl.js']
-	                }]);
-                }]
-            }
+					return $ocLazyLoad.load([{
+						name: 'account',
+						files: ['scripts/controllers/account/signUpCtrl.js']
+					}]);
+				}]
+			}
 		})
 		.when('/login', {
 			templateUrl: '/partials/account/log-in',
 			resolve: {
 				lazy: ['$ocLazyLoad', function($ocLazyLoad) {
-                	return $ocLazyLoad.load([{
-	                    name: 'account',
-	                    files: ['scripts/controllers/account/logInCtrl.js']
-	                }]);
-                }]
-            }
+					return $ocLazyLoad.load([{
+						name: 'account',
+						files: ['scripts/controllers/account/logInCtrl.js']
+					}]);
+				}]
+			}
 		})
 		.when('/profile', {
 			templateUrl: '/partials/account/profile',
@@ -63,5 +67,6 @@ app.config(function($routeProvider) {
 			controller: 'EditProfileCtrl',
 			resolve: routeUserChecks.authenticated
 		})
+
 
 });

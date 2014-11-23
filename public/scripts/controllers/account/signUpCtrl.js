@@ -8,7 +8,7 @@ account.controller('SignUpCtrl', function($scope, $location, User, notifier, $ht
         }, function(reason){
                 notifier.error(reason);
                 $window.Recaptcha.reload();
-            });
+        });
     };
 
     $scope.checkIfTaken = function(field){

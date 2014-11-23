@@ -14,12 +14,12 @@ module.exports = function(app) {
 	router.get('/user/delete/:id', auth.isInRole('admin'), controllers.users.deleteUserById);
 	router.post('/users', controllers.users.validCaptcha, controllers.users.createUser);
 	router.post('/librarianCreate', auth.isInRole('admin'), controllers.users.createLibrarian);
-	router.put('/users', auth.isAuthenticatedOrAdmin, controllers.users.updateUser);
+	router.put('/users', controllers.users.updateUser);
 	router.get('/usernameTaken/:username', controllers.users.getUserByUsername);
 	router.get('/emailTaken/:email', controllers.users.getUserByEmail);
 	router.get('/users/count', controllers.users.getUserCount);
 
-	router.post('/images', auth.isAuthenticated, controllers.users.uploadAvatar);
+	router.post('/images', controllers.users.uploadAvatar);
 
 	app.use('/api/', router);
 };
