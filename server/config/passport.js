@@ -2,6 +2,8 @@
 
 var passport      = require('passport'),
     LocalPassport = require('passport-local'),
+    path          = require('path'),
+    utilities     = require('./utilities'),
     User          = require('mongoose').model('User');
 
 module.exports = function() {
@@ -41,5 +43,9 @@ module.exports = function() {
 				return done(null, false);
 			}
 		});
+	});
+
+	utilities.walk('./config/strategies').forEach(function(strategyPath) {
+		require(path.resolve(strategyPath))();
 	});
 };

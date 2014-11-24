@@ -7,7 +7,12 @@ module.exports = {
     development: {
         rootPath: rootPath,
         db: 'mongodb://localhost/scoolbry',
-        port: process.env.PORT || 3030
+        port: process.env.PORT || 3030,
+        facebook: {
+            clentID: '1511950165721139',
+            clientSecret: '50654ed9ad9c437720974dbe782949ed',
+            callbackURL: 'http://127.0.0.1:3030/auth/facebook/callback'
+        }
     },
     production: {
         rootPath: rootPath,
