@@ -1,6 +1,6 @@
 'use strict';
 
-account.controller('SignUpCtrl', function($scope, $location, User, notifier, $http, $window) {
+app.controller('SignUpCtrl', function($scope, $location, User, notifier, $http, $window) {
     $scope.signup = function(user) {
         User.signup(user).then(function() {
             notifier.success('Registration successful!');

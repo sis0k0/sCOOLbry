@@ -122,7 +122,6 @@ app.config(function($routeProvider) {
 		})
 		.when('/admin/books/add', {
 			templateUrl: '/partials/admin-panel/books/book-add',
-			controller: 'AddBookCtrl',
 			resolve: routeUserChecks.adminRole
 		})
 		.when('/admin/book/edit/:id', {

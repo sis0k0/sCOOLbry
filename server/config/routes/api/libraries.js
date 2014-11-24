@@ -24,7 +24,7 @@ module.exports = function(app) {
 	router.get('/library/user-count', controllers.libraries.getLibraryUsersCount);
 	router.put('/libraries', controllers.libraries.updateLibrary);
 	router.get('/library/delete/:id', auth.isInRole('admin'), controllers.libraries.deleteLibraryById);
-	router.post('/library/add-user', auth.isInRole('librarian'), controllers.libraries.addLibraryUser);
+	router.post('/library/add-user', controllers.libraries.addLibraryUser);
 	router.get('/library/delete-user/:id/:libraryID', auth.isInRole('librarian'), controllers.libraries.deleteLibraryUser);
 	router.post('/library/add-reading', auth.isInRole('librarian'), controllers.libraries.takeBook);
 	router.post('/library/remove-reading', auth.isInRole('librarian'), controllers.libraries.returnBook);

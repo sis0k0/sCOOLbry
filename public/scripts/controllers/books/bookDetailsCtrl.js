@@ -112,7 +112,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
 
         LibraryUsersInteractions.addBooking(booking).then(function(){
            notifier.success('Booking added successfully!');
-           $window.location.href = '/libraries';
+            $location.path('/libraries');
            
         });
     };

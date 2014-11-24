@@ -37,25 +37,11 @@ app.config(function($routeProvider) {
 		})
 		.when('/signup', {
 			templateUrl: '/partials/account/sign-up',
-			resolve: {
-				lazy: ['$ocLazyLoad', function($ocLazyLoad) {
-					return $ocLazyLoad.load([{
-						name: 'account',
-						files: ['scripts/controllers/account/signUpCtrl.js']
-					}]);
-				}]
-			}
+			controller: 'SignUpCtrl'
 		})
 		.when('/login', {
 			templateUrl: '/partials/account/log-in',
-			resolve: {
-				lazy: ['$ocLazyLoad', function($ocLazyLoad) {
-					return $ocLazyLoad.load([{
-						name: 'account',
-						files: ['scripts/controllers/account/logInCtrl.js']
-					}]);
-				}]
-			}
+			controller: 'LogInCtrl'
 		})
 		.when('/profile', {
 			templateUrl: '/partials/account/profile',
