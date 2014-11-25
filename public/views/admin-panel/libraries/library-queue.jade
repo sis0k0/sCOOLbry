@@ -1,0 +1,40 @@
+include ../panel
+
+.container
+  .well
+    h1.text-center Uncertified Libraries Queue
+
+    #users-list.table-responsive(ng-init="pages();")
+      table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
+        thead
+          tr.text-bold.text-primary
+            td#_id(ng-click="sort($event); reloadLibraries()") ID
+              span#_id.glyphicon.glyphicon-sort.text-right
+            td#name(ng-click="sort($event); reloadLibraries()") Name
+              span#name.glyphicon.glyphicon-sort.text-right
+            td#certificate(ng-click="sort($event); reloadLibraries()") Certificate URL
+              span#certificate.glyphicon.glyphicon-sort.text-right
+            td#published(ng-click="sort($event); reloadLibraries()") Published
+              span#published.glyphicon.glyphicon-sort.text-right
+            td#tags(ng-click="sort($event); reloadLibraries()") Tags
+              span#tags.glyphicon.glyphicon-sort.text-right
+            td Actions
+        tbody
+          tr(ng-repeat="library in libraries")
+            td.text-bold {{ library._id }}
+            td {{ library.name }}
+            td 
+              a(href='{{ library.certificate }}' target='_blank') {{library.certificate}}
+            td {{ library.published }}
+            td {{ library.tags }}
+            td
+              a.btn-sm(href='/admin/library/{{ library._id }}', title='Browse', tooltip)
+                span.glyphicon.glyphicon-search.text-success
+              a.btn-sm(href='/admin/library/edit/{{ library._id }}', title='Edit', tooltip)
+                span.glyphicon.glyphicon-edit.text-primary
+              a.btn-sm(href='/admin/library/delete/{{ library._id }}', title='Delete', tooltip, onclick='return window.confirm("Deleting an library" || "Are you sure that you want to delete this library?")')
+                span.glyphicon.glyphicon-remove.text-danger
+    .pagination
+        li(ng-repeat="i in range(pagesCount) track by $index")
+          a(class="pageItem" href="#" ng-click="setPage($index+1, $event); reloadLibraries();" id="page-{{ $index+1 }}") {{ $index+1 }}
+

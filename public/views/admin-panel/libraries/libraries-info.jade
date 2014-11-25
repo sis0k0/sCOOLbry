@@ -3,13 +3,17 @@ include ../panel
 .container
   .well
     h1.text-center Name: {{ libraryInfo.name }}
-    table.table.table-striped.table-bordered.table-wrapped 
+    table.table.table-striped.table-bordered.table-wrapped
       tr(ng-repeat='(key, value) in libraryInfo')
         td.col-md-4
           strong {{ key }}
         td {{ value }}
 
-    table
+    div
+      h2 Certificate
+      img(src='{{libraryInfo.certificate}}')
+
+    table.table.table-striped.table-bordered.table-wrapped
       tr
         td
           h2 Library Users
@@ -34,6 +38,8 @@ include ../panel
       tr
         td
           h2 Library Reviews
+
+
      
     
     .row

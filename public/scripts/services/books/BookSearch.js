@@ -40,6 +40,7 @@ app.factory('bookSearch', function($q, $http) {
 			promisesArray.push(findInDatabasePromise);
 			findInDatabasePromise.success(function(data) {
 				if(data!=='false' && data!==false) {
+					data.foundInDatabase = true;
 					deferred.resolve(data);
 				}
 			});

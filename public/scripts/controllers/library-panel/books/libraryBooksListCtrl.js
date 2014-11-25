@@ -4,8 +4,8 @@ app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, $route
 	$scope.user = identity.currentUser;
  /*   $scope.page = 1;
     $scope.perPage = 10;
-    $scope.field = '_id';
-    $scope.order = 'asc';
+	$scope.field = 'published';
+	$scope.order = 'asc';
     
     $scope.range = function(n) {
         return new Array(n);

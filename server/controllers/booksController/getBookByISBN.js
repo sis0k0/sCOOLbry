@@ -16,14 +16,10 @@ module.exports = function(req, res) {
 				bookISBN = bookISBN.substring(3,13);
 
 				Book.findOne({isbn: bookISBN}).exec(function(error, returnedBook) {
-					if(error) {
-						res.send(false);
+					if(returnedBook!==null && !error) {
+						res.send(returnedBook);
 					} else {
-						if(returnedBook===null) {
-							res.send(false);
-						} else {
-							res.send(returnedBook);
-						}
+						res.send(false);
 					}
 				});
 
@@ -31,21 +27,23 @@ module.exports = function(req, res) {
 				bookISBN = '978' + bookISBN;
 
 				Book.findOne({isbn: bookISBN}).exec(function(error, returnedBook) {
-					if(error) {
-						res.send(false);
+					if(returnedBook!==null && !error) {
+						res.send(returnedBook);
 					} else {
-						if(returnedBook===null) {
-							res.send(false);
-						} else {
-							res.send(returnedBook);
-						}
+						res.send(false);
 					}
 				});
 
 			} else {
-				res.send(false);
+				bookISBN = bookISBN.replace(/-/gi, '');
+				Book.findOne({isbn: bookISBN}).exec(function(error, returnedBook) {
+					if(returnedBook!==null && !error) {
+						res.send(returnedBook);
+					} else {
+						res.send(false);
+					}
+				});
 			}
-
 		}
 	});
 };

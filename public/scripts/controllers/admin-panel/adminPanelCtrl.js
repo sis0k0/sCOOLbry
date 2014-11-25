@@ -10,7 +10,7 @@ app.controller('AdminPanelCtrl', function($scope, $location, identity) {
 			links : {
 				'add' : '/admin/libraries/add',
 				'browse' : '/admin/libraries',
-				'search' : '/admin/libraries/search'
+				'queue' : '/admin/libraries/queue'
 			}
 		},
 

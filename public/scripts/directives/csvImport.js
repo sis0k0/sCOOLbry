@@ -10,7 +10,7 @@ app.directive('csvImport', function(notifier) {
 			separator: '=',
 			result: '='
 		},
-		template: '<h3 class="text-center">Import from CSV<div class="text-center col-xs-12"><input type="file" class="btn btn-info custom-file-input"></input></div></h3>',
+		template: '<div class="col-md-4 text-center"><h3 class="text-center">Import from CSV</h3><div class="row"><input type="file" class="btn btn-info custom-file-input" style="margin-top:0"></input></div></div>',
 		link: function(scope, element) {            
 			element.on('keyup', function(){
 				if ( scope.content !== null ) {

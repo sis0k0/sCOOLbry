@@ -8,19 +8,18 @@ include ../panel
 
           .row(ng-hide='displayForm || csv.result')
 
-            .col-md-4
-              h3.text-center.col-xs-12 Fill in a form
-                .row
-                  button.btn.btn-primary(ng-click='newForm()' style='margin-top:11px') Add book form
+            .col-md-4.text-center
+              h3 Fill in a form
+              .row
+                button.btn.btn-primary(ng-click='newForm()') Add book form
 
-            .col-md-4
-              h3.text-center Find book by ISBN
+            .col-md-4.text-center
+              h3 Find book by ISBN
               .col-xs-8(style='padding:0')
                 input.form-control(name='isbn', type='text', placeholder='ISBN', style='border-radius: 0', ng-model='ISBNSearch', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/')
               button.btn.btn-success.pull-right.col-xs-4(style='border-radius: 0', loading-button, data-loading-text='Searching...',  ng-disabled='!ISBNSearch', ng-click='findBook()') Search
             
-
-            .import.ng-isolate-scope.col-md-4(csv-import content='csv.content', header='csv.header', separator='csv.separator', result='csv.result')
+            .import.ng-isolate-scope(csv-import content='csv.content', header='csv.header', separator='csv.separator', result='csv.result')
 
 
           .row
@@ -75,10 +74,10 @@ include ../panel
                 .col-md-5
 
                   .form-group(ng-class="{ 'has-success': (bookForm.quantity.$valid), 'has-error': (bookForm.quantity.$invalid) }")
-                      label.control-label(for='quantity') quantity *
+                      label.control-label(for='quantity') Quantity *
                       .row
                         .col-xs-12
-                            input.form-control(name='quantity', type='text', placeholder='Quantity', ng-model='quantity' required)        
+                            input.form-control(name='quantity', type='text', placeholder='Quantity', ng-model='book.total' required)        
 
                   .form-group(ng-class="{ 'has-success': (bookForm.isbn.$valid && (!!book.isbn)), 'has-error': (bookForm.isbn.$invalid && bookForm.isbn.$dirty) }")
                       label.control-label(for='isbn') ISBN
@@ -127,7 +126,7 @@ include ../panel
                     label.control-label(for='genres') Genres
                     .row
                       .col-xs-12
-                        select.form-control(name='genres', size='5', ng-options='(genre | titleCase) for genre in genres track by genre', ng-model='book.genres', multiple)
+                        select.nya-selectpicker.form-control(name='genres', data-live-search='true', ng-options='(genre | titleCase) for genre in genres track by genre', ng-model='book.genres', multiple)
                   .form-group(ng-class="{ 'has-success': !!book.edition }")
                     label.control-label(for='edition') Edition
                     .row

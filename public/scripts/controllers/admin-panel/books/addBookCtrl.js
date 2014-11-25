@@ -8,7 +8,6 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 		method: 'get',
 		url: '/api/genres'
 	}).success(function(data) {
-        console.log(data);
 		$scope.genres = data;
 	}).error(function(err) {
 		console.log(err);
@@ -94,7 +93,6 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
         var b=-1;
 
         var i;
-        console.log(includeTopRow);
         if(includeTopRow==='true') {
             i=0;
         } else {
@@ -155,14 +153,19 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
     $scope.findBook = function() {
     	var bookPromise = bookSearch.search($scope.ISBNSearch);
     	bookPromise.then(function success(data) {
-    		$scope.books = new Array();
-            data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
-    		$scope.books[0] = data;
-            $scope.displayForm = true;
-            $scope.searchState = true;
+            if(data.foundInDatabase===false) {
+        		$scope.books = new Array();
+                data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
+        		$scope.books[0] = data;
+                $scope.displayForm = true;
+                $scope.searchState = true;
+            } else {
+                $scope.searchState = false;
+                $scope.bookURL = "/admin/book/" + data._id;
+            }
     	}, function error(msg) {
             $scope.searchState = false;
-    		console.log('not found');
+            $scope.found = false;
     	});
     }
 

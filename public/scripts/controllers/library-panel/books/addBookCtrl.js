@@ -8,7 +8,6 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
         method: 'get',
         url: '/api/genres'
     }).success(function(data) {
-        console.log(data);
         $scope.genres = data;
     }).error(function(err) {
         console.log(err);
@@ -94,7 +93,6 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
         var b=-1;
 
         var i;
-        console.log(includeTopRow);
         if(includeTopRow==='true') {
             i=0;
         } else {
@@ -132,9 +130,9 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
     // Add book
 
     $scope.addBook = function(book, index) {
+        book.available = book.total;
         Book.add(book, identity.currentUser.ownLibraryID).then(function() {
             notifier.success('Book added successfully!');
-
             $scope.books.splice(index,1);
             if($scope.books.length<1) {
                 $location.path('/library-panel/books-library');
@@ -162,7 +160,6 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
             $scope.searchState = true;
         }, function error(msg) {
             $scope.searchState = false;
-            console.log('not found');
         });
     }
 

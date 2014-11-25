@@ -8,25 +8,25 @@ include ../panel
 
           .row(ng-hide='displayForm || csv.result')
 
-            .col-md-4
-              h3.text-center.col-xs-12 Fill in a form
-                .row
-                  button.btn.btn-primary(ng-click='newForm()' style='margin-top:11px') Add book form
+            .col-md-4.text-center
+              h3 Fill in a form
+              .row
+                button.btn.btn-primary(ng-click='newForm()') Add book form
 
-            .col-md-4
-              h3.text-center Find book by ISBN
+            .col-md-4.text-center
+              h3 Find book by ISBN
               .col-xs-8(style='padding:0')
                 input.form-control(name='isbn', type='text', placeholder='ISBN', style='border-radius: 0', ng-model='ISBNSearch', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/')
               button.btn.btn-success.pull-right.col-xs-4(style='border-radius: 0', loading-button, data-loading-text='Searching...',  ng-disabled='!ISBNSearch', ng-click='findBook()') Search
             
-
-            .import.ng-isolate-scope.col-md-4(csv-import content='csv.content', header='csv.header', separator='csv.separator', result='csv.result')
+            .import.ng-isolate-scope(csv-import content='csv.content', header='csv.header', separator='csv.separator', result='csv.result')
 
 
           .row
-            h3.text-center.text-danger(ng-if='searchState===false') The book was not found! Please try something else!
+            h3.text-center.text-danger(ng-if='searchState===false && found===false') The book was not found! Please try something else!
             h3.text-center.text-success(ng-if='searchState===true') The book was found! Please check the fields, because there may be differences.
-
+            h3.text-center.text-info(ng-show='!!bookURL') The book already exist in the database! 
+              a(href='{{bookURL}}') Click
 
 
           .row(ng-if='csv.result && !displayForm')
@@ -119,7 +119,7 @@ include ../panel
                     label.control-label(for='genres') Genres
                     .row
                       .col-xs-12
-                        select.form-control(name='genres', size='6', ng-options='(genre | titleCase) for genre in genres track by genre', ng-model='book.genres', multiple)
+                        select.nya-selectpicker.form-control(name='genres', data-live-search='true', ng-options='(genre | titleCase) for genre in genres track by genre', ng-model='book.genres', multiple)
                   .form-group(ng-class="{ 'has-success': !!book.edition }")
                     label.control-label(for='edition') Edition
                     .row

@@ -3,9 +3,6 @@ include ../panel
 .container
   .well
     h1.text-center Libraries list
-    .row
-      .col-md-8.col-md-offset-2
-        input(placeholder="Search...", ng-model="search")
 
     #users-list.table-responsive(ng-init="pages();")
       table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
@@ -15,8 +12,8 @@ include ../panel
               span#_id.glyphicon.glyphicon-sort.text-right
             td#name(ng-click="sort($event); reloadLibraries()") Name
               span#name.glyphicon.glyphicon-sort.text-right
-            td#description(ng-click="sort($event); reloadLibraries()") Description
-              span#description.glyphicon.glyphicon-sort.text-right
+            td#country(ng-click="sort($event); reloadLibraries()") Country
+              span#country.glyphicon.glyphicon-sort.text-right
             td#published(ng-click="sort($event); reloadLibraries()") Published
               span#published.glyphicon.glyphicon-sort.text-right
             td#tags(ng-click="sort($event); reloadLibraries()") Tags
@@ -26,7 +23,7 @@ include ../panel
           tr(ng-repeat="library in libraries")
             td.text-bold {{ library._id }}
             td {{ library.name }}
-            td {{ library.description }}
+            td {{ library.country.name }}
             td {{ library.published }}
             td {{ library.tags }}
             td
