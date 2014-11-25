@@ -147,7 +147,7 @@ isAuthenticatedOrInRole = function(role) {
 		if(!req.isAuthenticated() || typeof(req.user)=== 'undefined') {
 			res.status(401).send('Sorry, you are not authenticated!');
 		} else {
-			if(req.params.id!==req.user._id && roleChecker(req.user.roles, role)===false) {
+			if(req.body._id!==req.body.userID && roleChecker(req.user.roles, role)===false) {
 				res.status(403).send('Sorry, you are not authorized!');
 			} else {
 				next();

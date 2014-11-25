@@ -4,7 +4,7 @@ var imgur = require('imgur-node-api');
 
 module.exports = function(req, res) {
 		   
-	var currentPath = '../../'+req.files.uploadedFile.path;
+	var currentPath = '../../../'+req.files.uploadedFile.path;
 	var path = require('path');
 
 	var mimetype = req.files.uploadedFile.mimetype.toString();
