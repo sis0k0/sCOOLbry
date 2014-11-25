@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('editProfileAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, UserResource, notifier) {
+app.controller('EditProfileAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, UserResource, notifier) {
 
 	// Get user resource
 	$scope.user = UserResource.get({id: $routeParams.id}, function() {

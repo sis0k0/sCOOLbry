@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('addUserAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, notifier) {
+app.controller('AddUserAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, notifier) {
 
 
 	$http({

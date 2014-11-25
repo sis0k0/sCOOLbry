@@ -11,7 +11,6 @@ app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, $route
         return new Array(n);
     };
     
-
 	$scope.pages = function(){
 		$http.get('/api/book/count').success(function(data){
 			$scope.booksCount = parseInt(data);

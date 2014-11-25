@@ -30,78 +30,78 @@ app.config(function($routeProvider) {
 	$routeProvider
 
 		//Library Panel
-		.when('/libraryPanel', {
+		.when('/library-panel', {
 			templateUrl: '/partials/library-panel/settings',
             controller: 'LibraryPanelCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
 
 		// Library settings
-		.when('/libraryPanel/library-details', {
+		.when('/library-panel/library-details', {
 			templateUrl: '/partials/library-panel/settings/library-details',
-            controller: 'LibraryDetailsCtrl',
+            controller: 'LibrarySettingsCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
 
 		// Books
-		.when('/libraryPanel/books/add', {
+		.when('/library-panel/books/add', {
 			templateUrl: '/partials/library-panel/books/book-add',
             controller: 'LibraryAddBookCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
-		.when('/libraryPanel/bookInfo/:id', {
+		.when('/library-panel/bookInfo/:id', {
 			templateUrl: '/partials/library-panel/books/books-info',
             controller: 'BookInfoCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
-		.when('/libraryPanel/books-library', {
+		.when('/library-panel/books-library', {
 			templateUrl: '/partials/library-panel/books/books-list',
             controller: 'LibraryBooksListCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
-		.when('/libraryPanel/books/search', {
+		.when('/library-panel/books/search', {
 			templateUrl: '/partials/library-panel/books/books-search',
             controller: 'LibraryBooksSearchCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
-		.when('/libraryPanel/book/edit/:id', {
+		.when('/library-panel/book/edit/:id', {
 			templateUrl: '/partials/library-panel/books/book-edit',
             controller: 'EditBookLibraryCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
-		.when('/libraryPanel/book/delete/:id', {
+		.when('/library-panel/book/delete/:id', {
 			templateUrl: '/partials/library-panel/books/book-delete',
             controller: 'LibraryBookDeleteCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
 
 		// Users
-        .when('/libraryPanel/users', {
+        .when('/library-panel/users', {
 			templateUrl: '/partials/library-panel/users/users-list',
             controller: 'LibraryUsersCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
-        .when('/libraryPanel/users/add', {
+        .when('/library-panel/users/add', {
 			templateUrl: '/partials/library-panel/users/user-add',
             controller: 'AddUserToLibraryCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
-        .when('/libraryPanel/userInfo/:id', {
+        .when('/library-panel/userInfo/:id', {
 			templateUrl: '/partials/library-panel/users/user-info',
             controller: 'UserInfoLibraryCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
-        .when('/libraryPanel/user/interact/:id', {
+        .when('/library-panel/user/interact/:id', {
 			templateUrl: '/partials/library-panel/users/user-interact',
             controller: 'UserInteractLibraryCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
-        .when('/libraryPanel/user/delete/:id', {
+        .when('/library-panel/user/delete/:id', {
 			templateUrl: '/partials/library-panel/users/user-delete',
             controller: 'UserDeleteFromLibraryCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
-		.when('/libraryPanel/users/book-requests', {
+		.when('/library-panel/users/book-requests', {
 			templateUrl: '/partials/library-panel/users/book-requests',
             controller: 'BookingRequestsCtrl',
 			resolve: routeUserChecks.librarianRole

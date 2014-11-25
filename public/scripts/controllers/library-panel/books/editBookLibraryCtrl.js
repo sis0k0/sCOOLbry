@@ -7,7 +7,7 @@ app.controller('EditBookLibraryCtrl', function($scope, $location, Library, LibBo
 
 	$scope.updateLibBookAsLibrarian = function(book) {
         Library.updateLibBookAsLibrarian(book).then(function() {
-            $location.path('/libraryPanel/books-library');
+            $location.path('/library-panel/books-library');
         });
     };
 });

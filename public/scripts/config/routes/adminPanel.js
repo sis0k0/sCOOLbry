@@ -51,12 +51,12 @@ app.config(function($routeProvider) {
 		})
 		.when('/admin/users/add', {
 			templateUrl: '/partials/admin-panel/users/user-add',
-			controller: 'addUserAdminCtrl',
+			controller: 'AddUserAdminCtrl',
 			resolve: routeUserChecks.adminRole
 		})
 		.when('/admin/user/edit/:id', {
 			templateUrl: '/partials/admin-panel/users/user-edit',
-			controller: 'editProfileAdminCtrl',
+			controller: 'EditProfileAdminCtrl',
 			resolve: routeUserChecks.adminRole
 		})
 		.when('/admin/user/delete/:id', {
@@ -99,7 +99,7 @@ app.config(function($routeProvider) {
 		})
 		.when('/admin/library/edit/:id', {
 			templateUrl: '/partials/admin-panel/libraries/library-edit',
-			controller: 'editLibraryAdminCtrl',
+			controller: 'EditLibraryAdminCtrl',
 			resolve: routeUserChecks.adminRole
 		})
 		.when('/admin/library/delete/:id', {
@@ -122,11 +122,12 @@ app.config(function($routeProvider) {
 		})
 		.when('/admin/books/add', {
 			templateUrl: '/partials/admin-panel/books/book-add',
+			controller: 'AddBookCtrl',
 			resolve: routeUserChecks.adminRole
 		})
 		.when('/admin/book/edit/:id', {
 			templateUrl: '/partials/admin-panel/books/book-edit',
-			controller: 'editBookAdminCtrl',
+			controller: 'EditBookAdminCtrl',
 			resolve: routeUserChecks.adminRole
 		})
 		.when('/admin/book/delete/:id', {

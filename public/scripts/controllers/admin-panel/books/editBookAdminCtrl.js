@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('editBookAdminCtrl', function($scope, $location, $http, Book, ajaxPost, BookResource, $routeParams) {
+app.controller('EditBookAdminCtrl', function($scope, $location, $http, Book, ajaxPost, BookResource, $routeParams) {
 
     $scope.book = BookResource.get({id: $routeParams.id});
 

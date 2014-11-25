@@ -45,7 +45,7 @@ app.controller('RegisterLibraryCtrl', function($scope, $http, $location, $window
 
 		Library.registerLibrary(library, $scope.librarians[0]).then(function(){
 			notifier.success('Library added successfully!');
-			$location.path('/libraryPanel');
+			$location.path('/library-panel');
 			$anchorScroll();
 		}, function(reason){
 			notifier.error(reason);

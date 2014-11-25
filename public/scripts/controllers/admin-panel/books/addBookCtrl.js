@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('AddBookCtrl', function($scope, $window, $http, $location, $anchorScroll, Book, bookSearch, notifier, ajaxPost) {
+app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Book, bookSearch, notifier, ajaxPost) {
 
     $scope.displayForm = false;
 

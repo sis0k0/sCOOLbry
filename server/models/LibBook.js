@@ -9,7 +9,10 @@ var libBookSchema = mongoose.Schema({
     bookName: String,
     total: Number,
     available: Number,
-    given: Number
+    given: {
+        type: Number,
+        default: 0
+    }
 });
 
 var LibBook = mongoose.model('LibBook', libBookSchema);

@@ -50,7 +50,7 @@ app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeP
 
         LibraryUsersInteractions.giveBook(give).then(function() {
             notifier.success('Book given successfully!');
-            $location.path('/libraryPanel/users');
+            $location.path('/library-panel/users');
         }, function(reason){
                 notifier.error(reason);
         });
@@ -63,7 +63,7 @@ app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeP
 		interact.returnDate = new Date();
         LibraryUsersInteractions.returnBook(interact).then(function() {
             notifier.success('Book returned successfully!');
-            $location.path('/libraryPanel/users');
+            $location.path('/library-panel/users');
         }, function(reason){
                 notifier.error(reason);
         });

@@ -6,30 +6,23 @@ app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
 
 	$scope.menu = [
 
-		// {
-		// 	'name' : 'library',
-		// 	links : {
-		// 		'Details' : '/libraryPanel/library-details',
-		// 	}
-		// },
-
 		{
 			'name' : 'books',
 			links : {
-				'add' : '/libraryPanel/books/add',
-				'browse' : '/libraryPanel/books-library',
-				'search' : '/libraryPanel/books/search-library'
+				'add' : '/library-panel/books/add',
+				'browse' : '/library-panel/books-library',
+				'search' : '/library-panel/books/search-library'
 			}
 		},
 
 		{
 			'name' : 'users',
 			links : {
-				'add' : '/libraryPanel/users/add',
-				'browse' : '/libraryPanel/users',
-				'search' : '/libraryPanel/users/search',
-				'book requests' : '/libraryPanel/users/book-requests',
-				'user interaction' : '/libraryPanel/users/user-interaction',
+				'add' : '/library-panel/users/add',
+				'browse' : '/library-panel/users',
+				'search' : '/library-panel/users/search',
+				'book requests' : '/library-panel/users/book-requests',
+				'user interaction' : '/library-panel/users/user-interaction',
 			}
 		}
 	]

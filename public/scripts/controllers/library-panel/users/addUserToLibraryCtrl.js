@@ -9,7 +9,7 @@ app.controller('AddUserToLibraryCtrl', function($scope, $location, Library, noti
 		user.toReturn = 0;
         Library.addUserToLibrary(user, identity.currentUser.ownLibraryID).then(function() {
             notifier.success('User added successfully!');
-            $location.path('/libraryPanel/users');
+            $location.path('/library-panel/users');
         }, function(reason){
                 notifier.error(reason);
             });

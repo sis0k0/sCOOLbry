@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('editLibraryAdminCtrl', function($scope, $http, $window, Library, User, notifier, UserResource, ajaxPost, LibraryResource, $routeParams) {
+app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library, User, notifier, UserResource, ajaxPost, LibraryResource, $routeParams) {
 
     $scope.currentLibrarians = new Array();
 

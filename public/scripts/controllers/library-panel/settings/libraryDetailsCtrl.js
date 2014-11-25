@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('libraryDetailsCtrl', function($scope, $http, identity, $window, Library, User, notifier, UserResource, ajaxPost, LibraryResource, $routeParams) {
+app.controller('LibrarySettingsCtrl', function($scope, $http, identity, $window, Library, User, notifier, UserResource, ajaxPost, LibraryResource, $routeParams) {
 
     $scope.currentLibrarians = new Array();
 
@@ -94,7 +94,7 @@ app.controller('libraryDetailsCtrl', function($scope, $http, identity, $window, 
         Library.updateLibrary(library, librarians).then(function() {
             notifier.success('Library updated!');
             if(identity.ownLibraryID) {
-                $window.location.href = '/libraryPanel';
+                $window.location.href = '/library-panel';
             } else {
                 $window.location.href = '/';
             }

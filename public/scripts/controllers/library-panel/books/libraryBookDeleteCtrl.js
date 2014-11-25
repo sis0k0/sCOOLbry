@@ -5,6 +5,6 @@ app.controller('LibraryBookDeleteCtrl', function($scope, $routeParams, $http, $l
     $http.get('/api/book/delete2/' + $routeParams.id).success(function(){
 		notifier.success('The book has been successfully deleted.');
 	});
-	$location.path('/libraryPanel/books-library');
+	$location.path('/library-panel/books-library');
 
 });
