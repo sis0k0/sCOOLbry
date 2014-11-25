@@ -20,26 +20,16 @@ block main-content
                 i.glyphicon.glyphicon-search
 
 
-        ul#top-menu.nav.navbar-nav.navbar-right.vcenter.ng-cloak(ng-if="!identity.isAuthenticated()", ng-controller="LogInCtrl")
+        ul#top-menu.nav.navbar-nav.navbar-right.vcenter(ng-controller="LogInCtrl")
           li
             a(href='/libraries') Libraries
           li
             a(href='/catalogue') Catalogue
-          li
+          li(ng-show='!identity.isAuthenticated()')
             a(href="/login") Log in
-          li
+          li(ng-show='!identity.isAuthenticated()')
             a(href="/signup").sign-up Sign Up
-
-      
-
-
-        
-        ul#top-menu.nav.navbar-nav.navbar-right.vcenter.ng-cloak(ng-if="!!identity.isAuthenticated()", ng-controller="LogInCtrl")
-          li
-            a(href='/libraries') Libraries
-          li
-            a(href='/catalogue') Catalogue
-          li.dropdown
+          li.dropdown(ng-show='!!identity.isAuthenticated()')
             a.dropdown-toggle(href="", data-toggle="dropdown")
               span(ng-bind-template='{{ identity.currentUser.firstName }} {{ identity.currentUser.lastName }}')
               b.caret
@@ -53,6 +43,9 @@ block main-content
               li.divider
               li
                 a(href="/" ng-click="logout()") Sign Out
+
+
+
 
   section
     div(ng-view)

@@ -1,13 +1,13 @@
 'use strict';
 
-app.controller('LogInCtrl', function($scope, $window, notifier, identity, User, $window) {
+app.controller('LogInCtrl', function($scope, $location, notifier, identity, User, $window) {
     $scope.identity = identity;
 
     $scope.login = function(user) {
         User.login(user).then(function(success) {
             if (success) {
                 notifier.success('Successful login!');
-                $window.location.href = '/';
+                $location.path('/');
             }
             else {
 				notifier.error('Username/Password combination is not valid or the RECAPTCHA Challenge is not complete!');
@@ -23,7 +23,7 @@ app.controller('LogInCtrl', function($scope, $window, notifier, identity, User, 
                 $scope.user.username = '';
                 $scope.user.password = '';
             }
-            $window.location.href = '/';
+            $location.path('/');
         });
     };
 });
