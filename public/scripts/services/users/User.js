@@ -149,6 +149,9 @@ app.factory('User', function($http, $q, identity, UsersResource, UserResource, L
 						newLibraryResource.$save(function(data) {
 							updatedUser.ownLibraryID = data._id;
 							updatedUser.$update().then(function() {
+								if(!updatedUser.hasOwnProperty('roles')) {
+									updatedUser.roles = identity.currentUser.roles;
+								}
 								deferred.resolve();
 							}, function(response) {
 								deferred.reject(response.data.reason);

@@ -21,7 +21,6 @@ app.controller('EditProfileCtrl', function($scope, $location, User, identity, aj
 
 	$scope.emailConfirm = $scope.user.email;
 	$scope.update = function(user) {
-		console.log('the ctrl');
 		User.update(user).then(function() {
 			$scope.user = user;
 			$location.path('/profile');
