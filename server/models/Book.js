@@ -32,7 +32,11 @@ var bookSchema = mongoose.Schema({
     genres: [String],
     edition: String,
     illustrated: String,
-    published: Date
+    published: Date,
+    uploaded: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 var Book = mongoose.model('Book', bookSchema);

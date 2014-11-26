@@ -4,8 +4,8 @@ app.controller('BookListCtrl', function($scope, BookResourceSortable, $routePara
 	
 	$scope.page = 1;
 	$scope.perPage = 10;
-	$scope.field = 'published';
-	$scope.order = 'asc';
+	$scope.field = 'uploaded';
+	$scope.order = 'desc';
 	
 	$scope.range = function(n) {
 		return new Array(n);

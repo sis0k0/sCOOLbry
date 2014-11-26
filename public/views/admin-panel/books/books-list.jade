@@ -13,27 +13,27 @@ include ../panel
           tr.text-bold.text-primary
             td#_id(ng-click="sort($event); reloadBooks()") ID
               span#_id.glyphicon.glyphicon-sort.text-right
+            td#uploaded(ng-click="sort($event); reloadBooks()") Uploaded
+              span#uploaded.glyphicon.glyphicon-sort.text-right
             td#isbn(ng-click="sort($event); reloadBooks()") ISBN
               span#isbn.glyphicon.glyphicon-sort.text-right
             td#name(ng-click="sort($event); reloadBooks()") Title
               span#title.glyphicon.glyphicon-sort.text-right
-            td#description(ng-click="sort($event); reloadBooks()") Author
+            td#author(ng-click="sort($event); reloadBooks()") Author
               span#author.glyphicon.glyphicon-sort.text-right
-            td#description(ng-click="sort($event); reloadBooks()") Description
-              span#description.glyphicon.glyphicon-sort.text-right
             td#published(ng-click="sort($event); reloadBooks()") Published
               span#published.glyphicon.glyphicon-sort.text-right
-            td#published(ng-click="sort($event); reloadBooks()") Publisher
-              span#published.glyphicon.glyphicon-sort.text-right
-            td#tags(ng-click="sort($event); reloadBooks()") Themes
+            td#publisher(ng-click="sort($event); reloadBooks()") Publisher
+              span#publisher.glyphicon.glyphicon-sort.text-right
+            td#themes(ng-click="sort($event); reloadBooks()") Themes
               span#themes.glyphicon.glyphicon-sort.text-right
             td Actions
         tr(ng-repeat="book in books")
           td.text-bold {{ book._id }}
+          td {{ book.uploaded }}
           td {{ book.isbn }}
           td {{ book.title }}
           td {{ book.author }}
-          td {{ book.description }}
           td {{ book.published }}
           td {{ book.publisher }}
           td {{ book.themes }}

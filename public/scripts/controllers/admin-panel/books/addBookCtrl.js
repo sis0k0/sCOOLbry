@@ -2,7 +2,6 @@
 
 app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Book, bookSearch, notifier, ajaxPost) {
 
-    $scope.displayForm = false;
 
 	$http({
 		method: 'get',
@@ -131,6 +130,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 
     $scope.addBook = function(book, index) {
         Book.add(book).then(function() {
+            console.log('book added');
             notifier.success('Book added successfully!');
 
             $scope.books.splice(index,1);
@@ -139,6 +139,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
             };
 
         }, function(reason){
+            console.log('error');
             notifier.error(reason);
         });
     };
@@ -153,21 +154,24 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
     $scope.findBook = function() {
     	var bookPromise = bookSearch.search($scope.ISBNSearch);
     	bookPromise.then(function success(data) {
-            if(data.foundInDatabase===false) {
-        		$scope.books = new Array();
-                data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
-        		$scope.books[0] = data;
-                $scope.displayForm = true;
-                $scope.searchState = true;
-            } else {
+            if(data.foundInDatabase===true) {
                 $scope.searchState = false;
                 $scope.bookURL = "/admin/book/" + data._id;
+            } else {
+                $scope.books = new Array();
+                data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
+                $scope.books[0] = data;
+                $scope.displayForm = true;
+                $scope.searchState = true;
             }
     	}, function error(msg) {
             $scope.searchState = false;
             $scope.found = false;
     	});
     }
+
+    // Upload certificate
+    $scope.displayForm = false;
 
     $scope.setFileEventListener = function(element) {
         if($scope.books==undefined) {

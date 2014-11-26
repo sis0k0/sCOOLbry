@@ -9,11 +9,17 @@ app.factory('Book', function($q, $http, BookResource, LibraryBooks) {
 
 
 			
-			if(book.hasOwnProperty('foundInDatabase')===false) {
-
+			if(book.hasOwnProperty('foundInDatabase')===true) {
+				book.libraryID = libraryID;
+				LibraryBooks.addLibBook(book).then(function() {
+					deferred.resolve();
+				}, function(err) {
+					deferred.reject(err);
+				});
+			} else {
 				var newBook = new BookResource(book);
 				newBook.$save().then(function(data) {
-
+					console.log(libraryID);
 					if(typeof(libraryID) !== 'undefined') {
 						book.libraryID = libraryID;
 						book._id = data._id;
@@ -22,19 +28,12 @@ app.factory('Book', function($q, $http, BookResource, LibraryBooks) {
 						}, function(err) {
 							deferred.reject(err);
 						});
+					} else {
+						deferred.resolve();
 					}
 
 				}, function(response) {
 					deferred.reject(response);
-				});
-
-			} else {
-				console.log(book);
-				book.libraryID = libraryID;
-				LibraryBooks.addLibBook(book).then(function() {
-					deferred.resolve();
-				}, function(err) {
-					deferred.reject(err);
 				});
 			}
 
@@ -42,7 +41,7 @@ app.factory('Book', function($q, $http, BookResource, LibraryBooks) {
 
 			return deferred.promise;
 		},
-		updateAsAdmin: function(book) {
+		update: function(book) {
 			var deferred = $q.defer();
 
 			var updatedBook = new BookResource(book);

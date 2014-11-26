@@ -117,14 +117,17 @@ module.exports = function(req, res) {
 						}
 
 						if(json.hasOwnProperty('Планирана дата на издаване')) {
-							book.published = json['Планирана дата на издаване'];
+							var date = json['Планирана дата на издаване'];
+
+							date = date.replace(/\./gi, '/');
+							date = new Date(date);
+							book.published = date;
 						}
 
 						if(json.hasOwnProperty('Страници')) {
 							book.pages = json['Страници'];
 						}
 
-						console.log(json);
 						res.send(book);
 
 
