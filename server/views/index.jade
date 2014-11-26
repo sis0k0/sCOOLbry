@@ -23,8 +23,6 @@ block main-content
         ul#top-menu.nav.navbar-nav.navbar-right.vcenter(ng-controller="LogInCtrl")
           li
             a(href='/libraries') Libraries
-          li
-            a(href='/catalogue') Catalogue
           li(ng-show='!identity.isAuthenticated()')
             a(href="/login") Log in
           li(ng-show='!identity.isAuthenticated()')

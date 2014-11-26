@@ -11,6 +11,7 @@ app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, 
 
     
     $scope.books = LibBooksResource.query({id: $routeParams.id});
+    
 
     if(identity.currentUser===undefined) {
 		$scope.isMember = false;

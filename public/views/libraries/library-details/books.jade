@@ -1,6 +1,15 @@
 .tab-pane.fade#books
 
-  h2 Library Books
-  ul
-    li(ng-repeat='book in books')
-      a(href='/book/{{ book.bookID }}/{{ library._id }}') {{ book.bookName }}
+	h2.text-center Library Books
+	div.col-md-8.col-md-offset-2
+		div(ng-repeat='book in books')
+
+			div
+				a.col-xs-4(href='/book/{{ book.bookID }}/{{library._id}}') {{ book.bookName }}
+					img(ng-src='{{ book.cover }}').img-responsive
+
+
+
+			a(href='/book/{{ book.bookID }}/{{ library._id }}') {{ book.cover }}
+
+	.row

@@ -21,7 +21,10 @@ var bookSchema = mongoose.Schema({
         type: String,
         require: '{PATH} is required'
     },
-    cover: String,
+    cover: {
+        type: String,
+        default: 'dist/images/missing-cover.png'
+    },
     authorNationality: String,
     language: String,
     pages: String,
