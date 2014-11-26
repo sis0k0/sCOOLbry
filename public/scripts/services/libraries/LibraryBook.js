@@ -1,9 +1,9 @@
 'use strict';
 
-app.factory('LibraryBooks', function($q, LibBookResource2, LibBookResource) {
+app.factory('LibraryBook', function($q, LibBookResource2, LibBookResource) {
 	return {
 
-		addLibBook: function(book) {
+		add: function(book) {
 			var deferred = $q.defer(),
 				updatedBook = new LibBookResource2(book);
 
@@ -17,7 +17,7 @@ app.factory('LibraryBooks', function($q, LibBookResource2, LibBookResource) {
 
 		},
 
-		updateLibBookAsLibrarian: function(book) {
+		update: function(book) {
 			var deferred = $q.defer();
 			var updatedBook = new LibBookResource2(book);
 			updatedBook._id = book._id;

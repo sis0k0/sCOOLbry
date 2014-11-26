@@ -2,7 +2,7 @@ include ../panel
 
 .container
   .well
-    h1.text-center Uncertified Libraries Queue
+    h1.text-center Uncertified Libraries' Queue
 
     #users-list.table-responsive(ng-init="pages();")
       table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
@@ -19,8 +19,8 @@ include ../panel
             td#tags(ng-click="sort($event); reloadLibraries()") Tags
               span#tags.glyphicon.glyphicon-sort.text-right
             td Actions
-        tbody
-          tr(ng-repeat="library in libraries")
+        tbody(ng-repeat="library in libraries")
+          tr(ng-if="library.certified === false")
             td.text-bold {{ library._id }}
             td {{ library.name }}
             td 

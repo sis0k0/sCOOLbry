@@ -23,7 +23,7 @@ var bookSchema = mongoose.Schema({
     },
     cover: {
         type: String,
-        default: 'dist/images/missing-cover.png'
+        default: '/dist/images/missing-cover.png'
     },
     authorNationality: String,
     language: String,

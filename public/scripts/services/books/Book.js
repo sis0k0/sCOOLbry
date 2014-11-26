@@ -1,7 +1,7 @@
 
 'use strict';
 
-app.factory('Book', function($q, $http, BookResource, LibraryBooks) {
+app.factory('Book', function($q, $http, BookResource, LibraryBook) {
 	return {
 		add: function(book, libraryID) {
 			var deferred = $q.defer();
@@ -11,7 +11,7 @@ app.factory('Book', function($q, $http, BookResource, LibraryBooks) {
 			
 			if(book.hasOwnProperty('foundInDatabase')===true) {
 				book.libraryID = libraryID;
-				LibraryBooks.addLibBook(book).then(function() {
+				LibraryBook.add(book).then(function() {
 					deferred.resolve();
 				}, function(err) {
 					deferred.reject(err);
@@ -23,7 +23,7 @@ app.factory('Book', function($q, $http, BookResource, LibraryBooks) {
 					if(typeof(libraryID) !== 'undefined') {
 						book.libraryID = libraryID;
 						book._id = data._id;
-						LibraryBooks.addLibBook(book).then(function() {
+						LibraryBook.add(book).then(function() {
 							deferred.resolve();
 						}, function(err) {
 							deferred.reject(err);

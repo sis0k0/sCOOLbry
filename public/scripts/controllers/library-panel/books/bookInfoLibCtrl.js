@@ -1,6 +1,8 @@
 'use strict';
 
-app.controller('EditBookLibraryCtrl', function($scope, $location, LibraryBook, LibBookResource2,BookResource, $routeParams) {
+app.controller('BookInfoLibCtrl', function($scope, LibBookResource2, BookResource, $routeParams) {
+
+	$scope.showMore = true;
 
 	$scope.libraryBook = LibBookResource2.get({id: $routeParams.id}, function() {
 		$scope.book = BookResource.get({id: $scope.libraryBook.bookID}, function() {
@@ -38,15 +40,7 @@ app.controller('EditBookLibraryCtrl', function($scope, $location, LibraryBook, L
 			}
 
 		});
-	});
 
-	$scope.updateLibBookAsLibrarian = function(updatedLibraryBook) {
-		updatedLibraryBook.available = updatedLibraryBook.total - updatedLibraryBook.given;
-		LibraryBook.update(updatedLibraryBook).then(function() {
-			notifier.success('\'' + updatedLibraryBook.bookName + '\' successfully updated!');
-			$location.path('/library-panel/books-library');
-		}, function(err) {
-			notifier.error(err);
-		});
-	};
+	});
+   
 });

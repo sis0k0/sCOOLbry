@@ -26,11 +26,11 @@ include ../panel
           td {{ user.given }}
           td {{ user.toReturn }}
           td
-            a.btn-sm(href='/libraryPanel/userInfo/{{ user.userID }}', title='Browse', tooltip)
+            a.btn-sm(href='/library-panel/userInfo/{{ user.userID }}', title='Browse', tooltip)
               span.glyphicon.glyphicon-search.text-success
-            a.btn-sm(href='/libraryPanel/user/interact/{{ user.userID }}', title='Give/Return A Book', tooltip)
+            a.btn-sm(href='/library-panel/user/interact/{{ user.userID }}', title='Give/Return A Book', tooltip)
               span.glyphicon.glyphicon-book.text-success
-            a.btn-sm(href='/libraryPanel/user/delete/{{ user.userID }}', title='Delete', tooltip, onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")')
+            a.btn-sm(href='/library-panel/user/delete/{{ user.userID }}', title='Delete', tooltip, onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")')
               span.glyphicon.glyphicon-remove.text-danger
     .pagination
         li(ng-repeat="i in range(pagesCount) track by $index")

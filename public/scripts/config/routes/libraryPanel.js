@@ -51,7 +51,7 @@ app.config(function($routeProvider) {
 		})
 		.when('/library-panel/bookInfo/:id', {
 			templateUrl: '/partials/library-panel/books/books-info',
-            controller: 'BookInfoCtrl',
+            controller: 'BookInfoLibCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
 		.when('/library-panel/books-library', {

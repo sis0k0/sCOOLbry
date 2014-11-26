@@ -144,6 +144,9 @@ isInRole = function(role) {
 },
 isAuthenticatedOrInRole = function(role) {
 	return function(req, res, next) {
+		console.log(req);
+		console.log(req.isAuthenticated());
+		console.log(req.user);
 		if(!req.isAuthenticated() || typeof(req.user)=== 'undefined') {
 			res.status(401).send('Sorry, you are not authenticated!');
 		} else {

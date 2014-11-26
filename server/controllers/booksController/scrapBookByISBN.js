@@ -82,7 +82,7 @@ module.exports = function(req, res) {
 							book.illustrated = json['Илюстрирано'];
 						}
 
-						if(json.hasOwnProperty('Илюстрации на корица')) {
+						if(json.hasOwnProperty('Илюстрации на корица') && json['Илюстрации на корица']!=='http://www.booksinprint.bg#') {
 							book.cover = json['Илюстрации на корица'];
 						}
 

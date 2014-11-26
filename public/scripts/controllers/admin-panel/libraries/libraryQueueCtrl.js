@@ -27,12 +27,6 @@ app.controller('LibraryQueueCtrl', function($scope, LibraryResourceSortable, $ro
     	page: $scope.page,
     	perPage: $scope.perPage
     });
-
-    for(var i=0; i<$scope.libraries.length; i++) {
-    	if($scope.libraries[i].certified === true) {
-    		$scope.libraries.split(i,1);
-    	}
-    }
 	
 	
 	$scope.setPage = function(page, event){
