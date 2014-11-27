@@ -1,19 +1,27 @@
 'use strict';
 
-app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier, $location) {
-    $scope.library = cachedLibraries.query().$promise.then(function(collection) {
-        collection.forEach(function(library) {
-            if (library._id === $routeParams.id) {
-                $scope.library = library;
-            }
-        });
-    });
+app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, BookResource, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier, $location) {
+	$scope.library = cachedLibraries.query().$promise.then(function(collection) {
+		collection.forEach(function(library) {
+			if (library._id === $routeParams.id) {
+				$scope.library = library;
+			}
+		});
+	});
 
-    
-    $scope.books = LibBooksResource.query({id: $routeParams.id});
-    
+	
+	$scope.libBooks = LibBooksResource.query({id: $routeParams.id}, function() {
 
-    if(identity.currentUser===undefined) {
+		$scope.books = new Array();
+		for(var i=0; i<$scope.libBooks.length; i++) {
+			$scope.books[i] = BookResource.get({id: $scope.libBooks[i].bookID}, function() {
+				console.log($scope.books[i]);
+			});
+		}
+	});
+	
+
+	if(identity.currentUser===undefined) {
 		$scope.isMember = false;
 		$scope.isLoggedIn = false;
 	}else{
@@ -24,12 +32,12 @@ app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, 
 			}else{
 				$scope.isMember = false;
 			}
-		});      
+		});
 		console.log($scope.isMember);
-		$scope.isLoggedIn = true;     
+		$scope.isLoggedIn = true;
 	}
 	
-    if(identity.currentUser===undefined) {
+	if(identity.currentUser===undefined) {
 		$scope.readings = [];
 	}else{
 		$scope.readings = UserReadingResource.query({ userID: identity.currentUser._id, libraryID: $routeParams.id });
@@ -39,24 +47,24 @@ app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, 
 		identity.currentUser.given = 0;
 		identity.currentUser.toReturn = 0;
 		identity.currentUser.userID = identity.currentUser._id;
-        LibraryUsers.addUserToLibrary(identity.currentUser, $routeParams.id).then(function() {
-            notifier.success('You\'ve subscribed successfully!');
-            $route.reload();
-        }, function(reason){
-                notifier.error(reason);
-            });
-    };
-    
+		LibraryUsers.addUserToLibrary(identity.currentUser, $routeParams.id).then(function() {
+			notifier.success('You\'ve subscribed successfully!');
+			$route.reload();
+		}, function(reason){
+				notifier.error(reason);
+			});
+	};
+	
  	$scope.unsubscribeForLibrary = function() {
-        var responsePromise = $http.get('/api/library/delete-user/'+identity.currentUser._id+'/'+$routeParams.id);
+		var responsePromise = $http.get('/api/library/delete-user/'+identity.currentUser._id+'/'+$routeParams.id);
 		responsePromise.success(function(data) {
-		    notifier.success('You\'ve unsubscribed successfully!');
-            $route.reload();
-        
+			notifier.success('You\'ve unsubscribed successfully!');
+			$route.reload();
+		
 		}).error(function(reason) {
 			notifier.error(reason);
-        });      
+		});	  
 		
-    };
+	};
 
 });

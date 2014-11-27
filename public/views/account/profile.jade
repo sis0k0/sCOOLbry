@@ -26,8 +26,10 @@
                     | favorites favorites favorites favorites favorites favorites favorites favorites favorites favorites favorites
 
             .tab-pane.fade#libraries
+                h1.text-center Library Subscriptions
                 p
-                    | libraries
+                    div(ng-repeat='library in user.libraries')
+                        h3.text-info {{ library.name }}
 
 
 

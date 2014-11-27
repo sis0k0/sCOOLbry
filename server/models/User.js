@@ -47,7 +47,8 @@ var userSchema = mongoose.Schema({
     twitterUrl: String,
     googlePlusUrl: String,
     aboutMe: String,
-    ownLibraryID: String
+    ownLibraryID: String,
+    librarySubscriptions: [String]
 });
 
 userSchema.method({

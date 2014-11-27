@@ -10,7 +10,7 @@ app.factory('User', function($http, $q, identity, UsersResource, UserResource, L
 				identity.currentUser = newUser;
 				deferred.resolve();
 			}, function(response) {
-				deferred.reject(response);
+				deferred.reject(response.data.reason);
 			});
 
 			return deferred.promise;

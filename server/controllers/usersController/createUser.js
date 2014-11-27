@@ -1,7 +1,7 @@
 'use strict';
 
 var encryption  = require('../../utilities/encryption'),
-	User        = require('mongoose').model('User');
+	User		= require('mongoose').model('User');
 
 module.exports = function(req, res) {
 	var newUserData = req.body;
@@ -12,13 +12,17 @@ module.exports = function(req, res) {
 			console.log('Failed to register new user: ' + err);
 			return;
 		}
-		if(req.hasOwnProperty('user') && req.user.roles.indexOf('admin')===-1) {
+
+		if(req.hasOwnProperty('user') && req.user.roles.indexOf('admin')>-1) {
+			res.send(user);
+		} else {
 			req.logIn(user, function(err) {
 				if (err) {
 					res.status(403).send({reason: err});
+				} else {
+					res.send(user);
 				}
 			});
 		}
-		res.send(user);
 	});
 };

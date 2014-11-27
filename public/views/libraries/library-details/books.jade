@@ -1,15 +1,25 @@
 .tab-pane.fade#books
 
-	h2.text-center Library Books
-	div.col-md-8.col-md-offset-2
-		div(ng-repeat='book in books')
+  h2.text-center Library Books
+  .col-md-11
 
-			div
-				a.col-xs-4(href='/book/{{ book.bookID }}/{{library._id}}') {{ book.bookName }}
-					img(ng-src='{{ book.cover }}').img-responsive
+    input.form-control.col-xs-offset-1.col-xs-9(type="text", placeholder="Type to search in {{ books.length }} books...", ng-model="search")
 
-
-
-			a(href='/book/{{ book.bookID }}/{{ library._id }}') {{ book.cover }}
-
-	.row
+    div(ng-repeat='book in books | filter: search')
+      .col-md-6
+          .col-xs-4(style='margin-top: 3em')
+            a(href='/book/{{ book._id }}/{{library._id}}')
+              img.img-responsive.img-thumbnail(src='{{book.cover}}', style='margin-top:10.5px')
+          .col-xs-8(style='margin-top: 3em')
+            a(href='/book/{{ book._id }}/{{library._id}}')
+              h4.text-info {{book.title | cut:true:35:'...'}}
+            div
+              span.text-bold.text-muted Publisher: 
+              span.text-info {{book.publisher}}
+            div
+              span.text-bold.text-muted Author: 
+              span.text-info {{ book.author }}
+            div.text-muted
+              span.text-bold ISBN: 
+              span {{ book.isbn }}
+  .row

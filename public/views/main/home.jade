@@ -8,11 +8,11 @@
                  h1 Hundreds of books
                  h2
                     | Just&nbsp;
-                    a(href="/") 1 click
+                    a(href="/libraries") 1 click
                     | &nbsp;away
                  .btn-group-lg.text-center
-                     a(href="/about-us").btn.btn-info.btn-lg Learn more
-                     a(href="/signup").btn.btn-primary.btn-lg Sign up
+                     a(href="/libraries").btn.btn-info.btn-lg See libraries
+                     a(href="/signup", ng-show="!identity.isAuthenticated()").btn.btn-primary.btn-lg Sign up
 
 .container#homepage-container
     .row
@@ -24,6 +24,3 @@
             .panel.panel-info
                 .panel-heading.text-center New
                 .panel-body(ng-include="'/partials/main/new-libraries'")
-
-
-h1#h01
