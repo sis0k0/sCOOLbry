@@ -59,3 +59,11 @@
         td
           h2 Book This Book
           button.btn.btn-primary(ng-click="addBooking()") Book This Book
+      tr(ng-show='notFavourite===true && isMember===true')
+        td
+          h2 Add To Favourites
+          button.btn.btn-primary(ng-click="addFavourite()") Add This Book To Favourites
+      tr(ng-show='notFavourite===false && isMember===true')
+        td
+          h2 Remove From Favourites
+          button.btn.btn-primary(ng-click="removeFavourite()") Remove This Book From Favourites

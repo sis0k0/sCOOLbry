@@ -10,8 +10,20 @@ app.controller('LogInCtrl', function($scope, $location, notifier, identity, User
                 $location.path('/');
             }
             else {
-				notifier.error('Username/Password combination is not valid or the RECAPTCHA Challenge is not complete!');
-				$window.Recaptcha.reload();
+                notifier.error('Username/Password combination is not valid or the RECAPTCHA Challenge is not complete!');
+                $window.Recaptcha.reload();
+            }
+        });
+    };
+
+    $scope.loginNoCaptcha = function(user) {
+        User.loginNoCaptcha(user).then(function(success) {
+            if (success) {
+                notifier.success('Successful login!');
+                $location.path('/');
+            }
+            else {
+                notifier.error('Username/Password combination is not valid!');
             }
         });
     };

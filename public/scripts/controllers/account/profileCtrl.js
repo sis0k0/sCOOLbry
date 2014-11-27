@@ -11,6 +11,7 @@ app.controller('ProfileCtrl', function($scope, identity, LibraryResource) {
     		});
     }
 
+    $scope.favouriteBooks = FavouriteBookResource.get({userID: identity.currentUser._id});
 
 
 });

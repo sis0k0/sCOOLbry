@@ -8,6 +8,7 @@ var auth    = require('../auth'),
 module.exports = function(app) {
 
 	router.post('/login', auth.login);
+	router.post('/loginNoCaptcha', auth.loginNoCaptcha);
 	router.post('/logout', auth.logout);
 
 

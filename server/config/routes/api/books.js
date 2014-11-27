@@ -25,5 +25,12 @@ module.exports = function(app) {
 	router.get('/book/delete/:id', auth.isInRole('librarian'), controllers.books.deleteBookById);
 	router.get('/book/delete2/:id', auth.isInRole('librarian'), controllers.books.deleteBookFromLibraryById);
 
+	//favourite book
+
+	router.post('/book/addFavourite', controllers.books.createFavouriteBook);
+	router.get('/book/favourites/:userID', controllers.books.getFavouriteBooks);
+	router.get('/book/isFavourite/:userID/:bookID', controllers.books.isFavourite);
+	router.get('/book/favouritesLibrary/:userID/:libraryID', controllers.books.getFavouriteBooksInLibrary);
+	router.get('/book/deleteFavourite/:bookID', controllers.books.deleteFavouriteBookById);
 	app.use('/api/', router);
 };

@@ -4,6 +4,7 @@ var	http        = require('http'),
 	querystring = require('querystring');
 
 module.exports = function(req, res, next) {
+
 	if(req.hasOwnProperty('user') && req.user.roles.indexOf('admin') > -1){
 		next();
 	} else if(req.isAuthenticated()) {
