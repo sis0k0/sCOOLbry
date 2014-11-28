@@ -29,16 +29,12 @@ module.exports = {
             clientID: '1512522278997261',
             clientSecret: '95bfbb52c31bab56bedcb1011e617523',
             callbackURL: 'http://scoolbry.com/api/auth/facebook/callback'
-        },        facebook: {
-            clientID: '1512522278997261',
-            clientSecret: '95bfbb52c31bab56bedcb1011e617523',
-            callbackURL: 'http://scoolbry.com/api/auth/facebook/callback'
         },
 
         twitter: {
             consumerKey       : 'dn1vIPB9VhWZcF7hYVDpJFyZd',
             consumerSecret    : '0vJOYrmYEnT8onw55aPwBXDPwNv0xpNXoWJVymFni6STfDzA9j',
-            callbackURL       : 'http://localhost:3030/api/auth/twitter/callback'
+            callbackURL       : 'http://scoolbry.com/api/auth/twitter/callback'
         },
         captcha: true
     }
