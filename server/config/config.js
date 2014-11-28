@@ -28,11 +28,11 @@ module.exports = {
         facebook: {
             clientID: '1512522278997261',
             clientSecret: '95bfbb52c31bab56bedcb1011e617523',
-            callbackURL: 'http://localhost:3030/api/auth/facebook/callback'
+            callbackURL: 'http://scoolbry.com/api/auth/facebook/callback'
         },        facebook: {
             clientID: '1512522278997261',
             clientSecret: '95bfbb52c31bab56bedcb1011e617523',
-            callbackURL: 'http://localhost:3030/api/auth/facebook/callback'
+            callbackURL: 'http://scoolbry.com/api/auth/facebook/callback'
         },
 
         twitter: {
