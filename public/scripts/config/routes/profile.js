@@ -36,11 +36,11 @@ app.config(function($routeProvider) {
 			controller: 'RegisterLibraryCtrl'
 		})
 		.when('/signup', {
-			templateUrl: '/partials/account/sign-up-no-captcha',
+			templateUrl: '/partials/account/sign-up',
 			controller: 'SignUpCtrl'
 		})
 		.when('/login', {
-			templateUrl: '/partials/account/log-in-no-captcha',
+			templateUrl: '/partials/account/log-in',
 			controller: 'LogInCtrl'
 		})
 		.when('/profile', {
