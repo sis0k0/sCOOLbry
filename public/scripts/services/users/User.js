@@ -15,10 +15,40 @@ app.factory('User', function($http, $q, identity, UsersResource, UserResource, L
 
 			return deferred.promise;
 		},
+		signupNoCaptcha: function(user) {
+			var deferred = $q.defer();
+
+			var newUser = new UsersResource(user);
+			newUser.$save().then(function() {
+				identity.currentUser = newUser;
+				deferred.resolve();
+			}, function(response) {
+				deferred.reject(response);
+			});
+
+			return deferred.promise;
+		},
 		login: function(user){
 			var deferred = $q.defer();
 
 			$http.post('/login', user).success(function(response) {
+				if (response.success) {
+					var user = new UsersResource();
+					angular.extend(user, response.user);
+					identity.currentUser = user;
+					deferred.resolve(true);
+				}
+				else {
+					deferred.resolve(false);
+				}
+			});
+
+			return deferred.promise;
+		},
+		loginNoCaptcha: function(user){
+			var deferred = $q.defer();
+
+			$http.post('/loginNoCaptcha', user).success(function(response) {
 				if (response.success) {
 					var user = new UsersResource();
 					angular.extend(user, response.user);

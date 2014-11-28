@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
     user     = require('../models/User'),
     library  = require('../models/Library'),
     book     = require('../models/Book'),
+    favBook  = require('../models/FavBook'),
     libBook  = require('../models/LibBook'),
     libUser  = require('../models/LibUser'),
     reading  = require('../models/Reading'),
@@ -29,6 +30,7 @@ module.exports = function(config) {
     user.seedInitialUsers();
     library.seedInitialLibraries();
     book.seedInitialBooks();
+    favBook.seedInitialFavBook();
     libBook.seedInitialLibBook();
     libUser.seedInitialLibUser();
     reading.seedInitialReadings();

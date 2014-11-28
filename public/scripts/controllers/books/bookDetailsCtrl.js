@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http, LibraryUsersInteractions, notifier, $location, BookResource, LibraryReadingResource, LibBookResource, $window, LibraryResource) {
+app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http, $route, LibraryUsersInteractions, notifier, $location, BookResource, LibraryReadingResource, LibBookResource, $window, LibraryResource, Book) {
     
     $scope.showMore = true;
     $scope.book = BookResource.get({id: $routeParams.id}, function() {
@@ -51,12 +51,15 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
         $scope.library = LibraryResource.get({id: $scope.libraryID});
 
         $scope.bookable  = false;
+        $scope.notFavourite = true;
+
 
         $http.get('/api/library/booking/'+$scope.libraryID+'/'+$routeParams.id).success(function(data){
 
             $scope.booked = parseInt(data);
 
             if(identity.currentUser===undefined) {
+
                 $scope.isMember = false;
                 $scope.isLoggedIn = false;
             }else{
@@ -76,14 +79,28 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
                     }
                 });      
         
+
+
+               $http.get('/api/book/isFavourite/'+identity.currentUser._id+'/'+$routeParams.id).success(function(data){
+
+                    console.log(data);
+                    if(data===true){
+                        $scope.notFavourite = false;
+                    }else{
+                        $scope.notFavourite = true;
+                    }
+
+                });
+
                 $scope.isLoggedIn = true;     
             }
 
         });
+
         console.log($scope.quantity);
 
     }else{
-    	$scope.libraryID = -1;
+        $scope.libraryID = -1;
     }
 
     
@@ -158,4 +175,33 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
             notifier.error(err);
         });
     };
+
+    $scope.addFavourite = function(bookName, bookISBN) {
+       
+        var favourite = new Object({});
+        favourite.bookID = $routeParams.id;
+        favourite.bookISBN = bookISBN;
+        favourite.libraryID = $scope.libraryID;
+        favourite.bookName = bookName;
+        favourite.userID = identity.currentUser._id;
+
+        Book.addFavourite(favourite).then(function(){
+            notifier.success('Booking added successfully to favourites!');
+            $route.reload();
+           
+        });
+    };
+
+    $scope.removeFavourite = function() {
+        var responsePromise = $http.get('/api/book/deleteFavourite'+'/'+$routeParams.id);
+        responsePromise.success(function(data) {
+            notifier.success('You\'ve removed this book from favourites successfully!');
+            $route.reload();
+        
+        }).error(function(reason) {
+            notifier.error(reason);
+        });
+
+    };
 });
+

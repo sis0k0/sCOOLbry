@@ -14,13 +14,9 @@
               .col-md-9
                 input.form-control(type='password', placeholder='Password', ng-model='user.password', required='required')
             .form-group
-              label.col-md-2.control-label(for='recaptcha') RECAPTCHA Challenge
-              .col-md-9
-                div(re-captcha, ng-model='user.captcha')
-            .form-group
               .col-md-9.col-md-offset-2
                 .pull-right
-                    button.btn.btn-primary(ng-click='login(user)', ng-disabled='logInForm.$invalid') Login
+                    button.btn.btn-primary(ng-click='loginNoCaptcha(user)', ng-disabled='logInForm.$invalid') Login
                     a.btn.btn-danger(href="/", style="margin-left:0.2em") Cancel
 
 

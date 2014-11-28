@@ -9,14 +9,27 @@ module.exports = {
         db: 'mongodb://localhost/scoolbry',
         port: process.env.PORT || 3030,
         facebook: {
-            clentID: '1511950165721139',
-            clientSecret: '50654ed9ad9c437720974dbe782949ed',
-            callbackURL: 'http://127.0.0.1:3030/auth/facebook/callback'
-        }
+            clientID: '1512522278997261',
+            clientSecret: '95bfbb52c31bab56bedcb1011e617523',
+            callbackURL: 'http://localhost:3030/api/auth/facebook/callback'
+        },
+
+        twitter: {
+            consumerKey       : 'dn1vIPB9VhWZcF7hYVDpJFyZd',
+            consumerSecret    : '0vJOYrmYEnT8onw55aPwBXDPwNv0xpNXoWJVymFni6STfDzA9j',
+            callbackURL       : 'http://localhost:3030/api/auth/twitter/callback'
+        },
+        captcha: false
     },
     production: {
         rootPath: rootPath,
         db: 'mongodb://admin:test@ds053109.mongolab.com:53109/scoolbry',
-        port: process.env.PORT || 3030
+        port: process.env.PORT || 3030,
+        facebook: {
+            clientID: '1512522278997261',
+            clientSecret: '95bfbb52c31bab56bedcb1011e617523',
+            callbackURL: 'http://localhost:3030/api/auth/facebook/callback'
+        },
+        captcha: false
     }
 };

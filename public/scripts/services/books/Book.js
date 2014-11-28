@@ -1,7 +1,7 @@
 
 'use strict';
 
-app.factory('Book', function($q, $http, BookResource, LibraryBook) {
+app.factory('Book', function($q, $http, BookResource, LibraryBook, FavouriteBookAddResource) {
 	return {
 		add: function(book, libraryID) {
 			var deferred = $q.defer();
@@ -53,6 +53,21 @@ app.factory('Book', function($q, $http, BookResource, LibraryBook) {
 			});
 
 			return deferred.promise;
+		},
+		addFavourite: function(book) {
+			var deferred = $q.defer();
+			console.log(book);
+			var favouriteBook = new FavouriteBookAddResource(book);
+			console.log(favouriteBook);
+
+			favouriteBook.$save().then(function() {
+				deferred.resolve();
+			}, function(response) {
+				deferred.reject(response);
+			});
+
+			return deferred.promise;
+
 		}
 	};
 });

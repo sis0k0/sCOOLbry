@@ -22,8 +22,12 @@
                         img(ng-src="{{ user.avatar }}").img-responsive
                     .col-md-6
             .tab-pane.fade#favorites
-                p
-                    | favorites favorites favorites favorites favorites favorites favorites favorites favorites favorites favorites
+                h3
+                    | Favourite Books
+                ul(ng-hide='favouriteBooks.length==0')
+                    li(ng-repeat='book in favouriteBooks')
+                        a(href='/book/{{ book.bookID }}/{{ book.libraryID }}') {{ book.bookName }}
+                p(ng-hide='favouriteBooks.length!==0') No favourite books found.
 
             .tab-pane.fade#libraries
                 h1.text-center Library Subscriptions

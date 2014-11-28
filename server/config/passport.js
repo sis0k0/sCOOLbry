@@ -2,11 +2,11 @@
 
 var passport      = require('passport'),
     LocalPassport = require('passport-local'),
-    // path          = require('path'),
-    // utilities     = require('./utilities'),
     User          = require('mongoose').model('User');
 
-module.exports = function() {
+module.exports = function(config) {
+
+
 	passport.use(new LocalPassport(function(username, password, done) {
 		User.findOne({ username: username }).exec(function(err, user) {
 			if (err) {
@@ -23,6 +23,7 @@ module.exports = function() {
 		});
 	}));
 
+	
 	passport.serializeUser(function(user, done) {
 		if (user) {
 			return done(null, user._id);
@@ -45,7 +46,6 @@ module.exports = function() {
 		});
 	});
 
-	// utilities.walk('./config/strategies').forEach(function(strategyPath) {
-	// 	require(path.resolve(strategyPath))();
-	// });
+    require('./strategies/facebook.js')(config);
+    require('./strategies/twitter.js')(config);
 };
