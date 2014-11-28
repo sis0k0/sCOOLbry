@@ -62,7 +62,7 @@
       tr(ng-show='notFavourite===true && isMember===true')
         td
           h2 Add To Favourites
-          button.btn.btn-primary(ng-click="addFavourite()") Add This Book To Favourites
+          button.btn.btn-primary(ng-click="addFavourite(book.title, book.isbn)") Add This Book To Favourites
       tr(ng-show='notFavourite===false && isMember===true')
         td
           h2 Remove From Favourites

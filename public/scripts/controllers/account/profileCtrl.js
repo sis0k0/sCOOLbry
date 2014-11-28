@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ProfileCtrl', function($scope, identity, LibraryResource) {
+app.controller('ProfileCtrl', function($scope, identity, LibraryResource, FavouriteBookResource) {
     $scope.user = identity.currentUser;
 
     $scope.user.libraries = new Array();

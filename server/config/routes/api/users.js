@@ -34,6 +34,15 @@ module.exports = function(app, config) {
 			failureRedirect : '/'
 		}));
 
+	router.get('/auth/twitter', passport.authenticate('twitter'));
+
+	// handle the callback after twitter has authenticated the user
+	router.get('/auth/twitter/callback',
+		passport.authenticate('twitter', {
+			successRedirect : '/profile',
+			failureRedirect : '/'
+		}));
+
 	router.post('/images', controllers.users.uploadAvatar);
 
 	app.use('/api/', router);

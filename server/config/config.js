@@ -13,6 +13,12 @@ module.exports = {
             clientSecret: '95bfbb52c31bab56bedcb1011e617523',
             callbackURL: 'http://localhost:3030/api/auth/facebook/callback'
         },
+
+        twitter: {
+            consumerKey       : 'dn1vIPB9VhWZcF7hYVDpJFyZd',
+            consumerSecret    : '0vJOYrmYEnT8onw55aPwBXDPwNv0xpNXoWJVymFni6STfDzA9j',
+            callbackURL       : 'http://localhost:3030/api/auth/twitter/callback'
+        },
         captcha: false
     },
     production: {

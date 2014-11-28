@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http, LibraryUsersInteractions, notifier, $location, BookResource, LibraryReadingResource, LibBookResource, $window, LibraryResource) {
+app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http, $route, LibraryUsersInteractions, notifier, $location, BookResource, LibraryReadingResource, LibBookResource, $window, LibraryResource, Book) {
     
     $scope.showMore = true;
     $scope.book = BookResource.get({id: $routeParams.id}, function() {
@@ -59,6 +59,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
             $scope.booked = parseInt(data);
 
             if(identity.currentUser===undefined) {
+
                 $scope.isMember = false;
                 $scope.isLoggedIn = false;
             }else{
@@ -78,12 +79,9 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
                     }
                 });      
         
-                $scope.isLoggedIn = true;     
-            }
 
-        });
 
-        $http.get('/api/book/isFavourite/'+identity.currentUser._id+'/'+$routeParams.id).success(function(data){
+               $http.get('/api/book/isFavourite/'+identity.currentUser._id+'/'+$routeParams.id).success(function(data){
 
                     console.log(data);
                     if(data===true){
@@ -92,7 +90,13 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
                         $scope.notFavourite = true;
                     }
 
+                });
+
+                $scope.isLoggedIn = true;     
+            }
+
         });
+
         console.log($scope.quantity);
 
     }else{
@@ -173,6 +177,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
     };
 
     $scope.addFavourite = function(bookName, bookISBN) {
+       
         var favourite = new Object({});
         favourite.bookID = $routeParams.id;
         favourite.bookISBN = bookISBN;
@@ -181,14 +186,21 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
         favourite.userID = identity.currentUser._id;
 
         Book.addFavourite(favourite).then(function(){
-           notifier.success('Booking added successfully to favourites!');
-            $location.path('/libraries');
+            notifier.success('Booking added successfully to favourites!');
+            $route.reload();
            
         });
     };
 
     $scope.removeFavourite = function() {
-
+        var responsePromise = $http.get('/api/book/deleteFavourite'+'/'+$routeParams.id);
+        responsePromise.success(function(data) {
+            notifier.success('You\'ve removed this book from favourites successfully!');
+            $route.reload();
+        
+        }).error(function(reason) {
+            notifier.error(reason);
+        });
 
     };
 });
