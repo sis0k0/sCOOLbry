@@ -12,11 +12,11 @@ block main-content
 
       #site-navigation.navbar-collapse.collapse
 
-        form.navbar-form.navbar-left#search-header(role='search').vcenter
+        form.navbar-form.navbar-left#search-header(role='search', ng-controller="SearchCtrl").vcenter
           .form-group.input-group
-            input.form-control(type='text', placeholder='Search for books by title, author, genre, ISBN or citation')
+            input.form-control(type='text', ng-model="phrase" placeholder='Search for books by title, author, genre, ISBN or citation')
             .input-group-btn
-              button(type="submit").btn.btn-default
+              button(type="submit", ng-click="search(phrase)").btn.btn-default
                 i.glyphicon.glyphicon-search
 
 

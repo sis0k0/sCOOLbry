@@ -1,0 +1,24 @@
+.container
+  .well
+
+  h2.text-center Search Results
+  .col-md-11
+  div(ng-repeat='book in books | filter: phrase' ng-class-even="'row'" ng-class-odd="'md-col-6'")
+      .col-md-6
+          .col-xs-4(style='margin-top: 3em')
+            a(href='/book/{{ book._id }}/{{library._id}}')
+              img.img-responsive.img-thumbnail(src='{{book.cover}}', style='margin-top:10.5px')
+          .col-xs-8(style='margin-top: 3em')
+            a(href='/book/{{ book._id }}/{{library._id}}')
+              h4.text-info {{book.title | cut:true:35:'...'}}
+            div
+              span.text-bold.text-muted Publisher: 
+              span.text-info {{book.publisher}}
+            div
+              span.text-bold.text-muted Author: 
+              span.text-info {{ book.author }}
+            div.text-muted
+              span.text-bold ISBN: 
+              span {{ book.isbn }}
+  .row
+  

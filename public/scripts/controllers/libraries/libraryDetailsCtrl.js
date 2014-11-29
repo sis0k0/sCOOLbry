@@ -15,7 +15,6 @@ app.controller('LibraryDetailsPageCtrl', function($scope, $routeParams, $route, 
 		$scope.books = new Array();
 		for(var i=0; i<$scope.libBooks.length; i++) {
 			$scope.books[i] = BookResource.get({id: $scope.libBooks[i].bookID}, function() {
-				console.log($scope.books[i]);
 			});
 		}
 	});

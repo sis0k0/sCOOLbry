@@ -53,6 +53,10 @@ app.config(function($routeProvider) {
 			templateUrl: '/partials/books/book-details',
 			controller: 'BookDetailsCtrl'
 		})
+		.when('/search/:phrase', {
+			templateUrl: '/partials/books/book-search',
+			controller: 'SearchCtrl'
+		})
 
 
 		// 404 Page not found
