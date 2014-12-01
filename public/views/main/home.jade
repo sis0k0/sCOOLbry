@@ -1,26 +1,32 @@
 
 .container-fluid
-    .jumbotron#welcome-section
-        .row
-            .col-md-4.col-xs-4.vcenter
-                img(src="../../dist/images/hourglass.png").img-responsive
-            .col-md-8.col-xs-8.vcenter
-                 h1 Hundreds of books
-                 h2
-                    | Just&nbsp;
-                    a(href="/libraries") 1 click
-                    | &nbsp;away
-                 .btn-group-lg.text-center
-                     a(href="/libraries").btn.btn-info.btn-lg See libraries
-                     a(href="/signup", ng-show="!identity.isAuthenticated()").btn.btn-primary.btn-lg Sign up
+  .jumbotron#welcome-section
+    .row
+      .col-md-4.col-xs-4.vcenter
+        img(src="../../dist/images/hourglass.png").img-responsive
+      .col-md-8.col-xs-8.vcenter
+         h1 Hundreds of books
+         h2
+          | Just&nbsp;
+          a(href="/libraries") 1 click
+          | &nbsp;away
+         .btn-group-lg.text-center
+           a(href="/libraries").btn.btn-info.btn-lg See libraries
+           a(href="/signup", ng-show="!identity.isAuthenticated()").btn.btn-primary.btn-lg Sign up
+
+<div barcode-generator="some value to generate" style="height:208px;">
 
 .container#homepage-container
-    .row
-        .col-md-6
-            .panel.panel-info
-                .panel-heading.text-center Featured
-                .panel-body(ng-include="'/partials/main/featured-libraries'")
-        .col-md-6
-            .panel.panel-info
-                .panel-heading.text-center New
-                .panel-body(ng-include="'/partials/main/new-libraries'")
+  .row
+    .col-md-6
+      .panel.panel-info
+        .panel-heading.text-center Featured
+        .panel-body(ng-include="'/partials/main/featured-libraries'")
+    .col-md-6
+      .panel.panel-info
+        .panel-heading.text-center New
+        .panel-body(ng-include="'/partials/main/new-libraries'")
+
+
+
+
