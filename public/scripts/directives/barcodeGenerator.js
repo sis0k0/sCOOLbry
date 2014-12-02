@@ -17,12 +17,14 @@ app.directive('barcodeGenerator', [function() {
                 posY:			0
             },
             intval: function(val) {
-                var type	= typeof(val);
+                var type = typeof(val);
                 if ( type === 'string' ) {
                     val = val.replace(/[^0-9-.]/g, '');
                     val = parseInt(val * 1, 10);
                     return isNaN(val) || !isFinite(val)? 0: val;
                 }
+                console.log('intVal: ');
+                console.log(type === 'number' && isFinite(val)? Math.floor(val): 0);
                 return type === 'number' && isFinite(val)? Math.floor(val): 0;
             },
             code128: {
@@ -56,13 +58,13 @@ app.directive('barcodeGenerator', [function() {
                     '11010010000', '11010011100', '11000111010'
                 ],
                 getDigit: function(code) {
-                    var tableB	= ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
-                    var result	= '';
-                    var sum		= 0;
-                    var isum	= 0;
-                    var i		= 0;
-                    var j		= 0;
-                    var value	= 0;
+                    var tableB	= ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~',
+                        result	= '',
+                        sum		= 0,
+                        isum	= 0,
+                        i		= 0,
+                        j		= 0,
+                        value	= 0;
 
                     // check each characters
                     for(i=0; i<code.length; i++){
@@ -71,7 +73,7 @@ app.directive('barcodeGenerator', [function() {
                         }
                     }
 
-                    // check firsts characters : start with C table only if enought numeric
+                    // check firsts characters : start with C table only if enough numeric
                     var tableCActivated = code.length > 1;
                     var c = '';
 
@@ -91,7 +93,7 @@ app.directive('barcodeGenerator', [function() {
                     while ( i < code.length ) {
                         if ( !tableCActivated) {
                             j = 0;
-                            // check next character to activate C table if interresting
+                            // check next character to activate C table if interesting
                             while ( (i + j < code.length) && (code.charAt(i+j) >= '0') && (code.charAt(i+j) <= '9') ) {
                                 j++;
                             }
@@ -102,7 +104,7 @@ app.directive('barcodeGenerator', [function() {
                             if ( tableCActivated ){
                                 result += this.encoding[ 99 ]; // C table
                                 sum += ++isum * 99;
-                            } //		 2 min for table C so need table B
+                            } // 2 min for table C so need table B
                         } else if ( (i === code.length) || (code.charAt(i) < '0') || (code.charAt(i) > '9') || (code.charAt(i+1) < '0') || (code.charAt(i+1) > '9') ) {
                             tableCActivated = false;
                             result += this.encoding[ 100 ]; // B table
@@ -124,7 +126,8 @@ app.directive('barcodeGenerator', [function() {
                     result += this.encoding[106];// Stop
                     result += '11';// Termination bar
 
-                    return(result);
+                    console.log('result: ' + result);
+                    return result;
                 }
             },
             bitStringTo2DArray: function( digit) {//convert a bit string to an array of array of bit char
@@ -138,39 +141,68 @@ app.directive('barcodeGenerator', [function() {
                 return(d);
             },
             digitToCssRenderer: function( $container, settings, digit, hri, mw, mh, type) {// css barcode renderer
-                var lines = digit.length;
-                var columns = digit[0].length;
-                var content = '';
-                var len, current;
-                var bar0 = '<div class=\'w w%s\' ></div>';
-                var bar1 = '<div class=\'b b%s\' ></div>';
+                var lines = digit.length,
+                    columns = digit[0].length,
+                    content = '',
+                    len, current,
+                    // bar0 = '<div class=\'w w%s\' ></div>',
+                    // bar1 = '<div class=\'b b%s\' ></div>';
+                    canvas = document.createElement('canvas'),
+                    currentWidth = 0,
+                    ctx = canvas.getContext('2d');
+                    canvas.setAttribute('width', digit[0].length*mw);
+                    canvas.setAttribute('style', 'width: 600px; height:100px');
 
-                for ( var y=0, x; y<lines; y++) {
+                    console.log(mw);
+                    console.log(mh);
+
+                canvas.className = 'barcode '+ type +' clearfix-child';
+
+                console.log(arguments);
+
+                for (var x=0; x<lines; x++) {
                     len = 0;
-                    current = digit[y][0];
+                    current = digit[x][0];
 
-                    for ( x=0; x<columns; x++){
-                        if ( current === digit[y][x] ) {
+                    for (var y=0; y<columns; y++){
+                        console.log(content);
+                        if ( current === digit[x][y] ) {
                             len++;
                         } else {
-                            content += (current === '0'? bar0: bar1).replace('%s', len * mw);
-                            current = digit[y][x];
+
+//                            content += (current === '0'? bar0: bar1).replace('%s', len * mw);
+
+                            ctx.beginPath();
+                            ctx.fillStyle = current === '0' ? '#FFF' : '#000';
+                            ctx.fillRect(currentWidth, 0, len*mw, mh);
+                            currentWidth+=len*mw;
+
+                            current = digit[x][y];
                             len=1;
+                            console.log(ctx);
+                            console.log(currentWidth);
                         }
                     }
                     if ( len > 0) {
-                        content += (current === '0'? bar0: bar1).replace('%s', len * mw);
+//                            content += (current === '0'? bar0: bar1).replace('%s', len * mw);
+
+                            ctx.beginPath();
+                            ctx.fillStyle = current === '0' ? '#FFF' : '#000';
+                            ctx.fillRect(currentWidth, 0, len*mw, mh);
+                            currentWidth+=len*mw;
                     }
                 }
-
+                ctx.closePath();
                 if ( settings.showHRI) {
-                    content += '<div style="clear:both; width: 100%; background-color: ' + settings.bgColor + '; color: ' + settings.color + '; text-align: center; font-size: ' + settings.fontSize + 'px; margin-top: ' + settings.marginHRI + 'px;">'+hri+'</div>';
+                    content += '<div style=\'clear:both; width: 100%; background-color: ' + settings.bgColor + '; color: ' + settings.color + '; text-align: center; font-size: ' + settings.fontSize + 'px; margin-top: ' + settings.marginHRI + 'px;\'>'+hri+'</div>';
                 }
+                // var div = document.createElement('DIV');
+                // div.innerHTML = content;
+                // div.className = 'barcode '+ type +' clearfix-child';
+                // return div;
 
-                var div = document.createElement('DIV');
-                div.innerHTML = content;
-                div.className = 'barcode '+ type +' clearfix-child';
-                return div;
+                console.log(currentWidth);
+                return canvas;
             },
             digitToCss: function($container, settings, digit, hri, type) {// css 1D barcode renderer
                 var w = barcode.intval(settings.barWidth);
@@ -181,14 +213,12 @@ app.directive('barcodeGenerator', [function() {
         };
 
         var generate	= function(datas, type, settings) {
-            var
-                digit	= '',
+            var digit	= '',
                 hri		= '',
                 code	= '',
                 crc		= true,
                 rect	= false,
-                b2d		= false
-                ;
+                b2d		= false;
 
             if ( typeof(datas) === 'string') {
                 code = datas;
@@ -288,7 +318,7 @@ app.directive('barcodeGenerator', [function() {
         link: function(scope, element, attrs) {
             attrs.$observe('barcodeGenerator', function(value){
                 var code = new Barcode(value, 'code128',{barWidth:2}),
-                    codeWrapper = angular.element('<div class=\'barcode code128\'></div>');
+                    codeWrapper = angular.element('<div class="barcode code128 col-xs-12"></div>');
 
                 codeWrapper.append(code);
                 angular.element(element).html('').append(codeWrapper);
