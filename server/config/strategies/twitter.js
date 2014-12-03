@@ -35,7 +35,8 @@ module.exports = function(config) {
                     User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
                         console.log(profile);
                         newUser.username            = availableUsername;
-                        newUser.firstName           = profile.displayName;
+                        newUser.firstName           = profile.displayName.substring(0,profile.displayName.indexOf(' '));
+                        newUser.lastName            = profile.displayName.substring(profile.displayName.indexOf(' ') + 1, profile.displayName.length);
                         newUser.twitter.id          = profile.id;
                         newUser.twitter.token       = token;
                         newUser.twitter.username    = profile.username;
