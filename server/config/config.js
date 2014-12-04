@@ -19,7 +19,7 @@ module.exports = {
             consumerSecret    : '0vJOYrmYEnT8onw55aPwBXDPwNv0xpNXoWJVymFni6STfDzA9j',
             callbackURL       : 'http://localhost:3030/api/auth/twitter/callback'
         },
-        captcha: true
+        captcha: false
     },
     production: {
         rootPath: rootPath,

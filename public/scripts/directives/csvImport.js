@@ -26,7 +26,9 @@ app.directive('csvImport', function(notifier) {
 
 
 			element.on('change', function(onChangeEvent) {
-				if(onChangeEvent.target.files[0].type==='application/vnd.ms-excel')
+				console.log(onChangeEvent.target.files[0].type);
+				var mimetype = onChangeEvent.target.files[0].type;
+				if(mimetype==='application/vnd.ms-excel' || mimetype==='text/csv')
 				{
 					var reader = new FileReader();
 					reader.onload = function(onLoadEvent) {

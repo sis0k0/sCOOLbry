@@ -14,17 +14,21 @@ block main-content
 
         form.navbar-form.navbar-left#search-header(role='search', ng-controller="SearchCtrl").vcenter
           .form-group.input-group
-            input.form-control(type='text', ng-model="phrase" placeholder='Search for books by title, author, genre, ISBN or citation')
+            input.form-control(type='text', ng-model="phrase", ng-change="search(phrase)", placeholder='Search for books by title, author, genre, ISBN or citation')
             .input-group-btn
-              button(type="submit", ng-click="search(phrase)").btn.btn-default
+              button(type="submit", ng-click="searchDetails(phrase)").btn.btn-default
                 i.glyphicon.glyphicon-search
+            ul#book-resuls
+              li(ng-repeat="book in results")
+                a(href="/book/{{ book._id }}") {{ book.title }}
+              li(ng-show="results!==undefined && results.length===0" class="no-results") No Results Found
 
 
         ul#top-menu.nav.navbar-nav.navbar-right.vcenter(ng-controller="LogInCtrl")
           li
             a(href='/libraries') Libraries
           li(ng-show='!identity.isAuthenticated()')
-            a(href="/login") Log in
+            a(href="/login") Log In
           li(ng-show='!identity.isAuthenticated()')
             a(href="/signup").sign-up Sign Up
           li.dropdown(ng-show='!!identity.isAuthenticated()')

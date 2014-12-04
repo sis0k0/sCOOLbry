@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('EditBookLibraryCtrl', function($scope, $location, LibraryBook, LibBookResource2,BookResource, $routeParams) {
+app.controller('EditBookLibraryCtrl', function($scope, $location, LibraryBook, notifier, LibBookResource2,BookResource, $routeParams) {
 
 	$scope.libraryBook = LibBookResource2.get({id: $routeParams.id}, function() {
 		$scope.book = BookResource.get({id: $scope.libraryBook.bookID}, function() {

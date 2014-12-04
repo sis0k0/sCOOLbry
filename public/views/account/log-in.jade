@@ -26,7 +26,7 @@
 
           .col-md-5            
             .col-xs-10.col-xs-offset-1
-                .form-group
+                .form-group(style='margin-top:2em')
                     a.btn.btn-lg.btn-facebook.btn-block(href="api/auth/facebook", target="_blank")
                         i.fa.fa-facebook
                         |&nbsp; Connect with Facebook
@@ -35,6 +35,6 @@
                         i.fa.fa-twitter
                         |&nbsp; Connect with Twitter
                 .form-group
-                    btn.btn.btn-lg.btn-google-plus.btn-block
-                        i.fa.fa-google-plus
-                        |&nbsp; Connect with Google+
+                  btn.btn.btn-lg.btn-google-plus.btn-block(href="api/auth/google-plus", target="_blank")
+                    i.fa.fa-google-plus
+                    |&nbsp; Connect with Google+

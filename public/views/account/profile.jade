@@ -34,6 +34,8 @@
                 p
                     div(ng-repeat='library in user.libraries')
                         h3.text-info {{ library.name }}
+                    div(ng-repeat='booking in bookings')
+                        h4.text-success {{booking}}
 
 
 

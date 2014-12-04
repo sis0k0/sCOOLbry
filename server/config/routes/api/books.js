@@ -17,7 +17,7 @@ module.exports = function(app) {
 	router.get('/book/booksinprint/:isbn', auth.isInRole('librarian'), controllers.books.scrapBookByISBN);
 	router.get('/book/amazonSearch/:isbn', auth.isInRole('librarian'), controllers.books.searchBookInAmazon);
 	router.get('/book/googleBooksSearch/:isbn', auth.isInRole('librarian'), controllers.books.searchBookInGoogleBooks);
-	router.get('/book/search/:phrase',  controllers.books.getAllBooksSearchable);
+	router.get('/book/search/:phrase/:limit',  controllers.books.getAllBooksSearchable);
 	
 
 	router.get('/book/sort/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.books.getAllBooksSortable);

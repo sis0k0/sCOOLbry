@@ -4,6 +4,8 @@ var Booking = require('mongoose').model('Booking');
 
 module.exports = function(req, res) {
 	var newBookingData = req.body;
+
+	//TODO: check for avail.
 	
 	Booking.create(newBookingData, function(err, booking) {
 		if (err) {
