@@ -23,8 +23,6 @@ app.directive('barcodeGenerator', [function() {
                     val = parseInt(val * 1, 10);
                     return isNaN(val) || !isFinite(val)? 0: val;
                 }
-                console.log('intVal: ');
-                console.log(type === 'number' && isFinite(val)? Math.floor(val): 0);
                 return type === 'number' && isFinite(val)? Math.floor(val): 0;
             },
             code128: {
@@ -143,18 +141,14 @@ app.directive('barcodeGenerator', [function() {
             digitToCssRenderer: function( $container, settings, digit, hri, mw, mh, type) {// css barcode renderer
                 var lines = digit.length,
                     columns = digit[0].length,
-                    content = '',
                     len, current,
-                    // bar0 = '<div class=\'w w%s\' ></div>',
-                    // bar1 = '<div class=\'b b%s\' ></div>';
                     canvas = document.createElement('canvas'),
                     currentWidth = 0,
                     ctx = canvas.getContext('2d');
                     canvas.setAttribute('width', digit[0].length*mw);
-                    canvas.setAttribute('style', 'width: 600px; height:100px');
 
-                    console.log(mw);
-                    console.log(mh);
+                    var style = 'width: 300px; background: #fff;';
+                    canvas.setAttribute('style', style);
 
                 canvas.className = 'barcode '+ type +' clearfix-child';
 
@@ -165,43 +159,36 @@ app.directive('barcodeGenerator', [function() {
                     current = digit[x][0];
 
                     for (var y=0; y<columns; y++){
-                        console.log(content);
                         if ( current === digit[x][y] ) {
                             len++;
                         } else {
 
-//                            content += (current === '0'? bar0: bar1).replace('%s', len * mw);
-
-                            ctx.beginPath();
-                            ctx.fillStyle = current === '0' ? '#FFF' : '#000';
-                            ctx.fillRect(currentWidth, 0, len*mw, mh);
+                            if(current!=='0') {
+                                ctx.beginPath();
+                                ctx.fillStyle = '#000';
+                                ctx.fillRect(currentWidth, 0, len*mw, mh);
+                            }
                             currentWidth+=len*mw;
-
                             current = digit[x][y];
                             len=1;
-                            console.log(ctx);
-                            console.log(currentWidth);
                         }
                     }
                     if ( len > 0) {
-//                            content += (current === '0'? bar0: bar1).replace('%s', len * mw);
-
-                            ctx.beginPath();
-                            ctx.fillStyle = current === '0' ? '#FFF' : '#000';
-                            ctx.fillRect(currentWidth, 0, len*mw, mh);
+                            if(current!=='0') {
+                                ctx.beginPath();
+                                ctx.fillStyle = '#000';
+                                ctx.fillRect(currentWidth, 0, len*mw, mh);
+                            }
                             currentWidth+=len*mw;
                     }
                 }
                 ctx.closePath();
                 if ( settings.showHRI) {
-                    content += '<div style=\'clear:both; width: 100%; background-color: ' + settings.bgColor + '; color: ' + settings.color + '; text-align: center; font-size: ' + settings.fontSize + 'px; margin-top: ' + settings.marginHRI + 'px;\'>'+hri+'</div>';
+                    //content += '<div style=\'clear:both; width: 100%; background-color: ' + settings.bgColor + '; color: ' + settings.color + '; text-align: center; font-size: ' + settings.fontSize + 'px; margin-top: ' + settings.marginHRI + 'px;\'>'+hri+'</div>';
                 }
-                // var div = document.createElement('DIV');
-                // div.innerHTML = content;
-                // div.className = 'barcode '+ type +' clearfix-child';
-                // return div;
 
                 console.log(currentWidth);
+
                 return canvas;
             },
             digitToCss: function($container, settings, digit, hri, type) {// css 1D barcode renderer
@@ -314,13 +301,57 @@ app.directive('barcodeGenerator', [function() {
         return generate;
     }());
 
+    var IDCard = (function() {
+
+        var generate = function(barcode,user) {
+            var canvas = document.createElement('canvas'),
+                ctx = canvas.getContext('2d');
+
+                canvas.setAttribute('width', barcode.width);
+                var style = 'width: 250px; background: #fff; height: 100%';
+                canvas.setAttribute('style', style);
+                canvas.setAttribute('height', 300);
+
+
+                ctx.beginPath();
+                ctx.font = '25px Arial';
+                ctx.fillText('ID Card', 20, 70);
+
+                ctx.beginPath();
+                ctx.font = '25px Arial';
+                ctx.fillText('sCOOLbry', 200, 70);
+
+
+                ctx.beginPath();
+                ctx.drawImage(barcode, 0, 100);
+
+                ctx.beginPath();
+                ctx.font = '25px Arial';
+                var name = user.firstName + ' ' + user.lastName;
+                console.log(name);
+                ctx.fillText(name, 50, 200);
+
+
+                return canvas;
+
+
+        };
+
+        return generate;
+    }());
+
+
     return {
         link: function(scope, element, attrs) {
-            attrs.$observe('barcodeGenerator', function(value){
-                var code = new Barcode(value, 'code128',{barWidth:2}),
-                    codeWrapper = angular.element('<div class="barcode code128 col-xs-12"></div>');
+            attrs.$observe('barcodeGenerator', function(userString){
 
-                codeWrapper.append(code);
+                var user = JSON.parse(userString),
+                    barcode = new Barcode('abcde12345', 'code128',{barWidth:2}),
+                    codeWrapper = angular.element('<div class="barcode code128 col-xs-12"></div>'),
+                    card = new IDCard(barcode, user);
+
+
+                codeWrapper.append(card);
                 angular.element(element).html('').append(codeWrapper);
 
             });
