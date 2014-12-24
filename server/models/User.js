@@ -2,9 +2,15 @@
 
 var mongoose   = require('mongoose'),
     roles      = require('../filters/usersRoles'),
-    encryption = require('../utilities/encryption');
+    encryption = require('../utilities/encryption'),
+    shortId    = require('shortid');
 
 var userSchema = mongoose.Schema({
+    id: {
+        type: String,
+        unique: true,
+        'default': shortId.generate
+    },
     username: { 
         type: String,
         require: '{PATH} is required',

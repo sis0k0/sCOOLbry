@@ -3,7 +3,7 @@
 var auth        = require('../../auth'),
 	controllers = require('../../../controllers'),
 	express     = require('express'),
-	passport     = require('passport'),
+	passport    = require('passport'),
 	router      = express.Router();
 
 module.exports = function(app, config) {
@@ -12,6 +12,10 @@ module.exports = function(app, config) {
 	router.get('/users/search/:phrase', auth.isInRole('admin'), controllers.users.getAllUsersSearchable);
 	router.get('/userInfo/:id', auth.isInRole('librarian'), controllers.users.getUserById);
 	router.get('/user/delete/:id', auth.isInRole('admin'), controllers.users.deleteUserById);
+
+	router.get('/user/:id', controllers.users.getUserByShortId);
+
+
 	if(config.captcha===false) {
 		router.post('/users', controllers.users.createUser);
 	}else{

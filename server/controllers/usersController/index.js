@@ -10,6 +10,7 @@ module.exports = {
 	getAllUsersSortable: require('./getAllUsersSortable'),
 	getUserByEmail: require('./getUserByEmail'),
 	getUserById: require('./getUserById'),
+	getUserByShortId: require('./getUserByShortId'),
 	getUserByUsername: require('./getUserByUsername'),
 	getUserCount: require('./getUserCount'),
 	updateUser: require('./updateUser'),

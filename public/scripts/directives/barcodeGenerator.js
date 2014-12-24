@@ -346,7 +346,7 @@ app.directive('barcodeGenerator', [function() {
             attrs.$observe('barcodeGenerator', function(userString){
 
                 var user = JSON.parse(userString),
-                    barcode = new Barcode('abcde12345', 'code128',{barWidth:2}),
+                    barcode = new Barcode(user._id, 'code128',{barWidth:2}),
                     codeWrapper = angular.element('<div class="barcode code128 col-xs-12"></div>'),
                     card = new IDCard(barcode, user);
 

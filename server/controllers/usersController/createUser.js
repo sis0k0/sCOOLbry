@@ -13,6 +13,8 @@ module.exports = function(req, res) {
 			return;
 		}
 
+		console.log(user);
+
 		if(req.hasOwnProperty('user') && req.user.roles.indexOf('admin')>-1) {
 			res.send(user);
 		} else {

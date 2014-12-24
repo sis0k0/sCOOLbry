@@ -21,7 +21,6 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
     $scope.range = function(n) {
         return new Array(n);
     };
-    
 
     $scope.getPagesCount = function(){
         $scope.booksCount = $scope.books.length;
