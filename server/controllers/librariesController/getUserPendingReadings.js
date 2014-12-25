@@ -7,7 +7,7 @@ module.exports = function(req, res) {
 
 	var history = [];
 
-	Reading.find({userID: req.params.userID, libraryID: req.params.libraryID}).exec(function(err, collection) {
+	Reading.find({userID: req.params.userID, libraryID: req.params.libraryID, returnDate: undefined}).exec(function(err, collection) {
 		if (err) {
 			console.log('Readings could not be loaded: ' + err);
 		}
@@ -19,7 +19,7 @@ module.exports = function(req, res) {
 		console.log(now);
 
 
-		Booking.find({userID: req.params.userID, libraryID: req.params.libraryID}).exec(function(err, collection) {
+		Booking.find({userID: req.params.userID, libraryID: req.params.libraryID, bookDate: {$gte: now }}).exec(function(err, collection) {
 			if(err) {
 				console.log('Bookings could not be loaded: ' + err);
 			}

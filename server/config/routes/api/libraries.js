@@ -35,8 +35,11 @@ module.exports = function(app) {
 	// Unsubscribe
 	router.get('/library/delete-user/:id/:libraryID', auth.isAuthenticatedOrInRole('librarian'), controllers.libraries.deleteLibraryUser);
 
-	// Get user reading history (State param - for pending or for all history)
-	router.get('/library/:libraryID/:userID', controllers.libraries.getUserReadingHistory);
+	// Get user reading history
+	router.get('/library/history/:libraryID/:userID', controllers.libraries.getUserReadingHistory);
+
+	// Get user pending readings and bookings
+	router.get('/library/pending/:libraryID/:userID', controllers.libraries.getUserPendingReadings);
 
 
 	router.post('/library/add-reading', auth.isInRole('librarian'), controllers.libraries.takeBook);

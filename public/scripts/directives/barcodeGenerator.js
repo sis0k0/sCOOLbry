@@ -7,7 +7,7 @@ app.directive('barcodeGenerator', [function() {
                 barWidth:		1,
                 barHeight:		50,
                 moduleSize:		5,
-                showHRI:		false,
+                showHRI:		true,
                 addQuietZone:	true,
                 marginHRI:		5,
                 bgColor:		'#FFFFFF',
@@ -138,7 +138,7 @@ app.directive('barcodeGenerator', [function() {
 
                 return(d);
             },
-            digitToCssRenderer: function( $container, settings, digit, hri, mw, mh, type) {// css barcode renderer
+            digitToCssRenderer: function( $container, settings, digit, hri, mw, mh) {// css barcode renderer
                 var lines = digit.length,
                     columns = digit[0].length,
                     len, current,
@@ -147,10 +147,10 @@ app.directive('barcodeGenerator', [function() {
                     ctx = canvas.getContext('2d');
                     canvas.setAttribute('width', digit[0].length*mw);
 
-                    var style = 'width: 300px; background: #fff;';
+                    var style = 'width: 400px; background: #fff;';
                     canvas.setAttribute('style', style);
 
-                canvas.className = 'barcode '+ type +' clearfix-child';
+                canvas.className = 'barcode code128 clearfix-child';
 
                 console.log(arguments);
 
@@ -183,23 +183,20 @@ app.directive('barcodeGenerator', [function() {
                     }
                 }
                 ctx.closePath();
-                if ( settings.showHRI) {
-                    //content += '<div style=\'clear:both; width: 100%; background-color: ' + settings.bgColor + '; color: ' + settings.color + '; text-align: center; font-size: ' + settings.fontSize + 'px; margin-top: ' + settings.marginHRI + 'px;\'>'+hri+'</div>';
-                }
 
                 console.log(currentWidth);
 
                 return canvas;
             },
-            digitToCss: function($container, settings, digit, hri, type) {// css 1D barcode renderer
+            digitToCss: function($container, settings, digit, hri) {// css 1D barcode renderer
                 var w = barcode.intval(settings.barWidth);
                 var h = barcode.intval(settings.barHeight);
 
-                return this.digitToCssRenderer($container, settings, this.bitStringTo2DArray(digit), hri, w, h, type);
+                return this.digitToCssRenderer($container, settings, this.bitStringTo2DArray(digit), hri, w, h);
             }
         };
 
-        var generate	= function(datas, type, settings) {
+        var generate	= function(datas, settings) {
             var digit	= '',
                 hri		= '',
                 code	= '',
@@ -229,61 +226,9 @@ app.directive('barcodeGenerator', [function() {
                 }
             }
 
-            switch (type) {
-                case 'std25':
-                case 'int25': {
-                    digit = barcode.i25.getDigit(code, crc, type);
-                    hri = barcode.i25.compute(code, crc, type);
-                    break;
-                }
-                case 'ean8':
-                case 'ean13': {
-                    digit = barcode.ean.getDigit(code, type);
-                    hri = barcode.ean.compute(code, type);
-                    break;
-                }
-                case 'upc': {
-                    digit = barcode.upc.getDigit(code);
-                    hri = barcode.upc.compute(code);
-                    break;
-                }
-                case 'code11': {
-                    digit	= barcode.code11.getDigit(code);
-                    hri	= code;
-                    break;
-                }
-                case 'code39': {
-                    digit = barcode.code39.getDigit(code);
-                    hri = code;
-                    break;
-                }
-                case 'code93': {
-                    digit = barcode.code93.getDigit(code, crc);
-                    hri = code;
-                    break;
-                }
-                case 'code128': {
-                    digit = barcode.code128.getDigit(code);
-                    hri = code;
-                    break;
-                }
-                case 'codabar': {
-                    digit = barcode.codabar.getDigit(code);
-                    hri = code;
-                    break;
-                }
-                case 'msi': {
-                    digit = barcode.msi.getDigit(code, crc);
-                    hri = barcode.msi.compute(code, crc);
-                    break;
-                }
-                case 'datamatrix': {
-                    digit = barcode.datamatrix.getDigit(code, rect);
-                    hri = code;
-                    b2d = true;
-                    break;
-                }
-            }
+            digit = barcode.code128.getDigit(code);
+            hri = code;
+
 
             if ( digit.length === 0) {
                 return this;
@@ -295,7 +240,7 @@ app.directive('barcodeGenerator', [function() {
 
             var fname = 'digitToCss' + (b2d ? '2D' : '');
 
-            return barcode[fname](this, settings, digit, hri, type);
+            return barcode[fname](this, settings, digit, hri);
         };
 
         return generate;
@@ -307,29 +252,42 @@ app.directive('barcodeGenerator', [function() {
             var canvas = document.createElement('canvas'),
                 ctx = canvas.getContext('2d');
 
-                canvas.setAttribute('width', barcode.width);
-                var style = 'width: 250px; background: #fff; height: 100%';
+                canvas.setAttribute('width', barcode.width+50);
+                var style = 'width: 350px; background: #fff; height: 100%';
                 canvas.setAttribute('style', style);
-                canvas.setAttribute('height', 300);
+                canvas.setAttribute('height', 200);
+
+
+                var backgroundGradient = ctx.createLinearGradient(0, 0, 0, 80);
+                backgroundGradient.addColorStop(0, '#f60');
+                backgroundGradient.addColorStop(1, 'white');
+                ctx.fillStyle = backgroundGradient;
+                ctx.fillRect(0, 0, 350, 350);
 
 
                 ctx.beginPath();
                 ctx.font = '25px Arial';
-                ctx.fillText('ID Card', 20, 70);
+                ctx.fillStyle = '#FFF';
+                ctx.fillText('ID Card', 20, 45);
 
                 ctx.beginPath();
-                ctx.font = '25px Arial';
-                ctx.fillText('sCOOLbry', 200, 70);
+                ctx.fillText('sCOOLbry', 200, 45);
 
 
                 ctx.beginPath();
-                ctx.drawImage(barcode, 0, 100);
+                ctx.drawImage(barcode, 25, 70);
 
                 ctx.beginPath();
-                ctx.font = '25px Arial';
                 var name = user.firstName + ' ' + user.lastName;
                 console.log(name);
-                ctx.fillText(name, 50, 200);
+                ctx.fillText(name, 60, 170);
+
+                ctx.beginPath();
+                ctx.font = '20px Arial';
+                ctx.fillText(user._id, 120, 140);
+
+
+
 
 
                 return canvas;
@@ -346,7 +304,7 @@ app.directive('barcodeGenerator', [function() {
             attrs.$observe('barcodeGenerator', function(userString){
 
                 var user = JSON.parse(userString),
-                    barcode = new Barcode(user._id, 'code128',{barWidth:2}),
+                    barcode = new Barcode(user._id,{barWidth:2}),
                     codeWrapper = angular.element('<div class="barcode code128 col-xs-12"></div>'),
                     card = new IDCard(barcode, user);
 

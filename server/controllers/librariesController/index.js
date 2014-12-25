@@ -25,6 +25,7 @@ module.exports = {
 	getLibraryUsersById: require('./getLibraryUsersById'),
 	getLibraryUsersCount: require('./getLibraryUsersCount'),
 	getLibraryUsersInLibraryCount: require('./getLibraryUsersInLibraryCount'),
+	getUserPendingReadings: require('./getUserPendingReadings'),
 	getUserReadingHistory: require('./getUserReadingHistory'),
 	isBookAvailable: require('./isBookAvailable'),
 	isMember: require('./isMember'),
