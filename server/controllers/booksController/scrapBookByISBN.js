@@ -5,8 +5,30 @@ var	request         = require('request'),
 
 module.exports = function(req, res) {
 
-	var isbn = req.params.isbn,
-		url  = 'http://www.booksinprint.bg/Publication/Search?SearchCriteria=ISBN%3A' + isbn + '%3AAnd&page=1';
+	var isbn = req.params.isbn;
+
+	// The search at booksinprint.bg requires the isbn to have '-'
+	var insertAtString = function (index, string, stringToInsert) {
+		if (index > 0) {
+			return string.substring(0, index) + stringToInsert + string.substring(index, string.length);
+		}
+		else{
+			return stringToInsert + string;
+		}
+	};
+
+	if(isbn.indexOf('-')===-1) {
+		isbn = (isbn.length===13) ? isbn.substring(6, isbn.length) : isbn.substring(3, isbn.length);
+
+		isbn = (isbn[0] === '8' || isbn[0] === '9') ? insertAtString(4, isbn, '-') : insertAtString(3, isbn, '-');
+
+		isbn = insertAtString(isbn.length-1, isbn, '-');
+
+	}
+
+	// Make a request to the website and scrap the content
+
+	var url = 'http://www.booksinprint.bg/Publication/Search?SearchCriteria=ISBN%3A' + isbn + '%3AAnd&page=1';
 
 	request(url, function(error, response, html){
 
@@ -15,9 +37,11 @@ module.exports = function(req, res) {
 			res.send(false);
 		}else{
 
-			var $ = cheerio.load(html);
-			var bookUrl = $('#resultsContainer .title a').attr('href');
 
+			var $ = cheerio.load(html),
+				bookUrl = $('#resultsContainer .title a').attr('href');
+
+			// If the search results containt a book, make a request to its inner page and scrap the content
 			if(!!bookUrl)
 			{
 				bookUrl = 'http://www.booksinprint.bg' + bookUrl;
@@ -28,10 +52,10 @@ module.exports = function(req, res) {
 					}else{
 						var $ = cheerio.load(html);
 
+						// Scrap all labels
 						var labels = [];
 						$('.display-label').each(function() { 
 							var content = $(this).text();
-
 
 							content = content.replace('\n', '');
 							content = content.replace('\r', '');
@@ -41,6 +65,7 @@ module.exports = function(req, res) {
 
 						});
 
+						// Scrap all fields
 						var fields = [];
 						$('.display-field').each(function() { 
 
@@ -58,8 +83,8 @@ module.exports = function(req, res) {
 							fields.push(content);
 						});
 
+						// Match the labels to the fields in one object
 						var json = {};
-
 						for(var i=0; i<labels.length; i++){
 							if(!!labels[i] && fields[i]){
 								json[labels[i]] = fields[i];
@@ -127,7 +152,7 @@ module.exports = function(req, res) {
 						if(json.hasOwnProperty('Страници')) {
 							book.pages = json['Страници'];
 						}
-
+						console.log('booksinprint');
 						res.send(book);
 
 

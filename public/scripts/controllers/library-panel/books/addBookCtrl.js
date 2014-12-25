@@ -151,6 +151,11 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
     }
 
     $scope.findBook = function() {
+
+        $scope.searchState = undefined;
+        $scope.found = undefined;
+        angular.element('#searchByIsbnButton').trigger('click');
+
         var bookPromise = bookSearch.search($scope.ISBNSearch);
         bookPromise.then(function success(data) {
             $scope.books = new Array();
@@ -159,7 +164,9 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
             $scope.displayForm = true;
             $scope.searchState = true;
         }, function error(msg) {
+            angular.element('#searchByIsbn').select();
             $scope.searchState = false;
+            $scope.found = false;
         });
     }
 

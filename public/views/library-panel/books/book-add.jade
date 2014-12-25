@@ -16,8 +16,8 @@ include ../panel
             .col-md-4.text-center
               h3 Find book by ISBN
               .col-xs-8(style='padding:0')
-                input.form-control(name='isbn', type='text', placeholder='ISBN', style='border-radius: 0', ng-model='ISBNSearch', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/', autofocus, ng-keypress="($event.which === 13) ? findBook() : 0")
-              button.btn.btn-success.pull-right.col-xs-4(style='border-radius: 0', loading-button, data-loading-text='Searching...',  ng-disabled='!ISBNSearch', ng-click='findBook()') Search
+                input.form-control(name='isbn', id='searchByIsbn', type='text', placeholder='ISBN', style='border-radius: 0', ng-model='ISBNSearch', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/', autofocus, ng-keypress="($event.which === 13 && !!ISBNSearch) ? findBook() : 0")
+              button.btn.btn-success.pull-right.col-xs-4(id='searchByIsbnButton', style='border-radius: 0', loading-button, data-loading-text='Searching...',  ng-disabled='!ISBNSearch', ng-click='findBook()') Search
             
             .import.ng-isolate-scope(csv-import content='csv.content', header='csv.header', separator='csv.separator', result='csv.result')
 

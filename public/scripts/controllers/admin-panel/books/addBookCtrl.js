@@ -12,42 +12,42 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 		console.log(err);
 	});
 
-    // Set pagination
+	// Set pagination
 
-    $scope.page = 1;
-    $scope.perPage = 3;
-    $scope.field = '_id';
-    
-    $scope.range = function(n) {
-        return new Array(n);
-    };
+	$scope.page = 1;
+	$scope.perPage = 3;
+	$scope.field = '_id';
+	
+	$scope.range = function(n) {
+		return new Array(n);
+	};
 
-    $scope.getPagesCount = function(){
-        $scope.booksCount = $scope.books.length;
-        $scope.pagesCount = Math.ceil($scope.booksCount/$scope.perPage);
-        return $scope.pagesCount;
-    };
+	$scope.getPagesCount = function(){
+		$scope.booksCount = $scope.books.length;
+		$scope.pagesCount = Math.ceil($scope.booksCount/$scope.perPage);
+		return $scope.pagesCount;
+	};
 
-    $scope.setPage = function(page, event){
-        
-        $scope.page = page;
+	$scope.setPage = function(page, event){
+		
+		$scope.page = page;
 
-        $anchorScroll();
+		$anchorScroll();
 
-        angular.element('.pagination li').removeClass('active');
-        angular.element('#'+event.target.id).parent().addClass('active');
-    };
-    
-    $scope.setPerPage = function(perPage){
-        $scope.perPage = perPage;
-    };
+		angular.element('.pagination li').removeClass('active');
+		angular.element('#'+event.target.id).parent().addClass('active');
+	};
+	
+	$scope.setPerPage = function(perPage){
+		$scope.perPage = perPage;
+	};
 
 
 	// Define schema's fields
 
 	var fieldsOptions = new Array(), fieldsOptionsCopy = new Array();
-    $scope.fields = new Array();
-    $scope.matches = new Array();
+	$scope.fields = new Array();
+	$scope.matches = new Array();
 	fieldsOptions.push('isbn');
 	fieldsOptions.push('title');
 	fieldsOptions.push('author');
@@ -62,152 +62,158 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 	fieldsOptions.push('edition');
 	fieldsOptions.push('illustrated');
 	fieldsOptions.push('published');
-    fieldsOptionsCopy = fieldsOptions;
+	fieldsOptionsCopy = fieldsOptions;
 
-    for(var i = 0; i < 10; i++){
-        $scope.fields.push(fieldsOptions);
-    }
+	for(var i = 0; i < 10; i++){
+		$scope.fields.push(fieldsOptions);
+	}
 
-    $scope.updateSelections = function(key, value) {
-        $scope.matches[key] = value;
-        for(var i = 0; i < Object.keys($scope.csv.result[0]).length; i++) {
-            $scope.fields[i] = [];
-            for(var j = 0; j < fieldsOptionsCopy.length; j++){
-                if(!($scope.matches.indexOf(fieldsOptionsCopy[j])>=0)) {
-                    $scope.fields[i].push(fieldsOptionsCopy[j]);
-                }
-            }
-        }
+	$scope.updateSelections = function(key, value) {
+		$scope.matches[key] = value;
+		for(var i = 0; i < Object.keys($scope.csv.result[0]).length; i++) {
+			$scope.fields[i] = [];
+			for(var j = 0; j < fieldsOptionsCopy.length; j++){
+				if(!($scope.matches.indexOf(fieldsOptionsCopy[j])>=0)) {
+					$scope.fields[i].push(fieldsOptionsCopy[j]);
+				}
+			}
+		}
 
-        $scope.matches.forEach(function(element, index) {
-            $scope.fields[index].push(element);
-        });
+		$scope.matches.forEach(function(element, index) {
+			$scope.fields[index].push(element);
+		});
 
-    }
+	}
 
 
-    $scope.showCSVForms = function(includeTopRow) {
-        $scope.books = new Array();
-        var b=-1;
+	$scope.showCSVForms = function(includeTopRow) {
+		$scope.books = new Array();
+		var b=-1;
 
-        var i;
-        if(includeTopRow==='true') {
-            i=0;
-        } else {
-            i=1;
-        }
+		var i;
+		if(includeTopRow==='true') {
+			i=0;
+		} else {
+			i=1;
+		}
 
-        for(i; i<$scope.csv.result.length; i++) {
+		for(i; i<$scope.csv.result.length; i++) {
 
-            b++;
-            $scope.books[b] = new Object({});
+			b++;
+			$scope.books[b] = new Object({});
 
-            for(var j=0; j<$scope.csv.result[i].length; j++) {
-                if(typeof($scope.matches[j]) !== 'undefined') {
-                    $scope.books[b][$scope.matches[j]] = $scope.csv.result[i][j];
-                }
-            }
-        }
-        $scope.displayForm = true;
+			for(var j=0; j<$scope.csv.result[i].length; j++) {
+				if(typeof($scope.matches[j]) !== 'undefined') {
+					$scope.books[b][$scope.matches[j]] = $scope.csv.result[i][j];
+				}
+			}
+		}
+		$scope.displayForm = true;
 
-        $anchorScroll();
-    }
+		$anchorScroll();
+	}
 
-    // Remove book form
+	// Remove book form
 
-    $scope.removeBookForm = function(index) {
-        $scope.books.splice(index,1);
-        notifier.success('Book Form removed successfully!');
-        if($scope.books.length<1) {
-            $scope.displayForm = false;
-            $scope.csv = false;
-            $scope.searchState = undefined;
-        }
-    }
+	$scope.removeBookForm = function(index) {
+		$scope.books.splice(index,1);
+		notifier.success('Book Form removed successfully!');
+		if($scope.books.length<1) {
+			$scope.displayForm = false;
+			$scope.csv = false;
+			$scope.searchState = undefined;
+		}
+	}
 
 	// Add book
 
-    $scope.addBook = function(book, index) {
-        Book.add(book).then(function() {
-            console.log('book added');
-            notifier.success('Book added successfully!');
+	$scope.addBook = function(book, index) {
+		Book.add(book).then(function() {
+			console.log('book added');
+			notifier.success('Book added successfully!');
 
-            $scope.books.splice(index,1);
-            if($scope.books.length<1) {
-                $window.location.href = '/admin/books';
-            };
+			$scope.books.splice(index,1);
+			if($scope.books.length<1) {
+				$window.location.href = '/admin/books';
+			};
 
-        }, function(reason){
-            console.log('error');
-            notifier.error(reason);
-        });
-    };
+		}, function(reason){
+			console.log('error');
+			notifier.error(reason);
+		});
+	};
 
-    $scope.newForm = function() {
-    	$scope.books = new Array();
+	$scope.newForm = function() {
+		$scope.books = new Array();
  		$scope.books[0] = new Object({});
  		$scope.displayForm = true;
-        $scope.searchState = undefined;
-    }
+		$scope.searchState = undefined;
+	}
 
-    $scope.findBook = function() {
-    	var bookPromise = bookSearch.search($scope.ISBNSearch);
-    	bookPromise.then(function success(data) {
-            if(data.foundInDatabase===true) {
-                $scope.searchState = false;
-                $scope.bookURL = "/admin/book/" + data._id;
-            } else {
-                $scope.books = new Array();
-                data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
-                $scope.books[0] = data;
-                $scope.displayForm = true;
-                $scope.searchState = true;
-            }
-    	}, function error(msg) {
-            $scope.searchState = false;
-            $scope.found = false;
-    	});
-    }
+	$scope.findBook = function() {
 
-    // Upload certificate
-    $scope.displayForm = false;
+		$scope.searchState = undefined;
+		$scope.found = undefined;
+		angular.element('#searchByIsbnButton').trigger('click');
 
-    $scope.setFileEventListener = function(element) {
-        if($scope.books==undefined) {
-            $scope.books[0] = new Object({});
-        }
-        $scope.uploadedFile = element.files[0];
+		var bookPromise = bookSearch.search($scope.ISBNSearch);
+		bookPromise.then(function success(data) {
+			if(data.foundInDatabase===true) {
+				$scope.searchState = false;
+				$scope.bookURL = "/admin/book/" + data._id;
+			} else {
+				$scope.books = new Array();
+				data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
+				$scope.books[0] = data;
+				$scope.displayForm = true;
+				$scope.searchState = true;
+			}
+		}, function error(msg) {
+			$scope.searchState = false;
+			$scope.found = false;
+			angular.element('#searchByIsbn').select();
+		});
+	}
 
-        if ($scope.uploadedFile) {
-            $scope.$apply(function() {
-                $scope.uploadButtonState = true;
-            });
-        }
-    };
+	// Upload certificate
+	$scope.displayForm = false;
 
-    $scope.uploadFile = function(index) {
-        if (!$scope.uploadedFile) {
-            return;
-        }
+	$scope.setFileEventListener = function(element) {
+		if($scope.books==undefined) {
+			$scope.books[0] = new Object({});
+		}
+		$scope.uploadedFile = element.files[0];
 
-        ajaxPost.uploadFileInit($scope.uploadedFile)
-            .then(function(result) {
-                if (result.status === 200) {
-                    $scope.books[index].cover = result.data;
-                    $scope.coverUploadSuccessful = true;
-                    $scope.coverUploadError = false;
-                    $scope.coverTypeError = false;   
-                }
-            }, function(error) {
-                if(error.data==='Invalid mime type'){
-                    $scope.coverTypeError = true;
-                }
-                else{
-                    $scope.coverUploadError = true;
-                }
-                $scope.coverError = error.data;
-            });           
-    };
+		if ($scope.uploadedFile) {
+			$scope.$apply(function() {
+				$scope.uploadButtonState = true;
+			});
+		}
+	};
+
+	$scope.uploadFile = function(index) {
+		if (!$scope.uploadedFile) {
+			return;
+		}
+
+		ajaxPost.uploadFileInit($scope.uploadedFile)
+			.then(function(result) {
+				if (result.status === 200) {
+					$scope.books[index].cover = result.data;
+					$scope.coverUploadSuccessful = true;
+					$scope.coverUploadError = false;
+					$scope.coverTypeError = false;   
+				}
+			}, function(error) {
+				if(error.data==='Invalid mime type'){
+					$scope.coverTypeError = true;
+				}
+				else{
+					$scope.coverUploadError = true;
+				}
+				$scope.coverError = error.data;
+			});		   
+	};
 
 
 

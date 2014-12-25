@@ -42,12 +42,9 @@ module.exports = function (req, res) {
 			}
 
 			var returnedObject = results.ItemLookupResponse.Items[0].Item[0].ItemAttributes[0];
-			console.log(returnedObject);
 
 			if(returnedObject.hasOwnProperty('Author')) {
-				console.log(returnedObject.Author[0]);
 				book.author = returnedObject.Author[0];
-				console.log(book.author);
 			}
 
 			if(returnedObject.hasOwnProperty('Publisher')) {
@@ -75,7 +72,7 @@ module.exports = function (req, res) {
 			if(returnedObject.hasOwnProperty('Title')) {
 				book.title = returnedObject.Title[0];
 			}
-
+			console.log('amazon');
 			res.send(book);
 		} else {
 			res.send(false);
