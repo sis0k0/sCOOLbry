@@ -6,15 +6,7 @@ app.directive('barcodeGenerator', [function() {
             settings: {
                 barWidth:		1,
                 barHeight:		50,
-                moduleSize:		5,
-                showHRI:		true,
-                addQuietZone:	true,
-                marginHRI:		5,
-                bgColor:		'#FFFFFF',
-                color:			'#000000',
-                fontSize:		10,
-                posX:			0,
-                posY:			0
+                addQuietZone:	true
             },
             intval: function(val) {
                 var type = typeof(val);
@@ -91,7 +83,7 @@ app.directive('barcodeGenerator', [function() {
                     while ( i < code.length ) {
                         if ( !tableCActivated) {
                             j = 0;
-                            // check next character to activate C table if interesting
+                            // check next character to activate C table
                             while ( (i + j < code.length) && (code.charAt(i+j) >= '0') && (code.charAt(i+j) <= '9') ) {
                                 j++;
                             }
@@ -100,35 +92,42 @@ app.directive('barcodeGenerator', [function() {
                             tableCActivated = (j > 5) || ((i + j - 1 === code.length) && (j > 3));
 
                             if ( tableCActivated ){
-                                result += this.encoding[ 99 ]; // C table
+                                // C table
+                                result += this.encoding[99];
                                 sum += ++isum * 99;
                             } // 2 min for table C so need table B
                         } else if ( (i === code.length) || (code.charAt(i) < '0') || (code.charAt(i) > '9') || (code.charAt(i+1) < '0') || (code.charAt(i+1) > '9') ) {
                             tableCActivated = false;
-                            result += this.encoding[ 100 ]; // B table
+                            // B table
+                            result += this.encoding[ 100 ];
                             sum += ++isum * 100;
                         }
 
                         if ( tableCActivated ) {
-                            value = barcode.intval(code.charAt(i) + code.charAt(i+1)); // Add two characters (numeric)
+                            // Add two characters (numeric)
+                            value = barcode.intval(code.charAt(i) + code.charAt(i+1));
                             i += 2;
                         } else {
-                            value = tableB.indexOf( code.charAt(i) ); // Add one character
+                            // Add one character
+                            value = tableB.indexOf( code.charAt(i) );
                             i += 1;
                         }
                         result	+= this.encoding[ value ];
                         sum += ++isum * value;
                     }
 
-                    result += this.encoding[sum % 103];// Add CRC
-                    result += this.encoding[106];// Stop
-                    result += '11';// Termination bar
+                    // Add CRC
+                    result += this.encoding[sum % 103];
+                    // Stop
+                    result += this.encoding[106];
+                    // Termination bar
+                    result += '11';
 
-                    console.log('result: ' + result);
                     return result;
                 }
             },
-            bitStringTo2DArray: function( digit) {//convert a bit string to an array of array of bit char
+            // Convert the bit string to an array of bit chars
+            bitStringTo2DArray: function( digit) {
                 var d = [];
                 d[0] = [];
 
@@ -138,7 +137,8 @@ app.directive('barcodeGenerator', [function() {
 
                 return(d);
             },
-            digitToCssRenderer: function( $container, settings, digit, hri, mw, mh) {// css barcode renderer
+            // Canvas barcode renderer
+            digitToCanvasRenderer: function( $container, settings, digit, hri, mw, mh) {
                 var lines = digit.length,
                     columns = digit[0].length,
                     len, current,
@@ -151,8 +151,6 @@ app.directive('barcodeGenerator', [function() {
                     canvas.setAttribute('style', style);
 
                 canvas.className = 'barcode code128 clearfix-child';
-
-                console.log(arguments);
 
                 for (var x=0; x<lines; x++) {
                     len = 0;
@@ -184,15 +182,14 @@ app.directive('barcodeGenerator', [function() {
                 }
                 ctx.closePath();
 
-                console.log(currentWidth);
-
                 return canvas;
             },
-            digitToCss: function($container, settings, digit, hri) {// css 1D barcode renderer
+            // Canvas 1D barcode renderer
+            digitToCanvas: function($container, settings, digit, hri) {
                 var w = barcode.intval(settings.barWidth);
                 var h = barcode.intval(settings.barHeight);
 
-                return this.digitToCssRenderer($container, settings, this.bitStringTo2DArray(digit), hri, w, h);
+                return this.digitToCanvasRenderer($container, settings, this.bitStringTo2DArray(digit), hri, w, h);
             }
         };
 
@@ -238,7 +235,7 @@ app.directive('barcodeGenerator', [function() {
                 digit = '0000000000' + digit + '0000000000';
             }
 
-            var fname = 'digitToCss' + (b2d ? '2D' : '');
+            var fname = 'digitToCanvas' + (b2d ? '2D' : '');
 
             return barcode[fname](this, settings, digit, hri);
         };
@@ -253,45 +250,57 @@ app.directive('barcodeGenerator', [function() {
                 ctx = canvas.getContext('2d');
 
                 canvas.setAttribute('width', barcode.width+50);
-                var style = 'width: 350px; background: #fff; height: 100%';
+                var style = 'width: 350px; background: transparent; height: 100%';
                 canvas.setAttribute('style', style);
                 canvas.setAttribute('height', 200);
 
-
+                // Background
                 var backgroundGradient = ctx.createLinearGradient(0, 0, 0, 80);
-                backgroundGradient.addColorStop(0, '#f60');
-                backgroundGradient.addColorStop(1, 'white');
+                backgroundGradient.addColorStop(0, '#06f');
+                backgroundGradient.addColorStop(1, '#fff');
                 ctx.fillStyle = backgroundGradient;
-                ctx.fillRect(0, 0, 350, 350);
+
+                // Rounded corners
+                var cornerRadius = 4;
+                ctx.lineJoin = 'round';
+                ctx.lineWidth = cornerRadius;
+
+                ctx.strokeStyle = '#06f';
+                ctx.strokeRect(0+(cornerRadius/2), 0+(cornerRadius/2), 330-cornerRadius, 200-cornerRadius);
+                ctx.fillRect(0+(cornerRadius/2), 0+(cornerRadius/2), 330-cornerRadius, 200-cornerRadius);
 
 
+                // Logo
+                var img = new Image();      // First create the image...
+                img.src = '../../dist/images/logo-new-white.png';
+                img.onload = function(){    // ...then set the onload handler...
+                    ctx.drawImage(this, 65, 15, 200, 50);
+
+                    // The canvas is changed => we should change the download url
+                    angular.element(document.querySelector('.canvas-wrapper')).attr('href', canvas.toDataURL());
+                    angular.element(document.querySelector('.canvas-image')).attr('src', canvas.toDataURL());
+                };
+
+                // The barcode
                 ctx.beginPath();
+                ctx.drawImage(barcode, 25, 75);
+
+
+                // User id
+                ctx.beginPath();
+                ctx.textAlign = 'center';
+                ctx.fillStyle = '#333';
+                ctx.font = '15px Arial';
+                ctx.fillText('ID: ' + user.id, 160, 140);
+
+                // First and Last name
+                ctx.beginPath();
+                ctx.fillStyle = '#06f';
                 ctx.font = '25px Arial';
-                ctx.fillStyle = '#FFF';
-                ctx.fillText('ID Card', 20, 45);
-
-                ctx.beginPath();
-                ctx.fillText('sCOOLbry', 200, 45);
-
-
-                ctx.beginPath();
-                ctx.drawImage(barcode, 25, 70);
-
-                ctx.beginPath();
                 var name = user.firstName + ' ' + user.lastName;
-                console.log(name);
-                ctx.fillText(name, 60, 170);
-
-                ctx.beginPath();
-                ctx.font = '20px Arial';
-                ctx.fillText(user._id, 120, 140);
-
-
-
-
+                ctx.fillText(name, 160, 175);
 
                 return canvas;
-
 
         };
 
@@ -303,14 +312,34 @@ app.directive('barcodeGenerator', [function() {
         link: function(scope, element, attrs) {
             attrs.$observe('barcodeGenerator', function(userString){
 
-                var user = JSON.parse(userString),
-                    barcode = new Barcode(user._id,{barWidth:2}),
-                    codeWrapper = angular.element('<div class="barcode code128 col-xs-12"></div>'),
-                    card = new IDCard(barcode, user);
+                var user = JSON.parse(userString);
+
+                // make ajax call to get image data url
+                var request = new XMLHttpRequest();
+                request.open('GET', '../../dist/images/logo-new-white.png', true);
+                request.onreadystatechange = function() {
+                // Makes sure the document is ready to parse.
+                    if(request.readyState === 4) {
+                        // Makes sure it's found the file.
+                        if(request.status === 200) {
+
+                            var barcode = new Barcode(user.id,{barWidth:2}),
+                                card = new IDCard(barcode, user),
+                                codeWrapper = angular.element('<a class="canvas-wrapper" href="' + card.toDataURL() + '" download="' + user.username + '-sCOOLbry-IDCard"></a>'),
+                                canvasToImage = document.createElement('img');
+
+                            canvasToImage.setAttribute('src', card.toDataURL());
+                            canvasToImage.setAttribute('class', 'canvas-image');
+
+                            card.appendChild(canvasToImage);
+                            codeWrapper.append(card);
+                            angular.element(element).html('').append(codeWrapper);
+                        }
+                    }
+                };
+                request.send(null);
 
 
-                codeWrapper.append(card);
-                angular.element(element).html('').append(codeWrapper);
 
             });
         }

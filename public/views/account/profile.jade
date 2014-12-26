@@ -1,44 +1,54 @@
 .container
-    .well
+  .well
 
 
-        ul.nav.nav-tabs(style="margin-bottom: 25px")
-            li.active
-                a(href="#personal-information", data-toggle="tab", target="_self").active
-                    | Personal information
-            li
-                a(href="#favorites", data-toggle="tab", target="_self")
-                    | Favorites
-            li
-                a(href="#libraries", data-toggle="tab", target="_self")
-                    | Libraries
+    ul.nav.nav-tabs(style="margin-bottom: 25px")
+      li.active
+        a(href="#personal-information", data-toggle="tab", target="_self").active
+          | Personal information
+      li
+        a(href="#favorites", data-toggle="tab", target="_self")
+          | Favorites
+      li
+        a(href="#libraries", data-toggle="tab", target="_self")
+          | Libraries
 
-        #myTabContent.tab-content
-            .tab-pane.fade.active.in#personal-information
-                .row
-                    .col-md-6
-                        h3
-                            | {{ user.firstName }} {{ user.lastName }} ({{ user.username }})
-                        img(ng-src="{{ user.avatar }}").img-responsive
-                    .col-md-6
-            .tab-pane.fade#favorites
-                h3
-                    | Favourite Books
-                ul(ng-hide='favouriteBooks.length==0')
-                    li(ng-repeat='book in favouriteBooks')
-                        a(href='/book/{{ book.bookID }}/{{ book.libraryID }}') {{ book.bookName }}
-                p(ng-hide='favouriteBooks.length!==0') No favourite books found.
-
-            .tab-pane.fade#libraries
-                h1.text-center Library Subscriptions
-                p
-                    div(ng-repeat='library in user.libraries')
-                        h3.text-info {{ library.name }}
-                    div(ng-repeat='booking in bookings')
-                        h4.text-success {{booking}}
+    #myTabContent.tab-content
+      .tab-pane.fade.active.in#personal-information
+        .row
+          h3.text-center
+            | {{ user.firstName }} {{ user.lastName }} ({{ user.username }})
 
 
+        .row
+          .col-md-3.col-md-offset-2.col-sm-3(style='margin-right:5em;').vcenter
+            div(barcode-generator='{{user}}')
+          .col-md-5.col-md-offset-0.col-sm-5.col-sm-offset-1.hidden-xs.vcenter
+            ul.text-muted
+              li That's your personal sCOOLbry ID card.
+              li If your library supports our 'sCOOLbry Welcome' system, you can identify yourself with it.
+              li At the entrance of the library, use the barcode scanner to scan your card.
+              li You can download it (simply click on it) and print it, but you can also use it from your phone or tablet.
 
 
-        a(href="/profile/edit")
-            | Edit Profile
+      .tab-pane.fade#favorites
+        h3
+          | Favourite Books
+        ul(ng-hide='favouriteBooks.length==0')
+          li(ng-repeat='book in favouriteBooks')
+            a(href='/book/{{ book.bookID }}/{{ book.libraryID }}') {{ book.bookName }}
+        p(ng-hide='favouriteBooks.length!==0') No favourite books found.
+
+      .tab-pane.fade#libraries
+        h1.text-center Library Subscriptions
+        p
+          div(ng-repeat='library in user.libraries')
+            h3.text-info {{ library.name }}
+          div(ng-repeat='booking in bookings')
+            h4.text-success {{booking}}
+
+
+
+
+    a(href="/profile/edit")
+      | Edit Profile

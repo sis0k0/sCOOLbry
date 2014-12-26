@@ -16,8 +16,6 @@ module.exports = function(req, res) {
 
 		var now = new Date();
 		now = Date.now();
-		console.log(now);
-
 
 		Booking.find({userID: req.params.userID, libraryID: req.params.libraryID, bookDate: {$gte: now }}).exec(function(err, collection) {
 			if(err) {
@@ -28,7 +26,4 @@ module.exports = function(req, res) {
 		});
 
 	});
-
-
-
 };

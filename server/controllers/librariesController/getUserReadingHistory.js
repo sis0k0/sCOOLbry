@@ -14,11 +14,6 @@ module.exports = function(req, res) {
 
 		history = history.concat(collection);
 
-		var now = new Date();
-		now = Date.now();
-		console.log(now);
-
-
 		Booking.find({userID: req.params.userID, libraryID: req.params.libraryID}).exec(function(err, collection) {
 			if(err) {
 				console.log('Bookings could not be loaded: ' + err);
