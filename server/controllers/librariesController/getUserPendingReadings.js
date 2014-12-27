@@ -9,7 +9,7 @@ module.exports = function(req, res) {
 
 	var history = [];
 	User.findOne({id: req.params.userID}).exec(function(err, user) {
-		if (err) {
+		if (err || !user) {
 			res.send('User cannot be found');
 			
 		}else{

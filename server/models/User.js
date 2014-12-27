@@ -9,7 +9,7 @@ var userSchema = mongoose.Schema({
     id: {
         type: String,
         unique: true,
-        'default': shortId.generate
+        default: function() { return shortId.generate(); }
     },
     username: { 
         type: String,
