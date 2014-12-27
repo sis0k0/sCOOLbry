@@ -19,14 +19,18 @@ include ../panel
           li
             a(href='#librarians', data-toggle='tab', target='_self')
               | Librarians
+          li
+            a(href='#sections', data-toggle='tab', target='_self')
+              | Sections
 
         #myTabContent.tab-content
 
           include ./main-information
           include ./working-time
           include ./librarians
+          include ./sections
             
 
         .pull-right
-          button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='updateLibrary(library, librarians)') Edit
+          button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='updateLibrary(library, librarians, sections)') Edit
           a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') Cancel

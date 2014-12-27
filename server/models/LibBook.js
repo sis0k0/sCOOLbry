@@ -12,7 +12,9 @@ var libBookSchema = mongoose.Schema({
     given: {
         type: Number,
         default: 0
-    }
+    },
+    section: Number, //съдържа информация коя е секцията
+    row: Number //съдържа информация кой е реда
 });
 
 var LibBook = mongoose.model('LibBook', libBookSchema);

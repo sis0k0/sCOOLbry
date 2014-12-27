@@ -1,0 +1,20 @@
+.active.in.tab-pane.fade#sections
+  .row
+    .col-md-11.col-md-offset-1
+      .col-md-5
+        .form-group(ng-class="{ 'has-success': (sectionForm.count.$valid), 'has-error': (sectionForm.count.$invalid) }")
+            label.control-label(for='count') Sections Count *
+            .row
+              .col-xs-12
+                  input.form-control(name='count', type='text', placeholder='Sections Count', ng-model='sectionsCount', required, autofocus, ng-change="addSection()")
+
+        
+      .col-md-5.col-md-offset-1
+        .form-group(ng-repeat="section in sections")
+            label.control-label(for='section') Select Genre {{ $index }} *
+            .row
+              .col-xs-12
+                  select.nya-selectpicker.form-control(name='genres', data-live-search='true', ng-options='(genre | titleCase) for genre in genres track by genre', ng-model='section.genre', multiple)
+
+        
+

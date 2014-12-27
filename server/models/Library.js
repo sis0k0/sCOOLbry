@@ -51,7 +51,8 @@ var librarySchema = mongoose.Schema({
     workhours: {
         type: Array,
         default: [ '10:00-18:00', '10:00-18:00', '10:00-18:00', '10:00-18:00', '10:00-18:00' ]
-    }
+    },
+    librarySections: Object, //съдържа информация кои секции към кой жанр са
 });
 
 var Library = mongoose.model('Library', librarySchema);

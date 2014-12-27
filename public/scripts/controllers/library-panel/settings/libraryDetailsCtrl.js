@@ -268,4 +268,26 @@ app.controller('LibrarySettingsCtrl', function($scope, $http, identity, $window,
         }
     };
 
+    //Sections
+    $scope.sectionsCount = 0;
+    $scope.sections = new Array();
+
+    $http({
+        method: 'get',
+        url: '/api/genres'
+    }).success(function(data) {
+        $scope.genres = data;
+    }).error(function(err) {
+        console.log(err);
+    });
+
+
+    $scope.addSection = function(){
+        console.log($scope.sectionsCount);
+        delete $scope.sections;
+        $scope.sections = new Array();
+        for(var i = 0; i < $scope.sectionsCount; i++){
+            $scope.sections[i] = new Object({'index': i});
+        }
+    }
 });
