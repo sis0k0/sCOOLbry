@@ -7,6 +7,9 @@ var Reading = require('mongoose').model('Reading'),
 
 module.exports = function(req, res) {
  
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+ 
 	var history = [];
 	User.findOne({id: req.params.userID}).exec(function(err, user) {
 		console.log(err);
