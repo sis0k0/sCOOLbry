@@ -61,7 +61,7 @@ app.config(function($routeProvider) {
 
 		// 404 Page not found
 		.when('/404', {
-			templateUrl: '/partials/account/log-in-no-captcha', // Development mode for easier testing
+			templateUrl: '/partials/account/log-in', // Development mode for easier testing
 		})
 		.otherwise({
 			redirectTo: '/404'

@@ -7,6 +7,9 @@ var auth        = require('../../auth'),
 	router      = express.Router();
 
 module.exports = function(app, config) {
+
+	router.get('/is-captcha-enabled', function(req, res) {  res.send(config.captcha); });
+
 	router.get('/users', auth.isInRole('admin'), controllers.users.getAllUsers);
 	router.get('/users/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.users.getAllUsersSortable);
 	router.get('/users/search/:phrase', auth.isInRole('admin'), controllers.users.getAllUsersSearchable);
