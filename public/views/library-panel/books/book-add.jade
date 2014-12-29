@@ -105,6 +105,12 @@ include ../panel
                     .row
                       .col-xs-12
                         input.form-control(name='publisher', type='text', placeholder='Publisher', ng-model='book.publisher', required)             
+                  .form-group(ng-class="{ 'has-success': !!book.section }")
+                    label.control-label(for='section') Section
+                    .row
+                      .col-xs-12
+                        input.form-control(name='section', type='text', placeholder='Section', ng-model='book.section')
+                
                 .col-md-5.col-md-offset-1
                   .form-group(ng-class="{ 'has-success': !!book.authorNationality }")
                     label.control-label(for='authorNationality') Author Nationality
@@ -138,7 +144,7 @@ include ../panel
                       input.form-control(name='published', type='text', datepicker='datepicker', placeholder='Published', ng-model='book.published')
                       span.input-group-addon
                         i.glyphicon.glyphicon-th
-
+                  
 
 
                 .row

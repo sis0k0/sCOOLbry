@@ -13,7 +13,6 @@ module.exports = function(req, res) {
 	data.total = book.total;
 	data.available = book.available;
 	data.section = book.section;
-	data.row = book.row;
 
 	LibBook.create(data, function(err, book){
 		if(err){

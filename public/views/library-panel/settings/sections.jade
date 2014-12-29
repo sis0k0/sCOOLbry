@@ -1,4 +1,4 @@
-.active.in.tab-pane.fade#sections
+.tab-pane.fade#sections
   .row
     .col-md-11.col-md-offset-1
       .col-md-5
@@ -6,15 +6,15 @@
             label.control-label(for='count') Sections Count *
             .row
               .col-xs-12
-                  input.form-control(name='count', type='text', placeholder='Sections Count', ng-model='sectionsCount', required, autofocus, ng-change="addSection()")
+                  input.form-control(name='count', type='text', placeholder='Sections Count', ng-model='library.librarySections.sectionsCount', ng-change='changeSectionsCount()', required, autofocus)
 
         
       .col-md-5.col-md-offset-1
-        .form-group(ng-repeat="section in sections")
-            label.control-label(for='section') Select Genre {{ $index }} *
+        .form-group(ng-repeat="section in library.librarySections.sectionsTheme track by $index")
+            label.control-label(for='section') Theme for section {{ $index+1 }} *
             .row
               .col-xs-12
-                  select.nya-selectpicker.form-control(name='genres', data-live-search='true', ng-options='(genre | titleCase) for genre in genres track by genre', ng-model='section.genre', multiple)
+                  input.form-control(name='theme', type='text', placeholder='Section Theme', ng-model='library.librarySections.sectionsTheme[$index]', required)
 
         
 

@@ -16,12 +16,15 @@ include ../panel
               span#given.glyphicon.glyphicon-sort.text-right
             td#available(ng-click="sort($event); reloadBooks()") Available
               span#available.glyphicon.glyphicon-sort.text-right
+            td#section(ng-click="sort($event); reloadBooks()") Section
+              span#section.glyphicon.glyphicon-sort.text-right
             td Actions
         tr(ng-repeat="book in books")
           td {{ book.bookName }}
           td {{ book.total }}
           td {{ book.given }}
           td {{ book.available }}
+          td {{ book.section }}
           td
             a.btn-sm(href='/library-panel/bookInfo/{{ book._id }}', title='Browse', tooltip)
               span.glyphicon.glyphicon-search.text-success

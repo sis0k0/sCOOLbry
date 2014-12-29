@@ -32,7 +32,17 @@ app.controller('LibrarySettingsCtrl', function($scope, $http, identity, $window,
                     $scope.library.librarians.splice($scope.library.librarians.indexOf(data),1);
                     console.log($scope.library.librarians);
                 });
-            } 
+            }
+
+            if(data.librarySections.sectionsTheme==undefined) {
+                data.librarySections.sectionsTheme = new Array();
+            }
+
+            for(var i = 0; i < data.librarySections.sectionsCount; i++) {
+                if(data.librarySections.sectionsTheme[i]==undefined) {
+                    data.librarySections.sectionsTheme[i] = '';
+                }
+            }
 
         });
 
@@ -269,25 +279,20 @@ app.controller('LibrarySettingsCtrl', function($scope, $http, identity, $window,
     };
 
     //Sections
-    $scope.sectionsCount = 0;
-    $scope.sections = new Array();
 
-    $http({
-        method: 'get',
-        url: '/api/genres'
-    }).success(function(data) {
-        $scope.genres = data;
-    }).error(function(err) {
-        console.log(err);
-    });
+    $scope.changeSectionsCount = function(){
 
-
-    $scope.addSection = function(){
-        console.log($scope.sectionsCount);
-        delete $scope.sections;
-        $scope.sections = new Array();
-        for(var i = 0; i < $scope.sectionsCount; i++){
-            $scope.sections[i] = new Object({'index': i});
+        if($scope.library.librarySections.sectionsTheme==undefined) {
+            $scope.library.librarySections.sectionsTheme = new Array();
         }
+
+        for(var i = 0; i < $scope.library.librarySections.sectionsCount; i++) {
+            if($scope.library.librarySections.sectionsTheme[i]==undefined) {
+                $scope.library.librarySections.sectionsTheme[i] = '';
+            }
+        }
+
+        $scope.library.librarySections.sectionsTheme.length = $scope.library.librarySections.sectionsCount;
+
     }
 });
