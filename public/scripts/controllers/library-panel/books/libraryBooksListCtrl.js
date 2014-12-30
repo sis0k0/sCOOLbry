@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, $routeParams, $http, identity) {
+app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, LibBooksSectionResource, $routeParams, $http, identity) {
 	$scope.user = identity.currentUser;
  /*   $scope.page = 1;
     $scope.perPage = 10;
@@ -18,8 +18,16 @@ app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, $route
 		});
 	};
 */	
+	if($routeParams.section!==undefined) {
+		
+		$scope.books = LibBooksSectionResource.query({libraryID: $scope.user.ownLibraryID, section: $routeParams.section});
     
-    $scope.books = LibBooksResource.query({id: $scope.user.ownLibraryID});
+	}else{
+    
+	    $scope.books = LibBooksResource.query({id: $scope.user.ownLibraryID});
+    
+    }
+
     console.log($scope.books);
     /*
     	field: $scope.field,

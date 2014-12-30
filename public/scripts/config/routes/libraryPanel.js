@@ -59,6 +59,11 @@ app.config(function($routeProvider) {
             controller: 'LibraryBooksListCtrl',
 			resolve: routeUserChecks.librarianRole
 		})
+		.when('/library-panel/books-library/:section', {
+			templateUrl: '/partials/library-panel/books/books-list',
+            controller: 'LibraryBooksListCtrl',
+			resolve: routeUserChecks.librarianRole
+		})
 		.when('/library-panel/books/search', {
 			templateUrl: '/partials/library-panel/books/books-search',
             controller: 'LibraryBooksSearchCtrl',

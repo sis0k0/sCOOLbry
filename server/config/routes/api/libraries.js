@@ -21,6 +21,7 @@ module.exports = function(app) {
 	router.post('/library/book', auth.isInRole('librarian'), controllers.libraries.addLibBook);
 
 	router.get('/library/book2/:bookID/:libraryID', controllers.libraries.getLibBook);
+	router.get('/library/section/:section/:libraryID', controllers.libraries.getLibBookBySection);
 	
 	router.put('/library/book', auth.isInRole('librarian'), controllers.libraries.updateLibBook);
 	router.get('/library/users/:id/:field/:order/:page/:perPage', controllers.libraries.getLibraryUsersById);
