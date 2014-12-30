@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorScroll, Book, bookSearch, identity, notifier, ajaxPost) {
+app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorScroll, Book, bookSearch, identity, notifier, ajaxPost, LibraryResource) {
 
     $scope.displayForm = false;
 
@@ -18,7 +18,8 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
     $scope.page = 1;
     $scope.perPage = 3;
     $scope.field = '_id';
-    
+    $scope.library = LibraryResource.get({id: identity.currentUser.ownLibraryID});
+
     $scope.range = function(n) {
         return new Array(n);
     };
@@ -160,7 +161,15 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
         bookPromise.then(function success(data) {
             $scope.books = new Array();
             data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
+            data.themes.forEach(function(theme) {
+                if($scope.library.librarySections.sectionsTheme.indexOf(theme)>-1) {
+                    data.section = $scope.library.librarySections.sectionsTheme.indexOf(theme)+1;
+                }
+
+            });
             $scope.books[0] = data;
+
+           
             $scope.displayForm = true;
             $scope.searchState = true;
         }, function error(msg) {
