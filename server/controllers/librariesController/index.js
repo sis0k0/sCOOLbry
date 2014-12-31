@@ -23,6 +23,7 @@ module.exports = {
 	getLibraryBooksById: require('./getLibraryBooksById'),
 	getLibraryById: require('./getLibraryById'),
 	getLibraryCount: require('./getLibraryCount'),
+	getLibraryIDByOwner: require('./getLibraryIDByOwner'),
 	getLibraryUsersById: require('./getLibraryUsersById'),
 	getLibraryUsersCount: require('./getLibraryUsersCount'),
 	getLibraryUsersInLibraryCount: require('./getLibraryUsersInLibraryCount'),

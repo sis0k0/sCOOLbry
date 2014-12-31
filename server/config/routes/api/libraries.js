@@ -42,6 +42,9 @@ module.exports = function(app) {
 	// Get user pending readings and bookings
 	router.get('/library/pending/:libraryID/:userID', controllers.libraries.getUserPendingReadings);
 
+	// Get library ID from library owner barcode card
+	router.get('/library/getLibraryID/:userID', controllers.libraries.getLibraryIDByOwner);
+
 
 	router.post('/library/add-reading', auth.isInRole('librarian'), controllers.libraries.takeBook);
 	router.post('/library/remove-reading', auth.isInRole('librarian'), controllers.libraries.returnBook);
