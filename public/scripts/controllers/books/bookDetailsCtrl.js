@@ -172,7 +172,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
             $location.path('/libraries');
            
         }, function(err) {
-            notifier.error(err);
+            notifier.error(err.data);
         });
     };
 

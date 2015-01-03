@@ -13,6 +13,10 @@ var libBookSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
+    booked: {
+        type: Number,
+        default: 0
+    },
     section: {
         type: Number, //съдържа информация коя е секцията
         default: 0
