@@ -46,6 +46,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-newer": "^0.7.0",
     "grunt-nodemon": "^0.3.0",
+    "grunt-open": "^0.2.3",
     "request": "^2.47.0"
   },
   "repository": {

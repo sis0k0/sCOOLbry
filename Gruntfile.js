@@ -61,6 +61,12 @@ module.exports = function(grunt) {
 
         // watch css and js files and process the above tasks
         watch: {
+          options: {
+            livereload: true,
+          },
+          jade: {
+            files: ['public/**/*.jade', 'server/**/*.jade']
+          },
           stylus: {
             files: ['public/styles/*.styl'],
             tasks: ['newer:stylus']
@@ -88,7 +94,15 @@ module.exports = function(grunt) {
             logConcurrentOutput: true
           },
           tasks: ['nodemon', 'watch']
-        }  
+        },
+
+        // open the app in the browser
+        open: {
+          server: {
+            url: 'http://localhost:3030'
+          }
+        },
+
 
     });
 
@@ -99,7 +113,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-newer');
 
@@ -108,7 +122,7 @@ module.exports = function(grunt) {
     // Default: check with jshint, build everything, run server and watch for changes
     grunt.registerTask(
         'default',
-        [ 'jshint', 'newer:stylus', 'newer:cssmin', 'uglify', 'concurrent' ]
+        [ 'jshint', 'newer:stylus', 'newer:cssmin', 'uglify', 'open', 'concurrent' ]
     );
 
     // JShint: check all javascript files
