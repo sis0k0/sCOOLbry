@@ -14,7 +14,7 @@ include ../panel
                   label.control-label(for="first-name") Name *
                   .row
                       .col-xs-6
-                          input.form-control(name="firstName", type="text", placeholder="First Name", ng-model="user.firstName", required, autofocus)
+                          input.form-control(name="firstName", type="text", placeholder="First Name", ng-model="user.firstName", required, on-focus)
                       .col-xs-6
                           input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model="user.lastName", required)
               .form-group(ng-class="{ 'has-error': (profileForm.username.$invalid), 'has-success': (profileForm.username.$valid)}")

@@ -9,7 +9,7 @@ include ../panel
             label.control-label(for='isbn') ISBN
             .row
               .col-xs-12
-                  input.form-control(name='isbn', type='text', placeholder='ISBN', ng-model='book.isbn', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/', autofocus)  
+                  input.form-control(name='isbn', type='text', placeholder='ISBN', ng-model='book.isbn', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/', on-focus)  
         .form-group(ng-class="{ 'has-success': (bookForm.title.$valid), 'has-error': (bookForm.title.$invalid) }")
             label.control-label(for='title') Title *
             .row
