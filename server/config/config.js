@@ -23,6 +23,7 @@ module.exports = {
     },
     production: {
         rootPath: rootPath,
+        //db: 'mongodb://admin:test@ds029541.mongolab.com:29541/scoolbry2',
         db: 'mongodb://admin:test@ds053109.mongolab.com:53109/scoolbry',
         port: process.env.PORT || 3030,
         facebook: {
