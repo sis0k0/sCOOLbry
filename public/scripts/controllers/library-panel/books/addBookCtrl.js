@@ -161,12 +161,18 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
         bookPromise.then(function success(data) {
             $scope.books = new Array();
             data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
-            data.themes.forEach(function(theme) {
-                if($scope.library.librarySections.sectionsTheme.indexOf(theme)>-1) {
-                    data.section = $scope.library.librarySections.sectionsTheme.indexOf(theme)+1;
-                }
 
-            });
+            if((typeof data.themes !== 'undefined') && (typeof $scope.library.librarySections !== 'undefined')) {
+
+                console.log(data.themes);
+
+                data.themes.forEach(function(theme) {
+                    if($scope.library.librarySections.sectionsTheme.indexOf(theme)>-1) {
+                        data.section = $scope.library.librarySections.sectionsTheme.indexOf(theme)+1;
+                    }
+
+                });
+            }
             $scope.books[0] = data;
 
            

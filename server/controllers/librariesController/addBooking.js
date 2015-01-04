@@ -4,33 +4,37 @@ var Booking = require('mongoose').model('Booking'),
 	LibBook = require('mongoose').model('LibBook');
 
 module.exports = function(req, res) {
+
+
 	LibBook.findOne({libraryID: req.body.libraryID, bookID: req.body.bookID}).exec(function(err, book) {
-		if (err) {
-			console.log('LibBook could not be loaded: ' + err);
+		if(err) {
+			console.log('Bookings count could not be loaded: ' + err);
 			res.status(503).send('Cannot connect to database');
-		} else if(book.available>0) {
-
-			book.booked++;
-			book.available--;
-
-			LibBook.update({libraryID: req.body.libraryID, bookID: req.body.bookID}, book, function(err) {
-
+		} else {
+			var now = new Date();
+			Booking.count({bookID: req.body.bookID, libraryID: req.body.libraryID, bookDate: {$gte: now } }).exec(function(err, bookingsCount) {
 				if(err) {
-					console.log('LibBook could not be updated' + err);
+					console.log('LibBook could not be loaded ' + err);
 					res.status(503).send('Cannot connect to database');
-				} else {
+				} else if(book.available>bookingsCount) {
+
+					console.log('available' + book.available);
+					console.log('bookigns' + bookingsCount);
+
 					Booking.create(req.body, function(err, booking) {
-						if (err) {
-							console.log('Failed to add new booking: ' + err);
+						if(err) {
+							console.log('Failed to add new booking' + err);
 							res.status(503).send('Cannot connect to database');
+						} else {
+							res.send(booking);
 						}
-						res.send(booking);
 					});
+
+				} else {
+					res.status('404').send('No available books');
 				}
 			});
-
-		} else {
-			res.status('404').send('No available books');
 		}
+
 	});
 };
