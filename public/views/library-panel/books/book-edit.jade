@@ -2,7 +2,7 @@ include ../panel
 
 .container
   .well
-    form.form-horizontal(name='bookForm')
+    form.form-horizontal(name='bookForm', novalidate)
       fieldset
         input.form-control(type='hidden', ng-model='libraryBook._id')
         legend Update Book 
@@ -10,12 +10,9 @@ include ../panel
         .row
           .col-md-11.col-md-offset-1
             .col-md-5
-              label.control-label(for='total') Total
-              input.form-control(name='total', ng-model='libraryBook.total', type='number', min='1') 
-            .col-md-5.col-md-offset-1
-              label.control-label(for='given') Given
-              input.form-control(name='given', ng-model='libraryBook.given', type='number', min='0', max='{{ libraryBook.total }}')
-          
+              label.control-label(for='total') Quantity at the library
+              input.form-control(name='total', ng-model='libraryBook.total', type='number', min='{{libraryBook.given}}', on-focus) 
+
         .row(style='margin-top: 3em')
           .col-md-10.col-md-offset-1
             .col-xs-2

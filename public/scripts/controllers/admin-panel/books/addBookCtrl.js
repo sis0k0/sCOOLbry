@@ -129,9 +129,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 
     $scope.addBook = function(book, index) {
         Book.add(book).then(function() {
-            console.log('book added');
             notifier.success('Book added successfully!');
-
             $scope.books.splice(index,1);
             if($scope.books.length<1) {
                 $window.location.href = '/admin/books';

@@ -6,7 +6,7 @@ include ../panel
       .row
         .col-md-11.col-md-offset-1
 
-          .row(ng-hide='displayForm || csv.result')
+          .row(ng-hide='displayForm || csv.result || book')
 
             .col-md-4.text-center
               h3 Fill in a form
@@ -23,8 +23,10 @@ include ../panel
 
 
           .row
-            h3.text-center.text-danger(ng-if='searchState===false') The book was not found! Please try something else!
-            h3.text-center.text-success(ng-if='searchState===true') The book was found! Please check the fields, because there may be differences.
+            h3.text-center.text-danger(ng-if='searchState===false && !existInLibrary') Book not found! Please try something else!
+            h3.text-center.text-success(ng-if='searchState===true') Book found! Please check the fields, because there may be differences.
+            h3.text-center.text-info(ng-if='existInLibrary') The book exist in your Library! 
+              a(ng-href='/library-panel/bookInfo/{{libBook._id}}') Click
 
 
 
@@ -55,9 +57,56 @@ include ../panel
                 a.btn.btn-danger(href='/admin/books', style='margin-left:0.2em') Cancel
 
 
+          div(ng-if='book')
+              h1.text-succes.text-center The book exist in sCOOLbry database!
+              h3.text-info.text-center Just add the quantity in your library
+
+              form(name='quantityForm', novalidate)
+
+
+                .form-group(ng-class="{ 'has-success': (quantityForm.quantity.$valid), 'has-error': (quantityForm.quantity.$invalid) }")
+                    label.control-label(for='quantity') Quantity
+                    .row
+                      .col-xs-12
+                          input.form-control(name='quantity', type='number', min='1', placeholder='Quantity', ng-model='book.total', on-focus, required)   
+
+              .row(style='margin-top: 3em')
+                .col-md-10.col-md-offset-1
+                  .col-xs-2
+                    img.img-responsive.img-thumbnail(src='{{book.cover}}', style='margin-top:21px')
+                  .col-xs-10
+                    h2 {{book.title}}
+                    div
+                      span.text-muted(ng-repeat='genre in book.genres | limitTo:2')
+                        span {{genre | titleCase}}
+                        span(ng-show='!$last') , 
+                        span(ng-show='$last') &nbsp; / 
+                      span.text-info {{book.publisher}}
+                      span.text-info.pull-right {{ book.author }}
+                    div(ng-show='!showMore')
+                      p {{ book.description | limitTo: 200}}...
+                      a(href='#' ng-click='showMore=!showMore') Show more
+                    div(ng-show='!!showMore')
+                      p {{ book.description}}
+                      a(href='#' ng-click='showMore=!showMore') Show less
+
+              .row
+                .col-md-10.col-md-offset-1(ng-show='book.otherCharacteristics')
+                  .panel.panel-primary(style='margin-top:2em', ng-show='!!showMore')
+                    .panel-heading
+                      h4.text-center Additional information
+                    .panel-body
+                      div.col-xs-5(ng-repeat='(key,value) in book.otherCharacteristics')
+                        li
+                          span.text-success.text-bold {{ key }} 
+                          span : {{ value }}
 
 
 
+
+              .row
+                button.btn.btn-primary.col-xs-2.col-xs-offset-9(ng-disabled='quantityForm.$invalid' ng-click='addBook(book)') Add
+                .col-xs-1
 
 
           div#book-forms(ng-if='displayForm', ng-init='getPagesCount()')
@@ -77,13 +126,13 @@ include ../panel
                       label.control-label(for='quantity') Quantity *
                       .row
                         .col-xs-12
-                            input.form-control(name='quantity', type='text', placeholder='Quantity', ng-model='book.total' required)        
+                            input.form-control(name='quantity', type='number', min='1', placeholder='Quantity', ng-model='book.total', on-focus, required)        
 
                   .form-group(ng-class="{ 'has-success': (bookForm.isbn.$valid && (!!book.isbn)), 'has-error': (bookForm.isbn.$invalid && bookForm.isbn.$dirty) }")
                       label.control-label(for='isbn') ISBN
                       .row
                         .col-xs-12
-                            input.form-control(name='isbn', type='text', on-focus, placeholder='ISBN', ng-model='book.isbn', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/')  
+                            input.form-control(name='isbn', type='text', placeholder='ISBN', ng-model='book.isbn', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/')  
                   .form-group(ng-class="{ 'has-success': (bookForm.title.$valid), 'has-error': (bookForm.title.$invalid) }")
                       label.control-label(for='title') Title *
                       .row
@@ -174,7 +223,7 @@ include ../panel
                         .col-xs-11
                           textarea.form-control(name='description', placeholder='Book review', ng-model='book.description', rows='4').col-xs-4
              
-
+  
 
                 .row
                   button.btn.btn-primary.col-xs-2.col-xs-offset-9(ng-disabled='bookForm.$invalid' ng-click='addBook(book, $index)') Add

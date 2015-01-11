@@ -2,7 +2,9 @@
 
 app.controller('EditBookLibraryCtrl', function($scope, $location, LibraryBook, notifier, LibBookResource2,BookResource, $routeParams) {
 
+
     $scope.libraryBook = LibBookResource2.get({id: $routeParams.id}, function() {
+
         $scope.book = BookResource.get({id: $scope.libraryBook.bookID}, function() {
             if($scope.book.hasOwnProperty('author') && $scope.book.author.indexOf('.') > -1) {
                 $scope.book.author = $scope.book.author.substring(0, $scope.book.author.indexOf('.') -2);
@@ -42,11 +44,12 @@ app.controller('EditBookLibraryCtrl', function($scope, $location, LibraryBook, n
 
     $scope.updateLibBookAsLibrarian = function(updatedLibraryBook) {
         updatedLibraryBook.available = updatedLibraryBook.total - updatedLibraryBook.given;
+        console.log($scope.backUpBook);
         LibraryBook.update(updatedLibraryBook).then(function() {
             notifier.success('\'' + updatedLibraryBook.bookName + '\' successfully updated!');
             $location.path('/library-panel/books-library');
         }, function(err) {
-            notifier.error(err);
+            notifier.error(err.data);
         });
     };
 });

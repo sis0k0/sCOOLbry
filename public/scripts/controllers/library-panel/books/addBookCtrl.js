@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorScroll, Book, bookSearch, identity, notifier, ajaxPost, LibraryResource) {
+app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorScroll, Book, bookSearch, identity, notifier, ajaxPost, LibBookResource, LibraryResource) {
 
     $scope.displayForm = false;
 
@@ -134,8 +134,11 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
         book.available = book.total;
         Book.add(book, identity.currentUser.ownLibraryID).then(function() {
             notifier.success('Book added successfully!');
-            $scope.books.splice(index,1);
-            if($scope.books.length<1) {
+
+            if(typeof $scope.books !== 'undefined') {
+                $scope.books.splice(index,1);
+            }
+            if(typeof $scope.book !== 'undefined' || $scope.books.length<1) {
                 $location.path('/library-panel/books-library');
             }
 
@@ -155,28 +158,91 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
 
         $scope.searchState = undefined;
         $scope.found = undefined;
+        $scope.existInLibrary = undefined;
+
         angular.element('#searchByIsbnButton').trigger('click');
 
         var bookPromise = bookSearch.search($scope.ISBNSearch);
         bookPromise.then(function success(data) {
-            $scope.books = [];
-            data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
 
-            if((typeof data.themes !== 'undefined') && (typeof $scope.library.librarySections !== 'undefined')) {
+            if(data.foundInDatabase) {
 
-                console.log(data.themes);
+                LibBookResource.get({bookID: data._id, libraryID: $scope.library._id}, function(book) {
 
-                data.themes.forEach(function(theme) {
-                    if($scope.library.librarySections.sectionsTheme.indexOf(theme)>-1) {
-                        data.section = $scope.library.librarySections.sectionsTheme.indexOf(theme)+1;
+                    $scope.existInLibrary = true;
+                    $scope.libBook = book;
+
+                    angular.element('#searchByIsbn').select();
+                    $scope.found = false;
+                    $scope.searchState = false;
+
+                    console.log(book);
+                }, function(err){
+                    if(err.status===404) {
+
+
+                        $scope.book = data;
+                        if($scope.book.hasOwnProperty('author') && $scope.book.author.indexOf('.') > -1) {
+                            $scope.book.author = $scope.book.author.substring(0, $scope.book.author.indexOf('.') -2);
+                        }
+                        $scope.otherCharacteristics = new Object({});
+                        if($scope.book.hasOwnProperty('isbn')) {
+                            $scope.otherCharacteristics.isbn = $scope.book.isbn;
+                        }
+                        if($scope.book.hasOwnProperty('language')) {
+                            $scope.otherCharacteristics.language = $scope.book.language;
+                        }
+                        if($scope.book.hasOwnProperty('authorNationality')) {
+                            $scope.otherCharacteristics.authorNationality = $scope.book.authorNationality;
+                        }
+                        if($scope.book.hasOwnProperty('pages')) {
+                            $scope.otherCharacteristics.pages = $scope.book.pages;
+                        }
+                        if($scope.book.hasOwnProperty('edition')) {
+                            $scope.otherCharacteristics.edition = $scope.book.edition;
+                        }
+                        if($scope.book.hasOwnProperty('illustrated')) {
+                            $scope.otherCharacteristics.illustrated = $scope.book.illustrated;
+                        }
+                        if($scope.book.hasOwnProperty('published')) {
+                            $scope.otherCharacteristics.published = $scope.book.published;
+                        }
+                        if($scope.book.hasOwnProperty('themes')) {
+                            $scope.otherCharacteristics.themes = $scope.book.themes.join(', ');
+                        }
+                        if($scope.book.hasOwnProperty('genres')) {
+                            $scope.otherCharacteristics.genres = $scope.book.genres.join(', ');
+                        }
+
+                    } else {
+                        notifier.error(err.data);
                     }
-
                 });
+
+
+            } else {
+
+                $scope.books = [];
+                data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
+
+                if((typeof data.themes !== 'undefined') && (typeof $scope.library.librarySections !== 'undefined')) {
+
+                    console.log(data.themes);
+
+                    data.themes.forEach(function(theme) {
+                        if($scope.library.librarySections.sectionsTheme.indexOf(theme)>-1) {
+                            data.section = $scope.library.librarySections.sectionsTheme.indexOf(theme)+1;
+                        }
+
+                    });
+                }
+
+
+                $scope.books[0] = data;
+                $scope.displayForm = true;
+                $scope.searchState = true;
             }
 
-            $scope.books[0] = data;
-            $scope.displayForm = true;
-            $scope.searchState = true;
         }, function error() {
             angular.element('#searchByIsbn').select();
             $scope.searchState = false;
