@@ -11,15 +11,15 @@ var readingSchema = mongoose.Schema({
     bookName: String,
     bookISBN: String,
     startDate: {
-		type: Date,
-		default: Date.now
+        type: Date,
+        default: Date.now
     },
     endDate: Date,
     returnDate: Date,
     comment: {
-		type: String,
-		default: ''
-	}
+        type: String,
+        default: ''
+    }
 });
 
 var Reading = mongoose.model('Reading', readingSchema);
@@ -29,10 +29,10 @@ module.exports.seedInitialReadings = function() {
         if (err) {
             console.log('Cannot find Readings: ' + err);
             return;
-		}
-		
+        }
+        
         if (collection.length === 0) {
-			//TODO: Insert some default data
+            //TODO: Insert some default data
         }
     });
 };

@@ -14,8 +14,8 @@ module.exports.seedInitialLibMap = function() {
         if (err) {
             console.log('Cannot find Libraries: ' + err);
             return;
-		}
-		
+        }
+        
         if (collection.length === 0) {
             LibMap.remove({}, function() {});
             //add default map, maybe

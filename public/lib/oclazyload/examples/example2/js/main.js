@@ -1,17 +1,17 @@
 requirejs.config({
-	baseUrl: 'js/',
+    baseUrl: 'js/',
     paths: {
-		'jquery':'jquery',
+        'jquery':'jquery',
         'angular': 'angular.min',
         'test': 'testmodule',
         'ngGrid': 'ng-grid-2.0.11.debug',
         'ocLazyLoad':'ocLazyLoad'
     },
     shim: {
-		'angular': ['jquery'],
-		'ocLazyLoad': ['angular'],
-		'ngGrid': ['angular'],
-		'lazymodule': ['test', 'ngGrid'],
+        'angular': ['jquery'],
+        'ocLazyLoad': ['angular'],
+        'ngGrid': ['angular'],
+        'lazymodule': ['test', 'ngGrid'],
         'test': ['ocLazyLoad']
     }
 });

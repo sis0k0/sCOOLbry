@@ -8,7 +8,7 @@ app.directive('datepicker', function () {
                 startView: 2,
                 autoclose: true,
                 startDate: '01/01/1900',
-    			endDate: 'today',
+                endDate: 'today',
                 language: 'en'
             });
         }

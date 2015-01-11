@@ -118,12 +118,12 @@
           el.async = 1;
 
           var insertBeforeElem = anchor.lastChild;
-		  if(params.insertBefore) {
-		    var element = angular.element(params.insertBefore);
-		    if(element && element.length > 0) {
-			  insertBeforeElem = element[0];
-		    }
-		  }
+          if(params.insertBefore) {
+            var element = angular.element(params.insertBefore);
+            if(element && element.length > 0) {
+              insertBeforeElem = element[0];
+            }
+          }
           anchor.insertBefore(el, insertBeforeElem);
 
           /*

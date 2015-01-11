@@ -32,11 +32,11 @@ app.controller('SignUpCtrl', function($scope, $location, User, notifier, $http, 
     };
 
     $scope.passwordMatch = function (password, confirmPassword) {
-    	if(password.$viewValue !== confirmPassword.$viewValue){
-    		confirmPassword.$setValidity('notMatching', false);
-    	}else{
-    		confirmPassword.$setValidity('notMatching', true);
-    	}
-	};
+        if(password.$viewValue !== confirmPassword.$viewValue){
+            confirmPassword.$setValidity('notMatching', false);
+        }else{
+            confirmPassword.$setValidity('notMatching', true);
+        }
+    };
 
 });

@@ -62,8 +62,8 @@ module.exports.seedInitialLibraries = function() {
         if (err) {
             console.log('Cannot find Libraries: ' + err);
             return;
-		}
-		
+        }
+        
         if (collection.length === 0) {
             Library.create({name: 'ПМГ Бургас', featured: true, published: new Date('19/8/2014'), tags: ['ученическа библиотека, българска литература, световна литература']});
             Library.create({name: 'Библиотека на ТКЗС в с. Библиотекарово', featured: true, published: new Date('19/8/2014'), tags: ['селскостопанска литература, български класици']});

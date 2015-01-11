@@ -1,5 +1,5 @@
 define([
-	"./class2type"
+    "./class2type"
 ], function( class2type ) {
-	return class2type.toString;
+    return class2type.toString;
 });

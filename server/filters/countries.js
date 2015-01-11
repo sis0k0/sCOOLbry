@@ -985,7 +985,7 @@ var countries = [
 
 
 module.exports = {
-	getAllCountries: function(req, res) {
-		res.send(countries);
-	}
+    getAllCountries: function(req, res) {
+        res.send(countries);
+    }
 };

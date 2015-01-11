@@ -1,12 +1,12 @@
 'use strict';
 
 app.directive('barcodeGenerator', [function() {
-    var Barcode	= (function () {
-        var barcode	= {
+    var Barcode    = (function () {
+        var barcode    = {
             settings: {
-                barWidth:		1,
-                barHeight:		50,
-                addQuietZone:	true
+                barWidth:        1,
+                barHeight:        50,
+                addQuietZone:    true
             },
             intval: function(val) {
                 var type = typeof(val);
@@ -48,13 +48,13 @@ app.directive('barcodeGenerator', [function() {
                     '11010010000', '11010011100', '11000111010'
                 ],
                 getDigit: function(code) {
-                    var tableB	= ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~',
-                        result	= '',
-                        sum		= 0,
-                        isum	= 0,
-                        i		= 0,
-                        j		= 0,
-                        value	= 0;
+                    var tableB    = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~',
+                        result    = '',
+                        sum        = 0,
+                        isum    = 0,
+                        i        = 0,
+                        j        = 0,
+                        value    = 0;
 
                     // check each characters
                     for(i=0; i<code.length; i++){
@@ -74,7 +74,7 @@ app.directive('barcodeGenerator', [function() {
                         /* jslint bitwise: false */
 
                     }
-                    sum	= tableCActivated ? 105 : 104;
+                    sum    = tableCActivated ? 105 : 104;
 
                     // start : [105] : C table or [104] : B table
                     result = this.encoding[ sum ];
@@ -112,7 +112,7 @@ app.directive('barcodeGenerator', [function() {
                             value = tableB.indexOf( code.charAt(i) );
                             i += 1;
                         }
-                        result	+= this.encoding[ value ];
+                        result    += this.encoding[ value ];
                         sum += ++isum * value;
                     }
 
@@ -193,20 +193,20 @@ app.directive('barcodeGenerator', [function() {
             }
         };
 
-        var generate	= function(datas, settings) {
-            var digit	= '',
-                hri		= '',
-                code	= '',
-                crc		= true,
-                rect	= false,
-                b2d		= false;
+        var generate    = function(datas, settings) {
+            var digit    = '',
+                hri        = '',
+                code    = '',
+                crc        = true,
+                rect    = false,
+                b2d        = false;
 
             if ( typeof(datas) === 'string') {
                 code = datas;
             } else if (typeof(datas) === 'object') {
-                code	= typeof(datas.code) === 'string' ? datas.code : '';
-                crc		= typeof(datas.crc) !== 'undefined' ? datas.crc : true;
-                rect	= typeof(datas.rect) !== 'undefined' ? datas.rect : false;
+                code    = typeof(datas.code) === 'string' ? datas.code : '';
+                crc        = typeof(datas.crc) !== 'undefined' ? datas.crc : true;
+                rect    = typeof(datas.rect) !== 'undefined' ? datas.rect : false;
             }
 
             if (code === '') {

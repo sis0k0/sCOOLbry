@@ -1,16 +1,16 @@
 'use strict';
 
 var usersRoles = [
-	'admin',
-	'moderator',
-	'libraryOwner',
-	'librarian',
-	'standart'
-	];
+    'admin',
+    'moderator',
+    'libraryOwner',
+    'librarian',
+    'standart'
+    ];
 
 
 module.exports = {
-	getAllRoles: function(req, res) {
-		res.send(usersRoles);
-	}
+    getAllRoles: function(req, res) {
+        res.send(usersRoles);
+    }
 };

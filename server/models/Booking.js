@@ -16,10 +16,10 @@ module.exports.seedInitialReadings = function() {
         if (err) {
             console.log('Cannot find Bookings: ' + err);
             return;
-		}
-		
+        }
+        
         if (collection.length === 0) {
-			//TODO: Insert some default data
+            //TODO: Insert some default data
         }
     });
 };

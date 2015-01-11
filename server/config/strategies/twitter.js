@@ -15,7 +15,7 @@ module.exports = function(config) {
     function(token, tokenSecret, profile, done) {
 
         // make the code asynchronous
-	 	// User.findOne won't fire until we have all our data back from Twitter
+         // User.findOne won't fire until we have all our data back from Twitter
         process.nextTick(function() {
 
             User.findOne({ 'twitter.id' : profile.id }, function(err, user) {

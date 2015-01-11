@@ -2,72 +2,72 @@
 'use strict';
 
 app.factory('Book', function($q, $http, BookResource, LibraryBook, FavouriteBookAddResource) {
-	return {
-		add: function(book, libraryID) {
-			var deferred = $q.defer();
+    return {
+        add: function(book, libraryID) {
+            var deferred = $q.defer();
 
 
 
-			
-			if(book.hasOwnProperty('foundInDatabase')===true) {
-				book.libraryID = libraryID;
-				LibraryBook.add(book).then(function() {
-					deferred.resolve();
-				}, function(err) {
-					deferred.reject(err);
-				});
-			} else {
-				var newBook = new BookResource(book);
-				newBook.$save().then(function(data) {
-					console.log(libraryID);
-					if(typeof(libraryID) !== 'undefined') {
-						book.libraryID = libraryID;
-						book._id = data._id;
-						LibraryBook.add(book).then(function() {
-							deferred.resolve();
-						}, function(err) {
-							deferred.reject(err);
-						});
-					} else {
-						deferred.resolve();
-					}
+            
+            if(book.hasOwnProperty('foundInDatabase')===true) {
+                book.libraryID = libraryID;
+                LibraryBook.add(book).then(function() {
+                    deferred.resolve();
+                }, function(err) {
+                    deferred.reject(err);
+                });
+            } else {
+                var newBook = new BookResource(book);
+                newBook.$save().then(function(data) {
+                    console.log(libraryID);
+                    if(typeof(libraryID) !== 'undefined') {
+                        book.libraryID = libraryID;
+                        book._id = data._id;
+                        LibraryBook.add(book).then(function() {
+                            deferred.resolve();
+                        }, function(err) {
+                            deferred.reject(err);
+                        });
+                    } else {
+                        deferred.resolve();
+                    }
 
-				}, function(response) {
-					deferred.reject(response);
-				});
-			}
+                }, function(response) {
+                    deferred.reject(response);
+                });
+            }
 
 
 
-			return deferred.promise;
-		},
-		update: function(book) {
-			var deferred = $q.defer();
+            return deferred.promise;
+        },
+        update: function(book) {
+            var deferred = $q.defer();
 
-			var updatedBook = new BookResource(book);
-			updatedBook._id = book._id;
-			updatedBook.$update().then(function() {
-				deferred.resolve();
-			}, function(response) {
-				deferred.reject(response);
-			});
+            var updatedBook = new BookResource(book);
+            updatedBook._id = book._id;
+            updatedBook.$update().then(function() {
+                deferred.resolve();
+            }, function(response) {
+                deferred.reject(response);
+            });
 
-			return deferred.promise;
-		},
-		addFavourite: function(book) {
-			var deferred = $q.defer();
-			console.log(book);
-			var favouriteBook = new FavouriteBookAddResource(book);
-			console.log(favouriteBook);
+            return deferred.promise;
+        },
+        addFavourite: function(book) {
+            var deferred = $q.defer();
+            console.log(book);
+            var favouriteBook = new FavouriteBookAddResource(book);
+            console.log(favouriteBook);
 
-			favouriteBook.$save().then(function() {
-				deferred.resolve();
-			}, function(response) {
-				deferred.reject(response);
-			});
+            favouriteBook.$save().then(function() {
+                deferred.resolve();
+            }, function(response) {
+                deferred.reject(response);
+            });
 
-			return deferred.promise;
+            return deferred.promise;
 
-		}
-	};
+        }
+    };
 });

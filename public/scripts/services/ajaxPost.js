@@ -13,8 +13,8 @@ app.factory('ajaxPost', ['$http', function(_http) {
                         },
                         transformRequest: angular.identity
                     }).success(function(){
-					});
-				
+                    });
+                
                 return uploadPromise;
             }
         };

@@ -1,5 +1,5 @@
 define([
-	"./arr"
+    "./arr"
 ], function( arr ) {
-	return arr.slice;
+    return arr.slice;
 });

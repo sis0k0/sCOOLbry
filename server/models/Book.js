@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 
 var bookSchema = mongoose.Schema({
-	isbn: {
+    isbn: {
         type: String,
         unique: true,
         sparse: true
@@ -46,8 +46,8 @@ module.exports.seedInitialBooks = function() {
         if (err) {
             console.log('Cannot find Books: ' + err);
             return;
-		}
-		
+        }
+        
         if (collection.length === 0) {
 
             Book.create({

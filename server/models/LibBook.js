@@ -26,8 +26,8 @@ module.exports.seedInitialLibBook = function() {
         if (err) {
             console.log('Cannot find Libraries: ' + err);
             return;
-		}
-		
+        }
+        
         if (collection.length === 0) {
             LibBook.remove({}, function() {});
             LibBook.create({bookID: '53fdbbf13d77e8971668db43', bookISBN: '23323323232', libraryID: '53f31579fa4b43591545c41a', bookName: 'Да оцелееш в ПМГ 1 том', total: 10, available: 5, given: 5});

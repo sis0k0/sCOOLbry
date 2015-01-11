@@ -3,217 +3,217 @@
 app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Book, bookSearch, notifier, ajaxPost) {
 
 
-	$http({
-		method: 'get',
-		url: '/api/genres'
-	}).success(function(data) {
-		$scope.genres = data;
-	}).error(function(err) {
-		console.log(err);
-	});
+    $http({
+        method: 'get',
+        url: '/api/genres'
+    }).success(function(data) {
+        $scope.genres = data;
+    }).error(function(err) {
+        console.log(err);
+    });
 
-	// Set pagination
+    // Set pagination
 
-	$scope.page = 1;
-	$scope.perPage = 3;
-	$scope.field = '_id';
-	
-	$scope.range = function(n) {
-		return new Array(n);
-	};
+    $scope.page = 1;
+    $scope.perPage = 3;
+    $scope.field = '_id';
+    
+    $scope.range = function(n) {
+        return new Array(n);
+    };
 
-	$scope.getPagesCount = function(){
-		$scope.booksCount = $scope.books.length;
-		$scope.pagesCount = Math.ceil($scope.booksCount/$scope.perPage);
-		return $scope.pagesCount;
-	};
+    $scope.getPagesCount = function(){
+        $scope.booksCount = $scope.books.length;
+        $scope.pagesCount = Math.ceil($scope.booksCount/$scope.perPage);
+        return $scope.pagesCount;
+    };
 
-	$scope.setPage = function(page, event){
-		
-		$scope.page = page;
+    $scope.setPage = function(page, event){
+        
+        $scope.page = page;
 
-		$anchorScroll();
+        $anchorScroll();
 
-		angular.element('.pagination li').removeClass('active');
-		angular.element('#'+event.target.id).parent().addClass('active');
-	};
-	
-	$scope.setPerPage = function(perPage){
-		$scope.perPage = perPage;
-	};
-
-
-	// Define schema's fields
-
-	var fieldsOptions = [], fieldsOptionsCopy = [];
-	$scope.fields = [];
-	$scope.matches = [];
-	fieldsOptions.push('isbn');
-	fieldsOptions.push('title');
-	fieldsOptions.push('author');
-	fieldsOptions.push('description');
-	fieldsOptions.push('publisher');
-	fieldsOptions.push('cover');
-	fieldsOptions.push('authorNationality');
-	fieldsOptions.push('language');
-	fieldsOptions.push('pages');
-	fieldsOptions.push('themes');
-	fieldsOptions.push('genres');
-	fieldsOptions.push('edition');
-	fieldsOptions.push('illustrated');
-	fieldsOptions.push('published');
-	fieldsOptionsCopy = fieldsOptions;
-
-	for(var i = 0; i < 10; i++){
-		$scope.fields.push(fieldsOptions);
-	}
-
-	$scope.updateSelections = function(key, value) {
-		$scope.matches[key] = value;
-		for(var i = 0; i < Object.keys($scope.csv.result[0]).length; i++) {
-			$scope.fields[i] = [];
-			for(var j = 0; j < fieldsOptionsCopy.length; j++){
-				if($scope.matches.indexOf(fieldsOptionsCopy[j])<0) {
-					$scope.fields[i].push(fieldsOptionsCopy[j]);
-				}
-			}
-		}
-
-		$scope.matches.forEach(function(element, index) {
-			$scope.fields[index].push(element);
-		});
-
-	};
+        angular.element('.pagination li').removeClass('active');
+        angular.element('#'+event.target.id).parent().addClass('active');
+    };
+    
+    $scope.setPerPage = function(perPage){
+        $scope.perPage = perPage;
+    };
 
 
-	$scope.showCSVForms = function(includeTopRow) {
-		$scope.books = [];
-		var b=-1;
+    // Define schema's fields
 
-		var i;
-		if(includeTopRow==='true') {
-			i=0;
-		} else {
-			i=1;
-		}
+    var fieldsOptions = [], fieldsOptionsCopy = [];
+    $scope.fields = [];
+    $scope.matches = [];
+    fieldsOptions.push('isbn');
+    fieldsOptions.push('title');
+    fieldsOptions.push('author');
+    fieldsOptions.push('description');
+    fieldsOptions.push('publisher');
+    fieldsOptions.push('cover');
+    fieldsOptions.push('authorNationality');
+    fieldsOptions.push('language');
+    fieldsOptions.push('pages');
+    fieldsOptions.push('themes');
+    fieldsOptions.push('genres');
+    fieldsOptions.push('edition');
+    fieldsOptions.push('illustrated');
+    fieldsOptions.push('published');
+    fieldsOptionsCopy = fieldsOptions;
 
-		for(i; i<$scope.csv.result.length; i++) {
+    for(var i = 0; i < 10; i++){
+        $scope.fields.push(fieldsOptions);
+    }
 
-			b++;
-			$scope.books[b] = new Object({});
+    $scope.updateSelections = function(key, value) {
+        $scope.matches[key] = value;
+        for(var i = 0; i < Object.keys($scope.csv.result[0]).length; i++) {
+            $scope.fields[i] = [];
+            for(var j = 0; j < fieldsOptionsCopy.length; j++){
+                if($scope.matches.indexOf(fieldsOptionsCopy[j])<0) {
+                    $scope.fields[i].push(fieldsOptionsCopy[j]);
+                }
+            }
+        }
 
-			for(var j=0; j<$scope.csv.result[i].length; j++) {
-				if(typeof($scope.matches[j]) !== 'undefined') {
-					$scope.books[b][$scope.matches[j]] = $scope.csv.result[i][j];
-				}
-			}
-		}
-		$scope.displayForm = true;
+        $scope.matches.forEach(function(element, index) {
+            $scope.fields[index].push(element);
+        });
 
-		$anchorScroll();
-	};
+    };
 
-	// Remove book form
 
-	$scope.removeBookForm = function(index) {
-		$scope.books.splice(index,1);
-		notifier.success('Book Form removed successfully!');
-		if($scope.books.length<1) {
-			$scope.displayForm = false;
-			$scope.csv = false;
-			$scope.searchState = undefined;
-		}
-	};
+    $scope.showCSVForms = function(includeTopRow) {
+        $scope.books = [];
+        var b=-1;
 
-	// Add book
+        var i;
+        if(includeTopRow==='true') {
+            i=0;
+        } else {
+            i=1;
+        }
 
-	$scope.addBook = function(book, index) {
-		Book.add(book).then(function() {
-			console.log('book added');
-			notifier.success('Book added successfully!');
+        for(i; i<$scope.csv.result.length; i++) {
 
-			$scope.books.splice(index,1);
-			if($scope.books.length<1) {
-				$window.location.href = '/admin/books';
-			}
+            b++;
+            $scope.books[b] = new Object({});
 
-		}, function(reason){
-			console.log('error');
-			notifier.error(reason);
-		});
-	};
+            for(var j=0; j<$scope.csv.result[i].length; j++) {
+                if(typeof($scope.matches[j]) !== 'undefined') {
+                    $scope.books[b][$scope.matches[j]] = $scope.csv.result[i][j];
+                }
+            }
+        }
+        $scope.displayForm = true;
 
-	$scope.newForm = function() {
-		$scope.books = [];
- 		$scope.books[0] = new Object({});
- 		$scope.displayForm = true;
-		$scope.searchState = undefined;
-	};
+        $anchorScroll();
+    };
 
-	$scope.findBook = function() {
+    // Remove book form
 
-		$scope.searchState = undefined;
-		$scope.found = undefined;
-		angular.element('#searchByIsbnButton').trigger('click');
+    $scope.removeBookForm = function(index) {
+        $scope.books.splice(index,1);
+        notifier.success('Book Form removed successfully!');
+        if($scope.books.length<1) {
+            $scope.displayForm = false;
+            $scope.csv = false;
+            $scope.searchState = undefined;
+        }
+    };
 
-		var bookPromise = bookSearch.search($scope.ISBNSearch);
-		bookPromise.then(function success(data) {
-			if(data.foundInDatabase===true) {
-				$scope.searchState = false;
-				$scope.bookURL = '/admin/book/' + data._id;
-			} else {
-				$scope.books = [];
-				data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
-				$scope.books[0] = data;
-				$scope.displayForm = true;
-				$scope.searchState = true;
-			}
-		}, function error() {
-			$scope.searchState = false;
-			$scope.found = false;
-			angular.element('#searchByIsbn').select();
-		});
-	};
+    // Add book
 
-	// Upload certificate
-	$scope.displayForm = false;
+    $scope.addBook = function(book, index) {
+        Book.add(book).then(function() {
+            console.log('book added');
+            notifier.success('Book added successfully!');
 
-	$scope.setFileEventListener = function(element) {
-		if(typeof $scope.books === 'undefined') {
-			$scope.books[0] = new Object({});
-		}
-		$scope.uploadedFile = element.files[0];
+            $scope.books.splice(index,1);
+            if($scope.books.length<1) {
+                $window.location.href = '/admin/books';
+            }
 
-		if ($scope.uploadedFile) {
-			$scope.$apply(function() {
-				$scope.uploadButtonState = true;
-			});
-		}
-	};
+        }, function(reason){
+            console.log('error');
+            notifier.error(reason);
+        });
+    };
 
-	$scope.uploadFile = function(index) {
-		if (!$scope.uploadedFile) {
-			return;
-		}
+    $scope.newForm = function() {
+        $scope.books = [];
+         $scope.books[0] = new Object({});
+         $scope.displayForm = true;
+        $scope.searchState = undefined;
+    };
 
-		ajaxPost.uploadFileInit($scope.uploadedFile)
-			.then(function(result) {
-				if (result.status === 200) {
-					$scope.books[index].cover = result.data;
-					$scope.coverUploadSuccessful = true;
-					$scope.coverUploadError = false;
-					$scope.coverTypeError = false;   
-				}
-			}, function(error) {
-				if(error.data==='Invalid mime type'){
-					$scope.coverTypeError = true;
-				}
-				else{
-					$scope.coverUploadError = true;
-				}
-				$scope.coverError = error.data;
-			});		   
-	};
+    $scope.findBook = function() {
+
+        $scope.searchState = undefined;
+        $scope.found = undefined;
+        angular.element('#searchByIsbnButton').trigger('click');
+
+        var bookPromise = bookSearch.search($scope.ISBNSearch);
+        bookPromise.then(function success(data) {
+            if(data.foundInDatabase===true) {
+                $scope.searchState = false;
+                $scope.bookURL = '/admin/book/' + data._id;
+            } else {
+                $scope.books = [];
+                data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
+                $scope.books[0] = data;
+                $scope.displayForm = true;
+                $scope.searchState = true;
+            }
+        }, function error() {
+            $scope.searchState = false;
+            $scope.found = false;
+            angular.element('#searchByIsbn').select();
+        });
+    };
+
+    // Upload certificate
+    $scope.displayForm = false;
+
+    $scope.setFileEventListener = function(element) {
+        if(typeof $scope.books === 'undefined') {
+            $scope.books[0] = new Object({});
+        }
+        $scope.uploadedFile = element.files[0];
+
+        if ($scope.uploadedFile) {
+            $scope.$apply(function() {
+                $scope.uploadButtonState = true;
+            });
+        }
+    };
+
+    $scope.uploadFile = function(index) {
+        if (!$scope.uploadedFile) {
+            return;
+        }
+
+        ajaxPost.uploadFileInit($scope.uploadedFile)
+            .then(function(result) {
+                if (result.status === 200) {
+                    $scope.books[index].cover = result.data;
+                    $scope.coverUploadSuccessful = true;
+                    $scope.coverUploadError = false;
+                    $scope.coverTypeError = false;   
+                }
+            }, function(error) {
+                if(error.data==='Invalid mime type'){
+                    $scope.coverTypeError = true;
+                }
+                else{
+                    $scope.coverUploadError = true;
+                }
+                $scope.coverError = error.data;
+            });           
+    };
 
 
 

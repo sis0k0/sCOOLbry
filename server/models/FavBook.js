@@ -17,8 +17,8 @@ module.exports.seedInitialFavBook = function() {
         if (err) {
             console.log('Cannot find Libraries: ' + err);
             return;
-		}
-		
+        }
+        
         if (collection.length === 0) {
             FavBook.remove({}, function() {});
         }
