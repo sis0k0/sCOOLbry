@@ -40,12 +40,12 @@ app.controller('AddUserAdminCtrl', function($scope, $location, $routeParams, $ht
 	$scope.addNewLibrary = function() {
 		$scope.library = new Object({'librarians' : [$scope.user._id]});
 		$scope.newLibrary = true;
-	}
+	};
 
 	$scope.removeNewLibrary = function() {
 		$scope.library = undefined;
 		$scope.newLibrary = false;
-	}
+	};
 
 
 	$scope.addUserAsAdmin = function(user) {
@@ -164,7 +164,7 @@ app.controller('AddUserAdminCtrl', function($scope, $location, $routeParams, $ht
 		}
 	};
 
-	$scope.selectLibrary = function(field) {
+	$scope.selectLibrary = function() {
 		// $scope.user.ownLibraryID = $scope.libraryObject;
 	};
 

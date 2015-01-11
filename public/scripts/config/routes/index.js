@@ -3,6 +3,7 @@
 app.config(function($routeProvider) {
 
 	// router authorization checker for roles
+	// jshint unused:true
 	var routeUserChecks = {
 		adminRole: {
 			authenticate: function(User) {
@@ -25,6 +26,8 @@ app.config(function($routeProvider) {
 			}
 		}
 	};
+
+	// jshint unused:false
 
 	// set routes using angular's ngRoute
 	$routeProvider
@@ -51,7 +54,8 @@ app.config(function($routeProvider) {
 		})
 		.when('/book/:id/:libraryID', {
 			templateUrl: '/partials/books/book-details',
-			controller: 'BookDetailsCtrl'
+			controller: 'BookDetailsCtrl',
+			reloadOnSearch: false
 		})
 		.when('/search/:phrase', {
 			templateUrl: '/partials/books/book-search',

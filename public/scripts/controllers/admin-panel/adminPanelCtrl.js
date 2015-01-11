@@ -31,7 +31,7 @@ app.controller('AdminPanelCtrl', function($scope, $location, identity) {
 				'search' : '/admin/users/search'
 			}
 		}
-	]
+	];
 
 	// Gets the current menu item
 	// using the current location path

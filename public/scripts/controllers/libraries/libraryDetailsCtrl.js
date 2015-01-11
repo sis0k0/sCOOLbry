@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryDetailsPageCtrl', function($scope, User, $routeParams, $route, BookResource, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier, $location) {
+app.controller('LibraryDetailsPageCtrl', function($scope, User, $routeParams, $route, BookResource, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier) {
 		
 	$scope.user = identity.currentUser;
 
@@ -15,7 +15,7 @@ app.controller('LibraryDetailsPageCtrl', function($scope, User, $routeParams, $r
 	
 	$scope.libBooks = LibBooksResource.query({id: $routeParams.id}, function() {
 
-		$scope.books = new Array();
+		$scope.books = [];
 		for(var i=0; i<$scope.libBooks.length; i++) {
 			$scope.books[i] = BookResource.get({id: $scope.libBooks[i].bookID}, function() {
 			});
@@ -59,7 +59,7 @@ app.controller('LibraryDetailsPageCtrl', function($scope, User, $routeParams, $r
 	
  	$scope.unsubscribeForLibrary = function() {
 		var responsePromise = $http.get('/api/library/delete-user/'+identity.currentUser._id+'/'+$routeParams.id);
-		responsePromise.success(function(data) {
+		responsePromise.success(function() {
 
 			$scope.user.librarySubscriptions.splice($scope.user.librarySubscriptions.indexOf($routeParams.id), 1);
 			

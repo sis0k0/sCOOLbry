@@ -2,10 +2,10 @@
 
   h1.text-center {{ library.name }}
   div(ng-show='!isLoggedIn')
-    h3.text-success.text-center
-      a(href='/login').text-primary Log in
+    h4.text-center
+      a(href='/signup') Sign up
       |  or 
-      a(href='/signup').text-primary Register
+      a(href='/login') Log in
       |  to subscribe
   //- h4.text-center.text-primary {{ library.address }}, {{ library.city }}, {{ library.country.name }}
   

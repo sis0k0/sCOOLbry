@@ -40,6 +40,18 @@ app.factory('LibraryUsersInteractions', function($q, BookGiveResource, BookRetur
 			});
 
 			return deferred.promise;
+		},
+		removeBooking: function(booking){
+			var deferred = $q.defer();
+			
+			var bookingToRemove = new BookingResource({id: booking._id});
+			bookingToRemove.$remove().then(function() {
+				deferred.resolve();
+			}, function(response) {
+				deferred.reject(response);
+			});
+
+			return deferred.promise;
 		}
 	};
 });

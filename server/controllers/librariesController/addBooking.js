@@ -5,7 +5,8 @@ var Booking = require('mongoose').model('Booking'),
 
 module.exports = function(req, res) {
 
-
+	console.log(req.body);
+	
 	LibBook.findOne({libraryID: req.body.libraryID, bookID: req.body.bookID}).exec(function(err, book) {
 		if(err) {
 			console.log('Bookings count could not be loaded: ' + err);

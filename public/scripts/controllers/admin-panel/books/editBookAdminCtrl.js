@@ -1,3 +1,5 @@
+'use strict';
+
 app.controller('EditBookAdminCtrl', function($scope, $location, $http, Book, ajaxPost, BookResource, notifier, $routeParams) {
 
 	// Get the book
@@ -36,7 +38,7 @@ app.controller('EditBookAdminCtrl', function($scope, $location, $http, Book, aja
 		}
 	};
 
-	$scope.uploadFile = function(index) {
+	$scope.uploadFile = function() {
 		if (!$scope.uploadedFile) {
 			return;
 		}

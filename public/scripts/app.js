@@ -1,7 +1,7 @@
 'use strict';
 
 
-var app = angular.module('app', ['ngResource', 'ngRoute', 'reCAPTCHA', 'nya.bootstrap.select', 'oc.lazyLoad']).value('toastr', toastr);
+var app = angular.module('app', ['ngResource', 'ngRoute', 'reCAPTCHA', 'nya.bootstrap.select', 'timer', 'oc.lazyLoad']).value('toastr', toastr);
 
 app.run(function($rootScope, $location) {
 	

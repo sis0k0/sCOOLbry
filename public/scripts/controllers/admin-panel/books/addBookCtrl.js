@@ -45,9 +45,9 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 
 	// Define schema's fields
 
-	var fieldsOptions = new Array(), fieldsOptionsCopy = new Array();
-	$scope.fields = new Array();
-	$scope.matches = new Array();
+	var fieldsOptions = [], fieldsOptionsCopy = [];
+	$scope.fields = [];
+	$scope.matches = [];
 	fieldsOptions.push('isbn');
 	fieldsOptions.push('title');
 	fieldsOptions.push('author');
@@ -73,7 +73,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 		for(var i = 0; i < Object.keys($scope.csv.result[0]).length; i++) {
 			$scope.fields[i] = [];
 			for(var j = 0; j < fieldsOptionsCopy.length; j++){
-				if(!($scope.matches.indexOf(fieldsOptionsCopy[j])>=0)) {
+				if($scope.matches.indexOf(fieldsOptionsCopy[j])<0) {
 					$scope.fields[i].push(fieldsOptionsCopy[j]);
 				}
 			}
@@ -83,11 +83,11 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 			$scope.fields[index].push(element);
 		});
 
-	}
+	};
 
 
 	$scope.showCSVForms = function(includeTopRow) {
-		$scope.books = new Array();
+		$scope.books = [];
 		var b=-1;
 
 		var i;
@@ -111,7 +111,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 		$scope.displayForm = true;
 
 		$anchorScroll();
-	}
+	};
 
 	// Remove book form
 
@@ -123,7 +123,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 			$scope.csv = false;
 			$scope.searchState = undefined;
 		}
-	}
+	};
 
 	// Add book
 
@@ -135,7 +135,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 			$scope.books.splice(index,1);
 			if($scope.books.length<1) {
 				$window.location.href = '/admin/books';
-			};
+			}
 
 		}, function(reason){
 			console.log('error');
@@ -144,11 +144,11 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 	};
 
 	$scope.newForm = function() {
-		$scope.books = new Array();
+		$scope.books = [];
  		$scope.books[0] = new Object({});
  		$scope.displayForm = true;
 		$scope.searchState = undefined;
-	}
+	};
 
 	$scope.findBook = function() {
 
@@ -160,26 +160,26 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 		bookPromise.then(function success(data) {
 			if(data.foundInDatabase===true) {
 				$scope.searchState = false;
-				$scope.bookURL = "/admin/book/" + data._id;
+				$scope.bookURL = '/admin/book/' + data._id;
 			} else {
-				$scope.books = new Array();
+				$scope.books = [];
 				data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
 				$scope.books[0] = data;
 				$scope.displayForm = true;
 				$scope.searchState = true;
 			}
-		}, function error(msg) {
+		}, function error() {
 			$scope.searchState = false;
 			$scope.found = false;
 			angular.element('#searchByIsbn').select();
 		});
-	}
+	};
 
 	// Upload certificate
 	$scope.displayForm = false;
 
 	$scope.setFileEventListener = function(element) {
-		if($scope.books==undefined) {
+		if(typeof $scope.books === 'undefined') {
 			$scope.books[0] = new Object({});
 		}
 		$scope.uploadedFile = element.files[0];

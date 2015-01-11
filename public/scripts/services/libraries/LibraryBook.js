@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('LibraryBook', function($q, LibBookResource2, LibBookResource) {
+app.factory('LibraryBook', function($q, LibBookResource2) {
 	return {
 
 		add: function(book) {

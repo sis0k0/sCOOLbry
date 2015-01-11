@@ -4,7 +4,7 @@ app.factory('LibraryUsers', function($q, LibUserResource, UsersResource) {
 	return {
 		addUserToLibrary: function(user, libraryID) {
 			var deferred = $q.defer();
-			if(typeof libraryID !== "undefined") {
+			if(typeof libraryID !== 'undefined') {
 				user.libraryID = libraryID;
 			}
 		

@@ -4,11 +4,11 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 
 	// Define library and default working hours
 	$scope.library = new Object({});
-	$scope.library.workdays = new Array();
-	$scope.library.workHoursOpeningHour = new Array();
-	$scope.library.workHoursClosingHour = new Array();
-	$scope.library.workHoursOpeningMinutes = new Array();
-	$scope.library.workHoursClosingMinutes = new Array();
+	$scope.library.workdays = [];
+	$scope.library.workHoursOpeningHour = [];
+	$scope.library.workHoursClosingHour = [];
+	$scope.library.workHoursOpeningMinutes = [];
+	$scope.library.workHoursClosingMinutes = [];
 
 	for(var i=0; i<7; i++) {
 		$scope.library.workdays[i] = true;
@@ -23,12 +23,12 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 	$scope.addLibrary = function(library, librarians) {
 
 
-        var workdays = new Array();
-        var workhours = new Array();
+        var workdays = [];
+        var workhours = [];
         var workhoursString = ''; 
         
         for(var i = 0; i < 7; i++) {            
-            if(library.workdays[i]==true) {
+            if(library.workdays[i]===true) {
                 workdays[i] = true;
                 workhoursString = library.workHoursOpeningHour[i]+':'+library.workHoursOpeningMinutes[i]+'-'+library.workHoursClosingHour[i]+':'+library.workHoursClosingMinutes[i];
                 workhours[i] = workhoursString;
@@ -86,7 +86,7 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 		method: 'get',
 		url: '/api/users'
 	}).success(function(data) {
-		$scope.users = new Array();
+		$scope.users = [];
 		// Check if user is	not already a librarian (you can't be librarian at two places)
 		for (var user in data) {
 			if(data[user].ownLibraryID==='' || !data[user].ownLibraryID) {
@@ -102,7 +102,7 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 	$scope.setFileEventListener = function(element) {
 		$scope.uploadedFile = element.files[0];
 		
-		if($scope.library==undefined) {
+		if(typeof $scope.library=== 'undefined') {
 			$scope.library = new Object({});
 		}
 		
@@ -146,7 +146,7 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
 	
 	$scope.librariansCount = 0;
 
-	$scope.librarians = new Array();
+	$scope.librarians = [];
 	
 	for(var i = 0; i < $scope.librariansCount; i++) {
 		$scope.librarians[i] = new Object({'index': i});

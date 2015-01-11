@@ -2,16 +2,16 @@
 
 app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library, User, notifier, UserResource, ajaxPost, LibraryResource, $routeParams) {
 
-    $scope.currentLibrarians = new Array();
+    $scope.currentLibrarians = [];
 
     $scope.library = LibraryResource
     	.get({id: $routeParams.id}, function(data){
 
 
-    		$scope.library.workHoursClosingMinutes = new Array();
-    		$scope.library.workHoursOpeningHour = new Array();
-    		$scope.library.workHoursOpeningMinutes = new Array();
-    		$scope.library.workHoursClosingHour = new Array();
+    		$scope.library.workHoursClosingMinutes = [];
+    		$scope.library.workHoursOpeningHour = [];
+    		$scope.library.workHoursOpeningMinutes = [];
+    		$scope.library.workHoursClosingHour = [];
 
     		for(var i=0; i<7; i++) {
     			if(data.workdays[i]===true) {
@@ -44,8 +44,8 @@ app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library,
 	
 	$scope.updateLibrary = function(library, librarians) {
 
-        var workdays = new Array();
-        var workhours = new Array();
+        var workdays = [];
+        var workhours = [];
         var workhoursString = ''; 
         
         for(var i = 0; i < 7; i++) {            
@@ -100,7 +100,7 @@ app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library,
 
 
     // Remove current librarian
-    $scope.removedLibrarians = new Array();
+    $scope.removedLibrarians = [];
 
     $scope.removeCurrentLibrarian = function(librarian) {
         $scope.currentLibrarians.splice($scope.currentLibrarians.indexOf(librarian), 1);
@@ -116,7 +116,7 @@ app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library,
 
         $scope.removedLibrarians.push(librarian);
 
-    }
+    };
 
 	// Get list of all countries to choose from for library's location
 	$http({
@@ -134,7 +134,7 @@ app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library,
 		method: 'get',
 		url: '/api/users'
 	}).success(function(data) {
-		$scope.users = new Array();
+		$scope.users = [];
 		// Check if user is	not already a librarian (you can't be librarian at two places)
 		for (var user in data) {
 			if(data[user].ownLibraryID==='' || !data[user].ownLibraryID) {
@@ -150,7 +150,7 @@ app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library,
 	$scope.setFileEventListener = function(element) {
 		$scope.uploadedFile = element.files[0];
 		
-		if($scope.library==undefined) {
+		if(typeof $scope.library === 'undefined') {
 			$scope.library = new Object({});
 		}
 		
@@ -194,7 +194,7 @@ app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library,
 	
 	$scope.librariansCount = 0;
 
-	$scope.librarians = new Array();
+	$scope.librarians = [];
 	
 	for(var i = 0; i < $scope.librariansCount; i++) {
 		$scope.librarians[i] = new Object({'index': i});

@@ -3,7 +3,7 @@
 app.controller('SearchCtrl', function($scope, $location, $routeParams, BookSearchResource) {
     
     $scope.search = function(phrase) {
-    	if(phrase===undefined || phrase===' ') {
+    	if(typeof phrase === 'undefined' || phrase===' ') {
     		$scope.results = undefined;
     	}else{
     		$scope.phrase = phrase;

@@ -16,6 +16,8 @@ module.exports = function(app) {
 	router.get('/libraries/:id', controllers.libraries.getLibraryById);
 	router.get('/library/books/:id', controllers.libraries.getLibraryBooksById);
 
+	// Get all libraries that have a copy of a book
+	router.get('/library/lib-books/:id', controllers.libraries.getLibBooksByBook);
 
 	router.get('/library/book/:id', controllers.libraries.getLibBookById);
 	router.post('/library/book', auth.isInRole('librarian'), controllers.libraries.addLibBook);
@@ -56,12 +58,17 @@ module.exports = function(app) {
 
 	router.get('/library/subscribers/:libraryID', controllers.libraries.getLibraryUsersInLibraryCount);
 
-	router.post('/library/addbooking', controllers.libraries.addBooking);
+	// Bookings
 
-	router.get('/library/booking/:libraryID/:bookID', controllers.libraries.getBookingCountBook);
+	router.post('/library/booking', controllers.libraries.addBooking);
+	router.delete('/library/booking/:id', controllers.libraries.deleteBooking);
+
+	router.get('/library/booking/:libraryID/:bookID', controllers.libraries.getBookingsBookInLibrary);
 	router.get('/library/booking-sort/:libraryID/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.libraries.getAllBookingsSortable);
 
+	router.get('/library/booking-count/:libraryID/:bookID', controllers.libraries.getBookingCountBook);
 	router.get('/library/booking-count/:libraryID', controllers.libraries.getBookingCountLibrary);
+
 	router.get('/library/available/:bookID/:libraryID', controllers.libraries.isBookAvailable);
 	app.use('/api/', router);
 };

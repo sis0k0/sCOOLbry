@@ -110,5 +110,5 @@ app.config(function($routeProvider) {
 			templateUrl: '/partials/library-panel/users/book-requests',
             controller: 'BookingRequestsCtrl',
 			resolve: routeUserChecks.librarianRole
-		})
+		});
 });

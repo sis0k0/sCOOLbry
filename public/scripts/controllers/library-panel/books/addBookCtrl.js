@@ -48,9 +48,9 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
 
     // Define schema's fields
 
-    var fieldsOptions = new Array(), fieldsOptionsCopy = new Array();
-    $scope.fields = new Array();
-    $scope.matches = new Array();
+    var fieldsOptions = [], fieldsOptionsCopy = [];
+    $scope.fields = [];
+    $scope.matches = [];
     fieldsOptions.push('isbn');
     fieldsOptions.push('title');
     fieldsOptions.push('author');
@@ -76,7 +76,7 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
         for(var i = 0; i < Object.keys($scope.csv.result[0]).length; i++) {
             $scope.fields[i] = [];
             for(var j = 0; j < fieldsOptionsCopy.length; j++){
-                if(!($scope.matches.indexOf(fieldsOptionsCopy[j])>=0)) {
+                if($scope.matches.indexOf(fieldsOptionsCopy[j])<0) {
                     $scope.fields[i].push(fieldsOptionsCopy[j]);
                 }
             }
@@ -86,11 +86,11 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
             $scope.fields[index].push(element);
         });
 
-    }
+    };
 
 
     $scope.showCSVForms = function(includeTopRow) {
-        $scope.books = new Array();
+        $scope.books = [];
         var b=-1;
 
         var i;
@@ -114,7 +114,7 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
         $scope.displayForm = true;
 
         $anchorScroll();
-    }
+    };
 
     // Remove book form
 
@@ -126,7 +126,7 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
             $scope.csv = false;
             $scope.searchState = undefined;
         }
-    }
+    };
 
     // Add book
 
@@ -137,7 +137,7 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
             $scope.books.splice(index,1);
             if($scope.books.length<1) {
                 $location.path('/library-panel/books-library');
-            };
+            }
 
         }, function(reason){
             notifier.error(reason);
@@ -145,11 +145,11 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
     };
 
     $scope.newForm = function() {
-        $scope.books = new Array();
+        $scope.books = [];
         $scope.books[0] = new Object({});
         $scope.displayForm = true;
         $scope.searchState = undefined;
-    }
+    };
 
     $scope.findBook = function() {
 
@@ -159,7 +159,7 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
 
         var bookPromise = bookSearch.search($scope.ISBNSearch);
         bookPromise.then(function success(data) {
-            $scope.books = new Array();
+            $scope.books = [];
             data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
 
             if((typeof data.themes !== 'undefined') && (typeof $scope.library.librarySections !== 'undefined')) {
@@ -173,20 +173,19 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
 
                 });
             }
-            $scope.books[0] = data;
 
-           
+            $scope.books[0] = data;
             $scope.displayForm = true;
             $scope.searchState = true;
-        }, function error(msg) {
+        }, function error() {
             angular.element('#searchByIsbn').select();
             $scope.searchState = false;
             $scope.found = false;
         });
-    }
+    };
 
     $scope.setFileEventListener = function(element) {
-        if($scope.books==undefined) {
+        if(typeof $scope.books=== 'undefined') {
             $scope.books[0] = new Object({});
         }
         $scope.uploadedFile = element.files[0];

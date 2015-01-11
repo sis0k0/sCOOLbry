@@ -52,7 +52,5 @@ app.config(function($routeProvider) {
 			templateUrl: '/partials/account/edit-profile',
 			controller: 'EditProfileCtrl',
 			resolve: routeUserChecks.authenticated
-		})
-
-
+		});
 });

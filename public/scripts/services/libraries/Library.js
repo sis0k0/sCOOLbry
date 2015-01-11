@@ -2,10 +2,8 @@
 
 app.factory('Library', function($http, $q, UsersResource, UserResource, identity, LibraryResource, LibrarianResource) {
 	return {
-
 		registerLibrary: function(library, librarian) {
 			var deferred = $q.defer(),
-				libraryID,
 				newUser = new UsersResource(librarian);
 
 			// Create new user - the library owner's profile
@@ -23,13 +21,12 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, identity
 					var updatedUser = new UsersResource(librarian);
 					updatedUser._id = userData._id;
 
-					updatedUser.$update().then(function(someData) {
+					updatedUser.$update().then(function() {
 						identity.currentUser = updatedUser;
-
 						deferred.resolve();
 					}, function(response) {
 						deferred.reject(response.data.reason);
-					})
+					});
 				}, function(response) {
 					deferred.reject(response.data.reason);
 				});
@@ -44,8 +41,8 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, identity
 
 		addLibrary: function(library, librarians) {
 			var deferred = $q.defer(),
-				libraryID,
-				newLibrary = new LibraryResource(library);
+				newLibrary = new LibraryResource(library),
+				libraryID;
 			
 			// Save the library
 			newLibrary.$save(function(data) {

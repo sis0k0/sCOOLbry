@@ -25,7 +25,7 @@ app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
 				'user interaction' : '/library-panel/users/user-interaction',
 			}
 		}
-	]
+	];
 
 
 	// Gets the current menu item

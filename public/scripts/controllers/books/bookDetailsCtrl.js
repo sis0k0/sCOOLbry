@@ -1,15 +1,15 @@
 'use strict';
 
-app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http, $route, LibraryUsersInteractions, notifier, $location, BookResource, LibraryReadingResource, LibBookResource, $window, LibraryResource, Book) {
-    
+app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http, $route, $compile, LibraryUsersInteractions, notifier, $location, $anchorScroll, BookResource, LibraryReadingResource, LibBookResource, $window, LibraryResource, Book) {
+
+    $scope.user = identity.currentUser;
+
     $scope.showMore = true;
     $scope.book = BookResource.get({id: $routeParams.id}, function() {
 
         if($scope.book.hasOwnProperty('author') && $scope.book.author.indexOf('.') > -1) {
             $scope.book.author = $scope.book.author.substring(0, $scope.book.author.indexOf('.') -2);
         }
-        console.log($scope.book);
-
         $scope.otherCharacteristics = new Object({});
         if($scope.book.hasOwnProperty('isbn')) {
             $scope.otherCharacteristics.isbn = $scope.book.isbn;
@@ -41,88 +41,96 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
     });
 
 
+    $scope.gotoOtherLibraries = function() {
+      $location.hash('other');
+      $anchorScroll();
+    };
+
+    $http.get('/api/library/lib-books/'+$routeParams.id)
+    .success(function(data) {
+        $scope.libraries = [];
+        for(var i=0; i<data.length; i++) {
+            LibraryResource.get({id: data[i].libraryID}, function(data) {
+                $scope.libraries.push(data);
+            });
+        }
+    })
+    .error(function(err) {
+        notifier.error(err);
+    });
 
 
-    if($routeParams.libraryID!=undefined) {
+    if(typeof $routeParams.libraryID !== 'undefined') {
 
         $scope.libraryID = $routeParams.libraryID;
         $scope.readers   = LibraryReadingResource.get({libraryID: $scope.libraryID});
-        $scope.quantity  = LibBookResource.get({libraryID: $scope.libraryID, bookID: $routeParams.id});
+        $scope.libBook  = LibBookResource.get({libraryID: $scope.libraryID, bookID: $routeParams.id});
         $scope.library = LibraryResource.get({id: $scope.libraryID});
 
         $scope.bookable  = false;
-        $scope.notFavourite = true;
+        $scope.isFavorite = false;
+
 
 
         $http.get('/api/library/booking/'+$scope.libraryID+'/'+$routeParams.id).success(function(data){
 
-            $scope.booked = parseInt(data);
+            $scope.bookings = data;
 
-            if(identity.currentUser===undefined) {
-
+            if(typeof $scope.user === 'undefined') {
                 $scope.isMember = false;
-                $scope.isLoggedIn = false;
             }else{
-                var responsePromise = $http.get('/api/library/member/'+$scope.libraryID+'/'+identity.currentUser._id);
-                responsePromise.success(function(data) {
-
-                    if(data===true){
-                        $scope.isMember = true;
-                    }else{
-                        $scope.isMember = false;
-                    }
-
-                    if(($scope.quantity.available-$scope.booked)>0 && identity.isAuthenticated() && $scope.isMember==true) {
-                        $scope.bookable = true;
-                    }else{
+                $scope.isMember = (typeof $scope.user.librarySubscriptions !== 'undefined' && $scope.user.librarySubscriptions.indexOf($scope.libraryID) > -1) ? true : false;
+                
+                var flag = false;
+                for(var i=0; i<$scope.bookings.length; i++) {
+                    if($scope.bookings[i].userID === $scope.user._id) {
+                        flag = true;
                         $scope.bookable = false;
+                        $scope.booking = $scope.bookings[i];
+
+                        $scope.reservationEnd = $scope.bookings[i].bookDate;
+
+                        var wrapper = angular.element(document.querySelector( '#timerWrapper' ));
+
+                        wrapper.append('<timer class="text-center" end-time="reservationEnd"><p>Your reservation ends after:</p><p class="text-info">{{hours}} hours, {{minutes}} minutes and {{seconds}} seconds</p></timer>');
+                        $compile(wrapper)($scope);
+
+                        break;
                     }
-                });      
-        
+                }
+                if(!flag) {
+                    $scope.bookable = (($scope.libBook.available-$scope.bookings.length)>0 && $scope.isMember) ? true : false;
+                }
 
-
-               $http.get('/api/book/isFavourite/'+identity.currentUser._id+'/'+$routeParams.id).success(function(data){
-
-                    console.log(data);
-                    if(data===true){
-                        $scope.notFavourite = false;
-                    }else{
-                        $scope.notFavourite = true;
-                    }
-
+                $http.get('/api/book/isFavourite/'+identity.currentUser._id+'/'+$routeParams.id).success(function(data){
+                    $scope.isFavorite = data ? true : false;
                 });
-
-                $scope.isLoggedIn = true;     
             }
 
         });
-
-        console.log($scope.quantity);
 
     }else{
         $scope.libraryID = -1;
     }
 
-    
     $scope.addBooking = function(){
         var booking = new Object({});
         var checkDay = new Date(new Date().getTime() + 60 * 60 * 24 * 1000);
         var workingDays = $scope.library.workdays;
         var workingHoursStr = $scope.library.workhours;
-        console.log($scope.library);
         var bookDate;
 
-        var workingHours = new Array();
+        var workingHours = [];
         workingHoursStr.forEach(function(element, index) {
 
             if(element!==null) {
-                var currentDay = new Array();
-                var currentSplit = element.split("-");
+                var currentDay = [];
+                var currentSplit = element.split('-');
                 var openingSplit = currentSplit[0];
                 var closingSplit = currentSplit[1];
-                openingSplit = openingSplit.split(":");
+                openingSplit = openingSplit.split(':');
                 openingSplit = openingSplit[0];
-                closingSplit = closingSplit.split(":");
+                closingSplit = closingSplit.split(':');
                 closingSplit = closingSplit[0];
                 currentDay.push(openingSplit);
                 currentDay.push(closingSplit);
@@ -136,24 +144,22 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
         var initialDay = checkDay.getDay();
         var add = 0;
 
-        while(workingDays[todayWeekDay]!=true) {
+        while(workingDays[todayWeekDay]!==true) {
             todayWeekDay++;
-            if(todayWeekDay==initialDay){
+            if(todayWeekDay===initialDay){
                 break;
             }
-            if(todayWeekDay==7) { todayWeekDay = 0; add = true; }
+            if(todayWeekDay===7) { todayWeekDay = 0; add = true; }
         }
             
         var workingHoursIndex = todayWeekDay;
         var newBookingDate = new Date();
-        if(add==true){
+        if(add===true){
             newBookingDate = new Date(checkDay.getTime() + 60 * 60 * 24 * 1000 * ((Math.abs(7-initialDay)+(Math.abs(0-todayWeekDay)+1))));
         }else{
             newBookingDate = new Date(checkDay.getTime() + 60 * 60 * 24 * 1000 * (Math.abs(todayWeekDay-initialDay)+add));
         }
 
-        console.log(workingHours);
-        console.log(workingHoursIndex+'!');   
         newBookingDate.setHours(workingHours[workingHoursIndex][1]);
 
         newBookingDate.setMinutes(0);
@@ -169,33 +175,41 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
 
         LibraryUsersInteractions.addBooking(booking).then(function(){
             notifier.success('Booking added successfully!');
-            $location.path('/libraries');
-           
+            $route.reload();
         }, function(err) {
             notifier.error(err.data);
         });
     };
 
-    $scope.addFavourite = function(bookName, bookISBN) {
-       
-        var favourite = new Object({});
-        favourite.bookID = $routeParams.id;
-        favourite.bookISBN = bookISBN;
-        favourite.libraryID = $scope.libraryID;
-        favourite.bookName = bookName;
-        favourite.userID = identity.currentUser._id;
+    $scope.removeBooking = function() {
+        LibraryUsersInteractions.removeBooking($scope.booking).then(function(){
+            notifier.success('Booking removed successfully!');
+            $route.reload();
+        }, function(err) {
+            notifier.error(err.data);
+        });
+    };
 
-        Book.addFavourite(favourite).then(function(){
-            notifier.success('Booking added successfully to favourites!');
+    $scope.addFavorite = function(bookName, bookISBN) {
+       
+        var favorite = new Object({});
+        favorite.bookID = $routeParams.id;
+        favorite.bookISBN = bookISBN;
+        favorite.libraryID = $scope.libraryID;
+        favorite.bookName = bookName;
+        favorite.userID = identity.currentUser._id;
+
+        Book.addFavourite(favorite).then(function(){
+            notifier.success('Book added successfully to favorites!');
             $route.reload();
            
         });
     };
 
-    $scope.removeFavourite = function() {
+    $scope.removeFavosrite = function() {
         var responsePromise = $http.get('/api/book/deleteFavourite'+'/'+$routeParams.id);
-        responsePromise.success(function(data) {
-            notifier.success('You\'ve removed this book from favourites successfully!');
+        responsePromise.success(function() {
+            notifier.success('You\'ve removed this book from favorites successfully!');
             $route.reload();
         
         }).error(function(reason) {

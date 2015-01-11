@@ -67,7 +67,7 @@ app.factory('bookSearch', function($q, $http) {
 			// If all http requests are finished and the promise is still not resolved,
 			// then the book is not found and we reject the promise.
 			$q.all(promisesArray)
-				.then(function(results) {
+				.then(function() {
 					deferred.reject('Not found');
 				});
 

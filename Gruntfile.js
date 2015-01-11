@@ -8,9 +8,10 @@ module.exports = function(grunt) {
       // check all js files for errors
       jshint: {
         options: {
-          jshintrc: '.jshintrc'
+          jshintrc: '.jshintrc',
+          indent: 2
         },
-        all: ['public/scripts/app.js', 'public/scripts/*/*.js', 'server/**/*.js'],
+        all: ['public/scripts/app.js', 'public/scripts/**/*.js', 'server/**/*.js'],
       },
 
       // take all the js files and minify them into app.min.js

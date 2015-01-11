@@ -2,7 +2,13 @@
   .well
     form.form-horizontal(name='logInForm', ng-controller='LogInCtrl')
       fieldset
-        legend Login
+        legend
+          .row
+            .col-md-4.col-xs-4.vcenter
+              h2 Log in
+            .col-md-8.col-xs-8.vcenter
+              h5.text-right Don't have an account? 
+                a(href="../signup") Sign up        
         .row
           .col-md-7
             .form-group

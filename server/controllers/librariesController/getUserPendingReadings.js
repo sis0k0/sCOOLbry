@@ -55,8 +55,6 @@ module.exports = function(req, res) {
 						res.send(history);
 					}
 
-					/*jshint loopfunc:true */
-
 					var bookingsAdded = 0,
 						readingsAdded = 0;
 
@@ -102,13 +100,8 @@ module.exports = function(req, res) {
 							}
 						});
 					}
-					/*jshint loopfunc:false */
-
 				});
-
 			});
-
 		}
 	});
-
 };

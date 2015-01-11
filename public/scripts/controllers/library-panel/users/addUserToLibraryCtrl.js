@@ -2,7 +2,6 @@
 
 app.controller('AddUserToLibraryCtrl', function($scope, $location, Library, notifier, identity) {
     $scope.libraryID = identity.currentUser.ownLibraryID;
-	console.log("blah");
 
     $scope.addUserToLibrary = function(user) {
 		user.given = 0;
