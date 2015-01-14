@@ -1,6 +1,6 @@
 /**
  * oclazyload - Load modules on demand (lazy load) with angularJS
- * @version v0.5.0
+ * @version v0.5.2
  * @link https://github.com/ocombe/ocLazyLoad
  * @license MIT
  * @author Olivier Combe <olivier.combe@gmail.com>
@@ -8,6 +8,7 @@
 (function() {
   'use strict';
   var regModules = ['ng'],
+    initModules = [],
     regInvokes = {},
     regConfigs = [],
     justLoaded = [],
@@ -34,7 +35,7 @@
       // Let's get the list of loaded modules & components
       init(angular.element(window.document));
 
-      this.$get = ['$timeout', '$log', '$q', '$templateCache', '$http', '$rootElement', '$rootScope', '$cacheFactory', '$interval', function($timeout, $log, $q, $templateCache, $http, $rootElement, $rootScope, $cacheFactory, $interval) {
+      this.$get = ['$log', '$q', '$templateCache', '$http', '$rootElement', '$rootScope', '$cacheFactory', '$interval', function($log, $q, $templateCache, $http, $rootElement, $rootScope, $cacheFactory, $interval) {
         var instanceInjector,
           filesCache = $cacheFactory('ocLazyLoad'),
           uaCssChecked = false,
@@ -49,7 +50,7 @@
 
         // Make this lazy because at the moment that $get() is called the instance injector hasn't been assigned to the rootElement yet
         providers.getInstanceInjector = function() {
-          return (instanceInjector) ? instanceInjector : (instanceInjector = $rootElement.data('$injector'));
+          return (instanceInjector) ? instanceInjector : (instanceInjector = ($rootElement.data('$injector') || angular.injector()));
         };
 
         broadcast = function broadcast(eventName, params) {
@@ -115,7 +116,7 @@
           el.onerror = function(e) {
             deferred.reject(new Error('Unable to load ' + path));
           }
-          el.async = 1;
+          el.async = params.serie ? 0 : 1;
 
           var insertBeforeElem = anchor.lastChild;
           if(params.insertBefore) {
@@ -225,27 +226,24 @@
            * because the user can overwrite templatesLoader and it will probably not use promises :(
            */
           templatesLoader = function(paths, callback, params) {
-            if(angular.isString(paths)) {
-              paths = [paths];
-            }
             var promises = [];
             angular.forEach(paths, function(url) {
               var deferred = $q.defer();
               promises.push(deferred.promise);
               $http.get(url, params).success(function(data) {
-                angular.forEach(angular.element(data), function(node) {
-                  if(node.nodeName === 'SCRIPT' && node.type === 'text/ng-template') {
-                    $templateCache.put(node.id, node.innerHTML);
-                  }
-                });
+                if(angular.isString(data) && data.length > 0) {
+                  angular.forEach(angular.element(data), function(node) {
+                    if(node.nodeName === 'SCRIPT' && node.type === 'text/ng-template') {
+                      $templateCache.put(node.id, node.innerHTML);
+                    }
+                  });
+                }
                 if(angular.isUndefined(filesCache.get(url))) {
                   filesCache.put(url, true);
                 }
                 deferred.resolve();
-              }).error(function(data) {
-                var err = 'Error load template "' + url + '": ' + data;
-                $log.error(err);
-                deferred.reject(new Error(err));
+              }).error(function(err) {
+                deferred.reject(new Error('Unable to load template file "' + url + '": ' + err));
               });
             });
             return $q.all(promises).then(function success() {
@@ -269,7 +267,7 @@
           var pushFile = function(path) {
             cachePromise = filesCache.get(path);
             if(angular.isUndefined(cachePromise) || params.cache === false) {
-              if(/\.css[^\.]*$/.test(path) && cssFiles.indexOf(path) === -1) {
+              if(/\.(css|less)[^\.]*$/.test(path) && cssFiles.indexOf(path) === -1) {
                 cssFiles.push(path);
               } else if(/\.(htm|html)[^\.]*$/.test(path) && templatesFiles.indexOf(path) === -1) {
                 templatesFiles.push(path);
@@ -592,13 +590,9 @@
                     deferred.reject(e);
                     return;
                   }
-                  $timeout(function() {
-                    deferred.resolve(module);
-                  });
+                  deferred.resolve(module);
                 }, function error(err) {
-                  $timeout(function() {
-                    deferred.reject(err);
-                  });
+                  deferred.reject(err);
                 });
               }
             }, function error(err) {
@@ -630,17 +624,6 @@
             throw('The template loader needs to be a function');
           }
           templatesLoader = config.templatesLoader;
-        }
-
-        // for bootstrap apps, we need to define the main module name
-        if(angular.isDefined(config.loadedModules)) {
-          var addRegModule = function(loadedModule) {
-            if(regModules.indexOf(loadedModule) < 0) {
-              regModules.push(loadedModule);
-              angular.forEach(angular.module(loadedModule).requires, addRegModule);
-            }
-          };
-          angular.forEach(config.loadedModules, addRegModule);
         }
 
         // If we want to define modules configs
@@ -863,13 +846,10 @@
   }
 
   function getModuleName(module) {
-    if(module === null) {
-      return null;
-    }
     var moduleName = null;
-    if(typeof module === 'string') {
+    if(angular.isString(module)) {
       moduleName = module;
-    } else if(typeof module === 'object' && module.hasOwnProperty('name') && typeof module.name === 'string') {
+    } else if(angular.isObject(module) && module.hasOwnProperty('name') && angular.isString(module.name)) {
       moduleName = module.name;
     }
     return moduleName;
@@ -880,62 +860,69 @@
    * @param element
    */
   function init(element) {
-    var elements = [element],
-      appElement,
-      moduleName,
-      names = ['ng:app', 'ng-app', 'x-ng-app', 'data-ng-app'],
-      NG_APP_CLASS_REGEXP = /\sng[:\-]app(:\s*([\w\d_]+);?)?\s/;
+    if(initModules.length === 0) {
+      var elements = [element],
+        names = ['ng:app', 'ng-app', 'x-ng-app', 'data-ng-app'],
+        NG_APP_CLASS_REGEXP = /\sng[:\-]app(:\s*([\w\d_]+);?)?\s/,
+        append = function append(elm) {
+          return (elm && elements.push(elm));
+        };
 
-    function append(elm) {
-      return (elm && elements.push(elm));
+      angular.forEach(names, function(name) {
+        names[name] = true;
+        append(document.getElementById(name));
+        name = name.replace(':', '\\:');
+        if(element[0].querySelectorAll) {
+          angular.forEach(element[0].querySelectorAll('.' + name), append);
+          angular.forEach(element[0].querySelectorAll('.' + name + '\\:'), append);
+          angular.forEach(element[0].querySelectorAll('[' + name + ']'), append);
+        }
+      });
+
+      angular.forEach(elements, function(elm) {
+        if(initModules.length === 0) {
+          var className = ' ' + element.className + ' ';
+          var match = NG_APP_CLASS_REGEXP.exec(className);
+          if(match) {
+            initModules.push((match[2] || '').replace(/\s+/g, ','));
+          } else {
+            angular.forEach(elm.attributes, function(attr) {
+              if(initModules.length === 0 && names[attr.name]) {
+                initModules.push(attr.value);
+              }
+            });
+          }
+        }
+      });
+    }
+    if(initModules.length === 0) {
+      throw 'No module found during bootstrap, unable to init ocLazyLoad';
     }
 
-    angular.forEach(names, function(name) {
-      names[name] = true;
-      append(document.getElementById(name));
-      name = name.replace(':', '\\:');
-      if(element[0].querySelectorAll) {
-        angular.forEach(element[0].querySelectorAll('.' + name), append);
-        angular.forEach(element[0].querySelectorAll('.' + name + '\\:'), append);
-        angular.forEach(element[0].querySelectorAll('[' + name + ']'), append);
+    var addReg = function addReg(moduleName) {
+      if(regModules.indexOf(moduleName) === -1) {
+        // register existing modules
+        regModules.push(moduleName);
+        var mainModule = angular.module(moduleName);
+
+        // register existing components (directives, services, ...)
+        invokeQueue(null, mainModule._invokeQueue, moduleName);
+        invokeQueue(null, mainModule._configBlocks, moduleName); // angular 1.3+
+
+        angular.forEach(mainModule.requires, addReg);
       }
+    };
+
+    angular.forEach(initModules, function(moduleName) {
+      addReg(moduleName);
     });
-
-    //TODO: search the script tags for angular.bootstrap
-    angular.forEach(elements, function(elm) {
-      if(!appElement) {
-        var className = ' ' + element.className + ' ';
-        var match = NG_APP_CLASS_REGEXP.exec(className);
-        if(match) {
-          appElement = elm;
-          moduleName = (match[2] || '').replace(/\s+/g, ',');
-        } else {
-          angular.forEach(elm.attributes, function(attr) {
-            if(!appElement && names[attr.name]) {
-              appElement = elm;
-              moduleName = attr.value;
-            }
-          });
-        }
-      }
-    });
-
-    if(appElement) {
-      (function addReg(moduleName) {
-        if(regModules.indexOf(moduleName) === -1) {
-          // register existing modules
-          regModules.push(moduleName);
-          var mainModule = angular.module(moduleName);
-
-          // register existing components (directives, services, ...)
-          invokeQueue(null, mainModule._invokeQueue, moduleName);
-          invokeQueue(null, mainModule._configBlocks, moduleName); // angular 1.3+
-
-          angular.forEach(mainModule.requires, addReg);
-        }
-      })(moduleName);
-    }
   }
+
+  var bootstrap = angular.bootstrap;
+  angular.bootstrap = function(element, modules, config) {
+    initModules = modules.slice(); // make a clean copy
+    return bootstrap(element, modules, config);
+  };
 
   // Array.indexOf polyfill for IE8
   if(!Array.prototype.indexOf) {

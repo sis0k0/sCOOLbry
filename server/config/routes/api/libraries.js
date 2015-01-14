@@ -14,7 +14,7 @@ module.exports = function(app) {
     router.post('/libraries', controllers.libraries.createLibrary);
 
     router.get('/libraries/:id', controllers.libraries.getLibraryById);
-    router.get('/library/books/:id/:available', controllers.libraries.getLibraryBooksById);
+    router.get('/library/books/:id/:available/:userID', controllers.libraries.getLibraryBooksById);
 
     // Get all libraries that have a copy of a book
     router.get('/library/lib-books/:id', controllers.libraries.getLibBooksByBook);

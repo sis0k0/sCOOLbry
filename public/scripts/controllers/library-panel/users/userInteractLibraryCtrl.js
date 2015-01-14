@@ -1,60 +1,96 @@
 'use strict';
 
-app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeParams, identity, LibraryUsersInteractions, notifier, $http, LibBooksResource, UserNotReturnedResource) {
+app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeParams, $route, $timeout, identity, LibraryUsersInteractions, notifier, $http, LibBooksResource, UserNotReturnedResource) {
     
-    $scope.books = LibBooksResource.query({id: identity.currentUser.ownLibraryID, available: true}, function() {
-        console.log('books');
-        console.log($scope.books);
+    $scope.books = LibBooksResource.query({id: identity.currentUser.ownLibraryID, available: true, userID: $routeParams.id});
+    $scope.booksToReturn = UserNotReturnedResource.query({userID: $routeParams.id, libraryID: identity.currentUser.ownLibraryID});
+    $scope.user = UserResource.get({id: $routeParams.id}, function() {
+        var url = '/api/library/pending/' + $scope.user.id + '/' + identity.currentUser.ownLibraryID;
+        $http.get(url).
+        success(function(pendings) {
+            // Separate the requests to bookings and readings
+            for(var i=0; i<pendings.length; i++) {
+
+                if(pendings[i].book !== null) {
+                    if(pendings[i].type === 'booking') {
+                        pendings[i].book.end = pendings[i].end;
+                        $scope.bookings.push(pendings[i].book);
+                    } else if(pendings[i].type === 'reading') {
+                        pendings[i].book.end = pendings[i].end;
+                        $scope.readings.push(pendings[i].book);
+                    }
+                }
+            }
+            if($scope.bookings.length>0) {
+                $scope.bookings[0].open = true;
+            }
+            if($scope.readings.length>0) {
+                $scope.readings[0].open = true;
+            }
+        }).
+        error(function(err) {
+            notifier.error(err.data);
+        });
+
     });
-    $scope.booksToReturn = UserNotReturnedResource.query({userID: $routeParams.id, libraryID: identity.currentUser.ownLibraryID}, function() {
-        console.log('return');
-        console.log($scope.booksToReturn);
-    });
 
-    $scope.$watch('books', function() {
-        angular.element(document.querySelector( '.nya-selectpicker' )).selectpicker('refresh');
+    $scope.bookings = [];
+    $scope.readings = [];
 
-        console.log('changed');
-    });
+    // Show all tabs in the accordion
+    // var iteratorBookings = 0,
+    //     iteratorReadings = 0;
 
 
 
+    // var openNextTab = function() {
+    //     if($scope.bookings.length>0) {
+    //         $scope.bookings[iteratorBookings].open = true;
+    //         iteratorBookings = (iteratorBookings<$scope.bookings.length-1) ? ++iteratorBookings : 0;
+    //     }
+    //     if($scope.readings.length>0) {
+    //         $scope.readings[iteratorReadings].open = true;
+    //         iteratorReadings = (iteratorReadings<$scope.readings.length-1) ? ++iteratorReadings : 0;
+    //     }
+    //     $timeout(openNextTab, 5000);
+    // };
 
-    $scope.userInfo = UserResource.get({id: $routeParams.id});
-
-    $scope.bookOption = function(bookName, bookISBN) {
-
-        return bookName+' ('+bookISBN+')';
-    };
+    // openNextTab();
 
     $scope.giveBook = function(give) {
 
         give.userID = $routeParams.id;
         give.libraryID = identity.currentUser.ownLibraryID;
         give.librarian1ID = identity.currentUser._id;
-        give.bookID = give.bookInfo.bookID;
-        give.bookISBN = give.bookInfo.bookISBN;
-        give.bookName = give.bookInfo.bookName;
-
         give.startDate = new Date();
         give.endDate = new Date(new Date().getTime() + 1000*60*60*24*30);
 
-        delete give.bookInfo;
+        delete give._id;
+        delete give.__v;
 
         LibraryUsersInteractions.giveBook(give).then(function() {
             notifier.success(give.bookName + ' given successfully!');
+            $route.reload();
+
         }, function(reason){
             notifier.error(reason.data);
         });
     };
     
     $scope.returnBook = function(interact) {
+
         interact.userID = $routeParams.id;
         interact.libraryID = identity.currentUser.ownLibraryID;
         interact.librarian2ID = identity.currentUser._id;
         interact.returnDate = new Date();
+        interact.comment = $scope.returnBook.comment;
+
+        delete interact._id;
+        delete interact.__v;
+
         LibraryUsersInteractions.returnBook(interact).then(function() {
-            notifier.success(interact.book.title + ' returned successfully!');
+            notifier.success(interact.bookName + ' returned successfully!');
+            $route.reload();
         }, function(reason){
             notifier.error(reason.data);
         });

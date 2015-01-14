@@ -15,22 +15,25 @@ module.exports = function(req, res) {
 
     LibBook.find(conditions).exec(function(err, books) {
         if (err) {
-            res.status(503).send('Cannot connect to database');
             console.log('LibBook could not be loaded: ' + err);
+            res.status(503).send('Cannot connect to database');
         } else if(req.params.available === 'true') {
             var now = new Date(),
                 availableBooks = [];
 
             Booking.find({libraryID: req.params.id, bookDate: {$gte: now } }).exec(function(err, collection) {
+                if(err) {
+                    console.log('Bookings could not be loaded: ' + err);
+                    res.status(503).send('Cannot connect to database');
+                }
 
                 for(var i=0; i<books.length; i++) {
                     var count = 0;
                     for(var j=0; j<collection.length; j++) {
-                        if(books[i].bookID === collection[j].bookID) {
+                        if(books[i].bookID === collection[j].bookID && req.params.userID !== collection[j].userID) {
                             count++;
                         }
                     }
-                    console.log(books[i].bookName + ' : ' + count);
                     if(count<books[i].available) {
                         availableBooks.push(books[i]);
                     }
