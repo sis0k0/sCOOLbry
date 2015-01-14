@@ -14,7 +14,7 @@ module.exports = function(app) {
     router.post('/libraries', controllers.libraries.createLibrary);
 
     router.get('/libraries/:id', controllers.libraries.getLibraryById);
-    router.get('/library/books/:id', controllers.libraries.getLibraryBooksById);
+    router.get('/library/books/:id/:available', controllers.libraries.getLibraryBooksById);
 
     // Get all libraries that have a copy of a book
     router.get('/library/lib-books/:id', controllers.libraries.getLibBooksByBook);
@@ -38,11 +38,11 @@ module.exports = function(app) {
     // Unsubscribe
     router.get('/library/delete-user/:id/:libraryID', auth.isAuthenticatedOrInRole('librarian'), controllers.libraries.deleteLibraryUser);
 
-    // Get user reading history
-    router.get('/library/history/:libraryID/:userID', controllers.libraries.getUserReadingHistory);
-
+    // Get user pending readings and bookings at library
+    router.get('/library/pending/:userID/:libraryID', controllers.libraries.getUserPendingReadings);
     // Get user pending readings and bookings
-    router.get('/library/pending/:libraryID/:userID', controllers.libraries.getUserPendingReadings);
+    router.get('/library/pending/:userID', auth.isAuthenticatedOrInRole('librarian'), controllers.libraries.getUserBookingsAndReadings);
+
 
     // Get library ID from library owner barcode card
     router.get('/library/getLibraryID/:userID', controllers.libraries.getLibraryIDByOwner);
@@ -60,8 +60,8 @@ module.exports = function(app) {
 
     // Bookings
 
-    router.post('/library/booking', controllers.libraries.addBooking);
-    router.delete('/library/booking/:id', controllers.libraries.deleteBooking);
+    router.post('/booking', controllers.libraries.addBooking);
+    router.delete('/booking/:id', controllers.libraries.deleteBooking);
 
     router.get('/library/booking/:libraryID/:bookID', controllers.libraries.getBookingsBookInLibrary);
     router.get('/library/booking-sort/:libraryID/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.libraries.getAllBookingsSortable);

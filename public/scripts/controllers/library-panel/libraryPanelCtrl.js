@@ -21,8 +21,7 @@ app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
                 'add' : '/library-panel/users/add',
                 'browse' : '/library-panel/users',
                 'search' : '/library-panel/users/search',
-                'book requests' : '/library-panel/users/book-requests',
-                'user interaction' : '/library-panel/users/user-interaction',
+                'book requests' : '/library-panel/users/book-requests'
             }
         }
     ];

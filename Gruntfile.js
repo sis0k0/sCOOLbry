@@ -8,8 +8,7 @@ module.exports = function(grunt) {
       // check all js files for errors
       jshint: {
         options: {
-          jshintrc: '.jshintrc',
-          indent: 2
+          jshintrc: '.jshintrc'
         },
         all: ['public/scripts/app.js', 'public/scripts/**/*.js', 'server/**/*.js'],
       },
@@ -77,7 +76,7 @@ module.exports = function(grunt) {
             tasks: ['newer:cssmin']
           },
           js: {
-            files: ['public/scripts/app.js', 'public/scripts/**/*.js', 'server/**/*.js'],
+            files: ['server/**/*.js', 'public/scripts/app.js', 'public/scripts/**/*.js', ],
             tasks: ['jshint', 'uglify']
           }
         },

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('BookingRequestsCtrl', function($scope, BookingResourceSortable, $routeParams, $http, identity) {
+app.controller('BookingRequestsCtrl', function($scope, BookingResourceSortable, $routeParams, $http, identity, UserResource, BookResource) {
     
     $scope.page = 1;
     $scope.perPage = 10;
@@ -29,6 +29,14 @@ app.controller('BookingRequestsCtrl', function($scope, BookingResourceSortable, 
             order: $scope.order,
             page: $scope.page,
             perPage: $scope.perPage
+    }, function(data) {
+
+        for(var i=0; i<data.length; i++) {
+            $scope.bookings[i].bookDate = new Date(Date.parse($scope.bookings[i].bookDate)).toUTCString();
+            $scope.bookings[i].user = UserResource.get({id: data[i].userID});
+            $scope.bookings[i].book = BookResource.get({id: data[i].bookID});
+        }
+
     });
     
     $scope.setPage = function(page, event){
@@ -55,6 +63,12 @@ app.controller('BookingRequestsCtrl', function($scope, BookingResourceSortable, 
             order: $scope.order,
             page: $scope.page,
             perPage: $scope.perPage
+        }, function(data) {
+            for(var i=0; i<data.length; i++) {
+                $scope.bookings[i].bookDate = new Date(Date.parse($scope.bookings[i].bookDate)).toUTCString();
+                $scope.bookings[i].user = UserResource.get({id: data[i].userID});
+                $scope.bookings[i].book = BookResource.get({id: data[i].bookID});
+            }
         });
         
     };

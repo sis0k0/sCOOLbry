@@ -37,6 +37,9 @@ module.exports = function(req, res) {
             console.log('Users could not be loaded: ' + err);
         }
 
+        console.log(collection);
+        console.log(req.params.id);
+
         res.send(collection);
     });
 };

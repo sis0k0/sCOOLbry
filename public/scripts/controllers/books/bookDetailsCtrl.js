@@ -92,7 +92,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
 
                         var wrapper = angular.element(document.querySelector( '#timerWrapper' ));
 
-                        wrapper.append('<timer class="text-center" end-time="reservationEnd"><p>Your reservation ends after:</p><p class="text-info">{{hours}} hours, {{minutes}} minutes and {{seconds}} seconds</p></timer>');
+                        wrapper.append('<timer class="text-center" end-time="reservationEnd"><p>Your reservation ends after:</p><p class="text-info">{{days}} day, {{hours}} hours, {{minutes}} minutes and {{seconds}} seconds</p></timer>');
                         $compile(wrapper)($scope);
 
                         break;
