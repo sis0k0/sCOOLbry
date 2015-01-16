@@ -7,39 +7,28 @@
             .row
               .col-xs-12
                   input.form-control(name='name', type='text', placeholder='Name', ng-model='library.name', required, on-focus)
-
-        .form-group(ng-class="{ 'has-success': (libraryForm.country.$dirty), 'has-error': (libraryForm.country.$invalid) }")
-          label.control-label(for='country') Country *
-          .row
-            .col-xs-12
-              select.form-control.nya-selectpicker(name='country', ng-model='library.country', ng-options='value.name for (key, value) in countries track by value.name', data-live-search, ng-attr-title='{{ !!library.country && library.country.name || "Select country" }}', required)
-
-        .form-group(ng-class="{ 'has-success': (libraryForm.city.$valid), 'has-error': (libraryForm.city.$invalid) }")
-            label.control-label(for='city') City *
+        .form-group(ng-class="{ 'has-success': (libraryForm.address.$valid), 'has-error': (libraryForm.address.$invalid) }")
+            label.control-label(for='address') Address *
             .row
               .col-xs-12
-                  input.form-control(name='city', type='text', placeholder='City', ng-model='library.city', ng-pattern='/^([a-zA-Z\u0080-\u024F]+(?:. |-| |\'))*[a-zA-Z\u0080-\u024F]*$/', required)
-
-
+                ui-select(name='address', ng-model='library.address', ng-disabled='disabled', reset-search-input='false', required)
+                  ui-select-match(placeholder='Enter an address...') {{$select.selected.formatted_address}}
+                  ui-select-choices(repeat='address in addresses', refresh='refreshAddresses($select.search)', refresh-delay='0')
+                    div(ng-bind-html="address.formatted_address | highlight: $select.search")
 
       .col-md-5.col-md-offset-1
 
-          .form-group(ng-class="{ 'has-success': (libraryForm.address.$valid), 'has-error': (libraryForm.address.$invalid) }")
-              label.control-label(for='address') Address *
-              .row
-                .col-xs-12
-                    input.form-control(name='address', type='text', placeholder='Address', ng-model='library.address', required)
-          .form-group(ng-class="{ 'has-success': (libraryForm.yearOfEstabilishment.$valid && libraryForm.yearOfEstabilishment.$dirty), 'has-error': (libraryForm.yearOfEstabilishment.$invalid) }")
-            label.control-label(for='yearOfEstabilishment') Year of Estabilishment
-            .row
-              .col-xs-12
-                  input.form-control(name='yearOfEstabilishment', type='text', placeholder='Year', ng-model='library.yearOfEstabilishment', ng-pattern='/^(1[0-9][0-9][0-9]|200[0-9]|201[0-4])$/')
-        
-          .form-group(ng-class="{ 'has-success': (libraryForm.tags.$valid && libraryForm.tags.$dirty) }")
-            label.control-label(for='tags') Tags
-            .row
-              .col-xs-12
-                  input.form-control(name='tags', type='text', placeholder='Tags', ng-model='library.tags')
+        .form-group(ng-class="{ 'has-success': (libraryForm.yearOfEstabilishment.$valid && libraryForm.yearOfEstabilishment.$dirty), 'has-error': (libraryForm.yearOfEstabilishment.$invalid) }")
+          label.control-label(for='yearOfEstabilishment') Year of Estabilishment
+          .row
+            .col-xs-12
+                input.form-control(name='yearOfEstabilishment', type='text', placeholder='Year', ng-model='library.yearOfEstabilishment', ng-pattern='/^(1[0-9][0-9][0-9]|200[0-9]|201[0-4])$/')
+      
+        .form-group(ng-class="{ 'has-success': (libraryForm.tags.$valid && libraryForm.tags.$dirty) }")
+          label.control-label(for='tags') Tags
+          .row
+            .col-xs-12
+                input.form-control(name='tags', type='text', placeholder='Tags', ng-model='library.tags')
           
 
 

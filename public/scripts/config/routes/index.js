@@ -46,7 +46,7 @@ app.config(function($routeProvider) {
         })
         .when('/libraries/:id', {
             templateUrl: '/partials/libraries/library-details',
-            controller: 'LibraryDetailsPageCtrl'
+            controller: 'LibraryDetailsCtrl'
         })
         .when('/book/:id', {
             templateUrl: '/partials/books/book-details',

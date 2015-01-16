@@ -26,10 +26,11 @@ module.exports = function(app) {
     router.get('/library/section/:section/:libraryID', controllers.libraries.getLibBookBySection);
     
     router.put('/library/book', auth.isInRole('librarian'), controllers.libraries.updateLibBook);
-    router.get('/library/users/:id/:field/:order/:page/:perPage', controllers.libraries.getLibraryUsersById);
+    router.get('/library/users/:id/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.libraries.getLibraryUsersById);
+
     router.get('/library/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.libraries.getAllLibrariesSortable);
     router.get('/library/count', controllers.libraries.getLibraryCount);
-    router.get('/library/user-count', controllers.libraries.getLibraryUsersCount);
+    router.get('/library/user-count/:id', controllers.libraries.getLibraryUsersCount);
     router.put('/libraries', controllers.libraries.updateLibrary);
     router.get('/library/delete/:id', auth.isInRole('admin'), controllers.libraries.deleteLibraryById);
 

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryDetailsPageCtrl', function($scope, User, $routeParams, $route, BookResource, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier) {
+app.controller('LibraryDetailsCtrl', function($scope, User, $routeParams, $route, BookResource, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier) {
         
     $scope.user = identity.currentUser;
 
@@ -12,11 +12,19 @@ app.controller('LibraryDetailsPageCtrl', function($scope, User, $routeParams, $r
         });
     });
 
+
+    $http.get('/api/library/user-count/' + $routeParams.id).success(function(data) {
+        $scope.membersCount = data;
+    });
+
     
     $scope.libBooks = LibBooksResource.query({id: $routeParams.id}, function() {
 
+        $scope.booksCount = 0;
         $scope.books = [];
         for(var i=0; i<$scope.libBooks.length; i++) {
+            $scope.booksCount += $scope.libBooks[i].total;
+
             $scope.books[i] = BookResource.get({id: $scope.libBooks[i].bookID}, function() {
             });
         }

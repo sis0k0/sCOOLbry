@@ -1,21 +1,20 @@
 .container
-  .well
 
-    ul.nav.nav-tabs(style='margin-bottom: 25px')
-        li.active
-            a(href='#about', data-toggle='tab', target='_self').active
-                |  About
-        li
-            a(href='#books', data-toggle='tab', target='_self')
-                | Books
-        li(ng-show='isMember')
-            a(href='#interactions', data-toggle='tab', target='_self')
-                | My interactions
+  ul.nav.nav-tabs(style='margin-bottom: 25px')
+    li.active
+      a(href='#about', data-toggle='tab', target='_self').active
+        |  About
+    li
+      a(href='#books', data-toggle='tab', target='_self')
+        | Books
+    li(ng-show='isMember')
+      a(href='#interactions', data-toggle='tab', target='_self')
+        | My interactions
 
-    #myTabContent.tab-content
-       
-        include ./about
+  #myTabContent.tab-content
+     
+    include ./about
 
-        include ./books
+    include ./books
 
-        include ./interactions
+    include ./interactions

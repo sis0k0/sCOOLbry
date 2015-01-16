@@ -35,7 +35,7 @@
             td 
               p(ng-repeat='role in librarian.roles track by $index') {{ role | titleCase }}
             td
-              a.btn-sm(ng-click='removeCurrentLibrarian(librarian)', title='Remove', tooltip)
+              a.btn-sm(ng-click='removeCurrentLibrarian(librarian)', tooltip='Remove')
                 span.glyphicon.glyphicon-remove.text-danger
 
 
@@ -72,7 +72,7 @@
               label.control-label(for="username") Username
               .row
                 .col-xs-12
-                  input.form-control(name="username", type="text", placeholder="Username", tooltip, data-placement='left',  data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 3-16 characters", ng-model="librarian.username", ng-pattern="/^[a-z0-9_-]{3,16}$/", ng-change="checkIfTakenUsername(librarianForm.username, $index)", required)
+                  input.form-control(name="username", type="text", placeholder="Username", tooltip-placement='left',  tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 3-16 characters", ng-model="librarian.username", ng-pattern="/^[a-z0-9_-]{3,16}$/", ng-change="checkIfTakenUsername(librarianForm.username, $index)", required)
                   span.help-block(ng-show="librarianForm.username.$error.taken") Username already taken
             .form-group(ng-class="{ 'has-error': (librarianForm.email.$invalid), 'has-success': (librarianForm.email.$valid) }")
               label.control-label(for="email") Email
@@ -85,7 +85,7 @@
               label.control-label(for="password") Password
               .row
                 .col-xs-12
-                    input.form-control(name="password", type="password", placeholder="Password", tooltip, data-placement='left',  data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="librarian.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
+                    input.form-control(name="password", type="password", placeholder="Password", tooltip-placement='left',  tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="librarian.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
             .form-group(ng-class="{ 'has-error': (librarianForm.confirmPassword.$invalid), 'has-success': (librarianForm.confirmPassword.$valid) }")
               label.control-label(for="confirm-password") Confirm password
               .row

@@ -33,11 +33,11 @@ include ../panel
           td 
             p(ng-repeat='role in user.roles track by $index') {{ role | titleCase }}
           td
-            a.btn-sm(href='/admin/user/{{ user._id }}', title='Browse', tooltip)
+            a.btn-sm(href='/admin/user/{{ user._id }}', tooltip='Browse')
               span.glyphicon.glyphicon-search.text-success
-            a.btn-sm(href='/admin/user/edit/{{ user._id }}', title='Edit', tooltip)
+            a.btn-sm(href='/admin/user/edit/{{ user._id }}', tooltip='Edit')
               span.glyphicon.glyphicon-edit.text-primary
-            a.btn-sm(href='/admin/user/delete/{{ user._id }}', title='Delete', tooltip, onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")')
+            a.btn-sm(href='/admin/user/delete/{{ user._id }}', tooltip='Delete', onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")')
               span.glyphicon.glyphicon-remove.text-danger
     .pagination
         li(ng-repeat="i in range(pagesCount) track by $index")

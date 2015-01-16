@@ -109,8 +109,6 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
 
         });
 
-    }else{
-        $scope.libraryID = -1;
     }
 
     $scope.addBooking = function(){
@@ -206,7 +204,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
         });
     };
 
-    $scope.removeFavosrite = function() {
+    $scope.removeFavorite = function() {
         var responsePromise = $http.get('/api/book/deleteFavourite'+'/'+$routeParams.id);
         responsePromise.success(function() {
             notifier.success('You\'ve removed this book from favorites successfully!');

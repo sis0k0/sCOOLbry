@@ -26,10 +26,11 @@ app.controller('EditProfileCtrl', function($scope, $location, User, identity, aj
             $location.path('/profile');
             notifier.success('Profile updated!');
         }, function(reason) {
-            notifier.error(reason);
+            notifier.error(reason); 
         });
     };
 
+    $scope.today = new Date();
 
     $scope.setFileEventListener = function(element) {
             $scope.uploadedFile = element.files[0];

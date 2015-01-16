@@ -4,6 +4,7 @@
 var app = angular.module('app', [
     'ngResource',
     'ngRoute',
+    'ngSanitize',
     'reCAPTCHA',
     'nya.bootstrap.select',
     'timer',
@@ -21,5 +22,3 @@ app.run(function($rootScope, $location) {
         }
     });
 });
-
-

@@ -21,7 +21,7 @@ include ../panel
                 label.control-label(for="username") Username *
                 .row
                   .col-xs-12
-                      input.form-control(name="username", type="text", placeholder="Username", tooltip, data-placement='left',  data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 3-16 characters", ng-model="user.username", ng-pattern="/^[a-z0-9_-]{3,16}$/", ng-change="checkIfTaken(profileForm.username)", required)
+                      input.form-control(name="username", type="text", placeholder="Username", tooltip-placement='left',  tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 3-16 characters", ng-model="user.username", ng-pattern="/^[a-z0-9_-]{3,16}$/", ng-change="checkIfTaken(profileForm.username)", required)
                       span.help-block(ng-show="profileForm.username.$error.taken") Username already taken
               .form-group(ng-class="{ 'has-error': (profileForm.email.$invalid), 'has-success': (profileForm.email.$valid) }")
                   label.control-label(for="email") Email *
@@ -40,7 +40,7 @@ include ../panel
                   label.control-label(for="password") Password *
                   .row
                       .col-xs-12
-                          input.form-control(name="password", type="password", placeholder="Password", tooltip, data-placement='left', data-trigger="focus", title="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)", required)
+                          input.form-control(name="password", type="password", placeholder="Password", tooltip-placement='left', tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)", required)
               .form-group(ng-class="{ 'has-error': (profileForm.confirmPassword.$invalid), 'has-success': (profileForm.confirmPassword.$valid) }")
                   label.control-label(for="confirm-password") Confirm password *
                   .row
@@ -59,7 +59,7 @@ include ../panel
               .form-group(ng-class="{ 'has-success': (profileForm.dateOfBirth.$valid && (!!user.dateOfBirth)) }")
                 label.control-label(for='date-of-birth') Date of birth
                 .row.input-group.date
-                    input.form-control(name='dateOfBirth', type='text', datepicker='datepicker', placeholder='Date of birth', ng-model='user.dateOfBirth')
+                    input.form-control(name='dateOfBirth', type='text', datepicker-popup='d MMMM yyyy', is-open='opened', ng-focus='opened=true', min-date='"1900-01-01"', max-date='today', placeholder='Date of birth', ng-model='user.dateOfBirth')
                     span.input-group-addon
                       i.glyphicon.glyphicon-th
               .form-group(ng-class="{ 'has-success': (profileForm.facebookUrl.$valid && (!!user.facebookUrl)) }")
@@ -103,14 +103,14 @@ include ../panel
               label.control-label(for='roles') Roles
               .row
                 .col-xs-12
-                    select.form-control.nya-selectpicker(title='Select user roles', ng-options='(role | titleCase) for role in roles track by role', ng-model='user.roles', multiple)
+                    select.form-control.nya-selectpicker(tooltip='Select user roles', ng-options='(role | titleCase) for role in roles track by role', ng-model='user.roles', multiple)
 
 
             .form-group(ng-show="!!user.roles && (user.roles.indexOf('librarian')!=-1 || user.roles.indexOf('libraryOwner')!=-1)")
                 .row
                   .col-xs-9
                     label.control-label(for='ownLibraryID') Choose existing library...
-                    select.form-control.nya-selectpicker(name='ownLibraryID', ng-disabled="!!newLibrary", ng-attr-title='{{ user.ownLibraryID.name }}', ng-options='value.name for (key, value) in libraries track by value._id', ng-model='user.ownLibraryID', data-live-search)
+                    select.form-control.nya-selectpicker(name='ownLibraryID', ng-disabled="!!newLibrary", ng-attr-tooltip='{{ user.ownLibraryID.name }}', ng-options='value.name for (key, value) in libraries track by value._id', ng-model='user.ownLibraryID', data-live-search)
                   
                   .col-xs-3
                     label.control-label(for='newLibrary') Or add new
@@ -134,7 +134,7 @@ include ../panel
                       label.control-label(for='country') Country *
                       .row
                         .col-xs-12
-                          select.form-control.nya-selectpicker(name='country', ng-model='library.country', ng-options='value.name for (key, value) in countries track by value.name', data-live-search, ng-attr-title='{{ !!library.country && library.country.name || "Select country" }}', required)
+                          select.form-control.nya-selectpicker(name='country', ng-model='library.country', ng-options='value.name for (key, value) in countries track by value.name', data-live-search, ng-attr-tooltip='{{ !!library.country && library.country.name || "Select country" }}', required)
 
                     .form-group(ng-class="{ 'has-success': (libraryForm.city.$valid), 'has-error': (libraryForm.city.$invalid) }")
                         label.control-label(for='city') City *

@@ -2,6 +2,8 @@
 
 app.controller('EditProfileAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, UserResource, notifier) {
 
+    $scope.today = new Date();
+
     // Get user resource
     $scope.user = UserResource.get({id: $routeParams.id}, function() {
         $scope.emailConfirm = $scope.user.email;

@@ -7,7 +7,6 @@
       |  or 
       a(href='/login') Log in
       |  to subscribe
-  //- h4.text-center.text-primary {{ library.address }}, {{ library.city }}, {{ library.country.name }}
   
   .row
     .col-md-6
@@ -30,10 +29,10 @@
         .panel-body
           p
             span.text-success.text-bold Location:
-            | &nbsp;&nbsp;{{ library.address }}, {{ library.city }}, {{ library.country }}
+            | &nbsp;&nbsp;{{ library.address.formatted_address }}
           p
-            span.text-success.text-bold Books:
-            //- Here sould be placed the count of library books
+            span.text-success.text-bold Books count:
+            | &nbsp;&nbsp;{{ booksCount }}
           p
             span.text-success.text-bold Members:
-            //- Here should be placed the count of library members
+            | &nbsp;&nbsp;{{ membersCount }}

@@ -15,11 +15,12 @@ include ../panel
             .form-group
               label(for='isbn') Book
                 .row
-                  ui-select(ng-model='giveForm.bookInfo', theme='select2', ng-disabled='disabled', style='min-width: 450px;', required)
+                  ui-select(ng-model='giveForm.bookInfo', ng-disabled='disabled', style='min-width: 450px;', required)
                       ui-select-match(placeholder='Please select a book') {{$select.selected.bookName}} ({{$select.selected.bookISBN}})
                       ui-select-choices(repeat='book in books | propsFilter: {bookName: $select.search, bookISBN: $select.search}')
-                        div {{book.bookName}}
-                        small.text-muted ISBN: {{book.bookISBN}}
+                        div(ng-bind-html='book.bookName | highlight: $select.search')
+                        small.text-muted ISBN: 
+                        small.text-muted(ng-bind-html='book.bookISBN | highlight: $select.search')
 
           .row
             .form-group
@@ -39,11 +40,12 @@ include ../panel
                 .row
 
 
-                  ui-select(ng-model='returnForm.bookInfo', theme='select2', ng-disabled='disabled', style='min-width: 450px;', required)
+                  ui-select(ng-model='returnForm.bookInfo', ng-disabled='disabled', style='min-width: 450px;', required)
                       ui-select-match(placeholder='Please select a book') {{$select.selected.bookName}} ({{$select.selected.bookISBN}})
                       ui-select-choices(repeat='book in booksToReturn | propsFilter: {bookName: $select.search, bookISBN: $select.search}')
-                        div {{book.bookName}}
-                        small.text-muted ISBN: {{book.bookISBN}}
+                        div(ng-bind-html='book.bookName | highlight: $select.search')
+                        small.text-muted ISBN: 
+                        small.text-muted(ng-bind-html='book.bookISBN | highlight: $select.search')
           .row
             .form-group
               label(for='comment') Comment

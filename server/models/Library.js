@@ -1,7 +1,6 @@
 'use strict';
 
-var mongoose  = require('mongoose'),
-    countries = require('../filters/countries');
+var mongoose  = require('mongoose');
 
 var librarySchema = mongoose.Schema({
     name: {
@@ -13,17 +12,8 @@ var librarySchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    country: {
-        type: Object,
-        enum: [countries.getAllCountries],
-        required: '{PATH is required}'
-    },
-    city: {
-        type: String,
-        required: '{PATH is required}'
-    },
     address: {
-        type: String,
+        type: Object,
         required: '{PATH is required}'
     },
     featured: {

@@ -35,17 +35,20 @@
           .panel-heading
             h4 Get the book
           .panel-body(ng-show='user')
-            div(ng-hide='reservationEnd')
+            div(ng-hide='reservationEnd || !libraryID')
               a.btn.btn-success(ng-hide='isMember', ng-href='/libraries/{{library._id}}') Subscribe to reserve
-
               button.btn.btn-success(ng-click='addBooking()', ng-show='isMember', ng-disabled='!bookable', ng-confirm-click='Are you sure you want to reserve that book?').btn.btn-primary Reserve
-              span(ng-class="{ 'text-success': (libBook.available>=bookings.length), 'text-danger': (libBook.available<bookings.length) }") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{libBook.available-bookings.length}} / {{libBook.total}} available
+              span(ng-class="{ 'text-success': (libBook.available>=bookings.length && libBook.available>0), 'text-danger': (libBook.available<bookings.length || libBook.available<1) }") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{libBook.available-bookings.length}} / {{libBook.total}} available
             div(ng-show='reservationEnd', id='timerWrapper')
             button.btn.btn-danger(ng-show='booking', ng-click='removeBooking()', ng-confirm-click='Are you sure you want to cancel that reservation?') Cancel reservation
 
             div(style='margin-top:0.5em')
               button(style='margin-right:0.2em; margin-bottom: 0.5em').btn.btn-primary Check for eBook
               button(style='margin-bottom: 0.5em', ng-click='gotoOtherLibraries()').btn.btn-info Other libraries
+              div(ng-show='isMember')
+                button.btn.btn-success(ng-hide='isFavorite', ng-click='addFavorite(book.title, book.isbn)') Add favorite book
+                button.btn.btn-danger(ng-show='isFavorite', ng-click="removeFavorite()") Remove favorite book
+
 
           .panel-body(ng-hide='user')
             h2.text-center Please, 
@@ -60,40 +63,3 @@
       div(ng-repeat='library in libraries | orderBy: "name"')
         h3.col-xs-4
           a(ng-href='/book/{{book._id}}/{{library._id}}') {{library.name}}
-
-
-
-
-
-
-    table
-      tr
-        td
-          h2 Readers
-      tr
-        td
-          h2 Book Reviews
-    table
-      tr
-        td
-          h2 Readers
-          ul
-            li(ng-repeat='value in readers')
-              p {{ value.userID }}
-      tr
-        td
-          h2 Book Reviews
-
-
-      tr(ng-show='bookable')
-        td
-          h2 Book This Book
-          button.btn.btn-primary(ng-click="addBooking()") Book This Book
-      tr(ng-show='isFavorite && isMember')
-        td
-          h2 Add To Favorites
-          button.btn.btn-primary(ng-click="addFavorite(book.title, book.isbn)") Add This Book To Favorites
-      tr(ng-show='isFavorite && isMember')
-        td
-          h2 Remove From Favorites
-          button.btn.btn-primary(ng-click="removeFavorite()") Remove This Book From Favorites

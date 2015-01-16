@@ -2,6 +2,7 @@
 
 app.controller('AddUserAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, notifier) {
 
+    $scope.today = new Date();
 
     $http({
         method: 'get',

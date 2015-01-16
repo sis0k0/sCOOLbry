@@ -28,11 +28,11 @@ include ../panel
             td {{ library.published }}
             td {{ library.tags }}
             td
-              a.btn-sm(href='/admin/library/{{ library._id }}', title='Browse', tooltip)
+              a.btn-sm(href='/admin/library/{{ library._id }}', tooltip='Browse')
                 span.glyphicon.glyphicon-search.text-success
-              a.btn-sm(href='/admin/library/edit/{{ library._id }}', title='Edit', tooltip)
+              a.btn-sm(href='/admin/library/edit/{{ library._id }}', tooltip='Edit')
                 span.glyphicon.glyphicon-edit.text-primary
-              a.btn-sm(href='/admin/library/delete/{{ library._id }}', title='Delete', tooltip, onclick='return window.confirm("Deleting an library" || "Are you sure that you want to delete this library?")')
+              a.btn-sm(href='/admin/library/delete/{{ library._id }}', tooltip='Delete', onclick='return window.confirm("Deleting an library" || "Are you sure that you want to delete this library?")')
                 span.glyphicon.glyphicon-remove.text-danger
     .pagination
         li(ng-repeat="i in range(pagesCount) track by $index")

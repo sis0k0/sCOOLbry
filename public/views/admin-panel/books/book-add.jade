@@ -43,7 +43,7 @@ include ../panel
                 h3.col-xs-4 {{ key }} {{ ::value }}
                 h3.col-xs-3.text-center -->
                 .col-xs-4
-                  select.form-control(style='margin-top:15px', name='field', ng-init="value = value + ' '"  ng-attr-title='{{ key }}', ng-options="field for field in fields[ {{ key }} ] track by field", ng-model='value', ng-change="updateSelections(key, value)")
+                  select.form-control(style='margin-top:15px', name='field', ng-init="value = value + ' '"  ng-attr-tooltip='{{ key }}', ng-options="field for field in fields[ {{ key }} ] track by field", ng-model='value', ng-change="updateSelections(key, value)")
 
 
             .col-xs-11(style='margin-top:0.5em')
@@ -128,7 +128,7 @@ include ../panel
                   .form-group(ng-class="{ 'has-success': !!book.published }")
                     label.control-label(for='published') Published
                     .row.input-group.date
-                      input.form-control(name='published', type='text', datepicker='datepicker', placeholder='Published', ng-model='book.published')
+                      input.form-control(name='published', type='text', datepicker-popup='d MMMM yyyy', is-open='opened', ng-focus='opened=true', min-date='"1900-01-01"', max-date='today', placeholder='Published', ng-model='book.published')
                       span.input-group-addon
                         i.glyphicon.glyphicon-th
 

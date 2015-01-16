@@ -3,6 +3,7 @@
 app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorScroll, Book, bookSearch, identity, notifier, ajaxPost, LibBookResource, LibraryResource) {
 
     $scope.displayForm = false;
+    $scope.today = new Date();
 
     $http({
         method: 'get',

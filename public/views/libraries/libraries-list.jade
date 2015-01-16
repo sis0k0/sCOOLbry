@@ -7,7 +7,7 @@
     .col-md-10
       input.form-control(type="text", placeholder="Type to search in {{ libraries.length }} libraries...", ng-model="search", on-focus)
     .col-md-2
-      select.form-control.nya-selectpicker(name="sort", ng-model="sort", title="Sort by...")
+      select.form-control.nya-selectpicker(name="sort", ng-model="sort", tooltip="Sort by...")
         option(value=" " ng-selected="'true'") Default
         option(value="name") Name
         option(value="description") Description

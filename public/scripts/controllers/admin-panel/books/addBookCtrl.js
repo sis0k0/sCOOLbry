@@ -2,6 +2,7 @@
 
 app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Book, bookSearch, notifier, ajaxPost) {
 
+    $scope.today = new Date();
 
     $http({
         method: 'get',

@@ -2,6 +2,8 @@
 
 app.controller('EditBookAdminCtrl', function($scope, $location, $http, Book, ajaxPost, BookResource, notifier, $routeParams) {
 
+    $scope.today = new Date();
+
     // Get the book
     $scope.book = BookResource.get({id: $routeParams.id});
 
