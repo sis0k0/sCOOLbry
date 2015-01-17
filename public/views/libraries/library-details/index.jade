@@ -1,3 +1,13 @@
+.jumbotron
+  .container
+    h1 {{ library.name }}
+    div(ng-show='!isLoggedIn')
+      h3
+        a(href='/login') Log in
+        |  or 
+        a(href='/signup') Sign up
+        |  to subscribe
+
 .container
 
   ul.nav.nav-tabs(style='margin-bottom: 25px')

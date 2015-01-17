@@ -1,13 +1,4 @@
 .tab-pane.fade.active.in#about
-
-  h1.text-center {{ library.name }}
-  div(ng-show='!isLoggedIn')
-    h4.text-center
-      a(href='/signup') Sign up
-      |  or 
-      a(href='/login') Log in
-      |  to subscribe
-  
   .row
     .col-md-6
       div
@@ -28,11 +19,14 @@
           h4 Additional information
         .panel-body
           p
-            span.text-success.text-bold Location:
-            | &nbsp;&nbsp;{{ library.address.formatted_address }}
-          p
             span.text-success.text-bold Books count:
             | &nbsp;&nbsp;{{ booksCount }}
           p
             span.text-success.text-bold Members:
             | &nbsp;&nbsp;{{ membersCount }}
+          p
+            span.text-success.text-bold Location:
+            | &nbsp;&nbsp;{{ library.address.formatted_address }}
+
+      ui-gmap-google-map(center='map.center', zoom='map.zoom')
+        ui-gmap-marker(coords='marker.coords', idkey='marker.idkey')

@@ -11,7 +11,15 @@ var app = angular.module('app', [
     'oc.lazyLoad',
     'ui.select',
     'ui.bootstrap',
-]).value('toastr', toastr);
+    'uiGmapgoogle-maps'
+])
+    .value('toastr', toastr)
+    .config(function(uiGmapGoogleMapApiProvider) {
+        uiGmapGoogleMapApiProvider.configure({
+            v: '3.18',
+            libraries: 'geometry,visualization'
+        });
+    });
 
 app.run(function($rootScope, $location) {
     

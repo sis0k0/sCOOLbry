@@ -18,11 +18,11 @@
 
       .col-md-5.col-md-offset-1
 
-        .form-group(ng-class="{ 'has-success': (libraryForm.yearOfEstabilishment.$valid && libraryForm.yearOfEstabilishment.$dirty), 'has-error': (libraryForm.yearOfEstabilishment.$invalid) }")
-          label.control-label(for='yearOfEstabilishment') Year of Estabilishment
+        .form-group(ng-class="{ 'has-success': (libraryForm.yearOfEstablishment.$valid && libraryForm.yearOfEstablishment.$dirty), 'has-error': (libraryForm.yearOfEstablishment.$invalid) }")
+          label.control-label(for='yearOfEstablishment') Year of Establishment
           .row
             .col-xs-12
-                input.form-control(name='yearOfEstabilishment', type='text', placeholder='Year', ng-model='library.yearOfEstabilishment', ng-pattern='/^(1[0-9][0-9][0-9]|200[0-9]|201[0-4])$/')
+                input.form-control(name='yearOfEstablishment', type='text', placeholder='Year', ng-model='library.yearOfEstablishment', ng-pattern='/^(1[0-9][0-9][0-9]|200[0-9]|201[0-5])$/')
       
         .form-group(ng-class="{ 'has-success': (libraryForm.tags.$valid && libraryForm.tags.$dirty) }")
           label.control-label(for='tags') Tags

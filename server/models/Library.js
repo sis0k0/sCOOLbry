@@ -7,7 +7,7 @@ var librarySchema = mongoose.Schema({
         type: String,
         required: '{PATH is required}'
     },
-    yearOfEstabilishment: Date,
+    yearOfEstablishment: Number,
     published: {
         type: Date,
         default: Date.now
@@ -42,7 +42,7 @@ var librarySchema = mongoose.Schema({
         type: Array,
         default: [ '10:00-18:00', '10:00-18:00', '10:00-18:00', '10:00-18:00', '10:00-18:00' ]
     },
-    librarySections: Object, //съдържа информация кои секции към кой жанр са
+    librarySections: Object
 });
 
 var Library = mongoose.model('Library', librarySchema);
