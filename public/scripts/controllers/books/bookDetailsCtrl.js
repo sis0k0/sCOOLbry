@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http, $route, $compile, LibraryUsersInteractions, notifier, $location, $anchorScroll, BookResource, LibraryReadingResource, LibBookResource, $window, LibraryResource, Book) {
+app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMapApi, identity, $http, $route, $compile, LibraryUsersInteractions, notifier, $location, $anchorScroll, BookResource, LibraryReadingResource, LibBookResource, $window, LibraryResource, Book) {
 
     $scope.user = identity.currentUser;
 
@@ -48,12 +48,31 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, identity, $http
 
     $http.get('/api/library/lib-books/'+$routeParams.id)
     .success(function(data) {
-        $scope.libraries = [];
-        for(var i=0; i<data.length; i++) {
-            LibraryResource.get({id: data[i].libraryID}, function(data) {
-                $scope.libraries.push(data);
-            });
-        }
+
+        uiGmapGoogleMapApi.then(function() {
+            $scope.map = { 
+                center: { latitude: 42, longitude: 27 },
+                zoom: 7
+            };
+
+            $scope.libraries = [];
+            $scope.randomMarkers = [];
+            for(var i=0; i<data.length; i++) {
+                LibraryResource.get({id: data[i].libraryID}, function(data) {
+                    $scope.libraries.push(data);
+                    for(var i=0; i<$scope.libraries.length; i++) {
+                        var marker = {
+                            latitude: $scope.libraries[i].address.geometry.location.lat,
+                            longitude: $scope.libraries[i].address.geometry.location.lng,
+                            id: i
+                        };
+                        $scope.randomMarkers.push(marker);
+                        console.log($scope.randomMarkers);
+                    }
+                });
+            }
+
+        });        
     })
     .error(function(err) {
         notifier.error(err);

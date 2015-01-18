@@ -63,3 +63,7 @@
       div(ng-repeat='library in libraries | orderBy: "name"')
         h3.col-xs-4
           a(ng-href='/book/{{book._id}}/{{library._id}}') {{library.name}}
+
+
+    ui-gmap-google-map(center='map.center', zoom='map.zoom')
+      ui-gmap-markers(models="randomMarkers", coords="'self'")

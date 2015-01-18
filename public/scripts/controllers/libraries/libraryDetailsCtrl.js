@@ -4,7 +4,7 @@ app.controller('LibraryDetailsCtrl', function($scope, User, $routeParams, $route
 
     $scope.user = identity.currentUser;
 
-    $scope.library = cachedLibraries.query().$promise.then(function(collection) {
+    $scope.library = cachedLibraries.query().then(function(collection) {
         collection.forEach(function(library) {
             if (library._id === $routeParams.id) {
                 $scope.library = library;
