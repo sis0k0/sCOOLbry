@@ -13,15 +13,11 @@ block main-content
       #site-navigation.navbar-collapse.collapse
 
         form.navbar-form.navbar-left#search-header(role='search', ng-controller="SearchCtrl").vcenter
-          .form-group.input-group
-            input.form-control(type='text', ng-model="phrase", ng-change="search(phrase)", placeholder='Search for books by title, author, genre, ISBN or citation')
+          .form-group.input-group#search-field
+            input.form-control.typehead(type='text', ng-model="phrase", ng-change="search(phrase)", placeholder='Search for books by title, author, genre, ISBN or citation')
             .input-group-btn
               button(type="submit", ng-click="searchDetails(phrase)").btn.btn-default
                 i.glyphicon.glyphicon-search
-            ul#book-resuls
-              li(ng-repeat="book in results")
-                a(href="/book/{{ book._id }}") {{ book.title }}
-              li(ng-show="results!==undefined && results.length===0" class="no-results") No Results Found
 
 
         ul#top-menu.nav.navbar-nav.navbar-right.vcenter(ng-controller="LogInCtrl")
