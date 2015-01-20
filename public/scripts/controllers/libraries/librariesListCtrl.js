@@ -5,7 +5,7 @@ app.controller('LibrariesListCtrl', function($scope, $window, cachedLibraries, n
 
         $scope.libraries = data;
         if($window.navigator.geolocation) {
-            $window.navigator.geolocation.watchPosition(function(success) {
+            $window.navigator.geolocation.getCurrentPosition(function(success) {
 
                 for(var i=0; i<$scope.libraries.length; i++) {
                     $scope.libraries[i].distance = calculateDistance(success.coords.latitude, success.coords.longitude, $scope.libraries[i].address.geometry.location.lat, $scope.libraries[i].address.geometry.location.lng);

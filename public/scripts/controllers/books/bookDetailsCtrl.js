@@ -48,28 +48,82 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
 
     $http.get('/api/library/lib-books/'+$routeParams.id)
     .success(function(data) {
+        console.log(data);
 
         uiGmapGoogleMapApi.then(function() {
-            $scope.map = { 
-                center: { latitude: 42, longitude: 27 },
-                zoom: 7
-            };
 
             $scope.libraries = [];
             $scope.randomMarkers = [];
-            for(var i=0; i<data.length; i++) {
-                LibraryResource.get({id: data[i].libraryID}, function(data) {
-                    $scope.libraries.push(data);
+            if($window.navigator.geolocation) {
+                $window.navigator.geolocation.getCurrentPosition(function(success) {
+                    $scope.map = { 
+                        center: { latitude: success.coords.latitude, longitude: success.coords.longitude },
+                        zoom: 8
+                    };
+                    var marker = {
+                        latitude: success.coords.latitude,
+                        longitude: success.coords.longitude,
+                        icon: '../../dist/images/pinkmarker.png',
+                        id: 0,
+                        options: {
+                            animation: 1
+                        }
+                    };
+                    $scope.randomMarkers.push(marker);
+
+                    var closestLibraryIndex,
+                        minDistance = Number.MAX_VALUE;
+
+                    for(var i=0; i<data.length; i++) {
+                        LibraryResource.get({id: data[i].libraryID}, function(data) {
+                            $scope.libraries.push(data);
+                            $scope.libraries[$scope.libraries.length-1].distance = calculateDistance(success.coords.latitude, success.coords.longitude, $scope.libraries[$scope.libraries.length-1].address.geometry.location.lat, $scope.libraries[$scope.libraries.length-1].address.geometry.location.lng);
+                            if($scope.libraries[$scope.libraries.length-1].distance<minDistance) {
+                                minDistance = $scope.libraries[$scope.libraries.length-1].distance;
+                                closestLibraryIndex = $scope.libraries.length-1;
+                            }
+
+                            var marker = {
+                                latitude: $scope.libraries[$scope.libraries.length-1].address.geometry.location.lat,
+                                longitude: $scope.libraries[$scope.libraries.length-1].address.geometry.location.lng,
+                                icon: '../../dist/images/bluemarker.png',
+                                id: $scope.libraries.length,
+                                showWindow: true,
+                                options: {
+                                    labelContent: $scope.libraries[$scope.libraries.length-1].name,
+                                    labelClass: 'marker-labels',
+                                     labelAnchor:'24 4'
+                                }
+                            };
+                            $scope.randomMarkers.push(marker);
+                            if($scope.libraries.length===i) {
+                                console.log(closestLibraryIndex);
+                                $scope.randomMarkers[closestLibraryIndex+1].icon = '../../dist/images/greenmarker.png';
+                            }
+                        });
+                    }
+
+                }, function(err) {
+                    console.log(err);
+                    $scope.map = { 
+                        center: { latitude: $scope.libraries[0].address.geometry.location.lat, longitude: $scope.libraries[0].address.geometry.location.lng },
+                        zoom: 8
+                    };
+
                     for(var i=0; i<$scope.libraries.length; i++) {
                         var marker = {
                             latitude: $scope.libraries[i].address.geometry.location.lat,
                             longitude: $scope.libraries[i].address.geometry.location.lng,
+                            icon: '../../dist/images/bluemarker.png',
                             id: i
                         };
                         $scope.randomMarkers.push(marker);
-                        console.log($scope.randomMarkers);
                     }
+
                 });
+
+            } else {
+                console.log('Geolocation is not supported by this browser.');
             }
 
         });        
@@ -77,6 +131,26 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
     .error(function(err) {
         notifier.error(err);
     });
+
+    //This function takes in latitude and longitude of two location and returns the distance between them (in km)
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        var R = 6371; // km
+        var dLat = degreesToRadians(lat2-lat1);
+        var dLon = degreesToRadians(lon2-lon1);
+        var lat1 = degreesToRadians(lat1);
+        var lat2 = degreesToRadians(lat2);
+
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c;
+        return d;
+    }
+
+    // Converts numeric degrees to radians
+    function degreesToRadians(value) {
+        return value * Math.PI / 180;
+    }
 
 
     if(typeof $routeParams.libraryID !== 'undefined') {
