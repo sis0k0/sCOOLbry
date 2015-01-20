@@ -17,7 +17,14 @@ app.controller('LibraryDetailsCtrl', function($scope, User, $routeParams, $route
                     };
                     $scope.marker = {
                         coords: { latitude: library.address.geometry.location.lat, longitude: library.address.geometry.location.lng },
-                        idkey: 0
+                        idkey: 0,
+                        icon: '../../dist/images/bluemarker.png',
+                        options: {
+                            animation: 1,
+                            labelContent: library.name,
+                            labelClass: 'marker-labels',
+                            labelAnchor:'24 4'
+                        }
                     };
                 });
             }

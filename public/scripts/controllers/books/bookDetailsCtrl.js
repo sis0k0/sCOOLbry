@@ -92,7 +92,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
                                 options: {
                                     labelContent: $scope.libraries[$scope.libraries.length-1].name,
                                     labelClass: 'marker-labels',
-                                     labelAnchor:'24 4'
+                                    labelAnchor:'24 4'
                                 }
                             };
                             $scope.randomMarkers.push(marker);

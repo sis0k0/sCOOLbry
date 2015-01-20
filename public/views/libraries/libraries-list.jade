@@ -18,11 +18,9 @@
         th.text-center Name
         th.text-center Address
         th.text-center Year of establishment
-        th.text-center Distance
     tbody
       tr(ng-repeat="library in libraries | filter: search | orderBy: sort")
         td
           a(href="/libraries/{{ library._id }}") {{ library.name }}
         td {{ library.address.formatted_address }}
-        td {{ library.yearOfEstablishment }}
-        td {{ library.distance }}
+        td.text-center {{ library.yearOfEstablishment }}
