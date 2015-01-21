@@ -1,7 +1,6 @@
 include ../panel
 
 .container
-  .well
     h1.text-center Username: {{ userInfo.username }}
     table.table.table-striped.table-bordered.table-wrapped 
       tr(ng-repeat='(key, value) in userInfo')

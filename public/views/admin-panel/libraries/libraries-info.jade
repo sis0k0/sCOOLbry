@@ -1,49 +1,46 @@
 include ../panel
 
 .container
-  .well
-    h1.text-center Name: {{ libraryInfo.name }}
-    table.table.table-striped.table-bordered.table-wrapped
-      tr(ng-repeat='(key, value) in libraryInfo')
-        td.col-md-4
-          strong {{ key }}
-        td {{ value }}
+  h1.text-center Name: 
+    span.text-info {{ libraryInfo.name }}
+  table.table.table-striped.table-bordered.table-wrapped
+    tr(ng-repeat='(key, value) in libraryInfo')
+      td.col-md-4
+        strong {{ key }}
+      td {{ value }}
 
-    div
-      h2 Certificate
-      img(src='{{libraryInfo.certificate}}')
+  div
+    h2 Certificate
+    img(src='{{libraryInfo.certificate}}')
 
-    table.table.table-striped.table-bordered.table-wrapped
-      tr
-        td
-          h2 Library Users
-      tr
-        td
-          h2 Library Books
-          table.table.table-striped.table-bordered.table-wrapped
-            tr
-              th Book Name
-              th Total Copies 
-              th Copies Available 
-              th Copies Given 
-            tr(ng-repeat='book in libBookInfo')
-              td.col-md-4
-                strong {{ book.bookName }}
-              td {{ book.total }}
-              td {{ book.available }}
-              td {{ book.given }}
-      tr
-        td
-          h2 Library Requests
-      tr
-        td
-          h2 Library Reviews
-
-
-     
+  table.table.table-striped.table-bordered.table-wrapped
+    tr
+      td
+        h2 Library Users
+    tr
+      td
+        h2 Library Books
+        table.table.table-striped.table-bordered.table-wrapped
+          tr
+            th Book Name
+            th Total Copies 
+            th Copies Available 
+            th Copies Given 
+          tr(ng-repeat='book in libBookInfo')
+            td.col-md-4
+              strong {{ book.bookName }}
+            td {{ book.total }}
+            td {{ book.available }}
+            td {{ book.given }}
+    tr
+      td
+        h2 Library Requests
+    tr
+      td
+        h2 Library Reviews
+  
+  .row
+    a.btn.btn-danger.pull-right(href='/admin/library/delete/{{ libraryInfo._id }}' onclick='return window.confirm("Deleting a library" || "Are you sure that you want to delete this library?")') Delete   
+    a.btn.btn-primary.pull-right(href='/admin/library/edit/{{ libraryInfo._id }}', style='margin-right:0.25em') Edit
     
-    .row
-      a.btn.btn-danger.pull-right(href='/admin/library/delete/{{ libraryInfo._id }}' onclick='return window.confirm("Deleting a library" || "Are you sure that you want to delete this library?")') Delete   
-      a.btn.btn-primary.pull-right(href='/admin/library/edit/{{ libraryInfo._id }}', style='margin-right:0.25em') Edit
-      
 

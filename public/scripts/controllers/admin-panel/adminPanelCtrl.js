@@ -18,8 +18,7 @@ app.controller('AdminPanelCtrl', function($scope, $location, identity) {
             'name' : 'books',
             links : {
                 'add' : '/admin/books/add',
-                'browse' : '/admin/books',
-                'search' : '/admin/books/search-library'
+                'browse' : '/admin/books'
             }
         },
 
@@ -27,8 +26,7 @@ app.controller('AdminPanelCtrl', function($scope, $location, identity) {
             'name' : 'users',
             links : {
                 'add' : '/admin/users/add',
-                'browse' : '/admin/users',
-                'search' : '/admin/users/search'
+                'browse' : '/admin/users'
             }
         }
     ];

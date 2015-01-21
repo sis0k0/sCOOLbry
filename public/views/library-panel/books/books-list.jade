@@ -1,38 +1,37 @@
 include ../panel
 
 .container
-  .well
-    h1.text-center Books list
+  h1.text-center Books list
 
-    #users-list.table-responsive(ng-init="pages();")
-      table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
-        thead
-          tr.text-bold.text-primary
-            td#bookName(ng-click="sort($event); reloadBooks()") Title
-              span#bookName.glyphicon.glyphicon-sort.text-right
-            td#total(ng-click="sort($event); reloadBooks()") Total
-              span#total.glyphicon.glyphicon-sort.text-right
-            td#given(ng-click="sort($event); reloadBooks()") Given
-              span#given.glyphicon.glyphicon-sort.text-right
-            td#available(ng-click="sort($event); reloadBooks()") Available
-              span#available.glyphicon.glyphicon-sort.text-right
-            td#section(ng-click="sort($event); reloadBooks()") Section
-              span#section.glyphicon.glyphicon-sort.text-right
-            td Actions
-        tr(ng-repeat="book in books")
-          td {{ book.bookName }}
-          td {{ book.total }}
-          td {{ book.given }}
-          td {{ book.available }}
-          td {{ book.section }}
-          td
-            a.btn-sm(href='/library-panel/bookInfo/{{ book._id }}', tooltip='Browse')
-              span.glyphicon.glyphicon-search.text-success
-            a.btn-sm(href='/library-panel/book/edit/{{ book._id }}', tooltip='Edit')
-              span.glyphicon.glyphicon-edit.text-primary
-            a.btn-sm(href='/library-panel/book/delete/{{ book._id }}', tooltip='Delete', onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")')
-              span.glyphicon.glyphicon-remove.text-danger
-    .pagination
-        li(ng-repeat="i in range(pagesCount) track by $index")
-          a(class="pageItem" href="#" ng-click="setPage($index+1, $event); reloadBooks();" id="page-{{ $index+1 }}") {{ $index+1 }}
+  #users-list.table-responsive(ng-init="pages();")
+    table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
+      thead
+        tr.text-bold.text-primary
+          td#bookName(ng-click="sort($event); reloadBooks()") Title
+            span#bookName.glyphicon.glyphicon-sort.text-right
+          td#total(ng-click="sort($event); reloadBooks()") Total
+            span#total.glyphicon.glyphicon-sort.text-right
+          td#given(ng-click="sort($event); reloadBooks()") Given
+            span#given.glyphicon.glyphicon-sort.text-right
+          td#available(ng-click="sort($event); reloadBooks()") Available
+            span#available.glyphicon.glyphicon-sort.text-right
+          td#section(ng-click="sort($event); reloadBooks()") Section
+            span#section.glyphicon.glyphicon-sort.text-right
+          td Actions
+      tr(ng-repeat="book in books")
+        td {{ book.bookName }}
+        td {{ book.total }}
+        td {{ book.given }}
+        td {{ book.available }}
+        td {{ book.section }}
+        td
+          a.btn-sm(href='/library-panel/bookInfo/{{ book._id }}', tooltip='Browse')
+            span.glyphicon.glyphicon-search.text-success
+          a.btn-sm(href='/library-panel/book/edit/{{ book._id }}', tooltip='Edit')
+            span.glyphicon.glyphicon-edit.text-primary
+          a.btn-sm(href='/library-panel/book/delete/{{ book._id }}', tooltip='Delete', onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")')
+            span.glyphicon.glyphicon-remove.text-danger
+  .pagination
+      li(ng-repeat="i in range(pagesCount) track by $index")
+        a(class="pageItem" href="#" ng-click="setPage($index+1, $event); reloadBooks();" id="page-{{ $index+1 }}") {{ $index+1 }}
 

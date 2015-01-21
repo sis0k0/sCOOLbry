@@ -1,41 +1,38 @@
 include ../panel
 
 .container
-  .well
-    h1.text-info.text-center About the book
-    .row(style='margin-top: 3em')
-      .col-md-10.col-md-offset-1
-        .col-xs-2
-          img.img-responsive.img-thumbnail(src='{{book.cover}}', style='margin-top:21px')
-        .col-xs-10
-          h2 {{book.title}}
-          div
-            span.text-muted(ng-repeat='genre in book.genres | limitTo:2')
-              span {{genre | titleCase}}
-              span(ng-show='!$last') , 
-              span(ng-show='$last') &nbsp; / 
-            span.text-info {{book.publisher}}
-            span.text-info.pull-right {{ book.author }}
-          div(ng-show='!showMore')
-            p {{ book.description | limitTo: 200}}...
-            a(href='#' ng-click='showMore=!showMore') Show more
-          div(ng-show='!!showMore')
-            p {{ book.description}}
-            a(href='#' ng-click='showMore=!showMore') Show less
+  h1.text-info.text-center About the book
+  .row(style='margin-top: 3em')
+    .col-md-10.col-md-offset-1
+      .col-xs-2
+        img.img-responsive.img-thumbnail(src='{{book.cover}}', style='margin-top:21px')
+      .col-xs-10
+        h2 {{book.title}}
+        div
+          span.text-muted(ng-repeat='genre in book.genres | limitTo:2')
+            span {{genre | titleCase}}
+            span(ng-show='!$last') , 
+            span(ng-show='$last') &nbsp; / 
+          span.text-info {{book.publisher}}
+          span.text-info.pull-right {{ book.author }}
+        div(ng-show='!showMore')
+          p {{ book.description | limitTo: 200}}...
+          a(href='#' ng-click='showMore=!showMore') Show more
+        div(ng-show='!!showMore')
+          p {{ book.description}}
+          a(href='#' ng-click='showMore=!showMore') Show less
 
-    .row
-      .col-md-10.col-md-offset-1(ng-show='book.otherCharacteristics')
-        .panel.panel-primary(style='margin-top:2em', ng-show='!!showMore')
-          .panel-heading
-            h4.text-center Additional information
-          .panel-body
-            div.col-xs-5(ng-repeat='(key,value) in book.otherCharacteristics')
-              li
-                span.text-success.text-bold {{ key }} 
-                span : {{ value }}
-    
-    .row
-      a.btn.btn-danger.pull-right(href='/admin/book/delete/{{ book._id }}' onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")') Delete   
-      a.btn.btn-primary.pull-right(href='/admin/book/edit/{{ book._id }}', style='margin-right:0.25em') Edit
-        
-
+  .row
+    .col-md-10.col-md-offset-1(ng-show='book.otherCharacteristics')
+      .panel.panel-primary(style='margin-top:2em', ng-show='!!showMore')
+        .panel-heading
+          h4.text-center Additional information
+        .panel-body
+          div.col-xs-5(ng-repeat='(key,value) in book.otherCharacteristics')
+            li
+              span.text-success.text-bold {{ key }} 
+              span : {{ value }}
+  
+  .row
+    a.btn.btn-danger.pull-right(href='/admin/book/delete/{{ book._id }}' onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")') Delete   
+    a.btn.btn-primary.pull-right(href='/admin/book/edit/{{ book._id }}', style='margin-right:0.25em') Edit

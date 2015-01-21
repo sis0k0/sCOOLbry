@@ -1,47 +1,46 @@
 include ../panel
 
 .container
-  .well
-    h1.text-center Books list
+  h1.text-center Books list
 
-    #users-list.table-responsive(ng-init="pages();")
-      table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
-        thead
-          tr.text-bold.text-primary
-            td#_id(ng-click="sort($event); reloadBooks()") ID
-              span#_id.glyphicon.glyphicon-sort.text-right
-            td#uploaded(ng-click="sort($event); reloadBooks()") Uploaded
-              span#uploaded.glyphicon.glyphicon-sort.text-right
-            td#isbn(ng-click="sort($event); reloadBooks()") ISBN
-              span#isbn.glyphicon.glyphicon-sort.text-right
-            td#name(ng-click="sort($event); reloadBooks()") Title
-              span#title.glyphicon.glyphicon-sort.text-right
-            td#author(ng-click="sort($event); reloadBooks()") Author
-              span#author.glyphicon.glyphicon-sort.text-right
-            td#published(ng-click="sort($event); reloadBooks()") Published
-              span#published.glyphicon.glyphicon-sort.text-right
-            td#publisher(ng-click="sort($event); reloadBooks()") Publisher
-              span#publisher.glyphicon.glyphicon-sort.text-right
-            td#themes(ng-click="sort($event); reloadBooks()") Themes
-              span#themes.glyphicon.glyphicon-sort.text-right
-            td Actions
-        tr(ng-repeat="book in books")
-          td.text-bold {{ book._id }}
-          td {{ book.uploaded }}
-          td {{ book.isbn }}
-          td {{ book.title }}
-          td {{ book.author }}
-          td {{ book.published }}
-          td {{ book.publisher }}
-          td {{ book.themes }}
-          td
-            a.btn-sm(href='/admin/book/{{ book._id }}', tooltip='Browse')
-              span.glyphicon.glyphicon-search.text-success
-            a.btn-sm(href='/admin/book/edit/{{ book._id }}', tooltip='Edit')
-              span.glyphicon.glyphicon-edit.text-primary
-            a.btn-sm(href='/admin/book/delete/{{ book._id }}', tooltip='Delete', onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")')
-              span.glyphicon.glyphicon-remove.text-danger
-    .pagination
-        li(ng-repeat="i in range(pagesCount) track by $index")
-          a(class="pageItem" href="#" ng-click="setPage($index+1, $event); reloadBooks();" id="page-{{ $index+1 }}") {{ $index+1 }}
+  #users-list.table-responsive(ng-init="pages();")
+    table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
+      thead
+        tr.text-bold.text-primary
+          td#_id(ng-click="sort($event); reloadBooks()") ID
+            span#_id.glyphicon.glyphicon-sort.text-right
+          td#uploaded(ng-click="sort($event); reloadBooks()") Uploaded
+            span#uploaded.glyphicon.glyphicon-sort.text-right
+          td#isbn(ng-click="sort($event); reloadBooks()") ISBN
+            span#isbn.glyphicon.glyphicon-sort.text-right
+          td#name(ng-click="sort($event); reloadBooks()") Title
+            span#title.glyphicon.glyphicon-sort.text-right
+          td#author(ng-click="sort($event); reloadBooks()") Author
+            span#author.glyphicon.glyphicon-sort.text-right
+          td#published(ng-click="sort($event); reloadBooks()") Published
+            span#published.glyphicon.glyphicon-sort.text-right
+          td#publisher(ng-click="sort($event); reloadBooks()") Publisher
+            span#publisher.glyphicon.glyphicon-sort.text-right
+          td#themes(ng-click="sort($event); reloadBooks()") Themes
+            span#themes.glyphicon.glyphicon-sort.text-right
+          td Actions
+      tr(ng-repeat="book in books")
+        td.text-bold {{ book._id }}
+        td {{ book.uploaded }}
+        td {{ book.isbn }}
+        td {{ book.title }}
+        td {{ book.author }}
+        td {{ book.published }}
+        td {{ book.publisher }}
+        td {{ book.themes }}
+        td
+          a.btn-sm(href='/admin/book/{{ book._id }}', tooltip='Browse')
+            span.glyphicon.glyphicon-search.text-success
+          a.btn-sm(href='/admin/book/edit/{{ book._id }}', tooltip='Edit')
+            span.glyphicon.glyphicon-edit.text-primary
+          a.btn-sm(href='/admin/book/delete/{{ book._id }}', tooltip='Delete', onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")')
+            span.glyphicon.glyphicon-remove.text-danger
+  .pagination
+      li(ng-repeat="i in range(pagesCount) track by $index")
+        a(class="pageItem" href="#" ng-click="setPage($index+1, $event); reloadBooks();" id="page-{{ $index+1 }}") {{ $index+1 }}
 

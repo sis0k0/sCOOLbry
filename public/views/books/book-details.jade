@@ -4,66 +4,66 @@
     h3(ng-show='library') {{ library.name }}
 
 .container
-    .row
-      .col-xs-12.col-md-8
-        .col-md-3.hidden-xs.col-sm-2
-          img.img-responsive.img-thumbnail(src='{{book.cover}}')
-        .col-md-9.col-sm-10
-          div
-            span.text-muted(ng-repeat='genre in book.genres | limitTo:2')
-              span {{genre | titleCase}}
-              span(ng-show='!$last') , 
-              span(ng-show='$last') &nbsp; / 
-            span.text-info {{book.publisher}}
-            span.text-info.pull-right {{ book.author }}
-          div(ng-show='!showMore')
-            p.text-justify {{ book.description | limitTo: 400}}...
-            a(href='#' ng-click='showMore=!showMore') Show more
-          div(ng-show='!!showMore')
-            p.text-justify {{ book.description}}
-            a(href='#' ng-click='showMore=!showMore') Show less
+  .row
+    .col-xs-12.col-md-8
+      .col-md-3.hidden-xs.col-sm-2
+        img.img-responsive.img-thumbnail(src='{{book.cover}}')
+      .col-md-9.col-sm-10
+        div
+          span.text-muted(ng-repeat='genre in book.genres | limitTo:2')
+            span {{genre | titleCase}}
+            span(ng-show='!$last') , 
+            span(ng-show='$last') &nbsp; / 
+          span.text-info {{book.publisher}}
+          span.text-info.pull-right {{ book.author }}
+        div(ng-show='!showMore')
+          p.text-justify {{ book.description | limitTo: 400}}...
+          a(href='#' ng-click='showMore=!showMore') Show more
+        div(ng-show='!!showMore')
+          p.text-justify {{ book.description}}
+          a(href='#' ng-click='showMore=!showMore') Show less
 
-        .col-xs-12(ng-show='otherCharacteristics')
-          .panel.panel-primary(style='margin-top:2em', ng-show='!!showMore')
-            .panel-body
-              div.col-xs-5(ng-repeat='(key,value) in otherCharacteristics')
-                li
-                  span.text-success.text-bold {{ key | titleCase }} 
-                  span : {{ value }}
-      .col-xs-5.col-md-4
-        .panel.panel-primary.text-center
-          .panel-heading
-            h4 Get the book
-          .panel-body(ng-show='user')
-            div(ng-hide='reservationEnd || !libraryID')
-              a.btn.btn-success(ng-hide='isMember', ng-href='/libraries/{{library._id}}') Subscribe to reserve
-              button.btn.btn-success(ng-click='addBooking()', ng-show='isMember', ng-disabled='!bookable', ng-confirm-click='Are you sure you want to reserve that book?').btn.btn-primary Reserve
-              span(ng-class="{ 'text-success': (libBook.available>=bookings.length && libBook.available>0), 'text-danger': (libBook.available<bookings.length || libBook.available<1) }") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{libBook.available-bookings.length}} / {{libBook.total}} available
-            div(ng-show='reservationEnd', id='timerWrapper')
-            button.btn.btn-danger(ng-show='booking', ng-click='removeBooking()', ng-confirm-click='Are you sure you want to cancel that reservation?') Cancel reservation
+      .col-xs-12(ng-show='otherCharacteristics')
+        .panel.panel-primary(style='margin-top:2em', ng-show='!!showMore')
+          .panel-body
+            div.col-xs-5(ng-repeat='(key,value) in otherCharacteristics')
+              li
+                span.text-success.text-bold {{ key | titleCase }} 
+                span : {{ value }}
+    .col-xs-5.col-md-4
+      .panel.panel-primary.text-center
+        .panel-heading
+          h4 Get the book
+        .panel-body(ng-show='user')
+          div(ng-hide='reservationEnd || !libraryID')
+            a.btn.btn-success(ng-hide='isMember', ng-href='/libraries/{{library._id}}') Subscribe to reserve
+            button.btn.btn-success(ng-click='addBooking()', ng-show='isMember', ng-disabled='!bookable', ng-confirm-click='Are you sure you want to reserve that book?').btn.btn-primary Reserve
+            span(ng-class="{ 'text-success': (libBook.available>=bookings.length && libBook.available>0), 'text-danger': (libBook.available<bookings.length || libBook.available<1) }") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{libBook.available-bookings.length}} / {{libBook.total}} available
+          div(ng-show='reservationEnd', id='timerWrapper')
+          button.btn.btn-danger(ng-show='booking', ng-click='removeBooking()', ng-confirm-click='Are you sure you want to cancel that reservation?') Cancel reservation
 
-            div(style='margin-top:0.5em')
-              button(style='margin-right:0.2em; margin-bottom: 0.5em').btn.btn-primary Check for eBook
-              button(style='margin-bottom: 0.5em', ng-click='gotoOtherLibraries()').btn.btn-info Other libraries
-              div(ng-show='isMember')
-                button.btn.btn-success(ng-hide='isFavorite', ng-click='addFavorite(book.title, book.isbn)') Add favorite book
-                button.btn.btn-danger(ng-show='isFavorite', ng-click="removeFavorite()") Remove favorite book
-
-
-          .panel-body(ng-hide='user')
-            h2.text-center Please, 
-              a(href='/signup') sign up 
-              | first!
-
-    hr
-    .row.text-center(id='other')
-      h1 Libraries owning 
-        span.text-bold {{book.title}}
-
-      div(ng-repeat='library in libraries | orderBy: "name"')
-        h3.col-xs-4
-          a(ng-href='/book/{{book._id}}/{{library._id}}') {{library.name}}
+          div(style='margin-top:0.5em')
+            button(style='margin-right:0.2em; margin-bottom: 0.5em').btn.btn-primary Check for eBook
+            button(style='margin-bottom: 0.5em', ng-click='gotoOtherLibraries()').btn.btn-info Other libraries
+            div(ng-show='isMember')
+              button.btn.btn-success(ng-hide='isFavorite', ng-click='addFavorite(book.title, book.isbn)') Add favorite book
+              button.btn.btn-danger(ng-show='isFavorite', ng-click="removeFavorite()") Remove favorite book
 
 
-    ui-gmap-google-map(center='map.center', zoom='map.zoom')
-      ui-gmap-markers(models="randomMarkers", coords="'self'", icon="'icon'", options="'options'")
+        .panel-body(ng-hide='user')
+          h2.text-center Please, 
+            a(href='/signup') sign up 
+            | first!
+
+  hr
+  .row.text-center(id='other')
+    h1 Libraries owning 
+      span.text-bold {{book.title}}
+
+    div(ng-repeat='library in libraries | orderBy: "name"')
+      h3.col-xs-4
+        a(ng-href='/book/{{book._id}}/{{library._id}}') {{library.name}}
+
+
+  ui-gmap-google-map(center='map.center', zoom='map.zoom')
+    ui-gmap-markers(models="randomMarkers", coords="'self'", icon="'icon'", options="'options'")

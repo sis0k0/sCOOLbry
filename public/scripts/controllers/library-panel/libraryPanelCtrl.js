@@ -10,17 +10,14 @@ app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
             'name' : 'books',
             links : {
                 'add' : '/library-panel/books/add',
-                'browse' : '/library-panel/books-library',
-                'search' : '/library-panel/books/search-library'
+                'browse' : '/library-panel/books-library'
             }
         },
 
         {
             'name' : 'users',
             links : {
-                'add' : '/library-panel/users/add',
                 'browse' : '/library-panel/users',
-                'search' : '/library-panel/users/search',
                 'book requests' : '/library-panel/users/book-requests'
             }
         }

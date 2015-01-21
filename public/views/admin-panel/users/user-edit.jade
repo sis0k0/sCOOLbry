@@ -1,11 +1,10 @@
 include ../panel
 
+h1.text-center Update user
 .container
-  .well
     form.form-horizontal(name='profileForm', novalidate)
       fieldset
         input.form-control(type='hidden', ng-model='user._id')
-        legend Update user 
           span.text-info {{ user.username }}
         .row
           .col-md-11.col-md-offset-1

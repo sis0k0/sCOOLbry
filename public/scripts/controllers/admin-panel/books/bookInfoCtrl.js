@@ -39,5 +39,7 @@ app.controller('BookInfoCtrl', function($scope, BookResource, $routeParams) {
             $scope.otherCharacteristics.genres = $scope.book.genres.join(', ');
         }
     });
+
+    console.log($scope.book);
    
 });

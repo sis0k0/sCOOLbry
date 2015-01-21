@@ -1,32 +1,30 @@
 include ../../panel
 
 .container
-  .well
-    form.form-horizontal(name='libraryForm', novalidate)
-      fieldset
-        legend Edit library 
-          span.text-info {{::library.name}}
-        .row
+  form.form-horizontal(name='libraryForm', novalidate)
+    fieldset
+      h1.text-center Edit library 
+        span.text-info '{{::library.name}}'
+      .row
+      
+      ul.nav.nav-tabs(style='margin-bottom: 25px')
         
-        ul.nav.nav-tabs(style='margin-bottom: 25px')
-          
-          li.active
-            a(href='#main-information', data-toggle='tab', target='_self').active
-              |  Main information
-          li
-            a(href='#working-schedule', data-toggle='tab', target='_self')
-              | Working schedule
-          li
-            a(href='#librarians', data-toggle='tab', target='_self')
-              | Librarians
+        li.active
+          a(href='#main-information', data-toggle='tab', target='_self').active
+            |  Main information
+        li
+          a(href='#working-schedule', data-toggle='tab', target='_self')
+            | Working schedule
+        li
+          a(href='#librarians', data-toggle='tab', target='_self')
+            | Librarians
 
-        #myTabContent.tab-content
+      #myTabContent.tab-content
 
-          include ./main-information
-          include ./working-time
-          include ./librarians
-            
+        include ./main-information
+        include ./working-time
+        include ./librarians
 
-        .pull-right
-          button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='updateLibrary(library, librarians)') Edit
-          a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') Cancel
+      .pull-right
+        button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='updateLibrary(library, librarians)') Edit
+        a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') Cancel
