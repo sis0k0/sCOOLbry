@@ -32,7 +32,7 @@ module.exports = function(req, res) {
                         libraryName: library.name,
                         userID:      user._id,
                         userName:    user.username
-                    }
+                    };
                     LibVisit.create(newLibVisitData, function(err) {
                         if (err) {
                             console.log('Failed to register new visit: ' + err);

@@ -63,6 +63,15 @@ module.exports = function(app) {
 
     router.get('/library/subscribers/:libraryID', controllers.libraries.getLibraryUsersInLibraryCount);
 
+    // LIBRARY VISITS
+
+    // All visits for library
+    router.get('/library/visits/:libraryID/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.libraries.getAllLibraryVisitsSortable);
+
+    // Single user visits
+    router.get('/library/visits/:userID',auth.isAuthenticatedOrInRole('librarian'), controllers.libraries.getUserLibraryVisits);
+
+
     // Bookings
 
     router.post('/booking', controllers.libraries.addBooking);

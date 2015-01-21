@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('BooksTakenCtrl', function($scope, ReadingResourceSortable, $routeParams, $http, identity) {
+app.controller('LibraryVisitsCtrl', function($scope, LibVisitResourceSortable, $routeParams, $http, identity) {
     
     $scope.page = 1;
     $scope.perPage = 10;
@@ -23,7 +23,7 @@ app.controller('BooksTakenCtrl', function($scope, ReadingResourceSortable, $rout
         });
     };
     console.log($scope.user.ownLibraryID);
-    $scope.readings = ReadingResourceSortable.query({
+    $scope.visits = LibVisitResourceSortable.query({
         libraryID: $scope.user.ownLibraryID,
         field: $scope.field,
         order: $scope.order,
@@ -48,8 +48,8 @@ app.controller('BooksTakenCtrl', function($scope, ReadingResourceSortable, $rout
         $scope.order = ($scope.order==='asc') ? $scope.order='desc' : $scope.order='asc';
     };
     
-    $scope.reloadReadings = function(){
-        $scope.readings = ReadingResourceSortable.query({
+    $scope.reloadVisits = function(){
+        $scope.visits = LibVisitResourceSortable.query({
             libraryID: $scope.user.ownLibraryID,
             field: $scope.field,
             order: $scope.order,

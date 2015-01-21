@@ -110,5 +110,10 @@ app.config(function($routeProvider) {
             templateUrl: '/partials/library-panel/users/books-taken',
             controller: 'BooksTakenCtrl',
             resolve: routeUserChecks.librarianRole
+        })
+        .when('/library-panel/users/visits', {
+            templateUrl: '/partials/library-panel/users/visits',
+            controller: 'LibraryVisitsCtrl',
+            resolve: routeUserChecks.librarianRole
         });
 });
