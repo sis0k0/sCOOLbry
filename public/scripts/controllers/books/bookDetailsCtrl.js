@@ -205,13 +205,12 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
     }
 
     $scope.addBooking = function(){
-        var booking = new Object({});
-        var checkDay = new Date(new Date().getTime() + 60 * 60 * 24 * 1000);
-        var workingDays = $scope.library.workdays;
-        var workingHoursStr = $scope.library.workhours;
-        var bookDate;
+        var booking = new Object({}),
+            checkDay = new Date(new Date().getTime() + 60 * 60 * 24 * 1000),
+            workingDays = $scope.library.workdays,
+            workingHoursStr = $scope.library.workhours,
+            workingHours = [];
 
-        var workingHours = [];
         workingHoursStr.forEach(function(element, index) {
 
             if(element!==null) {
@@ -231,9 +230,9 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
         });
    
 
-        var todayWeekDay = checkDay.getDay();
-        var initialDay = checkDay.getDay();
-        var add = 0;
+        var todayWeekDay = checkDay.getDay(),
+            initialDay = checkDay.getDay(),
+            add = 0;
 
         while(workingDays[todayWeekDay]!==true) {
             todayWeekDay++;
@@ -243,8 +242,9 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
             if(todayWeekDay===7) { todayWeekDay = 0; add = true; }
         }
             
-        var workingHoursIndex = todayWeekDay;
-        var newBookingDate = new Date();
+        var workingHoursIndex = todayWeekDay,
+            newBookingDate = new Date();
+
         if(add===true){
             newBookingDate = new Date(checkDay.getTime() + 60 * 60 * 24 * 1000 * ((Math.abs(7-initialDay)+(Math.abs(0-todayWeekDay)+1))));
         }else{
@@ -256,13 +256,13 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
         newBookingDate.setMinutes(0);
         newBookingDate.setSeconds(0);
         
-        bookDate = newBookingDate;
-
-        
-        booking.userID    = identity.currentUser._id;
-        booking.libraryID = $scope.libraryID;
-        booking.bookID    = $routeParams.id;
-        booking.bookDate  = bookDate;
+        booking.userID      = identity.currentUser._id;
+        booking.userName    = identity.currentUser.username;
+        booking.libraryID   = $scope.libraryID;
+        booking.libraryName = $scope.library.name;
+        booking.bookID      = $routeParams.id;
+        booking.bookName    = $scope.book.title;
+        booking.bookDate    = newBookingDate;
 
         LibraryUsersInteractions.addBooking(booking).then(function(){
             notifier.success('Booking added successfully!');

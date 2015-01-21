@@ -52,6 +52,10 @@ module.exports = function(app) {
     router.post('/library/add-reading', auth.isInRole('librarian'), controllers.libraries.takeBook);
     router.post('/library/remove-reading', auth.isInRole('librarian'), controllers.libraries.returnBook);
     router.get('/library/all-readings', controllers.libraries.getAllReadings);
+    router.get('/library/reading-sort/:libraryID/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.libraries.getAllReadingsSortable);
+    router.get('/library/reading-count/:libraryID', controllers.libraries.getReadingCountLibrary);
+
+
     router.get('/library/not-returned/:libraryID/:userID', controllers.libraries.getAllNotReturnedReadings);
     router.get('/library/member/:libraryID/:userID', controllers.libraries.isMember);
 

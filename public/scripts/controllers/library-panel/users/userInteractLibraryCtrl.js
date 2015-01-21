@@ -1,9 +1,11 @@
 'use strict';
 
-app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeParams, $route, $timeout, identity, LibraryUsersInteractions, notifier, $http, LibBooksResource, UserNotReturnedResource) {
+app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeParams, $route, $timeout, identity, LibraryUsersInteractions, LibraryResource, notifier, $http, LibBooksResource, UserNotReturnedResource) {
     
     $scope.books = LibBooksResource.query({id: identity.currentUser.ownLibraryID, available: true, userID: $routeParams.id});
     $scope.booksToReturn = UserNotReturnedResource.query({userID: $routeParams.id, libraryID: identity.currentUser.ownLibraryID});
+    $scope.library = LibraryResource.get({id: identity.currentUser.ownLibraryID});
+
     $scope.user = UserResource.get({id: $routeParams.id}, function() {
         var url = '/api/library/pending/' + $scope.user.id + '/' + identity.currentUser.ownLibraryID;
         $http.get(url).
@@ -59,11 +61,13 @@ app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeP
 
     $scope.giveBook = function(give) {
 
-        give.userID = $routeParams.id;
-        give.libraryID = identity.currentUser.ownLibraryID;
+        give.userID      = $routeParams.id;
+        give.userName     = $scope.user.username;
+        give.libraryID    = identity.currentUser.ownLibraryID;
+        give.libraryName  = $scope.library.name;
         give.librarian1ID = identity.currentUser._id;
-        give.startDate = new Date();
-        give.endDate = new Date(new Date().getTime() + 1000*60*60*24*30);
+        give.startDate    = new Date();
+        give.endDate      = new Date(new Date().getTime() + 1000*60*60*24*30);
 
         delete give._id;
         delete give.__v;
@@ -79,11 +83,11 @@ app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeP
     
     $scope.returnBook = function(interact) {
 
-        interact.userID = $routeParams.id;
-        interact.libraryID = identity.currentUser.ownLibraryID;
+        interact.userID       = $routeParams.id;
+        interact.libraryID    = identity.currentUser.ownLibraryID;
         interact.librarian2ID = identity.currentUser._id;
-        interact.returnDate = new Date();
-        interact.comment = $scope.returnBook.comment;
+        interact.returnDate   = new Date();
+        interact.comment      = $scope.returnBook.comment;
 
         delete interact._id;
         delete interact.__v;

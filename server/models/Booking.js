@@ -4,8 +4,11 @@ var mongoose = require('mongoose');
 
 var bookingSchema = mongoose.Schema({
     userID: String,
+    userName: String,
     libraryID: String,
+    libraryName: String,
     bookID: String,
+    bookName: String,
     bookDate: Date
 });
 

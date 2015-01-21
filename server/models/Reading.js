@@ -4,7 +4,9 @@ var mongoose = require('mongoose');
 
 var readingSchema = mongoose.Schema({
     userID: String,
+    userName: String,
     libraryID: String,
+    libraryName: String,
     librarian1ID: String,
     librarian2ID: String,
     bookID: String,

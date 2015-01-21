@@ -4,7 +4,8 @@ var Reading  = require('mongoose').model('Reading'),
     Booking  = require('mongoose').model('Booking'),
     LibVisit = require('mongoose').model('LibVisit'),
     Book     = require('mongoose').model('Book'),
-    User     = require('mongoose').model('User');
+    User     = require('mongoose').model('User'),
+    Library  = require('mongoose').model('Library');
 
 module.exports = function(req, res) {
 
@@ -22,13 +23,21 @@ module.exports = function(req, res) {
             res.status(401).send('User not subscribed for the library');
         } else {
 
-            var newLibVisitData = {};
-            newLibVisitData.libraryID = req.params.libraryID;
-            newLibVisitData.userID    = user._id;
-
-            LibVisit.create(newLibVisitData, function(err) {
-                if (err) {
-                    console.log('Failed to register new visit: ' + err);
+            Library.findOne({_id: req.params.libraryID}).exec(function(err, library) {
+                if(err) {
+                    console.log('Library could not be loaded: ' + err);
+                } else if(!!library) {
+                    var newLibVisitData = {
+                        libraryID:   library._id,
+                        libraryName: library.name,
+                        userID:      user._id,
+                        userName:    user.username
+                    }
+                    LibVisit.create(newLibVisitData, function(err) {
+                        if (err) {
+                            console.log('Failed to register new visit: ' + err);
+                        }
+                    });
                 }
             });
 

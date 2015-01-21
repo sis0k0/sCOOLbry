@@ -4,6 +4,7 @@ var Reading = require('mongoose').model('Reading');
 
 module.exports = function(req, res) {
 
+    console.log('inside');
     var order, field, page, perPage;
 
     if(req.params.order===undefined) {
@@ -32,10 +33,12 @@ module.exports = function(req, res) {
     
     var sortObject = {};
     sortObject[field] = order;
-    Reading.find({}, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage}).exec(function(err, collection) {
+    console.log(req.params);
+    Reading.find({libraryID: req.params.libraryID}, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage}).exec(function(err, collection) {
         if (err) {
             console.log('Readings could not be loaded: ' + err);
         }
+        console.log(collection);
 
         res.send(collection);
     });

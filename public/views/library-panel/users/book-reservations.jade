@@ -1,7 +1,7 @@
 include ../panel
 
 .container
-    h1.text-center Bookings
+    h1.text-center Book Reservations
     
     .row
       .col-md-8.col-md-offset-2
@@ -22,8 +22,8 @@ include ../panel
             td Actions
         tr(ng-repeat="booking in bookings")
           td.text-bold {{ booking._id }}
-          td {{ booking.user.username }}
-          td {{ booking.book.title }}
+          td {{ booking.userName }}
+          td {{ booking.bookName }}
           td {{ booking.bookDate }}
           td
             a.btn-sm(href='/library-panel/user/interact/{{ booking.userID }}', tooltip='Give A Book')

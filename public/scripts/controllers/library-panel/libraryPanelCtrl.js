@@ -18,7 +18,8 @@ app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
             'name' : 'users',
             links : {
                 'browse' : '/library-panel/users',
-                'book requests' : '/library-panel/users/book-requests'
+                'book reservations' : '/library-panel/users/book-reservations',
+                'books taken' : '/library-panel/users/books-taken'
             }
         }
     ];

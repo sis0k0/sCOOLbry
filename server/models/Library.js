@@ -5,7 +5,8 @@ var mongoose  = require('mongoose');
 var librarySchema = mongoose.Schema({
     name: {
         type: String,
-        required: '{PATH is required}'
+        required: '{PATH is required}',
+        unique: true
     },
     yearOfEstablishment: Number,
     published: {

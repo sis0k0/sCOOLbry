@@ -101,9 +101,14 @@ app.config(function($routeProvider) {
             controller: 'UserDeleteFromLibraryCtrl',
             resolve: routeUserChecks.librarianRole
         })
-        .when('/library-panel/users/book-requests', {
-            templateUrl: '/partials/library-panel/users/book-requests',
-            controller: 'BookingRequestsCtrl',
+        .when('/library-panel/users/book-reservations', {
+            templateUrl: '/partials/library-panel/users/book-reservations',
+            controller: 'BookingReservationsCtrl',
+            resolve: routeUserChecks.librarianRole
+        })
+        .when('/library-panel/users/books-taken', {
+            templateUrl: '/partials/library-panel/users/books-taken',
+            controller: 'BooksTakenCtrl',
             resolve: routeUserChecks.librarianRole
         });
 });

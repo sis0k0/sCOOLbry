@@ -7,7 +7,15 @@ var libVisitSchema = mongoose.Schema({
         type: String,
         require: '{PATH} is required'
     },
+    libraryName: {
+        type: String,
+        require: '{PATH} is required'
+    },
     userID: {
+        type: String,
+        require: '{PATH} is required'
+    },
+    userName: {
         type: String,
         require: '{PATH} is required'
     },
@@ -29,7 +37,7 @@ module.exports.seedInitialLibVisit = function() {
         if (collection.length === 0) {
             LibVisit.remove({}, function() {});
 
-            // Add some default visits ?
+            // Add some default visits
         }
     });
 };
