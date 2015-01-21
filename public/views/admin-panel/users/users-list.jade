@@ -15,7 +15,7 @@ include ../panel
             span#firstName.glyphicon.glyphicon-sort.text-right
           td#lastName(ng-click="sort($event); reloadUsers()") Last name
             span#lastName.glyphicon.glyphicon-sort.text-right
-          td#created(ng-click="sort($event); reloadUsers()") Created
+          td#created(ng-click="sort($event); reloadUsers()") Registered
             span#created.glyphicon.glyphicon-sort.text-right
           td#email(ng-click="sort($event); reloadUsers()") Email
             span#email.glyphicon.glyphicon-sort.text-right
@@ -27,7 +27,7 @@ include ../panel
         td {{ user.username }}
         td {{ user.firstName }}
         td {{ user.lastName }}
-        td {{ user.created }}
+        td {{ user.created | date:'HH:mm:ss &nbsp;&nbsp;&nbsp;dd/MM/yyyy'}}
         td {{ user.email }}
         td 
           p(ng-repeat='role in user.roles track by $index') {{ role | titleCase }}

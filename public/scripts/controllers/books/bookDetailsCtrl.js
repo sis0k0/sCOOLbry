@@ -7,37 +7,42 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
     $scope.showMore = true;
     $scope.book = BookResource.get({id: $routeParams.id}, function() {
 
-        if($scope.book.hasOwnProperty('author') && $scope.book.author.indexOf('.') > -1) {
-            $scope.book.author = $scope.book.author.substring(0, $scope.book.author.indexOf('.') -2);
-        }
-        $scope.otherCharacteristics = new Object({});
-        if($scope.book.hasOwnProperty('isbn')) {
-            $scope.otherCharacteristics.isbn = $scope.book.isbn;
-        }
-        if($scope.book.hasOwnProperty('language')) {
-            $scope.otherCharacteristics.language = $scope.book.language;
-        }
-        if($scope.book.hasOwnProperty('authorNationality')) {
-            $scope.otherCharacteristics.authorNationality = $scope.book.authorNationality;
-        }
-        if($scope.book.hasOwnProperty('pages')) {
-            $scope.otherCharacteristics.pages = $scope.book.pages;
-        }
-        if($scope.book.hasOwnProperty('edition')) {
-            $scope.otherCharacteristics.edition = $scope.book.edition;
-        }
-        if($scope.book.hasOwnProperty('illustrated')) {
-            $scope.otherCharacteristics.illustrated = $scope.book.illustrated;
-        }
-        if($scope.book.hasOwnProperty('published')) {
-            $scope.otherCharacteristics.published = $scope.book.published;
-        }
-        if($scope.book.hasOwnProperty('themes')) {
-            $scope.otherCharacteristics.themes = $scope.book.themes.join(', ');
-        }
-        if($scope.book.hasOwnProperty('genres')) {
-            $scope.otherCharacteristics.genres = $scope.book.genres.join(', ');
-        }
+        $scope.otherCharacteristics = $scope.book;
+
+        delete $scope.otherCharacteristics._id;
+        delete $scope.otherCharacteristics.__v;
+
+        // if($scope.book.hasOwnProperty('author') && $scope.book.author.indexOf('.') > -1) {
+        //     $scope.book.author = $scope.book.author.substring(0, $scope.book.author.indexOf('.') -2);
+        // }
+        // $scope.otherCharacteristics = new Object({});
+        // if($scope.book.hasOwnProperty('isbn')) {
+        //     $scope.otherCharacteristics.isbn = $scope.book.isbn;
+        // }
+        // if($scope.book.hasOwnProperty('language')) {
+        //     $scope.otherCharacteristics.language = $scope.book.language;
+        // }
+        // if($scope.book.hasOwnProperty('authorNationality')) {
+        //     $scope.otherCharacteristics.authorNationality = $scope.book.authorNationality;
+        // }
+        // if($scope.book.hasOwnProperty('pages')) {
+        //     $scope.otherCharacteristics.pages = $scope.book.pages;
+        // }
+        // if($scope.book.hasOwnProperty('edition')) {
+        //     $scope.otherCharacteristics.edition = $scope.book.edition;
+        // }
+        // if($scope.book.hasOwnProperty('illustrated')) {
+        //     $scope.otherCharacteristics.illustrated = $scope.book.illustrated;
+        // }
+        // if($scope.book.hasOwnProperty('published')) {
+        //     $scope.otherCharacteristics.published = $scope.book.published;
+        // }
+        // if($scope.book.hasOwnProperty('themes')) {
+        //     $scope.otherCharacteristics.themes = $scope.book.themes.join(', ');
+        // }
+        // if($scope.book.hasOwnProperty('genres')) {
+        //     $scope.otherCharacteristics.genres = $scope.book.genres.join(', ');
+        // }
     });
 
 
@@ -103,21 +108,31 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
                         });
                     }
 
-                }, function(err) {
-                    console.log(err);
-                    $scope.map = { 
-                        center: { latitude: $scope.libraries[0].address.geometry.location.lat, longitude: $scope.libraries[0].address.geometry.location.lng },
-                        zoom: 8
-                    };
+                }, function() {
+                    for(var i=0; i<data.length; i++) {
+                        LibraryResource.get({id: data[i].libraryID}, function(data) {
+                            $scope.libraries.push(data);
 
-                    for(var i=0; i<$scope.libraries.length; i++) {
-                        var marker = {
-                            latitude: $scope.libraries[i].address.geometry.location.lat,
-                            longitude: $scope.libraries[i].address.geometry.location.lng,
-                            icon: '../../dist/images/bluemarker.png',
-                            id: i
-                        };
-                        $scope.randomMarkers.push(marker);
+                            var marker = {
+                                latitude: $scope.libraries[$scope.libraries.length-1].address.geometry.location.lat,
+                                longitude: $scope.libraries[$scope.libraries.length-1].address.geometry.location.lng,
+                                icon: '../../dist/images/bluemarker.png',
+                                id: $scope.libraries.length,
+                                showWindow: true,
+                                options: {
+                                    labelContent: $scope.libraries[$scope.libraries.length-1].name,
+                                    labelClass: 'marker-labels',
+                                    labelAnchor:'24 4'
+                                }
+                            };
+                            $scope.randomMarkers.push(marker);
+                            if($scope.libraries.length===i) {
+                                $scope.map = { 
+                                    center: { latitude: $scope.libraries[0].address.geometry.location.lat, longitude: $scope.libraries[0].address.geometry.location.lng },
+                                    zoom: 8
+                                };
+                            }
+                        });
                     }
 
                 });

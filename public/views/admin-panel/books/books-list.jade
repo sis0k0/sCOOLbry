@@ -30,7 +30,7 @@ include ../panel
         td {{ book.isbn }}
         td {{ book.title }}
         td {{ book.author }}
-        td {{ book.published }}
+        td {{ book.published | date:'dd/MM/yyyy' }}
         td {{ book.publisher }}
         td {{ book.themes }}
         td

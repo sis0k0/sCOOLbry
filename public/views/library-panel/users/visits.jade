@@ -21,7 +21,7 @@ include ../panel
         tr(ng-repeat="visit in visits")
           td.text-bold {{ visit._id }}
           td {{ visit.userName }}
-          td {{ visit.date }}
+          td {{ visit.date | date:'HH:mm:ss &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dd/MM/yyyy' }}
           td
             a.btn-sm(href='/library-panel/user/interact/{{ visit.userID }}', tooltip='Return A Book')
               span.glyphicon.glyphicon-book.text-success

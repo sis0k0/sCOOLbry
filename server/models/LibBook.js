@@ -16,6 +16,10 @@ var libBookSchema = mongoose.Schema({
     section: {
         type: Number, // which is the section
         default: 0
+    },
+    added: {
+        type: Date,
+        default: Date.now
     }
 });
 

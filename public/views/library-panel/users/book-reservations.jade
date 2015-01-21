@@ -24,7 +24,7 @@ include ../panel
           td.text-bold {{ booking._id }}
           td {{ booking.userName }}
           td {{ booking.bookName }}
-          td {{ booking.bookDate }}
+          td {{ booking.bookDate | date:'HH:mm:ss &nbsp;&nbsp;&nbsp;dd/MM/yyyy' }}
           td
             a.btn-sm(href='/library-panel/user/interact/{{ booking.userID }}', tooltip='Give A Book')
               span.glyphicon.glyphicon-book.text-success

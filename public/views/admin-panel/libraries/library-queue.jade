@@ -13,8 +13,10 @@ include ../panel
             span#name.glyphicon.glyphicon-sort.text-right
           td#certificate(ng-click="sort($event); reloadLibraries()") Certificate URL
             span#certificate.glyphicon.glyphicon-sort.text-right
-          td#published(ng-click="sort($event); reloadLibraries()") Published
+          td#published(ng-click="sort($event); reloadLibraries()") Registered
             span#published.glyphicon.glyphicon-sort.text-right
+          td#yearOfEstablishment(ng-click="sort($event); reloadLibraries()") Established
+            span#yearOfEstablishment.glyphicon.glyphicon-sort.text-right
           td#tags(ng-click="sort($event); reloadLibraries()") Tags
             span#tags.glyphicon.glyphicon-sort.text-right
           td Actions
@@ -24,7 +26,8 @@ include ../panel
           td {{ library.name }}
           td 
             a(href='{{ library.certificate }}' target='_blank') {{library.certificate}}
-          td {{ library.published }}
+          td {{ library.published | date:'dd/MM/yyyy' }}
+          td {{ library.yearOfEstablishment }}
           td {{ library.tags }}
           td
             a.btn-sm(href='/admin/library/{{ library._id }}', tooltip='Browse')
