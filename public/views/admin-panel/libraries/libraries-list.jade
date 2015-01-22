@@ -30,7 +30,8 @@ include ../panel
           td {{ library.published | date:'HH:mm:ss dd/MM/yyyy' }}
           td {{ library.yearOfEstablishment }}
           td {{ library.featured }}
-          td {{ library.tags }}
+          td 
+            p(ng-repeat='tag in library.tags track by $index') {{ tag | titleCase }}
           td
             a.btn-sm(href='/admin/library/{{ library._id }}', tooltip='Browse')
               span.glyphicon.glyphicon-search.text-success

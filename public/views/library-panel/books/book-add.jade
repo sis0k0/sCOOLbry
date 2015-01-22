@@ -90,12 +90,12 @@ include ../panel
                     a(href='#' ng-click='showMore=!showMore') Show less
 
             .row
-              .col-md-10.col-md-offset-1(ng-show='book.otherCharacteristics')
+              .col-md-10.col-md-offset-1(ng-show='book.other')
                 .panel.panel-primary(style='margin-top:2em', ng-show='!!showMore')
                   .panel-heading
                     h4.text-center Additional information
                   .panel-body
-                    div.col-xs-5(ng-repeat='(key,value) in book.otherCharacteristics')
+                    div.col-xs-5(ng-repeat='(key,value) in book.other')
                       li
                         span.text-success.text-bold {{ key }} 
                         span : {{ value }}

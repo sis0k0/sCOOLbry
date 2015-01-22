@@ -36,7 +36,8 @@ var bookSchema = mongoose.Schema({
     uploaded: {
         type: Date,
         default: Date.now
-    }
+    },
+    other: Object
 });
 
 var Book = mongoose.model('Book', bookSchema);

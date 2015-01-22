@@ -23,10 +23,10 @@
           p.text-justify {{ book.description}}
           a(href='#' ng-click='showMore=!showMore') Show less
 
-      .col-xs-12(ng-show='otherCharacteristics')
+      .col-xs-12(ng-show='book.other')
         .panel.panel-primary(style='margin-top:2em', ng-show='!!showMore')
           .panel-body
-            div.col-xs-5(ng-repeat='(key,value) in otherCharacteristics')
+            div.col-xs-5(ng-repeat='(key,value) in book.other')
               li
                 span.text-success.text-bold {{ key | titleCase }} 
                 span : {{ value }}

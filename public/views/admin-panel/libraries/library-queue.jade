@@ -28,7 +28,8 @@ include ../panel
             a(href='{{ library.certificate }}' target='_blank') {{library.certificate}}
           td {{ library.published | date:'dd/MM/yyyy' }}
           td {{ library.yearOfEstablishment }}
-          td {{ library.tags }}
+          td 
+            p(ng-repeat='tag in library.tags track by $index') {{ tag | titleCase }}
           td
             a.btn-sm(href='/admin/library/{{ library._id }}', tooltip='Browse')
               span.glyphicon.glyphicon-search.text-success

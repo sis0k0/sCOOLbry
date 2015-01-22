@@ -32,7 +32,8 @@ include ../panel
         td {{ book.author }}
         td {{ book.published | date:'dd/MM/yyyy' }}
         td {{ book.publisher }}
-        td {{ book.themes }}
+        td 
+          p(ng-repeat='theme in book.themes track by $index') {{ theme | titleCase }}
         td
           a.btn-sm(href='/admin/book/{{ book._id }}', tooltip='Browse')
             span.glyphicon.glyphicon-search.text-success

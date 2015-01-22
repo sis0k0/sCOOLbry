@@ -1,8 +1,8 @@
 'use strict';
 
-app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, LibBooksSectionResource, $routeParams, $http, identity) {
+app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, LibBooksSectionResource, $routeParams, $http, identity, BookResourceSortable) {
     $scope.user = identity.currentUser;
- /*   $scope.page = 1;
+    $scope.page = 1;
     $scope.perPage = 10;
     $scope.field = 'published';
     $scope.order = 'asc';
@@ -17,7 +17,7 @@ app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, LibBoo
             $scope.pagesCount = Math.ceil($scope.booksCount/$scope.perPage);
         });
     };
-*/    
+    
     if($routeParams.section!==undefined) {
         
         $scope.books = LibBooksSectionResource.query({libraryID: $scope.user.ownLibraryID, section: $routeParams.section});
@@ -28,16 +28,7 @@ app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, LibBoo
     
     }
 
-    console.log($scope.books);
-    /*
-        field: $scope.field,
-        order: $scope.order,
-        page: $scope.page,
-        perPage: $scope.perPage
-    });*/
-    
-    
-    /*$scope.setPage = function(page, event){
+    $scope.setPage = function(page, event){
         
         $scope.page = page;
         angular.element('.pagination li').removeClass('active');
@@ -62,5 +53,5 @@ app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, LibBoo
             perPage: $scope.perPage
         });
     };
-*/
+
 });
