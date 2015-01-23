@@ -30,7 +30,7 @@ include ../panel
         .panel-body
           div.col-xs-5(ng-repeat='(key,value) in book.other')
             li
-              span.text-success.text-bold {{ key }} 
+              span.text-success.text-bold {{ key | titleCase }} 
               span : {{ value }}
   
   .row

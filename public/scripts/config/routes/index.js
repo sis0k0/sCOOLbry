@@ -50,7 +50,8 @@ app.config(function($routeProvider) {
         })
         .when('/book/:id', {
             templateUrl: '/partials/books/book-details',
-            controller: 'BookDetailsCtrl'
+            controller: 'BookDetailsCtrl',
+            reloadOnSearch: false
         })
         .when('/book/:id/:libraryID', {
             templateUrl: '/partials/books/book-details',
