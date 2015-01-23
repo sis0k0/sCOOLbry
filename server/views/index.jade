@@ -14,10 +14,14 @@ block main-content
 
         form.navbar-form.navbar-left#search-header(role='search', ng-controller="SearchCtrl").vcenter
           .form-group.input-group#search-field
-            input.form-control.typehead(type='text', ng-model="phrase", ng-change="search(phrase)", placeholder='Search for books by title, author, genre, ISBN or citation')
+            input.form-control.sfTypeahead(type='text', data-ng-model="phrase", ng-change="search(phrase)", placeholder='Search for books by title, author, genre, ISBN or citation', options='searchOptions', datasets='resultsData')
             .input-group-btn
               button(type="submit", ng-click="searchDetails(phrase)").btn.btn-default
                 i.glyphicon.glyphicon-search
+          ul#search-results.dropdown(ng-hide="results.length===0 || results===undefined")
+            li(role="presentation", ng-repeat="result in results") 
+              a(role="menuitem", href="/book/{{ result._id }}", ng-click="hideResults()") {{ result.title }} - {{ result.author }}
+            
 
 
         ul#top-menu.nav.navbar-nav.navbar-right.vcenter(ng-controller="LogInCtrl")
