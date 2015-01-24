@@ -24,6 +24,7 @@ app.controller('RegisterLibraryCtrl', function($scope, $http, $location, $window
             'http://maps.googleapis.com/maps/api/geocode/json',
             {params: params}
         ).then(function(response) {
+            console.log(response);
             $scope.addresses = response.data.results;
         });
     };

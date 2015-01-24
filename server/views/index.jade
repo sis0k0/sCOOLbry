@@ -12,19 +12,23 @@ block main-content
 
       #site-navigation.navbar-collapse.collapse
 
-        form.navbar-form.navbar-left#search-header(role='search', ng-controller="SearchCtrl").vcenter
-          .form-group.input-group#search-field
-            input.form-control.sfTypeahead(type='text', data-ng-model="phrase", ng-change="search(phrase)", placeholder='Search for books by title, author, genre, ISBN or citation', options='searchOptions', datasets='resultsData')
-            .input-group-btn
-              button(type="submit", ng-click="searchDetails(phrase)").btn.btn-default
-                i.glyphicon.glyphicon-search
-          ul#search-results.dropdown(ng-hide="results.length===0 || results===undefined")
-            li(role="presentation", ng-repeat="result in results") 
-              a(role="menuitem", href="/book/{{ result._id }}", ng-click="hideResults()") {{ result.title }} - {{ result.author }}
-            
+        ui-select#search-header.navbar-left(ng-controller='SearchCtrl', name='result', ng-model='result.selected', ng-disabled='disabled', reset-search-input='false', on-select='goToResult($item)')
+          ui-select-match(placeholder='Search for books by title/author/genre/isbn') {{$select.selected.title}}
+          ui-select-choices(repeat='result in results', refresh='search($select.search)', refresh-delay='0', style='font-size: 1em')
+            div(ng-if='!$last')
+              div
+                span(ng-bind-html="result.title | highlight: $select.search")
+                span  (
+                span(ng-bind-html="result.author | highlight: $select.search")
+                span )
+              small.text-muted.text-bold ISBN: 
+              small.text-muted(ng-bind-html='result.isbn | highlight: $select.search')
+            div.text-center(ng-if='$last')
+              hr
+              h4(style='margin:0') {{result.message}}
+              small.text-muted Showing first {{results.length-1}} results
 
-
-        ul#top-menu.nav.navbar-nav.navbar-right.vcenter(ng-controller="LogInCtrl")
+        ul#top-menu.nav.navbar-nav.navbar-right(ng-controller="LogInCtrl")
           li
             a(href='/libraries') Libraries
           li(ng-show='!identity.isAuthenticated()')

@@ -1,28 +1,39 @@
 'use strict';
 
-app.controller('SearchCtrl', function($scope, $location, $routeParams, BookSearchResource) {
+app.controller('SearchCtrl', function($scope, $location, $routeParams, $http, BookSearchResource) {
     
     $scope.showResults = false;
 
     $scope.search = function(phrase) {
-        console.log(phrase);
         if(typeof phrase === 'undefined' || phrase===' ' || phrase==='') {
             $scope.results = undefined;
             $scope.showResults = false;
         }else{
             $scope.phrase = phrase;
-            $scope.results = BookSearchResource.query({phrase: phrase, limit: 4});
-            console.log($scope.results.length);
-            if($scope.results.length===0){
-                $scope.showResults = false;
-            }else{
-                $scope.showResults = true;
-            }
+            return BookSearchResource.query({phrase: phrase, limit: 4}, function(results) {
+                $scope.results = results;
+
+                if($scope.results.length===0){
+                    $scope.showResults = false;
+
+                }else{
+                    $scope.showResults = true;
+                    var lastResult = {
+                        message: 'See more results for \'' + phrase + '\''
+                    };
+                    $scope.results.push(lastResult);
+                }
+            });
         }
     };
 
-    $scope.searchDetails = function(phrase) {
-        $location.path('/search/'+phrase);
+    $scope.goToResult = function(item) {
+        $scope.result.selected = undefined;
+        if(item.hasOwnProperty('message')) {
+            $location.path('/search/' + $scope.phrase);
+        } else {
+            $location.path('/book/' + item._id);
+        }
     };
 
     if($routeParams.phrase!==undefined) {
