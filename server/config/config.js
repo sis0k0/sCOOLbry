@@ -19,6 +19,11 @@ module.exports = {
             consumerSecret    : '0vJOYrmYEnT8onw55aPwBXDPwNv0xpNXoWJVymFni6STfDzA9j',
             callbackURL       : 'http://localhost:3030/api/auth/twitter/callback'
         },
+        google : {
+            clientID      : 'your-consumer-key-here',
+            clientSecret  : 'your-client-secret-here',
+            callbackURL   : 'http://localhost:3030/api/auth/google/callback'
+        },
         captcha: false
     },
     production: {
@@ -36,6 +41,11 @@ module.exports = {
             consumerKey       : 'dn1vIPB9VhWZcF7hYVDpJFyZd',
             consumerSecret    : '0vJOYrmYEnT8onw55aPwBXDPwNv0xpNXoWJVymFni6STfDzA9j',
             callbackURL       : 'http://scoolbry.com/api/auth/twitter/callback'
+        },
+        google : {
+            clientID      : 'your-consumer-key-here',
+            clientSecret  : 'your-client-secret-here',
+            callbackURL   : 'http://localhost:3030/api/auth/google/callback'
         },
         captcha: true
     }
