@@ -48,4 +48,5 @@ module.exports = function(config) {
 
     require('./strategies/facebook.js')(config);
     require('./strategies/twitter.js')(config);
+    require('./strategies/google.js')(config);
 };
