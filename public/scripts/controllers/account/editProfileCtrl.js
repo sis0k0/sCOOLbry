@@ -2,19 +2,7 @@
 
 app.controller('EditProfileCtrl', function($scope, $location, User, identity, ajaxPost, $window, $http, notifier) {
 
-    $scope.user = {
-        username: identity.currentUser.username,
-        firstName: identity.currentUser.firstName,
-        lastName: identity.currentUser.lastName,
-        email: identity.currentUser.email,
-        avatar: identity.currentUser.avatar,
-        gender: identity.currentUser.gender,
-        dateOfBirth: identity.currentUser.dateOfBirth,
-        facebookUrl: identity.currentUser.facebookUrl,
-        twitterUrl: identity.currentUser.twitterUrl,
-        googlePlusUrl: identity.currentUser.googlePlusUrl,
-        aboutMe: identity.currentUser.aboutMe
-    };
+    $scope.user = identity.currentUser;
 
     
     $scope.upload = false;
@@ -71,7 +59,7 @@ app.controller('EditProfileCtrl', function($scope, $location, User, identity, aj
         
         var responsePromise = $http.get('/api/' + field.$name + 'Taken/' + field.$viewValue);
         responsePromise.success(function(data) {
-            if(data===true){
+            if(data===true && field.$viewValue!==identity.currentUser.email){
                 field.$setValidity('taken', false);
             }else{
                 field.$setValidity('taken', true);

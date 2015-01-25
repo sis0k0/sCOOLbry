@@ -74,10 +74,16 @@ module.exports = function(req, res) {
                                 console.log('Book could not be loaded: ' + err);
                                 res.status(503).send('Cannot connect to database');
                             } else {
+                                var readingInCollection = collection[readingsCount - history.length - 1 + bookingsAdded];
+
                                 var reading = new Object({});
                                 reading.type = 'reading';
                                 reading.book = book;
-                                reading.end = collection[readingsCount - history.length - 1 + bookingsAdded].endDate;
+                                reading.library = {
+                                    id: readingInCollection.libraryID,
+                                    name: readingInCollection.libraryName
+                                };
+                                reading.end = readingInCollection.endDate;
                                 readingsAdded++;
 
                                 history.push(reading);
@@ -95,10 +101,16 @@ module.exports = function(req, res) {
                                 console.log('Book could not be loaded: ' + err);
                                 res.status(503).send('Cannot connect to database');
                             } else {
+                                var bookingInCollection =  bookingsCollection[bookingsCount - history.length - 1 + readingsAdded];
+
                                 var booking = new Object({});
                                 booking.type = 'booking';
                                 booking.book = book;
-                                booking.end = bookingsCollection[bookingsCount - history.length - 1 + readingsAdded].bookDate;
+                                booking.library = {
+                                    id: bookingInCollection.libraryID,
+                                    name: bookingInCollection.libraryName
+                                };
+                                booking.end = bookingInCollection.bookDate;
                                 bookingsAdded++;
 
                                 history.push(booking);

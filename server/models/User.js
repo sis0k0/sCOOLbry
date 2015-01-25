@@ -49,9 +49,6 @@ var userSchema = mongoose.Schema({
         default: 'Not specified'
     },
     dateOfBirth: Date,
-    facebookUrl: String,
-    twitterUrl: String,
-    googlePlusUrl: String,
     aboutMe: String,
     ownLibraryID: String,
     librarySubscriptions: [String],

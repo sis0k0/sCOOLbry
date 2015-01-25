@@ -20,28 +20,15 @@
                   label.control-label(for="email") Email
                   .row
                       .col-xs-12
-                          input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail); checkIfTaken(profileForm.email)", required)
+                          input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="checkIfTaken(profileForm.email)", required)
                           span.has-error.help-block(ng-show="profileForm.email.$error.taken") Email already taken
                           span.has-error.help-block(ng-show="profileForm.email.$invalid && profileForm.email.$dirty") Please enter valid email
-              .form-group(ng-class="{ 'has-error': (profileForm.confirmEmail.$invalid && profileForm.confirmEmail.$dirty), 'has-success': (profileForm.confirmEmail.$valid) }")
-                  label.control-label(for="confirm-password") Confirm email
-                  .row
-                    .col-xs-12
-                        input.form-control(name="confirmEmail", type="text", placeholder="Confirm email", ng-value="user.email", ng-model="emailConfirm", ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail)", required)
-                        span.has-error.help-block(ng-show="profileForm.confirmEmail.$error.notMatching && profileForm.confirmEmail.$dirty") These emails don't match. Try again?
-
-              .form-group(ng-class="{ 'has-error': (profileForm.password.$invalid && profileForm.password.$dirty), 'has-success': (profileForm.password.$valid && profileForm.password.$dirty) }")
-                  label.control-label(for="password") New Password
-                  .row
-                      .col-xs-12
-                          input.form-control(name="password", type="password", placeholder="Password", tooltip-placement="left", tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)")
-              .form-group(ng-class="{ 'has-error': (profileForm.confirmPassword.$invalid && profileForm.confirmPassword.$dirty), 'has-success': (profileForm.confirmPassword.$valid && profileForm.confirmPassword.$dirty) }")
-                  label.control-label(for="confirm-password") Confirm password
-                  .row
-                    .col-xs-12
-                        input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)")
-                        span.has-error.help-block(ng-show="profileForm.confirmPassword.$error.notMatching && profileForm.confirmPassword.$dirty") These passwords don't match. Try again?
-                                
+              .form-group(ng-class="{ 'has-success': (profileForm.dateOfBirth.$valid && (!!user.dateOfBirth)) }")
+                label.control-label(for='date-of-birth') Date of birth
+                .row.input-group.date
+                    input.form-control(name='dateOfBirth', type='text', datepicker-popup='d MMMM yyyy', is-open='opened', ng-focus='opened=true', min-date='"1900-01-01"', max-date='today', placeholder='Date of birth', ng-model='user.dateOfBirth')
+                    span.input-group-addon
+                      i.glyphicon.glyphicon-th
             .col-md-5.col-md-offset-1
               .form-group(ng-class="{ 'has-success': (profileForm.gender.$valid && (!!user.gender)) }")
                 label.control-label(for='gender') Gender
@@ -51,28 +38,20 @@
                       option Not specified
                       option Male
                       option Female
-              .form-group(ng-class="{ 'has-success': (profileForm.dateOfBirth.$valid && (!!user.dateOfBirth)) }")
-                label.control-label(for='date-of-birth') Date of birth
-                .row.input-group.date
-                    input.form-control(name='dateOfBirth', type='text', datepicker-popup='d MMMM yyyy', is-open='opened', ng-focus='opened=true', min-date='"1900-01-01"', max-date='today', placeholder='Date of birth', ng-model='user.dateOfBirth')
-                    span.input-group-addon
-                      i.glyphicon.glyphicon-th
-              .form-group(ng-class="{ 'has-success': (profileForm.facebookUrl.$valid && (!!user.facebookUrl)) }")
-                label.control-label(for='facebook-url') Facebook URL
-                .row
-                  .col-xs-12
-                    input.form-control(name='facebookUrl', type='text', placeholder='Facebook URL', ng-model='user.facebookUrl')
-              .form-group(ng-class="{ 'has-success': (profileForm.twitterUrl.$valid && (!!user.twitterUrl)) }")
-                label.control-label(for='twitterUrl') Twitter URL
-                .row
-                  .col-xs-12
-                    input.form-control(name='twitterUrl', type='text', placeholder='Twitter URL', ng-model='user.twitterUrl')
-              .form-group(ng-class="{ 'has-success': (profileForm.googlePlusUrl.$valid && (!!user.googlePlusUrl)) }")
-                label.control-label(for='googlePlusUrl') Google+ URL
-                .row
-                  .col-xs-12
-                    input.form-control(name='googlePlusUrl', type='text', placeholder='Google+ URL', ng-model='user.googlePlusUrl')
+
+              .form-group(ng-class="{ 'has-error': (profileForm.password.$invalid && profileForm.password.$dirty), 'has-success': (profileForm.password.$valid && profileForm.password.$dirty) }")
+                  label.control-label(for="password") New Password
+                  .row
+                      .col-xs-12
+                          input.form-control(name="password", type="password", placeholder="Password", tooltip-placement="left", tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)")
         
+              .form-group(ng-class="{ 'has-error': (profileForm.confirmPassword.$invalid && profileForm.confirmPassword.$dirty), 'has-success': (profileForm.confirmPassword.$valid && profileForm.confirmPassword.$dirty) }")
+                  label.control-label(for="confirm-password") Confirm password
+                  .row
+                    .col-xs-12
+                        input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)")
+                        span.has-error.help-block(ng-show="profileForm.confirmPassword.$error.notMatching && profileForm.confirmPassword.$dirty") These passwords don't match. Try again?
+                                
         .row
           .col-md-10.col-md-offset-1
             .form-group(ng-class="{ 'has-success': (profileForm.aboutMe.$valid && (!!user.aboutMe)) }")

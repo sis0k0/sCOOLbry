@@ -39,26 +39,6 @@ app.controller('UserInteractLibraryCtrl', function($scope, UserResource, $routeP
     $scope.bookings = [];
     $scope.readings = [];
 
-    // Show all tabs in the accordion
-    // var iteratorBookings = 0,
-    //     iteratorReadings = 0;
-
-
-
-    // var openNextTab = function() {
-    //     if($scope.bookings.length>0) {
-    //         $scope.bookings[iteratorBookings].open = true;
-    //         iteratorBookings = (iteratorBookings<$scope.bookings.length-1) ? ++iteratorBookings : 0;
-    //     }
-    //     if($scope.readings.length>0) {
-    //         $scope.readings[iteratorReadings].open = true;
-    //         iteratorReadings = (iteratorReadings<$scope.readings.length-1) ? ++iteratorReadings : 0;
-    //     }
-    //     $timeout(openNextTab, 5000);
-    // };
-
-    // openNextTab();
-
     $scope.giveBook = function(give) {
 
         give.userID      = $routeParams.id;
