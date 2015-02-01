@@ -2,13 +2,13 @@ extends includes/layout
 block main-content
 
   .container-fluid.ng-cloak
-    header(role="navigation").nav.navbar-default.navbar-fixed-top
+    header(role='navigation').nav.navbar-default.navbar-fixed-top
       .navbar-header
         button.navbar-toggle(type='button', data-toggle='collapse', data-target='#site-navigation')
           span.icon-bar
           span.icon-bar
           span.icon-bar
-        a.navbar-brand(href="/")
+        a.navbar-brand(href='/')
 
       #site-navigation.navbar-collapse.collapse
 
@@ -17,38 +17,38 @@ block main-content
           ui-select-choices(repeat='result in results', refresh='search($select.search)', refresh-delay='0', style='font-size: 1em')
             div(ng-if='!$last')
               div
-                span(ng-bind-html="result.title | highlight: $select.search")
+                span(ng-bind-html='result.title | highlight: $select.search')
                 span  (
-                span(ng-bind-html="result.author | highlight: $select.search")
+                span(ng-bind-html='result.author | highlight: $select.search')
                 span )
-              small.text-muted.text-bold ISBN: 
+              small.text-muted.text-bold(ng-bind='ISBN: ')
               small.text-muted(ng-bind-html='result.isbn | highlight: $select.search')
-            div.text-center(ng-if='$last')
-              hr
-              h4(style='margin:0') {{result.message}}
-              small.text-muted Showing first {{results.length-1}} results
+            div.text-center.text-success(ng-if='$last')
+              h4(style='margin:0', ng-bind='result.message')
+              small.text-muted(ng-bind='"Showing first "')
+              small.text-muted(ng-bind='results.length-1 + " results"')
 
-        ul#top-menu.nav.navbar-nav.navbar-right(ng-controller="LogInCtrl")
+        ul#top-menu.nav.navbar-nav.navbar-right(ng-controller='LogInCtrl')
           li
             a(href='/libraries') Libraries
           li(ng-show='!identity.isAuthenticated()')
-            a(href="/login") Log In
+            a(href='/login') Log In
           li(ng-show='!identity.isAuthenticated()')
-            a(href="/signup").sign-up Sign Up
+            a(href='/signup').sign-up Sign Up
           li.dropdown(ng-show='!!identity.isAuthenticated()')
-            a.dropdown-toggle(href="", data-toggle="dropdown")
+            a.dropdown-toggle(href='', data-toggle='dropdown')
               span(ng-bind-template='{{ identity.currentUser.firstName }} {{ identity.currentUser.lastName }}')
-              b.caret
+              b.ng-cloak.caret
             ul.dropdown-menu
-              li(ng-show="identity.currentUser.isAdmin()")
-                a(href="/admin") Admin Panel
-              li(ng-show="identity.currentUser.hasLibraryPanel()")
-                a(href="/library-panel") Library Panel
-              li(ng-show="identity.isAuthenticated()")
-                a(href="/profile") Profile
+              li(ng-show='identity.currentUser.isAdmin()')
+                a(href='/admin') Admin Panel
+              li(ng-show='identity.currentUser.hasLibraryPanel()')
+                a(href='/library-panel') Library Panel
+              li(ng-show='identity.isAuthenticated()')
+                a(href='/profile') Profile
               li.divider
               li
-                a(href="/" ng-click="logout()") Sign Out
+                a(href='/' ng-click='logout()') Sign Out
 
 
 
