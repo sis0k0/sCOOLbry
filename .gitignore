@@ -1,6 +1,6 @@
 /.idea
 /node_modules
-/public/lib
+/public/lib/
 /Theme - Soda
 /server/uploads
 /uploads
