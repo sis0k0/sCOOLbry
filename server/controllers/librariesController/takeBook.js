@@ -26,7 +26,7 @@ module.exports = function(req, res) {
                             res.status(503).send('Cannot connect to database');
                         } else {
                             var now = new Date();
-                            Booking.remove({userID: request.userID, bookID: request.bookID, libraryID: request.libraryID, bookDate: {$gte: now}}, function(err) {
+                            Booking.findOneAndRemove({userID: request.userID, bookID: request.bookID, libraryID: request.libraryID, bookDate: {$gte: now}}, function(err, booking) {
                                 if (err) {
                                     res.status(503).send('Cannot connect to database');
                                 } else {
@@ -35,6 +35,10 @@ module.exports = function(req, res) {
                                             console.log('Failed to add the reading to the library: '+err);
                                             res.status(503).send('Cannot connect to database');
                                         } else {
+                                            if(!booking) {
+                                                var socketio = req.app.get('socketio'); // take out socket instance from the app container
+                                                socketio.sockets.emit(request.bookID, 'decrease'); // emit an event for all users viewing the book
+                                            }
                                             res.send(reader);
                                         }
                                     });

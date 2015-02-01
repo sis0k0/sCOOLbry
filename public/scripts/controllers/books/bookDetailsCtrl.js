@@ -1,14 +1,11 @@
 'use strict';
 
-app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMapApi, identity, $http, $route, $compile, LibraryUsersInteractions, notifier, $location, $anchorScroll, BookResource, LibraryReadingResource, LibBookResource, $window, LibraryResource, Book) {
+app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMapApi, identity, Socket, $http, $route, $compile, LibraryUsersInteractions, notifier, $location, $anchorScroll, BookResource, LibraryReadingResource, LibBookResource, $window, LibraryResource, Book) {
 
     $scope.user = identity.currentUser;
 
     $scope.showMore = true;
-    $scope.book = BookResource.get({id: $routeParams.id}, function() {
-        console.log($scope.book);
-
-    });
+    $scope.book = BookResource.get({id: $routeParams.id});
 
 
     $scope.gotoOtherLibraries = function() {
@@ -135,13 +132,14 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
 
     if(typeof $routeParams.libraryID !== 'undefined') {
 
-        $scope.libraryID = $routeParams.libraryID;
-        $scope.readers   = LibraryReadingResource.get({libraryID: $scope.libraryID});
-        $scope.libBook  = LibBookResource.get({libraryID: $scope.libraryID, bookID: $routeParams.id});
-        $scope.library = LibraryResource.get({id: $scope.libraryID});
-
-        $scope.bookable  = false;
+        $scope.libraryID  = $routeParams.libraryID;
+        $scope.readers    = LibraryReadingResource.get({libraryID: $scope.libraryID});
+        $scope.libBook    = LibBookResource.get({libraryID: $scope.libraryID, bookID: $routeParams.id});
+        $scope.library    = LibraryResource.get({id: $scope.libraryID});
+        $scope.available  = false;
         $scope.isFavorite = false;
+
+
 
 
 
@@ -154,11 +152,12 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
             }else{
                 $scope.isMember = (typeof $scope.user.librarySubscriptions !== 'undefined' && $scope.user.librarySubscriptions.indexOf($scope.libraryID) > -1) ? true : false;
                 
+                
                 var flag = false;
                 for(var i=0; i<$scope.bookings.length; i++) {
                     if($scope.bookings[i].userID === $scope.user._id) {
                         flag = true;
-                        $scope.bookable = false;
+                        $scope.available = false;
                         $scope.booking = $scope.bookings[i];
 
                         $scope.reservationEnd = $scope.bookings[i].bookDate;
@@ -172,13 +171,22 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
                     }
                 }
                 if(!flag) {
-                    $scope.bookable = (($scope.libBook.available-$scope.bookings.length)>0 && $scope.isMember) ? true : false;
+                    Socket.on($routeParams.id, function(action) {
+                        if(action==='decrease') {
+                            $scope.libBook.available--;
+                        } else if(action==='increase') {
+                            $scope.libBook.available++;
+                        }
+                        $scope.available = (($scope.libBook.available-$scope.bookings.length)>0 && $scope.isMember) ? true : false;
+                    });
+                    $scope.available = (($scope.libBook.available-$scope.bookings.length)>0 && $scope.isMember) ? true : false;
                 }
 
                 $http.get('/api/book/isFavourite/'+identity.currentUser._id+'/'+$routeParams.id).success(function(data){
                     $scope.isFavorite = data ? true : false;
                 });
             }
+
 
         });
 

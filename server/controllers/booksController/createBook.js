@@ -11,7 +11,7 @@ module.exports = function(req, res) {
             return;
         }
 
-        var socketio = req.app.get('socketio'); // tacke out socket instance from the app container
+        var socketio = req.app.get('socketio'); // take out socket instance from the app container
         socketio.sockets.emit('book.created', book); // emit an event for all connected clients
         
         res.send(book);

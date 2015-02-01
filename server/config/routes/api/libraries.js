@@ -48,7 +48,7 @@ module.exports = function(app) {
     // Get library ID from library owner barcode card
     router.get('/library/getLibraryID/:userID', controllers.libraries.getLibraryIDByOwner);
 
-
+    // READINGS
     router.post('/library/add-reading', auth.isInRole('librarian'), controllers.libraries.takeBook);
     router.post('/library/remove-reading', auth.isInRole('librarian'), controllers.libraries.returnBook);
     router.get('/library/all-readings', controllers.libraries.getAllReadings);
@@ -72,7 +72,7 @@ module.exports = function(app) {
     router.get('/library/visits/:userID',auth.isAuthenticatedOrInRole('librarian'), controllers.libraries.getUserLibraryVisits);
 
 
-    // Bookings
+    // BOOKINGS
 
     router.post('/booking', controllers.libraries.addBooking);
     router.delete('/booking/:id', controllers.libraries.deleteBooking);

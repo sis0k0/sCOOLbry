@@ -22,6 +22,8 @@ module.exports = function(req, res) {
                             console.log('Failed to add new booking' + err);
                             res.status(503).send('Cannot connect to database');
                         } else {
+                            var socketio = req.app.get('socketio'); // take out socket instance from the app container
+                            socketio.sockets.emit(booking.bookID, 'decrease'); // emit an event for all users viewing the book
                             res.send(booking);
                         }
                     });

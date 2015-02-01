@@ -18,9 +18,9 @@ include ../panel
                   ui-select(ng-model='giveForm.bookInfo', ng-disabled='disabled', style='min-width: 450px;', required)
                       ui-select-match(placeholder='Please select a book') {{$select.selected.bookName}} ({{$select.selected.bookISBN}})
                       ui-select-choices(repeat='book in books | propsFilter: {bookName: $select.search, bookISBN: $select.search}')
-                        div(ng-bind-html='bookName | highlight: $select.search')
+                        div(ng-bind-html='book.bookName | highlight: $select.search')
                         small.text-muted ISBN: 
-                        small.text-muted(ng-bind-html='bookISBN | highlight: $select.search')
+                        small.text-muted(ng-bind-html='book.bookISBN | highlight: $select.search')
 
           .row
             .form-group
@@ -43,9 +43,9 @@ include ../panel
                   ui-select(ng-model='returnForm.bookInfo', ng-disabled='disabled', style='min-width: 450px;', required)
                       ui-select-match(placeholder='Please select a book') {{$select.selected.bookName}} ({{$select.selected.bookISBN}})
                       ui-select-choices(repeat='book in booksToReturn | propsFilter: {bookName: $select.search, bookISBN: $select.search}')
-                        div(ng-bind-html='bookName | highlight: $select.search')
+                        div(ng-bind-html='book.bookName | highlight: $select.search')
                         small.text-muted ISBN: 
-                        small.text-muted(ng-bind-html='bookISBN | highlight: $select.search')
+                        small.text-muted(ng-bind-html='book.bookISBN | highlight: $select.search')
           .row
             .form-group
               label(for='comment') Comment

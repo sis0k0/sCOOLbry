@@ -42,7 +42,7 @@ module.exports = function(req, res) {
             });
 
             Reading.find({userID: user._id, libraryID: req.params.libraryID, returnDate: undefined}).exec(function(err, collection) {
-                
+                console.log(collection);
                 if (err) {
                     console.log('Readings could not be loaded: ' + err);
                     res.status(503).send('Cannot connect to database');
@@ -78,6 +78,7 @@ module.exports = function(req, res) {
 
                                 var reading = new Object({});
                                 reading.type = 'reading';
+                                reading.id = readingInCollection._id;
                                 reading.book = book;
                                 reading.library = {
                                     id: readingInCollection.libraryID,
@@ -105,6 +106,7 @@ module.exports = function(req, res) {
 
                                 var booking = new Object({});
                                 booking.type = 'booking';
+                                booking.id = bookingInCollection._id;
                                 booking.book = book;
                                 booking.library = {
                                     id: bookingInCollection.libraryID,
