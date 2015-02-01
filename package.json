@@ -51,9 +51,6 @@
     "grunt-open": "^0.2.3",
     "request": "^2.47.0"
   },
-  "scripts": {
-    "postinstall": "bower install"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sis0k0/sCOOLbry.git"
