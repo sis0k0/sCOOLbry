@@ -11,7 +11,8 @@ var app = angular.module('app', [
     'oc.lazyLoad',
     'ui.select',
     'ui.bootstrap',
-    'uiGmapgoogle-maps'
+    'btford.socket-io',
+    'uiGmapgoogle-maps',
 ])
     .value('toastr', toastr)
     .config(function(uiGmapGoogleMapApiProvider) {

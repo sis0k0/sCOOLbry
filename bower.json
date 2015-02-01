@@ -31,7 +31,8 @@
     "angular-bootstrap": "~0.12.0",
     "angular-sanitize": "~1.3.9",
     "angular-google-maps": "~2.0.12",
-    "angular-typeahead": "~0.2.1"
+    "angular-typeahead": "~0.2.1",
+    "angular-socket-io": "~0.7.0"
   },
   "directory": "public/lib"
 }

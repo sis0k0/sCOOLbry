@@ -4,6 +4,8 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
 
     $scope.today = new Date();
 
+
+
     $http({
         method: 'get',
         url: '/api/genres'

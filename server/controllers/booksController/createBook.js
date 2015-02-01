@@ -10,6 +10,9 @@ module.exports = function(req, res) {
             console.log('Failed to add new book: ' + err);
             return;
         }
+
+        var socketio = req.app.get('socketio'); // tacke out socket instance from the app container
+        socketio.sockets.emit('book.created', book); // emit an event for all connected clients
         
         res.send(book);
     });
