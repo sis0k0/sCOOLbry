@@ -20,8 +20,8 @@ module.exports = {
             callbackURL       : 'http://localhost:3030/api/auth/twitter/callback'
         },
         google : {
-            clientID      : 'your-consumer-key-here',
-            clientSecret  : 'your-client-secret-here',
+            clientID      : '484372635324-edo18uemq1hh2lfad3sk9nibfhtupmmp.apps.googleusercontent.com',
+            clientSecret  : 'rw3oReSmWYEEq9owOzGF6Ela',
             callbackURL   : 'http://localhost:3030/api/auth/google/callback'
         },
         captcha: false
@@ -43,9 +43,9 @@ module.exports = {
             callbackURL       : 'http://scoolbry.com/api/auth/twitter/callback'
         },
         google : {
-            clientID      : 'your-consumer-key-here',
-            clientSecret  : 'your-client-secret-here',
-            callbackURL   : 'http://localhost:3030/api/auth/google/callback'
+            clientID      : '484372635324-aqbk02go2mugeo393jmeci3dnj3r7r5e.apps.googleusercontent.com',
+            clientSecret  : 'AUcxTWDjf458qlgWsDfPRg6n',
+            callbackURL   : 'http://scoolbry.com/api/auth/google/callback'
         },
         captcha: true
     }
