@@ -6,9 +6,6 @@ app.factory('Book', function($q, $http, BookResource, LibraryBook, FavouriteBook
         add: function(book, libraryID) {
             var deferred = $q.defer();
 
-
-
-            
             if(book.hasOwnProperty('foundInDatabase')===true) {
                 book.libraryID = libraryID;
                 LibraryBook.add(book).then(function() {

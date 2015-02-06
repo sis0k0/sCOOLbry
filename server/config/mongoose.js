@@ -1,16 +1,18 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-    user     = require('../models/User'),
-    library  = require('../models/Library'),
-    book     = require('../models/Book'),
-    favBook  = require('../models/FavBook'),
-    libBook  = require('../models/LibBook'),
-    libVisit = require('../models/LibVisit'),
-    libUser  = require('../models/LibUser'),
-    libMap   = require('../models/LibMap'),
-    reading  = require('../models/Reading'),
-    booking  = require('../models/Booking');
+var mongoose                     = require('mongoose'),
+    user                         = require('../models/User'),
+    library                      = require('../models/Library'),
+    book                         = require('../models/Book'),
+    favBook                      = require('../models/FavBook'),
+    libBook                      = require('../models/LibBook'),
+    libVisit                     = require('../models/LibVisit'),
+    libUser                      = require('../models/LibUser'),
+    libMap                       = require('../models/LibMap'),
+    reading                      = require('../models/Reading'),
+    bookAvailabilitySubscription = require('../models/BookAvailabilitySubscription'),
+    notification                 = require('../models/Notification'),
+    booking                      = require('../models/Booking');
 
 module.exports = function(config) {
     mongoose.connect(config.db);
@@ -38,5 +40,7 @@ module.exports = function(config) {
     libUser.seedInitialLibUser();
     libMap.seedInitialLibMap();
     reading.seedInitialReadings();
-    booking.seedInitialReadings();
+    booking.seedInitialBookings();
+    notification.seedInitialNotifications();
+    bookAvailabilitySubscription.seedInitialBookAvailabilitySubscriptions();
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('LibraryBook', function($q, LibBookResource2) {
+app.factory('LibraryBook', function($q, LibBookResource2, BookAvailabilitySubscriptionResource) {
     return {
 
         add: function(book) {
@@ -26,7 +26,21 @@ app.factory('LibraryBook', function($q, LibBookResource2) {
             }, function(response) {
                 deferred.reject(response);
             });
+
+            return deferred.promise;
+        },
+
+        subscribeForAvailabilityNotification: function(subscription) {
+            var deferred = $q.defer();
+            var newSubscription = new BookAvailabilitySubscriptionResource(subscription);
+            newSubscription.$save().then(function() {
+                deferred.resolve();
+            }, function(response) {
+                deferred.reject(response);
+            });
             return deferred.promise;
         }
+
+
     };
 });

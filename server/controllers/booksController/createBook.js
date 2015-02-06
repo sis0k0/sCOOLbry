@@ -8,12 +8,8 @@ module.exports = function(req, res) {
     Book.create(newBookData, function(err, book) {
         if (err) {
             console.log('Failed to add new book: ' + err);
-            return;
+            res.status(503).send('Cannot connect to database');
         }
-
-        var socketio = req.app.get('socketio'); // take out socket instance from the app container
-        socketio.sockets.emit('book.created', book); // emit an event for all connected clients
-        
         res.send(book);
     });
 };

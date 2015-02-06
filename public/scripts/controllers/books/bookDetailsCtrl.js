@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMapApi, identity, Socket, $http, $route, $compile, LibraryUsersInteractions, notifier, $location, $anchorScroll, BookResource, LibraryReadingResource, LibBookResource, $window, LibraryResource, Book) {
+app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMapApi, identity, Socket, $http, $route, $compile, LibraryUsersInteractions, notifier, $location, $anchorScroll, BookResource, LibraryReadingResource, LibBookResource, LibraryBook, $window, LibraryResource, Book) {
 
     $scope.user = identity.currentUser;
 
@@ -291,6 +291,21 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
             notifier.success('You\'ve removed this book from favorites successfully!');
             $route.reload();
         
+        }).error(function(reason) {
+            notifier.error(reason);
+        });
+
+    };
+
+    $scope.subscribeForAvailabilityNotification = function() {
+        var subscription = {
+            userID: $scope.user._id,
+            libraryID: $routeParams.libraryID,
+            bookID: $routeParams.id
+        };
+        LibraryBook.subscribeForAvailabilityNotification(subscription).then(function() {
+            notifier.success('You will be notified when the book is available!');
+            $route.reload();
         }).error(function(reason) {
             notifier.error(reason);
         });

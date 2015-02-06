@@ -14,7 +14,7 @@ var bookingSchema = mongoose.Schema({
 
 var Booking = mongoose.model('Booking', bookingSchema);
 
-module.exports.seedInitialReadings = function() {
+module.exports.seedInitialBookings = function() {
     Booking.find({}).exec(function(err, collection) {
         if (err) {
             console.log('Cannot find Bookings: ' + err);

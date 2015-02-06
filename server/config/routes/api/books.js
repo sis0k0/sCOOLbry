@@ -33,5 +33,11 @@ module.exports = function(app) {
     router.get('/book/isFavourite/:userID/:bookID', controllers.books.isFavourite);
     router.get('/book/favouritesLibrary/:userID/:libraryID', controllers.books.getFavouriteBooksInLibrary);
     router.get('/book/deleteFavourite/:bookID', controllers.books.deleteFavouriteBookById);
+
+    // book subscriptions
+
+    router.post('/book/availabilitySubscription', controllers.books.addBookAvailabilitySubscription);
+
+
     app.use('/api/', router);
 };

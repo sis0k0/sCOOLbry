@@ -6,6 +6,7 @@ module.exports = function(req, res) {
     Book.findOne({_id: req.params.id}).exec(function(err, book) {
         if (err) {
             console.log('Book could not be loaded: ' + err);
+            res.status(503).send('Cannot connect to database');
         }
 
         var otherCharacteristics = ({});

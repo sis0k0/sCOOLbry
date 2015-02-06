@@ -2,6 +2,7 @@
 
 module.exports = {
 
+    addBookAvailabilitySubscription: require('./addBookAvailabilitySubscription'),
     createBook: require('./createBook'),
     createFavouriteBook: require('./createFavouriteBook'),
     deleteBookById: require('./deleteBookById'),

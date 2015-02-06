@@ -1,12 +1,7 @@
 'use strict';
 
-app.controller('LogInCtrl', function($scope, $location, notifier, identity, User, $window, Socket) {
+app.controller('LogInCtrl', function($scope, $location, notifier, identity, User, $window) {
     $scope.identity = identity;
-
-    Socket.on('book.created', function(book) {
-        console.log('SOCKET!!!!');
-        console.log(book);
-    });
 
     $scope.login = function(user) {
         User.login(user).then(function(success) {
