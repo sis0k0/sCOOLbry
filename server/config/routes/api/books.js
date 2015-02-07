@@ -37,6 +37,8 @@ module.exports = function(app) {
     // book subscriptions
 
     router.post('/book/availabilitySubscription', controllers.books.addBookAvailabilitySubscription);
+    router.get('/book/availabilitySubscription/:bookID/:libraryID/:userID', controllers.books.getBookAvailabilitySubscription);
+    router.delete('/book/availabilitySubscription/:bookID/:libraryID/:userID', controllers.books.removeBookAvailabilitySubscription);
 
 
     app.use('/api/', router);

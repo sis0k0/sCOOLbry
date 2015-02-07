@@ -10,7 +10,7 @@ block main-content
           span.icon-bar
         a.navbar-brand(href='/')
 
-      #site-navigation.navbar-collapse.collapse
+      nav#site-navigation.navbar-collapse.collapse
 
         ui-select#search-header.navbar-left(ng-controller='SearchCtrl', name='result', ng-model='result.selected', ng-disabled='disabled', reset-search-input='false', on-select='goToResult($item)')
           ui-select-match(placeholder='Search for books by title/author/genre/isbn') {{$select.selected.title}}

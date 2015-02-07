@@ -3,6 +3,7 @@
 var BookSub = require('mongoose').model('BookAvailabilitySubscription');
 
 module.exports = function(req, res) {
+    console.log(req.body);
 
     BookSub.findOne({bookID: req.body.bookID, libraryID: req.body.libraryID, broadcasted: false}, function(err, subscription) {
         if(err) {

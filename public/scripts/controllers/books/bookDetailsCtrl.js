@@ -15,8 +15,6 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
 
     $http.get('/api/library/lib-books/'+$routeParams.id)
     .success(function(data) {
-        console.log(data);
-
         uiGmapGoogleMapApi.then(function() {
 
             $scope.libraries = [];
@@ -64,7 +62,6 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
                             };
                             $scope.randomMarkers.push(marker);
                             if($scope.libraries.length===i) {
-                                console.log(closestLibraryIndex);
                                 $scope.randomMarkers[closestLibraryIndex+1].icon = '../../dist/images/greenmarker.png';
                             }
                         });
@@ -141,8 +138,6 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
 
 
 
-
-
         $http.get('/api/library/booking/'+$scope.libraryID+'/'+$routeParams.id).success(function(data){
 
             $scope.bookings = data;
@@ -152,6 +147,14 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
             }else{
                 $scope.isMember = (typeof $scope.user.librarySubscriptions !== 'undefined' && $scope.user.librarySubscriptions.indexOf($scope.libraryID) > -1) ? true : false;
                 
+                $http.get('/api/book/availabilitySubscription/' + $routeParams.id + '/' + $routeParams.libraryID + '/' + $scope.user._id).
+                success(function(data) {
+                    $scope.subscribedForAvailability = data;
+                }).
+                error(function(err) {
+                    console.log(err);
+                    $scope.subscribedForAvailability = false;
+                });
                 
                 var flag = false;
                 for(var i=0; i<$scope.bookings.length; i++) {
@@ -280,7 +283,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
 
         Book.addFavourite(favorite).then(function(){
             notifier.success('Book added successfully to favorites!');
-            $route.reload();
+            $scope.isFavorite = true;
            
         });
     };
@@ -289,7 +292,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
         var responsePromise = $http.get('/api/book/deleteFavourite'+'/'+$routeParams.id);
         responsePromise.success(function() {
             notifier.success('You\'ve removed this book from favorites successfully!');
-            $route.reload();
+            $scope.isFavorite = false;
         
         }).error(function(reason) {
             notifier.error(reason);
@@ -305,11 +308,23 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMap
         };
         LibraryBook.subscribeForAvailabilityNotification(subscription).then(function() {
             notifier.success('You will be notified when the book is available!');
-            $route.reload();
+            $scope.subscribedForAvailability = true;
         }).error(function(reason) {
             notifier.error(reason);
         });
+    };
 
+    $scope.unsubscribeForAvailabilityNotification = function() {
+
+        $http.delete('/api/book/availabilitySubscription/' + $routeParams.id + '/' + $routeParams.libraryID + '/' + $scope.user._id).
+        success(function(data) {
+            notifier.success('Your subscription was deleted!');
+            $scope.subscribedForAvailability = false;
+            console.log(data);
+        }).
+        error(function(err) {
+            console.log(err);
+        });
     };
 });
 

@@ -36,22 +36,27 @@
           h4 Get the book
         .panel-body(ng-show='user')
           div(ng-hide='reservationEnd || !libraryID')
-            a.btn.btn-success(ng-hide='isMember', ng-href='/libraries/{{library._id}}') Subscribe to reserve
-            button.btn.btn-success(ng-click='addBooking()', ng-show='isMember', ng-disabled='!available', ng-confirm-click='Are you sure you want to reserve that book?').btn.btn-primary Reserve
-            span(ng-class="{ 'text-success': (libBook.available>=bookings.length && libBook.available>0), 'text-danger': (libBook.available<bookings.length || libBook.available<1) }") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{libBook.available-bookings.length}} / {{libBook.total}} available
+            a.btn.btn-success(ng-show='!isMember && (libBook.available>bookings.length && libBook.available>0)', ng-href='/libraries/{{library._id}}') Subscribe to reserve
+
+            button.btn.btn-success(ng-click='addBooking()', ng-show='(libBook.available>bookings.length && libBook.available>0) && isMember', ng-confirm-click='Are you sure you want to reserve that book?').btn.btn-primary Reserve
+            button(style='margin-top:0.5em', ng-hide='(libBook.available>bookings.length && libBook.available>0) || !isMember || subscribedForAvailability', ng-click='subscribeForAvailabilityNotification()').btn.btn-success Notify me when available
+            button(style='margin-top:0.5em', ng-show='subscribedForAvailability', ng-click='unsubscribeForAvailabilityNotification()').btn.btn-danger Don't notify when available
+
+            span(ng-class="{ 'text-success': (libBook.available>bookings.length && libBook.available>0), 'text-danger': (libBook.available<bookings.length || libBook.available-bookings.length<1) }") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{libBook.available-bookings.length}} / {{libBook.total}} available
           div(ng-show='reservationEnd', id='timerWrapper')
           button.btn.btn-danger(ng-show='booking', ng-click='removeBooking()', ng-confirm-click='Are you sure you want to cancel that reservation?') Cancel reservation
 
-          div(style='margin-top:0.5em', ng-show='isMember')
-            button.btn.btn-primary(ng-hide='isFavorite', ng-click='addFavorite(book.title, book.isbn)') Add favorite book
-            button.btn.btn-danger(ng-show='isFavorite', ng-click="removeFavorite()") Remove favorite book
+          div(style='margin-top:0.5em')
+            button.btn.btn-primary(ng-hide='isFavorite || !isMember', ng-click='addFavorite(book.title, book.isbn)') Add favorite book
+            button.btn.btn-danger(ng-show='isFavorite && isMember', ng-click="removeFavorite()") Remove favorite book
             button(style='margin-left:0.2em', ng-click='gotoOtherLibraries()').btn.btn-info Other libraries
-            button(style='margin-top:0.5em', ng-hide='!available', ng-click='subscribeForAvailabilityNotification()').btn.btn-success Notify me when available
 
         .panel-body(ng-hide='user')
-          h2.text-center Please, 
-            a(href='/signup') sign up 
-            | first!
+          h2
+            a(href='/login') Log in 
+            | or  
+            a(href='/signup') Sign up 
+            p to get the book!
 
   hr
   .row.text-center(id='other')
