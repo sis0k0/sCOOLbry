@@ -18,6 +18,10 @@ module.exports = function(app, config) {
 
     router.get('/user/:id', controllers.users.getUserByShortId);
 
+    // Notifications
+
+    router.get('/user/notifications/:id', controllers.users.getUserNotifications);
+
 
     if(config.captcha===false) {
         router.post('/users', controllers.users.createUser);

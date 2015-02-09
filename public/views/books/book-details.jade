@@ -40,7 +40,7 @@
 
             button.btn.btn-success(ng-click='addBooking()', ng-show='(libBook.available>bookings.length && libBook.available>0) && isMember', ng-confirm-click='Are you sure you want to reserve that book?').btn.btn-primary Reserve
             button(style='margin-top:0.5em', ng-hide='(libBook.available>bookings.length && libBook.available>0) || !isMember || subscribedForAvailability', ng-click='subscribeForAvailabilityNotification()').btn.btn-success Notify me when available
-            button(style='margin-top:0.5em', ng-show='subscribedForAvailability', ng-click='unsubscribeForAvailabilityNotification()').btn.btn-danger Don't notify when available
+            button(style='margin-top:0.5em', ng-show='subscribedForAvailability && (libBook.available<=bookings.length || libBook.available===0)', ng-click='unsubscribeForAvailabilityNotification()').btn.btn-danger Don't notify when available
 
             span(ng-class="{ 'text-success': (libBook.available>bookings.length && libBook.available>0), 'text-danger': (libBook.available<bookings.length || libBook.available-bookings.length<1) }") &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{libBook.available-bookings.length}} / {{libBook.total}} available
           div(ng-show='reservationEnd', id='timerWrapper')

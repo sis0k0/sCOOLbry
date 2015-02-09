@@ -40,18 +40,6 @@ app.factory('LibraryBook', function($q, LibBookResource2, BookAvailabilitySubscr
                 deferred.reject(response);
             });
             return deferred.promise;
-        },
-
-        unsubscribeForAvailabilitySubscription: function(subscription) {
-            console.log(subscription);
-            var deferred = $q.defer();
-            var newSubscription = new BookAvailabilitySubscriptionResource(subscription);
-            newSubscription.$put().then(function() {
-                deferred.resolve();
-            }, function(response) {
-                deferred.reject(response);
-            });
-            return deferred.promise;     
         }
     };
 });

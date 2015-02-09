@@ -4,12 +4,19 @@ block main-content
   .container-fluid.ng-cloak
     header(role='navigation').nav.navbar-default.navbar-fixed-top
       .navbar-header
+
         button.navbar-toggle(type='button', data-toggle='collapse', data-target='#site-navigation')
           span.icon-bar
           span.icon-bar
           span.icon-bar
         a.navbar-brand(href='/')
-
+        div(ng-controller='NotificationsCtrl')
+          button#navbar-collapsed-notifications.notifications-icon.btn.btn-default.dropdown.navbar-toggle(aria-hidden='true', data-toggle='dropdown')
+            span.glyphicon.glyphicon-bell
+          ul.dropdown-menu.notifications
+            li(ng-repeat='notification in notifications track by notification._id')
+              | {{notification.message}} &nbsp; {{notification.userID}}
+              hr
       nav#site-navigation.navbar-collapse.collapse
 
         ui-select#search-header.navbar-left(ng-controller='SearchCtrl', name='result', ng-model='result.selected', ng-disabled='disabled', reset-search-input='false', on-select='goToResult($item)')
@@ -31,20 +38,27 @@ block main-content
         ul#top-menu.nav.navbar-nav.navbar-right(ng-controller='LogInCtrl')
           li
             a(href='/libraries') Libraries
-          li(ng-show='!identity.isAuthenticated()')
+          li(ng-if='!identity.isAuthenticated()')
             a(href='/login') Log In
-          li(ng-show='!identity.isAuthenticated()')
+          li(ng-if='!identity.isAuthenticated()')
             a(href='/signup').sign-up Sign Up
-          li.dropdown(ng-show='!!identity.isAuthenticated()')
+          li(ng-controller='NotificationsCtrl', ng-if='!!identity.isAuthenticated()')
+            button#navbar-default-notifications.notifications-icon.btn.btn-default.dropdown(aria-hidden='true', ng-href='', data-toggle='dropdown')
+              span.glyphicon.glyphicon-bell
+            ul.dropdown-menu.notifications
+              li(ng-repeat='notification in notifications track by notification._id')
+                | {{notification.message}} &nbsp; {{notification.userID}}
+                hr
+          li.dropdown(ng-if='!!identity.isAuthenticated()')
             a.dropdown-toggle(href='', data-toggle='dropdown')
               span(ng-bind-template='{{ identity.currentUser.firstName }} {{ identity.currentUser.lastName }}')
               b.ng-cloak.caret
             ul.dropdown-menu
-              li(ng-show='identity.currentUser.isAdmin()')
+              li(ng-if='identity.currentUser.isAdmin()')
                 a(href='/admin') Admin Panel
-              li(ng-show='identity.currentUser.hasLibraryPanel()')
+              li(ng-if='identity.currentUser.hasLibraryPanel()')
                 a(href='/library-panel') Library Panel
-              li(ng-show='identity.isAuthenticated()')
+              li(ng-if='identity.isAuthenticated()')
                 a(href='/profile') Profile
               li.divider
               li

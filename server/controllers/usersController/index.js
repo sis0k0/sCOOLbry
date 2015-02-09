@@ -13,6 +13,7 @@ module.exports = {
     getUserByShortId: require('./getUserByShortId'),
     getUserByUsername: require('./getUserByUsername'),
     getUserCount: require('./getUserCount'),
+    getUserNotifications: require('./getUserNotifications'),
     updateUser: require('./updateUser'),
     uploadAvatar: require('./uploadAvatar'),
     validCaptcha: require('./validCaptcha')

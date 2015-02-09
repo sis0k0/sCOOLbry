@@ -1,6 +1,6 @@
 'use strict';
 
-var    User = require('mongoose').model('User');
+var User = require('mongoose').model('User');
 
 module.exports = function(req, res) {
     User.findOne({_id: req.params.id}).exec(function(err, user) {

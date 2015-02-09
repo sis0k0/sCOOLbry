@@ -22,19 +22,15 @@ header
     background url('../../dist/images/logo.png') no-repeat center
     width 150px
     height 82px
-    
+  #navbar-collapsed-notifications
+    width 46px !important
+    height 35px !important
   .navbar-header
     margin-top 1em
-    
-
-
   .navbar-form
     margin-top 19px
-    
   .ui-select-choices
     max-height 341px !important
-
-
   .navbar-right .navbar-form
     input
       margin-right 1.4em
@@ -53,6 +49,11 @@ header
       button
         width 40px
   .nav.navbar-nav.navbar-right
+    #navbar-default-notifications
+      margin-top 30px
+      margin-bottom 21px
+    .notifications-icon
+      background transparent
     a
       margin-top 21px
       margin-bottom 21px
@@ -99,6 +100,8 @@ header
     font-size 8.5px
     font-size 0.85rem
     .nav.navbar-nav.navbar-right
+      #navbar-default-notifications
+        display none
       a
         margin-top 14px
         margin-bottom 14px
@@ -115,3 +118,27 @@ header
       color inherit !important
       &:hover
         color inherit !important
+
+.navbar
+  .nav
+    & > li
+      & > .dropdown-menu
+        &::before
+          position absolute
+          top -7px
+          left 9px
+          display inline-block
+          border-right 7px solid transparent
+          border-bottom 7px solid #CCC
+          border-left 7px solid transparent
+          border-bottom-color rgba(0, 0, 0, 0.2)
+          content ''
+        &::after
+          position absolute
+          top -6px
+          left 10px
+          display inline-block
+          border-right 6px solid transparent
+          border-bottom 6px solid white
+          border-left 6px solid transparent
+          content ''

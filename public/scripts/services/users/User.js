@@ -2,6 +2,23 @@
 
 app.factory('User', function($http, $q, identity, UsersResource, UserResource, LibraryResource) {
     return {
+        getNotifications: function(user) {
+            var deferred = $q.defer();
+            console.log('get notifications');
+            $http.get('/api/user/notifications/' + user._id).
+            success(function(notifications) {
+                console.log(notifications);
+                console.log('notifications');
+                deferred.resolve(notifications);
+
+            }).
+            error(function(err) {
+                console.log(err);
+                deferred.resolve([]);
+            });
+
+            return deferred.promise;
+        },
         signup: function(user) {
             var deferred = $q.defer();
 
