@@ -18,8 +18,8 @@ module.exports = function(config) {
 
         console.log(profile);
 
-        // try to find the user based on their google id
-        User.findOne({ 'google.id' : profile.id }, function(err, user) {
+        // try to find the user based on their email
+        User.findOne({ 'email' : profile.emails[0].value }, function(err, user) {
             if (err) {
                 return done(err);
             }

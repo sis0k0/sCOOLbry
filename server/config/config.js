@@ -9,8 +9,8 @@ module.exports = {
         db: 'mongodb://localhost/scoolbry',
         port: process.env.PORT || 3030,
         facebook: {
-            clientID: '1512522278997261',
-            clientSecret: '95bfbb52c31bab56bedcb1011e617523',
+            clientID: '1511950165721139',
+            clientSecret: '50654ed9ad9c437720974dbe782949ed',
             callbackURL: 'http://localhost:3030/api/auth/facebook/callback'
         },
 
