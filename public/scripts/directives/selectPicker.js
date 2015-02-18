@@ -5,7 +5,6 @@ app.directive('selectPicker', function () {
         restrict: 'A',
         link: function ($scope, $elem) {
             $scope.$watch('books', function(){
-                console.log('refresh');
                 $elem.selectpicker('refresh');
             });
      

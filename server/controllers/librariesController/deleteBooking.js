@@ -31,7 +31,8 @@ module.exports = function(req, res) {
                             if(!err) {
 
                                 var notification = {
-                                    message: booking.bookName + ' is available now!',
+                                    href: '/book/' + booking.bookID + '/' + booking.libraryID,
+                                    message: '<strong class="text-info">' + booking.bookName + '<\/strong> is available at <strong class="text-info">' + booking.libraryName + '<\/strong> now!',
                                     userID: subscription.users[added]
                                 };
                                 console.log(notification);

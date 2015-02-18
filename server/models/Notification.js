@@ -7,9 +7,17 @@ var notificationSchema = mongoose.Schema({
         type: String,
         require: '{PATH} is required'
     },
+    href: {
+        type: String,
+        require: '{PATH} is required'
+    },
     userID: {
         type: String,
         require: '{PATH} is required'
+    },
+    date: {
+        type: Date,
+        default: Date.now
     },
     seen: {
         type: Boolean,

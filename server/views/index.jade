@@ -13,10 +13,13 @@ block main-content
         div(ng-controller='NotificationsCtrl')
           button#navbar-collapsed-notifications.notifications-icon.btn.btn-default.dropdown.navbar-toggle(aria-hidden='true', data-toggle='dropdown')
             span.glyphicon.glyphicon-bell
-          ul.dropdown-menu.notifications
+            span.badge(ng-show='notifications.length>0') {{notifications.length}}
+          ul#mobile-notifications.dropdown-menu.notifications
+            h4.text-center.bg-primary Notifications
             li(ng-repeat='notification in notifications track by notification._id')
-              | {{notification.message}} &nbsp; {{notification.userID}}
-              hr
+              a(ng-href='{{notification.href}}', ng-click='markAsRead(notification)')
+                div(ng-bind-html='notification.message')
+                small.text-muted.pull-right(time-passed) {{notification.date}}
       nav#site-navigation.navbar-collapse.collapse
 
         ui-select#search-header.navbar-left(ng-controller='SearchCtrl', name='result', ng-model='result.selected', ng-disabled='disabled', reset-search-input='false', on-select='goToResult($item)')
@@ -43,12 +46,15 @@ block main-content
           li(ng-if='!identity.isAuthenticated()')
             a(href='/signup').sign-up Sign Up
           li(ng-controller='NotificationsCtrl', ng-if='!!identity.isAuthenticated()')
-            button#navbar-default-notifications.notifications-icon.btn.btn-default.dropdown(aria-hidden='true', ng-href='', data-toggle='dropdown')
+            button#navbar-default-notifications.notifications-icon.btn.dropdown(aria-hidden='true', data-toggle='dropdown', ng-class=" {'btn-success': notifications.length>0, 'notifications-icon-none': notifications.length===0} ")
               span.glyphicon.glyphicon-bell
+              span.badge(ng-show='notifications.length>0') {{notifications.length}}
             ul.dropdown-menu.notifications
+              h4.text-center.bg-primary Notifications
               li(ng-repeat='notification in notifications track by notification._id')
-                | {{notification.message}} &nbsp; {{notification.userID}}
-                hr
+                a(ng-href='{{notification.href}}', ng-click='markAsRead(notification)')
+                  div(ng-bind-html='notification.message')
+                  small.text-muted.pull-right(time-passed) {{notification.date}}
           li.dropdown(ng-if='!!identity.isAuthenticated()')
             a.dropdown-toggle(href='', data-toggle='dropdown')
               span(ng-bind-template='{{ identity.currentUser.firstName }} {{ identity.currentUser.lastName }}')
