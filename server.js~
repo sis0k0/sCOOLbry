@@ -1,4 +1,7 @@
-var express = require('express');
+var express  = require('express');
+var http     = require('http');
+var socketio = require('socket.io');
+var passport = require('passport');
 
 var env = process.env.NODE_ENV || 'production';
 
@@ -9,10 +12,14 @@ require('./server/config/express')(app, config);
 require('./server/config/mongoose')(config);
 require('./server/config/passport')(config);
 require('./server/config/routes')(app, config);
-var passport = require('passport');
+
+var server = http.createServer(app);
+var io = socketio.listen(server);
+app.set('socketio', io);
+app.set('server', server);
 
 app.use(passport.initialize());
 app.use(passport.session()); 
 
-app.listen(config.port);
+app.get('server').listen(config.port);
 console.log('Server running on port: ' + config.port);
