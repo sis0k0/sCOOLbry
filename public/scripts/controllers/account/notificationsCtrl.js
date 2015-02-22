@@ -18,6 +18,11 @@ app.controller('NotificationsCtrl', function($scope, $http, Socket, User, identi
 
     $scope.markAsRead = function(notification) {
         notification.seen = true;
+        User.markNotificationAsSeen(notification).
+        then(function(returnedValue) {
+            console.log('ctrl');
+            console.log(returnedValue);
+        });
 
     };
 
@@ -27,11 +32,23 @@ app.controller('NotificationsCtrl', function($scope, $http, Socket, User, identi
         $scope.notifications = [];
         $scope.loadNotifications();
 
-        Socket.on($scope.user._id, function(notification) {
+        Socket.on($scope.user._id + ' notification removed', function(notification) {
+            console.log('emitted !!');
+            console.log(notification);
+            for(var i=0; i<$scope.notifications.length; i++) {
+                console.log($scope.notifications[i]);
+                if($scope.notifications[i]._id === notification._id) {
+                    console.log('found!!');
+                    $scope.notifications.splice(i, 1);
+                    break;
+                }
+            }
+        });
+
+        Socket.on($scope.user._id + ' notification added', function(notification) {
             console.log('SOCKET!!');
             console.log(notification);
             $scope.notifications.unshift(notification);
-            console.log($scope.notifications);
         });
 
     }

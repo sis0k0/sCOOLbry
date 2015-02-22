@@ -21,6 +21,7 @@ module.exports = function(app, config) {
     // Notifications
 
     router.get('/user/notifications/:id', controllers.users.getUserNotifications);
+    router.put('/user/notifications/:id', controllers.users.updateUserNotification);
 
 
     if(config.captcha===false) {

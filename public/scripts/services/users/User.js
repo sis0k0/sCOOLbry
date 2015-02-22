@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('User', function($http, $q, identity, UsersResource, UserResource, LibraryResource) {
+app.factory('User', function($http, $q, identity, UsersResource, UserResource, LibraryResource, NotificationResource) {
     return {
         getNotifications: function(user) {
             var deferred = $q.defer();
@@ -18,6 +18,21 @@ app.factory('User', function($http, $q, identity, UsersResource, UserResource, L
             });
 
             return deferred.promise;
+        },
+        markNotificationAsSeen: function(notification) {
+            var deferred = $q.defer();
+            console.log('factory before update: ');
+            console.log(notification);
+
+            var updatedNotification = new NotificationResource(notification);
+
+            updatedNotification.$update().then(function() {
+                deferred.resolve(true);
+            }, function(reason) {
+                deferred.reject(reason.data.reason);
+            });
+
+            return deferred.promise;            
         },
         signup: function(user) {
             var deferred = $q.defer();

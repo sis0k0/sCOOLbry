@@ -16,6 +16,9 @@ block main-content
             span.badge(ng-show='notifications.length>0') {{notifications.length}}
           ul#mobile-notifications.dropdown-menu.notifications
             h4.text-center.bg-primary Notifications
+            li(ng-show='notifications.length===0')
+              div
+                h5.text-center No new notifications!
             li(ng-repeat='notification in notifications track by notification._id')
               a(ng-href='{{notification.href}}', ng-click='markAsRead(notification)')
                 div(ng-bind-html='notification.message')
@@ -51,6 +54,9 @@ block main-content
               span.badge(ng-show='notifications.length>0') {{notifications.length}}
             ul.dropdown-menu.notifications
               h4.text-center.bg-primary Notifications
+              li(ng-show='notifications.length===0')
+                div
+                  h5.text-center No new notifications!
               li(ng-repeat='notification in notifications track by notification._id')
                 a(ng-href='{{notification.href}}', ng-click='markAsRead(notification)')
                   div(ng-bind-html='notification.message')

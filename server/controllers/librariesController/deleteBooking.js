@@ -42,7 +42,7 @@ module.exports = function(req, res) {
                                     if(!err) {
                                         console.log('newNotification: ');
                                         console.log(newNotification);
-                                        socketio.sockets.emit(newNotification.userID, newNotification);
+                                        socketio.sockets.emit(newNotification.userID + ' notification added', newNotification);
                                     }
                                 });
                             } else {
