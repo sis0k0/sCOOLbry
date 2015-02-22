@@ -1,11 +1,10 @@
 'use strict';
 
-var encryption  = require('../../utilities/encryption'),
-    User        = require('mongoose').model('User');
+var encryption = require('../../utilities/encryption'),
+    User       = require('mongoose').model('User');
 
 module.exports = function(req, res) {
 
-        
     var updatedUserData = req.body;
     if (updatedUserData.password && updatedUserData.password.length > 0) {
         updatedUserData.salt = encryption.generateSalt();

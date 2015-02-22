@@ -1,17 +1,23 @@
 'use strict';
 
-//var auth = require('../../auth'),
-var    controllers = require('../../../controllers'),
+var auth = require('../../auth'),
+    controllers = require('../../../controllers'),
     express     = require('express'),
     router      = express.Router();
 
 module.exports = function(app) {
 
-    // Libraries
-    router.get('/all-readings', controllers.readings.getAllReadings);
-    router.get('/all-readings/:id', controllers.readings.getAllReadingsUser);
-    router.get('/all-readings/:libraryID/:userID', controllers.readings.getAllReadingsInLibraryForUser);
-    router.get('/all-readings-library/:libraryID', controllers.readings.getAllReadingsInLibrary);
+    // All readings
+    router.get('/all-readings', auth.isInRole('moderator'), controllers.readings.getAllReadings);
+
+    // All readings for user
+    router.get('/all-readings/:id', auth.isAuthenticatedOrInRole('moderator'), controllers.readings.getAllReadingsUser);
+
+    // All readings for user in specific library
+    router.get('/all-readings/:libraryID/:userID', auth.isAuthenticatedOrInRole('librarian'), controllers.readings.getAllReadingsInLibraryForUser);
+
+    // All readings in library
+    router.get('/all-readings-library/:libraryID', auth.isInRole('librarian'), controllers.readings.getAllReadingsInLibrary);
     
     app.use('/api/', router);
 };

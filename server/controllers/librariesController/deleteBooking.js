@@ -13,35 +13,28 @@ module.exports = function(req, res) {
             socketio.sockets.emit(booking.bookID, 'increase'); // emit an event for all users viewing the book
 
             BookSub.findOne({bookID: booking.bookID, libraryID: booking.libraryID}, function(err, subscription) {
-                if(!!subscription) {
-                    console.log('sub: ');
-                    console.log(subscription);
-
+                if(!err && !!subscription && subscription.broadcasted===false) {
                     var added = 0;
 
                     for(var i=0; i<subscription.users.length; i++) {
-                        console.log('user: ');
-                        console.log(subscription.users[i]);
-
                         Notification.findOne({
-                            message: booking.bookName + ' is available now!',
+                            message: '<strong class="text-info">' + booking.bookName + '<\/strong> is available at <strong class="text-info">' + booking.libraryName + '<\/strong> now!',
                             userID: subscription.users[i],
                             seen: false
-                        }, function(err) {
-                            if(!err) {
+                        }, function(err, existingNotification) {
+                            console.log(err);
+                            console.log(existingNotification);
+                            if(!err && !existingNotification) {
 
                                 var notification = {
                                     href: '/book/' + booking.bookID + '/' + booking.libraryID,
                                     message: '<strong class="text-info">' + booking.bookName + '<\/strong> is available at <strong class="text-info">' + booking.libraryName + '<\/strong> now!',
                                     userID: subscription.users[added]
                                 };
-                                console.log(notification);
 
                                 Notification.create(notification, function(err, newNotification) {
                                     added++;
                                     if(!err) {
-                                        console.log('newNotification: ');
-                                        console.log(newNotification);
                                         socketio.sockets.emit(newNotification.userID + ' notification added', newNotification);
                                     }
                                 });
@@ -52,11 +45,7 @@ module.exports = function(req, res) {
                     }
 
                     subscription.broadcasted = true;
-                    BookSub.update({_id: subscription._id}, subscription, function(err, subscription) {
-                        console.log('err' + err);
-                        console.log('subscription');
-                        console.log(subscription);
-                    });
+                    BookSub.update({_id: subscription._id}, subscription);
 
                 }
             });

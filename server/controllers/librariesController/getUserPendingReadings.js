@@ -42,7 +42,6 @@ module.exports = function(req, res) {
             });
 
             Reading.find({userID: user._id, libraryID: req.params.libraryID, returnDate: undefined}).exec(function(err, collection) {
-                console.log(collection);
                 if (err) {
                     console.log('Readings could not be loaded: ' + err);
                     res.status(503).send('Cannot connect to database');

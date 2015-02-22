@@ -11,13 +11,11 @@ module.exports = function(req, res) {
     console.log('body: ');
     console.log(req.body);
     
-    Reading.update({bookISBN: req.body.bookISBN, userID: req.body.userID, libraryID: req.body.libraryID, returnDate: undefined}, req.body, function(err, reading) {
+    Reading.update({bookISBN: req.body.bookISBN, userID: req.body.userID, libraryID: req.body.libraryID, returnDate: undefined}, req.body, function(err) {
             
         if(err) {
             console.log(err);
         }
-        console.log('reading: ');
-        console.log(reading);
         LibBook.update({libraryID: req.body.libraryID, bookID: req.body.bookID}, {$inc: {available: +1, given: -1}}, function(err) {
             if(err) {
                 console.log('Cannot connect to database: ' + err);
@@ -25,32 +23,32 @@ module.exports = function(req, res) {
             }
             socketio.sockets.emit(req.body.bookID, 'increase'); // emit an event for all users viewing the book
 
-            BookSub.findOne({bookID: req.body.bookID, libraryID: req.body.libraryID, broadcasted: false}, function(err, subscription) {
-                if(!!subscription) {
-                    console.log('sub: ');
-                    console.log(subscription);
-
+            BookSub.findOne({bookID: req.body.bookID, libraryID: req.body.libraryID}, function(err, subscription) {
+                console.log(err);
+                console.log(subscription);
+                if(!err && !!subscription && subscription.broadcasted===false) {
                     var added = 0;
 
                     for(var i=0; i<subscription.users.length; i++) {
-                        console.log('user: ');
-                        console.log(subscription.users[i]);
-
                         Notification.findOne({
                             message: req.body.bookName + ' is available now!',
                             userID: subscription.users[i],
                             seen: false
-                        }, function(err, foundNotification) {
-                            if(!err && !foundNotification) {
-                                Notification.create({
-                                    message: req.body.bookName + ' is available now!',
-                                    userID: subscription.users[i]
-                                }, function(err, notification) {
+                        }, function(err, existingNotification) {
+                            if(!err && !existingNotification) {
+
+                                console.log('notification not found');
+
+                                var notification = {
+                                    href: '/book/' + req.body.bookID + '/' + req.body.libraryID,
+                                    message: '<strong class="text-info">' + req.body.bookName + '<\/strong> is available at <strong class="text-info">' + req.body.libraryName + '<\/strong> now!',
+                                    userID: subscription.users[added]
+                                };
+
+                                Notification.create(notification, function(err, newNotification) {
                                     added++;
                                     if(!err) {
-                                        console.log('notification: ');
-                                        console.log(notification);
-                                        socketio.sockets.emit(notification.userID + ' notification', 'new');
+                                        socketio.sockets.emit(newNotification.userID + ' notification added', newNotification);
                                     }
                                 });
                             } else {
@@ -60,11 +58,7 @@ module.exports = function(req, res) {
                     }
 
                     subscription.broadcasted = true;
-                    BookSub.update({_id: subscription._id}, subscription, function(err, subscription) {
-                        console.log('err' + err);
-                        console.log('subscription');
-                        console.log(subscription);
-                    });
+                    BookSub.update({_id: subscription._id}, subscription);
 
                 }
             });

@@ -1,7 +1,7 @@
 'use strict';
 
-var encryption  = require('../../utilities/encryption'),
-    User        = require('mongoose').model('User');
+var encryption = require('../../utilities/encryption'),
+    User       = require('mongoose').model('User');
 
 module.exports = function(req, res){
     var newUserData = req.body;

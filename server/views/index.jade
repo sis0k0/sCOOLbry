@@ -18,7 +18,7 @@ block main-content
             h4.text-center.bg-primary Notifications
             li(ng-show='notifications.length===0')
               div
-                h5.text-center No new notifications!
+                h5.text-center.text-info No new notifications!
             li(ng-repeat='notification in notifications track by notification._id')
               a(ng-href='{{notification.href}}', ng-click='markAsRead(notification)')
                 div(ng-bind-html='notification.message')
@@ -56,7 +56,7 @@ block main-content
               h4.text-center.bg-primary Notifications
               li(ng-show='notifications.length===0')
                 div
-                  h5.text-center No new notifications!
+                  h5.text-center.text-info No new notifications!
               li(ng-repeat='notification in notifications track by notification._id')
                 a(ng-href='{{notification.href}}', ng-click='markAsRead(notification)')
                   div(ng-bind-html='notification.message')

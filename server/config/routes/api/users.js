@@ -13,15 +13,15 @@ module.exports = function(app, config) {
     router.get('/users', auth.isInRole('admin'), controllers.users.getAllUsers);
     router.get('/users/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.users.getAllUsersSortable);
     router.get('/users/search/:phrase', auth.isInRole('admin'), controllers.users.getAllUsersSearchable);
-    router.get('/userInfo/:id', auth.isInRole('librarian'), controllers.users.getUserById);
+    router.get('/userInfo/:id', auth.isAuthenticatedOrInRole('librarian'), controllers.users.getUserById);
     router.get('/user/delete/:id', auth.isInRole('admin'), controllers.users.deleteUserById);
 
     router.get('/user/:id', controllers.users.getUserByShortId);
 
     // Notifications
 
-    router.get('/user/notifications/:id', controllers.users.getUserNotifications);
-    router.put('/user/notifications/:id', controllers.users.updateUserNotification);
+    router.get('/user/notifications/:id', auth.isAuthorized(), controllers.users.getUserNotifications);
+    router.put('/user/notifications/:id', auth.isAuthorized(), controllers.users.updateUserNotification);
 
 
     if(config.captcha===false) {
@@ -31,7 +31,7 @@ module.exports = function(app, config) {
     }
 
     router.post('/librarianCreate', auth.isInRole('admin'), controllers.users.createLibrarian);
-    router.put('/users', controllers.users.updateUser);
+    router.put('/users', auth.isAuthenticatedOrInRole('moderator'), controllers.users.updateUser);
     router.get('/usernameTaken/:username', controllers.users.getUserByUsername);
     router.get('/emailTaken/:email', controllers.users.getUserByEmail);
     router.get('/users/count', controllers.users.getUserCount);

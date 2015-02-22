@@ -147,12 +147,24 @@ isAuthenticated = function(req, res, next) {
         next();
     }
 },
+isAuthorized = function() {
+    return function(req, res, next) {
+        if(!req.isAuthenticated() || typeof(req.user)=== 'undefined') {
+            res.status(401).send('Sorry, you are not authenticated!');
+        } else {
+            var id = typeof(req.body._id) === 'undefined' ? req.params.id : req.body._id;
+            if(req.body._id!==id) {
+                res.status(403).send('Sorry, you are not authorized!');
+            } else {
+                next();
+            }
+        }
+    }; 
+},
 isInRole = function(role) {
     return function(req, res, next) {
-        console.log(req.user);
 
         if(!req.isAuthenticated() || typeof(req.user) === 'undefined') {
-            console.log('not auth');
             res.status(401).send('Sorry, you are not authenticated!');
         } else {
             if(roleChecker(req.user.roles, role)===true) {
@@ -166,9 +178,6 @@ isInRole = function(role) {
 },
 isAuthenticatedOrInRole = function(role) {
     return function(req, res, next) {
-        console.log(req);
-        console.log(req.isAuthenticated());
-        console.log(req.user);
         if(!req.isAuthenticated() || typeof(req.user)=== 'undefined') {
             res.status(401).send('Sorry, you are not authenticated!');
         } else {
@@ -194,6 +203,7 @@ module.exports = {
     loginNoCaptcha: loginNoCaptcha,
     logout: logout,
     isAuthenticated: isAuthenticated,
+    isAuthorized: isAuthorized,
     isAuthenticatedOrInRole: isAuthenticatedOrInRole,
     isInRole: isInRole,
     isAuthenticatedOrAdmin: isAuthenticatedOrAdmin
