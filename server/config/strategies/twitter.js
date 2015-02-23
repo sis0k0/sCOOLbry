@@ -35,7 +35,7 @@ module.exports = function(config) {
                     User.findUniqueUsername(possibleUsername, null, function(availableUsername) {
                         
                         newUser.username            = availableUsername;
-                        newUser.email               = availableUsername+"@scoolbry.com";
+                        newUser.email               = availableUsername+'@scoolbry.com';
                         newUser.firstName           = profile.displayName.substring(0,profile.displayName.indexOf(' '));
                         newUser.lastName            = profile.displayName.substring(profile.displayName.indexOf(' ') + 1, profile.displayName.length);
                         newUser.twitter.id          = profile.id;

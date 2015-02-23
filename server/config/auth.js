@@ -152,6 +152,9 @@ isAuthorized = function() {
         if(!req.isAuthenticated() || typeof(req.user)=== 'undefined') {
             res.status(401).send('Sorry, you are not authenticated!');
         } else {
+            console.log(req.body);
+            console.log(req.body._id);
+            console.log(req.params.id);
             var id = typeof(req.body._id) === 'undefined' ? req.params.id : req.body._id;
             if(req.body._id!==id) {
                 res.status(403).send('Sorry, you are not authorized!');

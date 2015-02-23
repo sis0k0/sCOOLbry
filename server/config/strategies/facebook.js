@@ -18,6 +18,8 @@ module.exports = function(config) {
     function(token, refreshToken, profile, done) {
 
         // asynchronous
+        console.log(profile);
+
         process.nextTick(function() {
 
             // find the user in the database based on their facebook id
@@ -25,6 +27,7 @@ module.exports = function(config) {
 
                 // if there is an error, stop everything and return that
                 // ie an error connecting to the database
+                console.log(err);
                 if (err) {
                     return done(err);
                 }

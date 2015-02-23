@@ -76,7 +76,7 @@ module.exports = function(app) {
     // BOOKINGS
 
     router.post('/booking', auth.isAuthorized(), controllers.libraries.addBooking);
-    router.delete('/booking/:id', auth.isAuthorized(), controllers.libraries.deleteBooking);
+    router.delete('/booking/:id', controllers.libraries.deleteBooking);
 
     router.get('/library/booking/:libraryID/:bookID', controllers.libraries.getBookingsBookInLibrary);
     router.get('/library/booking-sort/:libraryID/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.libraries.getAllBookingsSortable);
