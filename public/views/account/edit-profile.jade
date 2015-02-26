@@ -20,7 +20,7 @@
                   label.control-label(for="email") Email
                   .row
                       .col-xs-12
-                          input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", ng-change="checkIfTaken(profileForm.email)", required)
+                          input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", check-availability, required)
                           span.has-error.help-block(ng-show="profileForm.email.$error.taken") Email already taken
                           span.has-error.help-block(ng-show="profileForm.email.$invalid && profileForm.email.$dirty") Please enter valid email
               .form-group(ng-class="{ 'has-success': (profileForm.dateOfBirth.$valid && (!!user.dateOfBirth)) }")
@@ -43,14 +43,14 @@
                   label.control-label(for="password") New Password
                   .row
                       .col-xs-12
-                          input.form-control(name="password", type="password", placeholder="Password", tooltip-placement="left", tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)")
+                          input.form-control(name="password", type="password", placeholder="Password", tooltip-placement="left", tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/")
         
               .form-group(ng-class="{ 'has-error': (profileForm.confirmPassword.$invalid && profileForm.confirmPassword.$dirty), 'has-success': (profileForm.confirmPassword.$valid && profileForm.confirmPassword.$dirty) }")
                   label.control-label(for="confirm-password") Confirm password
                   .row
                     .col-xs-12
-                        input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", ng-change="fieldsMatch(profileForm.password, profileForm.confirmPassword)")
-                        span.has-error.help-block(ng-show="profileForm.confirmPassword.$error.notMatching && profileForm.confirmPassword.$dirty") These passwords don't match. Try again?
+                        input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", fields-match="user.password")
+                        span.has-error.help-block(ng-show="profileForm.confirmPassword.$error.fieldsMatch && profileForm.confirmPassword.$dirty") These passwords don't match. Try again?
                                 
         .row
           .col-md-10.col-md-offset-1

@@ -49,9 +49,9 @@ block main-content
           li(ng-if='!identity.isAuthenticated()')
             a(href='/signup').sign-up Sign Up
           li(ng-controller='NotificationsCtrl', ng-if='!!identity.isAuthenticated()')
-            button#navbar-default-notifications.notifications-icon.btn.dropdown(aria-hidden='true', data-toggle='dropdown', ng-class=" {'btn-success': notifications.length>0, 'notifications-icon-none': notifications.length===0} ")
-              span.glyphicon.glyphicon-bell
-              span.badge(ng-show='notifications.length>0') {{notifications.length}}
+            span#navbar-default-notifications.notifications-icon.dropdown(aria-hidden='true', data-toggle='dropdown', ng-class=" {'btn-success': notifications.length>0, 'notifications-icon-none': notifications.length===0, 'btn': true} ")
+              span(ng-class="{'glyphicon': true, 'glyphicon-bell': true}")
+              span(ng-show='notifications.length>0', ng-bind='notification.length', ng-class="{'badge': true}")
             ul.dropdown-menu.notifications
               h4.text-center.bg-primary Notifications
               li(ng-show='notifications.length===0')
@@ -64,7 +64,7 @@ block main-content
           li.dropdown(ng-if='!!identity.isAuthenticated()')
             a.dropdown-toggle(href='', data-toggle='dropdown')
               span(ng-bind-template='{{ identity.currentUser.firstName }} {{ identity.currentUser.lastName }}')
-              b.ng-cloak.caret
+              b(ng-class="{ 'caret': true }")
             ul.dropdown-menu
               li(ng-if='identity.currentUser.isAdmin()')
                 a(href='/admin') Admin Panel

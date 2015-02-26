@@ -55,24 +55,4 @@ app.controller('EditProfileCtrl', function($scope, $location, User, identity, aj
         });              
     };
 
-    $scope.checkIfTaken = function(field){
-        
-        var responsePromise = $http.get('/api/' + field.$name + 'Taken/' + field.$viewValue);
-        responsePromise.success(function(data) {
-            if(data===true && field.$viewValue!==identity.currentUser.email){
-                field.$setValidity('taken', false);
-            }else{
-                field.$setValidity('taken', true);
-            }
-        });           
-    };
-
-    $scope.fieldsMatch = function (field, confirmField) {
-        if(field.$viewValue !== confirmField.$viewValue){
-            confirmField.$setValidity('notMatching', false);
-        }else{
-            confirmField.$setValidity('notMatching', true);
-        }
-    };
-
 });

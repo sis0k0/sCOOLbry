@@ -145,29 +145,4 @@ app.controller('AddUserAdminCtrl', function($scope, $location, $routeParams, $ht
         }
     };
 
-    $scope.checkIfTaken = function(field){
-        
-        var responsePromise = $http.get('/api/' + field.$name + 'Taken/' + field.$viewValue);
-        responsePromise.success(function(data) {
-            if(data===true){
-                field.$setValidity('taken', false);
-            }else{
-                field.$setValidity('taken', true);
-            }
-        });           
-    };
-
-    $scope.fieldsMatch = function (field, confirmField) {
-        if(field.$viewValue !== confirmField.$viewValue){
-            confirmField.$setValidity('notMatching', false);
-        }else{
-            confirmField.$setValidity('notMatching', true);
-        }
-    };
-
-    $scope.selectLibrary = function() {
-        // $scope.user.ownLibraryID = $scope.libraryObject;
-    };
-
-
 });

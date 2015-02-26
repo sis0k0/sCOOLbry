@@ -218,57 +218,5 @@ app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library,
         $scope.librarians.splice(index,1);
         $scope.librariansCount--;
     };
-    
-    // Librarian profile's checks
-
-    $scope.checkIfTakenUsername = function(field, index){
-        var responsePromise = $http.get('/api/usernameTaken/' + field.$viewValue);
-        responsePromise.success(function(data) {
-            if(data===true){
-                field.$setValidity('taken', false);
-            }else{
-                var flag = false;
-                for(var i=0; i<$scope.librariansCount; i++) {
-                    if(field.$viewValue === $scope.librarians[i].username && i!==index) {
-                        field.$setValidity('taken', false);
-                        flag = true;
-                        break;
-                    }
-                }
-                if(flag===false) {
-                    field.$setValidity('taken', true);
-                }
-            }
-        });           
-    };
-
-    $scope.checkIfTakenEmail = function(field, index){
-        var responsePromise = $http.get('/api/emailTaken/' + field.$viewValue);
-        responsePromise.success(function(data) {
-            if(data===true){
-                field.$setValidity('taken', false);
-            }else{
-                var flag = false;
-                for(var i=0; i<$scope.librariansCount; i++) {
-                    if(field.$viewValue === $scope.librarians[i].email && i!==index) {
-                        field.$setValidity('taken', false);
-                        flag = true;
-                        break;
-                    }
-                }
-                if(flag===false) {
-                    field.$setValidity('taken', true);
-                }
-            }
-        });           
-    };
-
-    $scope.fieldsMatch = function(field, confirmField) {
-        if(field.$viewValue !== confirmField.$viewValue){
-            confirmField.$setValidity('notMatching', false);
-        }else{
-            confirmField.$setValidity('notMatching', true);
-        }
-    };
 
 });

@@ -16,25 +16,35 @@ module.exports = function(app, config) {
     router.get('/userInfo/:id', auth.isAuthenticatedOrInRole('librarian'), controllers.users.getUserById);
     router.get('/user/delete/:id', auth.isInRole('admin'), controllers.users.deleteUserById);
 
+    // Get by short id
     router.get('/user/:id', controllers.users.getUserByShortId);
 
     // Notifications
-
     router.get('/user/notifications/:id', auth.isAuthorized(), controllers.users.getUserNotifications);
     router.put('/user/notifications/:id', auth.isAuthorized(), controllers.users.updateUserNotification);
 
-
+    // Sign up
     if(config.captcha===false) {
         router.post('/users', controllers.users.createUser);
     }else{
         router.post('/users', controllers.users.validCaptcha, controllers.users.createUser);
     }
 
+    // Create user from panels
     router.post('/librarianCreate', auth.isInRole('admin'), controllers.users.createLibrarian);
     router.put('/users', auth.isAuthenticatedOrInRole('moderator'), controllers.users.updateUser);
-    router.get('/usernameTaken/:username', controllers.users.getUserByUsername);
-    router.get('/emailTaken/:email', controllers.users.getUserByEmail);
+
+    // Check if available
+    router.get('/usernameAvailable/:username', controllers.users.getUserByUsername);
+    router.get('/emailAvailable/:email', controllers.users.getUserByEmail);
+
+    // User count
     router.get('/users/count', controllers.users.getUserCount);
+
+
+    // Passport authentications
+
+    // Facebook
     router.get('/auth/facebook', passport.authenticate('facebook', {
         scope: ['email']
     }));
@@ -46,6 +56,7 @@ module.exports = function(app, config) {
             failureRedirect : '/'
         }));
 
+    // Twitter
     router.get('/auth/twitter', passport.authenticate('twitter'));
 
     // handle the callback after twitter has authenticated the user
@@ -55,6 +66,7 @@ module.exports = function(app, config) {
             failureRedirect : '/'
         }));
     
+    // Google Plus
     router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
     router.get('/auth/google/callback',

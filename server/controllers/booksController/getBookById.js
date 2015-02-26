@@ -14,25 +14,25 @@ module.exports = function(req, res) {
         if(book.author.indexOf('.') > -1) {
             book.author = book.author.substring(0, book.author.indexOf('.') -2);
         }
-        if(typeof book.isbn !== 'undefined') {
+        if(typeof book.isbn !== 'undefined' && !! book.isbn) {
             otherCharacteristics.isbn = book.isbn;
         }
-        if(typeof book.language !== 'undefined') {
+        if(typeof book.language !== 'undefined' && !! book.language) {
             otherCharacteristics.language = book.language;
         }
-        if(typeof book.authorNationality !== 'undefined') {
+        if(typeof book.authorNationality !== 'undefined' && !! book.authorNationality) {
             otherCharacteristics.authorNationality = book.authorNationality;
         }
-        if(typeof book.pages !== 'undefined') {
+        if(typeof book.pages !== 'undefined' && !! book.pages) {
             otherCharacteristics.pages = book.pages;
         }
-        if(typeof book.edition !== 'undefined') {
+        if(typeof book.edition !== 'undefined' && !! book.edition) {
             otherCharacteristics.edition = book.edition;
         }
-        if(typeof book.illustrated !== 'undefined') {
+        if(typeof book.illustrated !== 'undefined' && !! book.illustrated) {
             otherCharacteristics.illustrated = book.illustrated;
         }
-        if(typeof book.published !== 'undefined') {
+        if(typeof book.published !== 'undefined' && !!book.published) {
             otherCharacteristics.published = book.published.toLocaleString().substring(4, 15);
         }
         if(typeof book.themes !== 'undefined' && book.themes.length>0) {

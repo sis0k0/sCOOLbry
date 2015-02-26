@@ -37,8 +37,6 @@ module.exports = function(req, res) {
                         }, function(err, existingNotification) {
                             if(!err && !existingNotification) {
 
-                                console.log('notification not found');
-
                                 var notification = {
                                     href: '/book/' + req.body.bookID + '/' + req.body.libraryID,
                                     message: '<strong class="text-info">' + req.body.bookName + '<\/strong> is available at <strong class="text-info">' + req.body.libraryName + '<\/strong> now!',
