@@ -4,6 +4,40 @@ var passport    = require('passport'),
     http        = require('http'),
     querystring = require('querystring');
 
+
+// Private methods
+
+var isAuthenticated = function(req) {
+    if (!req.isAuthenticated() || typeof(req.user) === 'undefined') {
+        return false;
+    }
+    else {
+        return true;
+    }
+};
+
+
+var isAuthorized = function(req) {
+    console.log('authorization func');
+    var id;
+
+    if(typeof(req.params.userID) !== 'undefined') {
+        id = req.params.userID;
+    } else {
+        if(typeof(req.body._id) !== 'undefined') {
+            id = req.body._id;
+        } else {
+            id = req.params.id;
+        }
+    }
+
+    if(String(req.user._id) !== String(id)) {
+        return false;
+    } else {
+        return true;
+    }
+};
+
 var roleChecker = function(userRoles, role) {
     switch(role) {
         case 'admin':
@@ -40,6 +74,8 @@ var roleChecker = function(userRoles, role) {
             return false;
     }
 },
+
+// Wrapper methods
 
 login = function(req, res, next) {
     var captchaData = {};
@@ -139,24 +175,12 @@ logout = function(req, res) {
     req.logout();
     res.end();
 },
-isAuthenticated = function(req, res, next) {
-    if (!req.isAuthenticated()) {
-        res.status(401).send('Sorry, you are not authenticated!');
-    }
-    else {
-        next();
-    }
-},
 isAuthorized = function() {
     return function(req, res, next) {
-        if(!req.isAuthenticated() || typeof(req.user)=== 'undefined') {
+        if(!isAuthenticated(req)) {
             res.status(401).send('Sorry, you are not authenticated!');
         } else {
-            console.log(req.body);
-            console.log(req.body._id);
-            console.log(req.params.id);
-            var id = typeof(req.body._id) === 'undefined' ? req.params.id : req.body._id;
-            if(req.body._id!==id) {
+            if(!isAuthorized(req)) {
                 res.status(403).send('Sorry, you are not authorized!');
             } else {
                 next();
@@ -166,48 +190,33 @@ isAuthorized = function() {
 },
 isInRole = function(role) {
     return function(req, res, next) {
-
-        if(!req.isAuthenticated() || typeof(req.user) === 'undefined') {
+        if(!isAuthenticated(req)) {
             res.status(401).send('Sorry, you are not authenticated!');
+        } else if(!roleChecker(req.user.roles, role)) {
+            res.status(403).send('Sorry, you are not authorized!');
         } else {
-            if(roleChecker(req.user.roles, role)===true) {
-                next();
-            } else {
-                res.status(403).send('Sorry, you are not authorized');
-            }
+            next();
         }
 
     };
 },
 isAuthenticatedOrInRole = function(role) {
     return function(req, res, next) {
-        if(!req.isAuthenticated() || typeof(req.user)=== 'undefined') {
+        if(!isAuthenticated(req)) {
             res.status(401).send('Sorry, you are not authenticated!');
+        } else if(!isAuthorized(req) && !roleChecker(req.user.roles, role)) {
+            res.status(403).send('Sorry, you are not authorized!');
         } else {
-            if(req.body._id!==req.body.userID && roleChecker(req.user.roles, role)===false) {
-                res.status(403).send('Sorry, you are not authorized!');
-            } else {
-                next();
-            }
+            next();
         }
     };
-},
-isAuthenticatedOrAdmin = function(req, res, next) {
-    
-    if(req.isAuthenticated() || req.user.roles.indexOf('admin') > -1){
-        next();
-    }else{
-        res.status(403).send('Sorry, you are not authorized!');
-    }
 };
 
 module.exports = {
     login: login,
     loginNoCaptcha: loginNoCaptcha,
     logout: logout,
-    isAuthenticated: isAuthenticated,
     isAuthorized: isAuthorized,
-    isAuthenticatedOrInRole: isAuthenticatedOrInRole,
     isInRole: isInRole,
-    isAuthenticatedOrAdmin: isAuthenticatedOrAdmin
+    isAuthenticatedOrInRole: isAuthenticatedOrInRole
 };

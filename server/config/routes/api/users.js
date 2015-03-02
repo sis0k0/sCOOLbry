@@ -10,8 +10,8 @@ module.exports = function(app, config) {
 
     router.get('/is-captcha-enabled', function(req, res) {  res.send(config.captcha); });
 
-    router.get('/users', auth.isInRole('admin'), controllers.users.getAllUsers);
-    router.get('/users/sort/:field/:order/:page/:perPage', auth.isInRole('admin'), controllers.users.getAllUsersSortable);
+    router.get('/users', auth.isInRole('moderator'), controllers.users.getAllUsers);
+    router.get('/users/sort/:field/:order/:page/:perPage', auth.isInRole('moderator'), controllers.users.getAllUsersSortable);
     router.get('/users/search/:phrase', auth.isInRole('admin'), controllers.users.getAllUsersSearchable);
     router.get('/userInfo/:id', auth.isAuthenticatedOrInRole('librarian'), controllers.users.getUserById);
     router.get('/user/delete/:id', auth.isInRole('admin'), controllers.users.deleteUserById);
@@ -21,7 +21,7 @@ module.exports = function(app, config) {
 
     // Notifications
     router.get('/user/notifications/:id', auth.isAuthorized(), controllers.users.getUserNotifications);
-    router.put('/user/notifications/:id', auth.isAuthorized(), controllers.users.updateUserNotification);
+    router.put('/user/notifications/:id/:userID', auth.isAuthorized(), controllers.users.updateUserNotification);
 
     // Sign up
     if(config.captcha===false) {

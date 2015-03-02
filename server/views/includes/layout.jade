@@ -1,5 +1,5 @@
 doctype
-html(ng-app='app', ng-cloak)
+html(ng-app='app', ng-cloak, ng-controller='StyleCtrl')
     head
         meta(http-equiv='content-type', charset='utf8')
         meta(name = 'viewport', content = 'width=device-width, initial-scale=1')
@@ -12,7 +12,7 @@ html(ng-app='app', ng-cloak)
         link(rel='stylesheet' href='/dist/styles/themes/{{ style }}.min.css')
         link(rel='stylesheet' href='/dist/styles/site.min.css')
 
-    body.ng-cloak
+    body(ng-cloak)
         block main-content
 
         include scripts

@@ -71,15 +71,13 @@ include ../panel
                 button.btn.btn-danger.col-xs-2(style="margin-top:1.5em", ng-click='removeBookForm($index)') Remove
                 .col-xs-1
   
-              fieldset(ng-disabled="bookForm.isbn.$error.available")
-
                 .col-md-5
                   .form-group(ng-class="{ 'has-success': (bookForm.isbn.$valid && (!!book.isbn)), 'has-error': (bookForm.isbn.$invalid && bookForm.isbn.$dirty) }")
                       label.control-label(for='isbn') ISBN
                       .row
                         .col-xs-12
                             input.form-control(name='isbn', check-availability, type='text', placeholder='ISBN', on-focus, ng-model='book.isbn', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/')  
-                            span.has-error.help-block(ng-show="bookForm.isbn.$error.available") The book is already in the database!
+                            a.has-error.help-block(ng-show='bookForm.isbn.$error.available', isbn='{{book.isbn}}', get-book-link, ng-href='/library-panel/bookInfo/{{foundBookId}}') The book is already in the database!
                   .form-group(ng-class="{ 'has-success': (bookForm.title.$valid), 'has-error': (bookForm.title.$invalid) }")
                       label.control-label(for='title') Title *
                       .row

@@ -22,23 +22,19 @@ app.directive('csvImport', function(notifier) {
                 }
             });
 
-
-
-
             element.on('change', function(onChangeEvent) {
-                console.log(onChangeEvent.target.files[0].type);
-                var mimetype = onChangeEvent.target.files[0].type;
-                if(mimetype==='application/vnd.ms-excel' || mimetype==='text/csv')
-                {
+
+                var type = onChangeEvent.target.files[0].type;
+                var extension = onChangeEvent.target.files[0].name.substring(onChangeEvent.target.files[0].name.lastIndexOf('.'));
+
+                var mimetype = type ? type : extension;
+                if(mimetype==='application/vnd.ms-excel' || mimetype==='text/csv' || mimetype==='.csv') {
                     var reader = new FileReader();
                     reader.onload = function(onLoadEvent) {
                         scope.$apply(function() {
                             var content = {
                                 csv: onLoadEvent.target.result
                             };
-                            console.log(content.csv);
-                            console.log(onChangeEvent.target.files[0]);
-                            console.log(onChangeEvent.target.files[0].mimetype);
                             scope.content = content.csv;
                             scope.result = csvToArray(content);
                         });

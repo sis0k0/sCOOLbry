@@ -42,15 +42,9 @@ app.directive('timePassed', function () {
 
             var notificationDate = new Date(scope.notification.date);
             var seconds = getSecondsPassed(notificationDate);
-
             var text = timeToText(seconds);
 
-            console.log(seconds);
-
             element.text(text);
-
-
-
         }
     };
 });

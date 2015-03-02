@@ -1,11 +1,11 @@
 include ../panel
 
 .container
-  h1.text-center Update book
+  h1.text-center Update book 
+    span.text-info '{{ libraryBook.bookName }}'
   form.form-horizontal(name='bookForm', novalidate)
     fieldset
       input.form-control(type='hidden', ng-model='libraryBook._id')
-        span.text-info '{{ libraryBook.bookName }}'
       .row
         .col-md-11.col-md-offset-1
           .col-md-5
