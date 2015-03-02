@@ -1,5 +1,5 @@
 doctype
-html
+html(ng-app='app', ng-cloak, ng-controller='StyleCtrl')
     head
         meta(http-equiv='content-type', charset='utf8')
         meta(name = 'viewport', content = 'width=device-width, initial-scale=1')
@@ -9,9 +9,12 @@ html
         link(rel='shortcut icon' type='image/png' href='../../dist/images/favicon.png' )
         title sCOOLbry
         include stylesheets
-    body(ng-app='app', ng-cloak).ng-cloak
+        link(rel='stylesheet' href='/dist/styles/themes/{{ style }}.min.css')
+        link(rel='stylesheet' href='/dist/styles/site.min.css')
+
+    body.ng-cloak
         block main-content
 
         include scripts
         include currentUser
-
+        

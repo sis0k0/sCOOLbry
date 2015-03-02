@@ -50,6 +50,10 @@ var userSchema = mongoose.Schema({
     },
     dateOfBirth: Date,
     aboutMe: String,
+    style: {
+        type: String,
+        default: 'darkly'
+    },
     ownLibraryID: String,
     librarySubscriptions: [String],
     facebook         : {
