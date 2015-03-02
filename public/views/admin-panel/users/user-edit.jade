@@ -18,8 +18,8 @@ include ../panel
                   label.control-label(for="email") Email
                   .row
                       .col-xs-12
-                          input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/",  check-availability, required)
-                          span.has-error.help-block(ng-show="profileForm.email.$error.taken") Email already taken
+                          input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/",  check-availability='::user.email', required)
+                          span.has-error.help-block(ng-show="profileForm.email.$error.available") Email already taken
                           span.has-error.help-block(ng-show="profileForm.email.$invalid && profileForm.email.$dirty") Please enter valid email
               .form-group(ng-class="{ 'has-success': (profileForm.dateOfBirth.$valid && (!!user.dateOfBirth)) }")
                 label.control-label(for='date-of-birth') Date of birth

@@ -3,27 +3,29 @@
 app.directive('checkAvailability', function ($http) {
     return {
         restrict: 'A',
+        scope: {
+            currentValue: '=checkAvailability',
+            field: '=ngModel'
+        },
         require: 'ngModel',
-        link: function (scope, elem, attrs, ctrl) {
-            var counter = 0, 
-                defaultValue;
+        link: function (scope, elem, attrs, ngModel) {
 
-            scope.$watch(attrs.ngModel, function(value, oldValue) {
-                if(value!==oldValue && value!==defaultValue) {
-                    if(counter===0) {
-                        defaultValue = oldValue;
-                        counter++;
-                    }
+            scope.$watch('field', function(value) {
 
+                // if the new value differs from the current one (the one before the modification)
+                if(value!==scope.currentValue) {
+
+                    // check whether available
                     var responsePromise = $http.get('/api/' + attrs.name + 'Available/' + value);
                     responsePromise.success(function(data) {
-                        console.log(data);
                         if(data===true){
-                            ctrl.$setValidity('taken', false);
+                            ngModel.$setValidity('available', false);
                         }else{
-                            ctrl.$setValidity('taken', true);
+                            ngModel.$setValidity('available', true);
                         }
                     }); 
+                } else {
+                    ngModel.$setValidity('available', true);
                 }
             });
         }

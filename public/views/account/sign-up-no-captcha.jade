@@ -28,13 +28,13 @@
                 .row
                   .col-xs-12
                     input.form-control(name="username", check-availability, type="text", placeholder="Username", tooltip-placement='top',  tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 3-16 characters", ng-model="user.username", ng-pattern="/^[a-z0-9_-]{3,16}$/", required)
-                    span.help-block(ng-show="signUpForm.username.$error.taken") Username already taken
+                    span.help-block(ng-show="signUpForm.username.$error.available") Username already taken
               .form-group(ng-class="{ 'has-error': (signUpForm.email.$invalid && signUpForm.email.$dirty), 'has-success': (signUpForm.email.$valid) }")
                 label.control-label(for="email") Email
                 .row
                   .col-xs-12
                     input.form-control(name="email", check-availability, type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+[.][a-z.]{2,5}$/", required)
-                    span.has-error.help-block(ng-show="signUpForm.email.$error.taken") Email already taken
+                    span.has-error.help-block(ng-show="signUpForm.email.$error.available") Email already taken
                     span.has-error.help-block(ng-show="signUpForm.email.$invalid && signUpForm.email.$dirty") Please enter valid email
               .form-group(ng-class="{ 'has-error': (signUpForm.password.$invalid && signUpForm.password.$dirty), 'has-success': (signUpForm.password.$valid) }")
                 label.control-label(for="password") Password
