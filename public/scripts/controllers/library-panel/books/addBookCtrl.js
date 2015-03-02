@@ -19,7 +19,9 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
     $scope.page = 1;
     $scope.perPage = 3;
     $scope.field = '_id';
-    $scope.library = LibraryResource.get({id: identity.currentUser.ownLibraryID});
+    $scope.library = LibraryResource.get({id: identity.currentUser.ownLibraryID}, function(data) {
+        console.log(data);
+    });
 
     $scope.range = function(n) {
         return new Array(n);

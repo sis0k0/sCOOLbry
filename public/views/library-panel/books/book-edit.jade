@@ -8,9 +8,19 @@ include ../panel
       input.form-control(type='hidden', ng-model='libraryBook._id')
       .row
         .col-md-11.col-md-offset-1
-          .col-md-5
-            label.control-label(for='total') Quantity at the library
-            input.form-control(name='total', ng-model='libraryBook.total', type='number', min='{{libraryBook.given}}', on-focus) 
+          .col-md-5.col-sm-5
+            .form-group(ng-class="{ 'has-success': !!libraryBook.total }")
+              label.control-label(for='total') Quantity at the library
+              .row
+                .col-xs-12
+                  input.form-control(name='total', ng-model='libraryBook.total', type='number', min='{{libraryBook.given}}', on-focus)
+          .col-md-5.col-md-offset-1.col-sm-5.col-sm-offset-1
+            .form-group(ng-class="{ 'has-success': !!libraryBook.section }")
+              label.control-label(for='section') Section
+              .row
+                .col-xs-12
+                  select.nya-selectpicker.form-control(name='section', data-live-search='true', ng-options='index as section for (index, section) in library.librarySections.sectionsTheme', ng-model='libraryBook.section')
+
 
       .row(style='margin-top: 3em')
         .col-md-10.col-md-offset-1

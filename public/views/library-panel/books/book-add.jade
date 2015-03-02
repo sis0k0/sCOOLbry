@@ -158,8 +158,7 @@ include ../panel
                   label.control-label(for='section') Section
                   .row
                     .col-xs-12
-                      input.form-control(name='section', type='text', placeholder='Section', ng-model='book.section')
-              
+                      select.nya-selectpicker.form-control(name='section', data-live-search='true', ng-options='index as section for (index, section) in library.librarySections.sectionsTheme', ng-model='book.section')
               .col-md-5.col-md-offset-1
                 .form-group(ng-class="{ 'has-success': !!book.authorNationality }")
                   label.control-label(for='authorNationality') Author Nationality
