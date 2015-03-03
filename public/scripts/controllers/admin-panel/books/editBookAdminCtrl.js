@@ -5,7 +5,13 @@ app.controller('EditBookAdminCtrl', function($scope, $location, $http, Book, aja
     $scope.today = new Date();
 
     // Get the book
-    $scope.book = BookResource.get({id: $routeParams.id});
+    $scope.book = BookResource.get({id: $routeParams.id}, function(data) {
+        if(!data) {
+            $location.path('/404');
+        }
+    }, function() {             // if error occurs
+        $location.path('/404'); // go to 404 page
+    });
 
     // Get book genres
     $http({

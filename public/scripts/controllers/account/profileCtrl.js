@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ProfileCtrl', function($scope, $http, $timeout, identity, LibraryResource, FavouriteBookResource, BookingResourceSortable, notifier) {
+app.controller('ProfileCtrl', function($scope, $http, $timeout, identity, LibraryResource, FavoriteBookResource, BookingResourceSortable, notifier) {
     $scope.user = identity.currentUser;
 
     $scope.user.libraries = [];
@@ -61,7 +61,7 @@ app.controller('ProfileCtrl', function($scope, $http, $timeout, identity, Librar
         openNextTab();
     }
 
-    $scope.favouriteBooks = FavouriteBookResource.get({userID: identity.currentUser._id});
+    $scope.favoriteBooks = FavoriteBookResource.get({userID: identity.currentUser._id});
 
 
 });

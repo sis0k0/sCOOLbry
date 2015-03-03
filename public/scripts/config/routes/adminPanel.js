@@ -87,17 +87,7 @@ app.config(function($routeProvider) {
       controller: 'AddLibraryCtrl',
       resolve: routeUserChecks.adminRole
     })
-    .when('/admin/libraries/users/:id', {
-      templateUrl: '/partials/admin-panel/libraries/library-users',
-      controller: 'LibraryUsersCtrl',
-      resolve: routeUserChecks.adminRole
-    })
     .when('/admin/library/:id', {
-      templateUrl: '/partials/admin-panel/libraries/libraries-info',
-      controller: 'LibraryInfoCtrl',
-      resolve: routeUserChecks.adminRole
-    })
-    .when('/librarian/library/:id', {
       templateUrl: '/partials/admin-panel/libraries/libraries-info',
       controller: 'LibraryInfoCtrl',
       resolve: routeUserChecks.adminRole

@@ -1,9 +1,9 @@
 include ../panel
 
 .container
-    h1.text-center Username: {{ userInfo.username }}
+    h1.text-center Username: {{ user.username }}
     table.table.table-striped.table-bordered.table-wrapped 
-      tr(ng-repeat='(key, value) in userInfo')
+      tr(ng-repeat='(key, value) in user')
         td.col-md-4
           strong {{ key }}
         td {{ value }}
@@ -24,7 +24,7 @@ include ../panel
      
     
     .row
-      a.btn.btn-danger.pull-right(href='/admin/user/delete/{{ userInfo._id }}' onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")') Delete   
-      a.btn.btn-primary.pull-right(href='/admin/user/edit/{{ userInfo._id }}', style='margin-right:0.25em') Edit
+      a.btn.btn-danger.pull-right(href='/admin/user/delete/{{ user._id }}' onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")') Delete   
+      a.btn.btn-primary.pull-right(href='/admin/user/edit/{{ user._id }}', style='margin-right:0.25em') Edit
       
 

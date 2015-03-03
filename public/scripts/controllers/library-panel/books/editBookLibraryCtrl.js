@@ -3,12 +3,20 @@
 app.controller('EditBookLibraryCtrl', function($scope, $location, LibraryBook, notifier, LibBookResource2, BookResource, LibraryResource, $routeParams) {
 
     // Get library book
-    $scope.libraryBook = LibBookResource2.get({id: $routeParams.id}, function() {
-        // Get book
-        $scope.book = BookResource.get({id: $scope.libraryBook.bookID});
+    $scope.libraryBook = LibBookResource2.get({id: $routeParams.id}, function(data) {
 
-        // Get library
-        $scope.library = LibraryResource.get({id: $scope.libraryBook.libraryID});
+        if(!data) {
+            $location.path = '/404';
+        } else {
+            // Get book
+            $scope.book = BookResource.get({id: $scope.libraryBook.bookID});
+
+            // Get library
+            $scope.library = LibraryResource.get({id: $scope.libraryBook.libraryID});
+        }
+
+    }, function() {             // If error occurs
+        $location.path('/404'); // Go to 404 page
     });
 
     // Update book function

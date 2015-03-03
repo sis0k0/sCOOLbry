@@ -80,11 +80,11 @@
 
     .tab-pane.fade#favorites
       h3
-        | Favourite Books
-      ul(ng-hide='favouriteBooks.length==0')
-        li(ng-repeat='book in favouriteBooks')
+        | Favorite Books
+      ul(ng-hide='favoriteBooks.length==0')
+        li(ng-repeat='book in favoriteBooks')
           a(href='/book/{{ bookID }}/{{ book.libraryID }}') {{ bookName }}
-      p(ng-hide='favouriteBooks.length!==0') No favourite books found.
+      p(ng-hide='favoriteBooks.length!==0') No favorite books found.
 
     .tab-pane.fade#libraries
       h1.text-center Library Subscriptions

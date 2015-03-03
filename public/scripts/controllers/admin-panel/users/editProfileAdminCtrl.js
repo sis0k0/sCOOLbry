@@ -2,13 +2,15 @@
 
 app.controller('EditProfileAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, UserResource, notifier) {
 
-    console.log('dasdsadsadsa');
     $scope.today = new Date();
 
-
     // Get user resource
-    $scope.user = UserResource.get({id: $routeParams.id}, function() {
-        $scope.emailConfirm = $scope.user.email;
+    $scope.user = UserResource.get({id: $routeParams.id}, function(data) {
+        if(!data) {
+            $location.path('/404');
+        }
+    }, function() {             // if error occurs
+        $location.path('/404'); // go to 404 page
     });
 
     // Update User
@@ -68,7 +70,7 @@ app.controller('EditProfileAdminCtrl', function($scope, $location, $routeParams,
         console.log(err);
     });
 
-    // Get list of all countries to choose from for library's location
+    // Get list of all countries to choose from for user's location
     $http({
         method: 'get',
         url: '/api/countries'

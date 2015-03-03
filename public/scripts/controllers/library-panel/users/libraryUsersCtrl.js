@@ -29,7 +29,6 @@ app.controller('LibraryUsersCtrl', function($scope, LibraryUsersResourceSortable
         page: $scope.page,
         perPage: $scope.perPage
     });
-    console.log($scope.users);
     
     $scope.setPage = function(page, event){
         

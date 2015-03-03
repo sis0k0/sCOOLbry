@@ -1,20 +1,14 @@
 'use strict';
 
-app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library, User, notifier, UserResource, ajaxPost, LibraryResource, $routeParams) {
+app.controller('EditLibraryAdminCtrl', function($scope, $http, $location, $window, Library, User, notifier, UserResource, ajaxPost, LibraryResource, $routeParams) {
 
     $scope.currentLibrarians = [];
-    $scope.refreshAddresses = function(address) {
-        var params = {address: address, sensor: false};
-        return $http.get(
-            'http://maps.googleapis.com/maps/api/geocode/json',
-            {params: params}
-        ).then(function(response) {
-            $scope.addresses = response.data.results;
-        });
-    };
-    $scope.library = LibraryResource
-        .get({id: $routeParams.id}, function(data){
 
+    $scope.library = LibraryResource.get({id: $routeParams.id}, function(data){
+
+        if(!data) {
+            $location.path('/404');
+        } else {
 
             $scope.library.workHoursClosingMinutes = [];
             $scope.library.workHoursOpeningHour = [];
@@ -35,21 +29,31 @@ app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library,
             }
 
             for(var index in $scope.library.librarians) {
-                console.log($scope.library.librarians[index]);
                 UserResource.get({id: $scope.library.librarians[index]}, function(data) {
                     $scope.currentLibrarians.push(data);
                     $scope.library.librarians.splice(index,1);
                 });
             } 
+        }
+    }, function() {             // if error occurs
+        $location.path('/404'); // go to 404 page
+    });
 
+    $scope.predicate = '_id';
+    $scope.reverse = false;
+
+    // Addresses to choose from
+    $scope.refreshAddresses = function(address) {
+        var params = {address: address, sensor: false};
+        return $http.get(
+            'http://maps.googleapis.com/maps/api/geocode/json',
+            {params: params}
+        ).then(function(response) {
+            $scope.addresses = response.data.results;
         });
-
-        $scope.predicate = '_id';
-        $scope.reverse = false;
-
+    };
 
     // Update library
-    
     $scope.updateLibrary = function(library, librarians) {
 
         var workdays = [];
@@ -126,17 +130,6 @@ app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library,
 
     };
 
-    // Get list of all countries to choose from for library's location
-    $http({
-        method: 'get',
-        url: '/api/countries'
-    }).success(function(data) {
-        $scope.countries = data;
-    }).error(function(err) {
-        console.log(err);
-    });
-
-
     // Get list of users to choose from for librarians
     $http({
         method: 'get',
@@ -201,13 +194,11 @@ app.controller('EditLibraryAdminCtrl', function($scope, $http, $window, Library,
     // Librarians
     
     $scope.librariansCount = 0;
-
     $scope.librarians = [];
     
     for(var i = 0; i < $scope.librariansCount; i++) {
         $scope.librarians[i] = new Object({'index': i});
     }
-    
 
     $scope.addLibrarian = function(){
         $scope.librarians[$scope.librariansCount] = new Object({'index': $scope.librariansCount});

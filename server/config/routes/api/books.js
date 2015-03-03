@@ -38,12 +38,12 @@ module.exports = function(app) {
     // Delete library book
     router.get('/book/delete2/:id', auth.isInRole('librarian'), controllers.books.deleteBookFromLibraryById);
 
-    // Favourite books
-    router.post('/book/addFavourite', auth.isAuthorized(), controllers.books.createFavouriteBook);
-    router.get('/book/favourites/:userID', auth.isAuthenticatedOrInRole('moderator'), controllers.books.getFavouriteBooks);
-    router.get('/book/isFavourite/:userID/:bookID', auth.isAuthenticatedOrInRole('moderator'), controllers.books.isFavourite);
-    router.get('/book/favouritesLibrary/:userID/:libraryID', auth.isAuthenticatedOrInRole('librarian'), controllers.books.getFavouriteBooksInLibrary);
-    router.get('/book/deleteFavourite/:bookID', auth.isAuthorized(), controllers.books.deleteFavouriteBookById);
+    // Favorite books
+    router.post('/book/addFavorite', auth.isAuthorized(), controllers.books.createFavouriteBook);
+    router.get('/book/favorites/:userID', auth.isAuthenticatedOrInRole('moderator'), controllers.books.getFavouriteBooks);
+    router.get('/book/isFavorite/:userID/:bookID', auth.isAuthenticatedOrInRole('moderator'), controllers.books.isFavourite);
+    router.get('/book/favoritesLibrary/:userID/:libraryID', auth.isAuthenticatedOrInRole('librarian'), controllers.books.getFavouriteBooksInLibrary);
+    router.get('/book/deleteFavorite/:userID/:bookID/:libraryID', auth.isAuthorized(), controllers.books.deleteFavouriteBookById);
 
     // Book availability subscriptions
     router.post('/book/availabilitySubscription', auth.isAuthenticatedOrInRole('librarian'), controllers.books.addBookAvailabilitySubscription);

@@ -199,7 +199,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
                     $scope.available = (($scope.libBook.available-$scope.bookings.length)>0 && $scope.isMember) ? true : false;
                 }
 
-                $http.get('/api/book/isFavourite/'+identity.currentUser._id+'/'+$routeParams.id).success(function(data){
+                $http.get('/api/book/isFavorite/'+identity.currentUser._id+'/'+$routeParams.id).success(function(data){
                     $scope.isFavorite = data ? true : false;
                 });
             }
@@ -295,7 +295,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
         favorite.bookName = bookName;
         favorite.userID = identity.currentUser._id;
 
-        Book.addFavourite(favorite).then(function(){
+        Book.addFavorite(favorite).then(function(){
             notifier.success('Book added successfully to favorites!');
             $scope.isFavorite = true;
            
@@ -303,7 +303,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
     };
 
     $scope.removeFavorite = function() {
-        var responsePromise = $http.get('/api/book/deleteFavourite'+'/'+$routeParams.id);
+        var responsePromise = $http.get('/api/book/deleteFavorite/' + identity.currentUser._id + '/' + $routeParams.id + '/' + $routeParams.libraryID);
         responsePromise.success(function() {
             notifier.success('You\'ve removed this book from favorites successfully!');
             $scope.isFavorite = false;

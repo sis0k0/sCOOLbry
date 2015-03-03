@@ -2,16 +2,16 @@ include ../panel
 
 .container
   h1.text-center Name: 
-    span.text-info {{ libraryInfo.name }}
+    span.text-info {{ library.name }}
   table.table.table-striped.table-bordered.table-wrapped
-    tr(ng-repeat='(key, value) in libraryInfo')
+    tr(ng-repeat='(key, value) in library')
       td.col-md-4
         strong {{ key }}
       td {{ value }}
 
   div
     h2 Certificate
-    img(src='{{libraryInfo.certificate}}')
+    img(src='{{library.certificate}}')
 
   table.table.table-striped.table-bordered.table-wrapped
     tr
@@ -26,12 +26,14 @@ include ../panel
             th Total Copies 
             th Copies Available 
             th Copies Given 
-          tr(ng-repeat='book in libBookInfo')
+            th Book Section
+          tr(ng-repeat='book in libraryBooks')
             td.col-md-4
-              strong {{ bookName }}
+              strong {{ book.bookName }}
             td {{ book.total }}
             td {{ book.available }}
             td {{ book.given }}
+            td {{ book.section }}
     tr
       td
         h2 Library Requests
@@ -40,7 +42,7 @@ include ../panel
         h2 Library Reviews
   
   .row
-    a.btn.btn-danger.pull-right(href='/admin/library/delete/{{ libraryInfo._id }}' onclick='return window.confirm("Deleting a library" || "Are you sure that you want to delete this library?")') Delete   
-    a.btn.btn-primary.pull-right(href='/admin/library/edit/{{ libraryInfo._id }}', style='margin-right:0.25em') Edit
+    a.btn.btn-danger.pull-right(href='/admin/library/delete/{{ library._id }}' onclick='return window.confirm("Deleting a library" || "Are you sure that you want to delete this library?")') Delete   
+    a.btn.btn-primary.pull-right(href='/admin/library/edit/{{ library._id }}', style='margin-right:0.25em') Edit
     
 

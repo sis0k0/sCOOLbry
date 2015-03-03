@@ -1,9 +1,9 @@
 include ../panel
 
 .container
-    h1.text-center Username: {{ userInfo.username }}
+    h1.text-center Username: {{ user.username }}
     table.table.table-striped.table-bordered.table-wrapped 
-      tr(ng-repeat='(key, value) in userInfo')
+      tr(ng-repeat='(key, value) in user')
         td.col-md-4
           strong {{ key }}
         td {{ value }}
