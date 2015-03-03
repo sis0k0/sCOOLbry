@@ -6,8 +6,8 @@ app.controller('SignUpCtrl', function($scope, $location, User, notifier, $http, 
             notifier.success('Registration successful!');
             $location.path('/');
         }, function(reason){
-                notifier.error(reason);
-                $window.Recaptcha.reload();
+            notifier.error(reason);
+            $window.Recaptcha.reload();
         });
     };
 
@@ -16,7 +16,7 @@ app.controller('SignUpCtrl', function($scope, $location, User, notifier, $http, 
             notifier.success('Registration successful!');
             $location.path('/');
         }, function(reason){
-                notifier.error(reason);
+            notifier.error(reason);
         });
     };
 });

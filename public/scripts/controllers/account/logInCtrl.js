@@ -40,20 +40,4 @@ app.controller('LogInCtrl', function($scope, $location, notifier, identity, User
             $location.path('/');
         });
     };
-
-
-    $scope.loadNotifications = function() {
-        console.log($scope.identity);
-        if(!!$scope.identity.currentUser) {
-            User.getNotifications($scope.identity.currentUser).
-            then(function(notifications) {
-                console.log(notifications);
-                $scope.notifications = notifications;
-            });
-        }
-    };
-
-    $scope.loadNotifications();
-
-
 });

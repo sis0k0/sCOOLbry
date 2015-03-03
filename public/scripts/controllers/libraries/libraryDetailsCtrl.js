@@ -1,14 +1,14 @@
 'use strict';
 
-app.controller('LibraryDetailsCtrl', function($scope, User, $routeParams, $route, uiGmapGoogleMapApi, BookResource, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier) {
+app.controller('LibraryDetailsCtrl', function($scope, $location, User, $routeParams, $route, uiGmapGoogleMapApi, BookResource, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier) {
 
     $scope.user = identity.currentUser;
 
     $scope.library = cachedLibraries.query().then(function(collection) {
-        collection.forEach(function(library) {
+        var found = false;
+        collection.every(function(library) {
             if (library._id === $routeParams.id) {
                 $scope.library = library;
-                console.log(library.address);
 
                 uiGmapGoogleMapApi.then(function() {
                     $scope.map = { 
@@ -27,8 +27,14 @@ app.controller('LibraryDetailsCtrl', function($scope, User, $routeParams, $route
                         }
                     };
                 });
+                found = true;
+                return false;
             }
+            return true;
         });
+        if(!found) {
+            $location.path('/404');
+        }
     });
 
 

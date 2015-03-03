@@ -1,11 +1,25 @@
 'use strict';
 
-app.controller('BookDetailsCtrl', function($scope, $routeParams, uiGmapGoogleMapApi, identity, Socket, $http, $route, $compile, LibraryUsersInteractions, notifier, $location, $anchorScroll, BookResource, LibraryReadingResource, LibBookResource, LibraryBook, $window, LibraryResource, Book) {
+app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, uiGmapGoogleMapApi, identity, Socket, $http, $route, $compile, LibraryUsersInteractions, notifier, $location, $anchorScroll, BookResource, LibraryReadingResource, LibBookResource, LibraryBook, $window, LibraryResource, Book) {
 
     $scope.user = identity.currentUser;
 
     $scope.showMore = true;
-    $scope.book = BookResource.get({id: $routeParams.id});
+
+    $scope.book = cachedBooks.query().then(function(collection) {
+        var found = false;
+        collection.every(function(book) {
+            if (book._id === $routeParams.id) {
+                $scope.book = book;
+                found = true;
+                return false;
+            }
+            return true;
+        });
+        if(!found) {
+            $location.path('/404');
+        }
+    });
 
 
     $scope.gotoOtherLibraries = function() {

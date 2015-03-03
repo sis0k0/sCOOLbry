@@ -4,11 +4,8 @@ app.factory('User', function($http, $q, identity, UsersResource, UserResource, L
     return {
         getNotifications: function(user) {
             var deferred = $q.defer();
-            console.log('get notifications');
             $http.get('/api/user/notifications/' + user._id).
             success(function(notifications) {
-                console.log(notifications);
-                console.log('notifications');
                 deferred.resolve(notifications);
 
             }).
@@ -21,9 +18,6 @@ app.factory('User', function($http, $q, identity, UsersResource, UserResource, L
         },
         markNotificationAsSeen: function(notification) {
             var deferred = $q.defer();
-            console.log('factory before update: ');
-            console.log(notification);
-
             var updatedNotification = new NotificationResource(notification);
 
             updatedNotification.$update().then(function() {
