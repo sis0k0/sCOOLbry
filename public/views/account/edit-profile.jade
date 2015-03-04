@@ -39,6 +39,22 @@
                       option Male
                       option Female
 
+              .form-group(ng-class="{ 'has-success': (profileForm.style.$valid && (!!user.style)) }")
+                label.control-label(for='style') Style
+                .row
+                  .col-xs-12
+                    select.form-control(name='style', form='profileForm', ng-model='user.style')
+                      option cosmo
+                      option cyborg
+                      option darkly
+                      option flatly
+                      option readable
+                      option simplex
+                      option spacelab
+                      option superhero
+                      option united
+                      option yeti
+
               .form-group(ng-class="{ 'has-error': (profileForm.password.$invalid && profileForm.password.$dirty), 'has-success': (profileForm.password.$valid && profileForm.password.$dirty) }")
                   label.control-label(for="password") New Password
                   .row

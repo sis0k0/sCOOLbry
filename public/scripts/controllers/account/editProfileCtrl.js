@@ -11,7 +11,7 @@ app.controller('EditProfileCtrl', function($scope, $location, User, identity, aj
     $scope.update = function(user) {
         User.update(user).then(function() {
             $scope.user = user;
-            $location.path('/profile');
+            window.location.href = '/profile';
             notifier.success('Profile updated!');
         }, function(reason) {
             notifier.error(reason); 
