@@ -1,6 +1,16 @@
 'use strict';
 
-app.controller('EditBookLibraryCtrl', function($scope, $location, LibraryBook, notifier, LibBookResource2, BookResource, LibraryResource, $routeParams) {
+app.controller('EditBookLibraryCtrl', function($scope, $location, $filter, LibraryBook, notifier, LibBookResource2, BookResource, LibraryResource, $routeParams) {
+
+    // Handle error function
+    var handleError = function(reason) {
+        if(reason instanceof Object) {
+            notifier.error($filter('titleCase')(reason.name));
+            $scope.mongooseErrors = reason.errors;
+        } else {
+            notifier.error(reason);
+        }
+    };
 
     // Get library book
     $scope.libraryBook = LibBookResource2.get({id: $routeParams.id}, function(data) {
@@ -26,8 +36,8 @@ app.controller('EditBookLibraryCtrl', function($scope, $location, LibraryBook, n
         LibraryBook.update(updatedLibraryBook).then(function() {
             notifier.success('\'' + updatedLibraryBook.bookName + '\' successfully updated!');
             $location.path('/library-panel/books-library');
-        }, function(err) {
-            notifier.error(err.data);
+        }, function(reason) {
+            handleError(reason);
         });
     };
 });

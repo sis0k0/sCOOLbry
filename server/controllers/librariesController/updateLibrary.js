@@ -12,7 +12,7 @@ module.exports = function(req, res) {
     delete updatedLibraryData.$resolved;
 
     
-    Library.update({_id: updatedId}, updatedLibraryData, function(err) {
+    Library.update({_id: updatedId}, updatedLibraryData, {runValidators: true}, function(err) {
         console.log(err);
         res.end();
     });

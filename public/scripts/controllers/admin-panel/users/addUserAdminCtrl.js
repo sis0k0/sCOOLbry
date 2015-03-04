@@ -1,8 +1,17 @@
 'use strict';
 
-app.controller('AddUserAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, notifier) {
+app.controller('AddUserAdminCtrl', function($scope, $location, $routeParams, $http, $filter, User, ajaxPost, notifier) {
 
     $scope.today = new Date();
+
+    var handleError = function(reason) {
+        if(reason instanceof Object) {
+            notifier.error($filter('titleCase')(reason.name));
+            $scope.mongooseErrors = reason.errors;
+        } else {
+            notifier.error(reason);
+        }
+    };
 
     $http({
         method: 'get',
@@ -48,25 +57,24 @@ app.controller('AddUserAdminCtrl', function($scope, $location, $routeParams, $ht
         $scope.newLibrary = false;
     };
 
-
     $scope.addUserAsAdmin = function(user) {
         if($scope.newLibrary===true) {
             User.addAsAdmin(user, $scope.library, true).then(function() {
                 $location.path('/admin/users');
             }, function(reason){
-                notifier.error(reason);
+                handleError(reason);
             });
         } else if(!!user.ownLibraryID) {
             User.addAsAdmin(user, user.ownLibraryID, false).then(function() {
                 $location.path('/admin/users');
             }, function(reason){
-                notifier.error(reason);
+                handleError(reason);
             });
         } else {
             User.addAsAdmin(user).then(function() {
                 $location.path('/admin/users');
             }, function(reason){
-                notifier.error(reason);
+                handleError(reason);
             });
         }
     };

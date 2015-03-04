@@ -49,8 +49,8 @@
           .col-xs-8
               input.form-control(name='certificate', type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
               button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadFile()', ng-disabled='!uploadButtonState', style='margin-top:0.5em') Upload file
-              span.has-error.help-block(ng-show='certificateTypeError') The supported types are GIF, JPEG, PNG and TIFF
-              span.has-error.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
+              span.help-block(ng-show='certificateTypeError') The supported types are GIF, JPEG, PNG and TIFF
+              span.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
           .col-xs-4
             img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
             input(type='hidden', ng-model='library.certificate', required)

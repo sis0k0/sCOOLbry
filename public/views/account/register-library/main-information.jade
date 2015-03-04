@@ -7,7 +7,7 @@
             .row
               .col-xs-12
                   input.form-control(name='name', check-availability, type='text', placeholder='Name', ng-model='library.name', required, on-focus)
-                  span.has-error.help-block(ng-show="libraryForm.name.$error.available") Library name already taken
+                  span.help-block(ng-show="libraryForm.name.$error.available") Library name already taken
         .form-group(ng-class="{ 'has-success': (libraryForm.address.$valid), 'has-error': (libraryForm.address.$invalid) }")
             label.control-label(for='address') Address *
             .row
@@ -51,8 +51,8 @@
           .row
             input.form-control(name='certificate', type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
             button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadFile()', ng-disabled='!uploadButtonState', style='margin-top:0.5em') Upload file
-            span.has-error.help-block(ng-show='certificateTypeError') The supported types are GIF, JPEG, PNG and TIFF
-            span.has-error.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
+            span.help-block(ng-show='certificateTypeError') The supported types are GIF, JPEG, PNG and TIFF
+            span.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
 
 
 

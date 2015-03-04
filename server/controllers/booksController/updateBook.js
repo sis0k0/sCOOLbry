@@ -10,9 +10,9 @@ module.exports = function(req, res) {
         delete updatedBookData.$resolved;
         delete updatedBookData.$promise;
         
-        Book.update({_id: updatedId}, updatedBookData, function(err) {
+        Book.update({_id: updatedId}, updatedBookData, {runValidators: true}, function(err) {
             console.log(err);
-            res.end();
+            res.status(400).send({reason: err});
         });
     }
     else {

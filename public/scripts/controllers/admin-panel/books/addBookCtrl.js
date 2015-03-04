@@ -1,11 +1,21 @@
 'use strict';
 
-app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Book, bookSearch, notifier, ajaxPost) {
+app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, $filter, Book, bookSearch, notifier, ajaxPost) {
 
     $scope.today = new Date();
 
+    // Handle error function
+    var handleError = function(reason) {
+        console.log(reason);
+        if(reason instanceof Object) {
+            notifier.error($filter('titleCase')(reason.data.reason.name));
+            $scope.mongooseErrors = reason.data.reason.errors;
+        } else {
+            notifier.error(reason);
+        }
+    };
 
-
+    // Get genres
     $http({
         method: 'get',
         url: '/api/genres'
@@ -139,8 +149,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, Bo
             }
 
         }, function(reason){
-            console.log('error');
-            notifier.error(reason);
+            handleError(reason);
         });
     };
 

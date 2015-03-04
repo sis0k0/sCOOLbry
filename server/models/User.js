@@ -33,7 +33,7 @@ var userSchema = mongoose.Schema({
         require: '{PATH} is required',
         match: [
             /^[a-z]+[a-z0-9._]+@[a-z0-9]+[a-z0-9-]+[a-z0-9]+[.][a-z]{2,5}$/,
-            'Please enter valid email'
+            'Email format is not valid'
         ],
         unique: true
     },
@@ -45,8 +45,8 @@ var userSchema = mongoose.Schema({
     hashPass: String,
     roles: {
         type: [String],
-        default: ['standart'],
-        enum: [roles.getAllRoles]
+        enum: [roles.getAllRoles],
+        default: ['standart']
     },
     avatar: {
         type: String,
@@ -54,18 +54,15 @@ var userSchema = mongoose.Schema({
     },
     gender: {
         type: String,
+        enum: ['Female', 'Male', 'Not specified'],
         default: 'Not specified'
     },
     dateOfBirth: Date,
     aboutMe: {
         type: String,
-        validate: [
-            function(v) {
-                console.log(v);
-                console.log(v.length>0 && v.length<5);
-                return (v.length > 0 && v.length < 5);
-            },
-            'Length should be between 0 and 700 characters'
+        match: [
+            /^.{0,500}$/,
+            '"About me" length should be between 0 and 500 characters'
         ]
     },
     style: {

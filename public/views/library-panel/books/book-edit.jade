@@ -4,6 +4,7 @@ include ../panel
   h1.text-center Update book 
     span.text-info '{{ libraryBook.bookName }}'
   form.form-horizontal(name='bookForm', novalidate)
+    include ../../partials/mongoose-validation
     fieldset
       input.form-control(type='hidden', ng-model='libraryBook._id')
       .row

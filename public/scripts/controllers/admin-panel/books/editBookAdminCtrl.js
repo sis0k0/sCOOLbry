@@ -1,8 +1,18 @@
 'use strict';
 
-app.controller('EditBookAdminCtrl', function($scope, $location, $http, Book, ajaxPost, BookResource, notifier, $routeParams) {
+app.controller('EditBookAdminCtrl', function($scope, $location, $http, $filter, Book, ajaxPost, BookResource, notifier, $routeParams) {
 
     $scope.today = new Date();
+
+    // Handle error function
+    var handleError = function(reason) {
+        if(reason instanceof Object) {
+            notifier.error($filter('titleCase')(reason.data.reason.name));
+            $scope.mongooseErrors = reason.data.reason.errors;
+        } else {
+            notifier.error(reason);
+        }
+    };
 
     // Get the book
     $scope.book = BookResource.get({id: $routeParams.id}, function(data) {
@@ -28,8 +38,8 @@ app.controller('EditBookAdminCtrl', function($scope, $location, $http, Book, aja
         Book.update(book).then(function() {
             notifier.success('Book updated successfully!');
             $location.path('/admin/books');
-        }, function(err) {
-            notifier.error(err);
+        }, function(reason) {
+            handleError(reason);
         });
     };
 

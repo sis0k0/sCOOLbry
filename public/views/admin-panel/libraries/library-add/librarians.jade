@@ -34,8 +34,8 @@
               .row
                 .col-xs-12
                   input.form-control(name="email", type="text", placeholder="Email", ng-model="librarian.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z0-9]+[a-z0-9-]+[a-z0-9]+[.][a-z]{2,5}$/", check-availability, required)
-                  span.has-error.help-block(ng-show="librarianForm.email.$error.available") Email already taken
-                  span.has-error.help-block(ng-show="librarianForm.email.$invalid && librarianForm.email.$dirty") Please enter valid email
+                  span.help-block(ng-show="librarianForm.email.$error.available") Email already taken
+                  span.help-block(ng-show="librarianForm.email.$invalid && librarianForm.email.$dirty") Please enter valid email
             .form-group(ng-class="{ 'has-error': (librarianForm.password.$invalid), 'has-success': (librarianForm.password.$valid) }")
               label.control-label(for="password") Password
               .row
@@ -46,7 +46,7 @@
               .row
                 .col-xs-12
                     input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", fields-match="librarian.password", required)
-                    span.has-error.help-block(ng-show="librarianForm.confirmPassword.$error.fieldsMatch") These passwords don't match. Try again?
+                    span.help-block(ng-show="librarianForm.confirmPassword.$error.fieldsMatch") These passwords don't match. Try again?
         
         h3.text-center(ng-hide='librariansCount>0') Or Add New User
         .text-center

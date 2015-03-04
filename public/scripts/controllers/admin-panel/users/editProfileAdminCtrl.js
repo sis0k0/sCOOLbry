@@ -1,8 +1,18 @@
 'use strict';
 
-app.controller('EditProfileAdminCtrl', function($scope, $location, $routeParams, $http, User, ajaxPost, UserResource, notifier) {
+app.controller('EditProfileAdminCtrl', function($scope, $location, $routeParams, $http, $filter, User, ajaxPost, UserResource, notifier) {
 
     $scope.today = new Date();
+
+    // Handle error function
+    var handleError = function(reason) {
+        if(reason instanceof Object) {
+            notifier.error($filter('titleCase')(reason.name));
+            $scope.mongooseErrors = reason.errors;
+        } else {
+            notifier.error(reason);
+        }
+    };
 
     // Get user resource
     $scope.user = UserResource.get({id: $routeParams.id}, function(data) {
@@ -12,6 +22,7 @@ app.controller('EditProfileAdminCtrl', function($scope, $location, $routeParams,
     }, function() {             // if error occurs
         $location.path('/404'); // go to 404 page
     });
+
 
     // Update User
     $scope.updateAsAdmin = function(user) {
@@ -30,10 +41,15 @@ app.controller('EditProfileAdminCtrl', function($scope, $location, $routeParams,
                 if(user.hasOwnProperty('ownLibraryID') && user.hasOwnProperty!=='') {
                     User.updateAsAdmin(user, user.ownLibraryID, false).then(function() {
                         $location.path('/admin/users');
+                    }, function(reason){
+                        handleError(reason);
                     });
                 } else {
                     User.updateAsAdmin(user).then(function() {
                         $location.path('/admin/users');
+                    }, function(reason){
+                        handleError(reason);
+
                     });
                 }
             }
@@ -43,8 +59,9 @@ app.controller('EditProfileAdminCtrl', function($scope, $location, $routeParams,
             User.updateAsAdmin(user).then(function() {
                 $location.path('/admin/users');
                 notifier.success('User ' + user.username + ' updated!');
-            }, function(reason) {
-                notifier.error(reason);
+            }, function(reason){
+                console.log(reason);
+                handleError(reason);
             });
         }
     };

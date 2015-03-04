@@ -12,7 +12,7 @@ module.exports = function(req, res) {
         delete updatedLibraryData.$promise;
         delete updatedLibraryData.$resolved;
         
-        LibBook.update({_id: updatedId}, updatedLibraryData, function(err) {
+        LibBook.update({_id: updatedId}, updatedLibraryData, {runValidators: true}, function(err) {
             console.log(err);
             res.end();
         });

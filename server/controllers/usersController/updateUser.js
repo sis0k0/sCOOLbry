@@ -21,13 +21,11 @@ module.exports = function(req, res) {
         delete updatedUserData.roles;
     }
     
-    User.update({_id: updatedId}, updatedUserData, function(err) {
+    User.update({_id: updatedId}, updatedUserData, {runValidators: true}, function(err) {
         if (err) {
-            console.log('Failed to register new user: ' + err);
+            console.log('Failed to update user: ' + err);
             res.status(400).send({reason: err});
         }
-        console.log(err);
-        console.log('updated');
         res.status(200).end();
     });
 };

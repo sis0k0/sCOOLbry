@@ -35,8 +35,8 @@
                 .row
                   .col-xs-12
                     input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email",  check-availability, ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z0-9]+[a-z0-9-]+[a-z0-9]+[.][a-z]{2,5}$/", required)
-                    span.has-error.help-block(ng-show="signUpForm.email.$error.available") Email already taken
-                    span.has-error.help-block(ng-show="signUpForm.email.$invalid && signUpForm.email.$dirty && !signUpForm.email.$error.available") Please enter valid email
+                    span.help-block(ng-show="signUpForm.email.$error.available") Email already taken
+                    span.help-block(ng-show="signUpForm.email.$invalid && signUpForm.email.$dirty && !signUpForm.email.$error.available") Please enter valid email
               .form-group(ng-class="{ 'has-error': (signUpForm.password.$invalid && signUpForm.password.$dirty), 'has-success': (signUpForm.password.$valid) }")
                 label.control-label(for="password") Password
                 .row
@@ -47,7 +47,7 @@
                 .row
                   .col-xs-12
                     input.form-control(name="confirmPassword", fields-match="user.password", type="password", placeholder="Confirm password", ng-model="passwordConfirm", required)
-                    span.has-error.help-block(ng-show="signUpForm.confirmPassword.$error.fieldsMatch") These passwords don't match. Try again?
+                    span.help-block(ng-show="signUpForm.confirmPassword.$error.fieldsMatch") These passwords don't match. Try again?
               .form-group
                 label.control-label(for="recaptcha") RECAPTCHA Challenge
                 .row

@@ -7,8 +7,10 @@ include ../panel
       input.form-control(type='hidden', ng-model='user._id')
       .row
         .col-md-11.col-md-offset-1
-          .col-md-5
 
+          include ../../partials/mongoose-validation
+
+          .col-md-5
             .form-group(ng-class="{ 'has-error': (profileForm.firstName.$invalid || profileForm.lastName.$invalid), 'has-success': (profileForm.firstName.$valid && profileForm.lastName.$valid) }")
                 label.control-label(for="first-name") Name *
                 .row
@@ -27,8 +29,8 @@ include ../panel
                 .row
                     .col-xs-12
                         input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z0-9]+[a-z0-9-]+[a-z0-9]+[.][a-z]{2,5}$/", ng-change="fieldsMatch(profileForm.email, profileForm.confirmEmail)", check-availability, required)
-                        span.has-error.help-block(ng-show="profileForm.email.$error.available") Email already taken
-                        span.has-error.help-block(ng-show="profileForm.email.$invalid && profileForm.email.$dirty") Please enter valid email
+                        span.help-block(ng-show="profileForm.email.$error.available") Email already taken
+                        span.help-block(ng-show="profileForm.email.$invalid && profileForm.email.$dirty") Please enter valid email
             .form-group(ng-class="{ 'has-error': (profileForm.password.$invalid), 'has-success': (profileForm.password.$valid) }")
                 label.control-label(for="password") Password *
                 .row
@@ -39,7 +41,7 @@ include ../panel
                 .row
                   .col-xs-12
                       input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", fields-match="user.password", required)
-                      span.has-error.help-block(ng-show="profileForm.confirmPassword.$error.fieldsMatch && profileForm.confirmPassword.$dirty") These passwords don't match. Try again?
+                      span.help-block(ng-show="profileForm.confirmPassword.$error.fieldsMatch && profileForm.confirmPassword.$dirty") These passwords don't match. Try again?
           .col-md-5.col-md-offset-1
             .form-group(ng-class="{ 'has-success': (profileForm.gender.$valid && (!!user.gender)) }")
               label.control-label(for='gender') Gender
@@ -73,12 +75,12 @@ include ../panel
       
       .row
         .col-md-10.col-md-offset-1
-
-          .form-group(ng-class="{ 'has-success': (profileForm.aboutMe.$valid && (!!user.aboutMe)) }")
+          .form-group(ng-class="{ 'has-error': profileForm.aboutMe.$invalid ,'has-success': (profileForm.aboutMe.$valid && (!!user.aboutMe)) }")
             label.control-label(for='aboutMe') About Me
             .row
               .col-xs-12
-                textarea.form-control(name='aboutMe', rows='3', placeholder='About Me', ng-model='user.aboutMe')
+                textarea.form-control(name='aboutMe', rows='3', placeholder='About Me', ng-model='user.aboutMe', ng-maxlength='500')
+                span.help-block(ng-show='profileForm.aboutMe.$error.maxlength') Length must be below 500 characters
 
           .form-group(ng-class="{ 'has-success': (avatarUploadSuccessful), 'has-error': (avatarUploadError || avatarTypeError) }")
             label.control-label(for='avatar') Avatar
@@ -86,8 +88,8 @@ include ../panel
               .col-xs-8
                   input.form-control(name='avatar', type='file', ng-model='upFile', onchange="angular.element(this).scope().setFileEventListener(this, 'avatar')")
                   button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click="uploadFile('avatar')", ng-disabled='!uploadAvatarButtonState', style='margin-top:0.5em') Upload file
-                  span.has-error.help-block(ng-show='avatarTypeError') The supported types are GIF, JPEG, PNG and TIFF
-                  span.has-error.help-block(ng-show='avatarUploadError') An error occured. Please try again later.
+                  span.help-block(ng-show='avatarTypeError') The supported types are GIF, JPEG, PNG and TIFF
+                  span.help-block(ng-show='avatarUploadError') An error occured. Please try again later.
               .col-xs-4
                 img.image-responsive.img-thumbnail(ng-src='{{ user.avatar }}', ng-bind='user.avatar')
 
@@ -192,8 +194,8 @@ include ../panel
                     .col-xs-8
                         input.form-control(name='certificate', type='file', ng-model='upFileCertificate', onchange="angular.element(this).scope().setFileEventListener(this, 'certificate')")
                         button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click="uploadFile('certificate')", ng-disabled='!uploadCertificateButtonState', style='margin-top:0.5em') Upload file
-                        span.has-error.help-block(ng-show='certificateTypeError') The supported types are GIF, JPEG, PNG and TIFF
-                        span.has-error.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
+                        span.help-block(ng-show='certificateTypeError') The supported types are GIF, JPEG, PNG and TIFF
+                        span.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
                     .col-xs-4
                       img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
                       input(type='hidden', ng-model='library.certificate', required)

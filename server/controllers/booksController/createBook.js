@@ -8,7 +8,7 @@ module.exports = function(req, res) {
     Book.create(newBookData, function(err, book) {
         if (err) {
             console.log('Failed to add new book: ' + err);
-            res.status(503).send('Cannot connect to database');
+            res.status(400).send({reason: err});
         }
         res.send(book);
     });

@@ -1,35 +1,78 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    genres   = require('../filters/genres');
 
 var bookSchema = mongoose.Schema({
     isbn: {
         type: String,
         unique: true,
-        sparse: true
+        sparse: true,
+        match: [
+            /((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/,
+            'ISBN format is not valid'
+        ]
     },
     title: {
         type: String,
-        require: '{PATH} is required'
+        require: '{PATH} is required',
+        match: [
+            /^.{0,100}$/,
+            'Title should be between 0 and 100 characters'
+        ]
     },
     author: {
         type: String,
-        require: '{PATH} is required'
+        require: '{PATH} is required',
+        match: [
+            /^.{0,100}$/,
+            'Author\'s name should be between 0 and 100 characters'
+        ]
     },
-    description: String,
+    pages: {
+        type: Number,
+        min: 1,
+        max: 3500
+    },
+    language: {
+        type: String,
+        match: [
+            /^.{0,50}$/,
+            'Language should be between 0 and 50 characters'
+        ]
+    },
     publisher: {
         type: String,
-        require: '{PATH} is required'
+        require: '{PATH} is required',
+        match: [
+            /^.{0,100}$/,
+            'Publisher\'s name should be between 0 and 100 characters'
+        ]
+    },
+    authorNationality: {
+        type: String,
+        match: [
+            /^.{0,50}$/,
+            'Author\'s nationality should be between 0 and 50 characters'
+        ]
+    },
+    description: {
+        type: String,
+        match: [
+            /^.{0,1500}$/,
+            'Description should be between 0 and 1500 characters'
+        ]
     },
     cover: {
         type: String,
         default: '/dist/images/missing-cover.png'
     },
-    authorNationality: String,
-    language: String,
-    pages: String,
     themes: [String],
-    genres: [String],
+    genres: {
+        type: [String],
+        enum: [genres.getAllGenres],
+        default: ['Other']
+    },
     edition: String,
     illustrated: String,
     published: Date,
