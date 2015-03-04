@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User, notifier, UserResource, ajaxPost) {
+app.controller('AddLibraryCtrl', function($scope, $http, $window, $filter, Library, User, notifier, UserResource, ajaxPost) {
 
     // Define library and default working hours
     $scope.library = new Object({});
@@ -75,6 +75,18 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, Library, User,
         Library.addLibrary(library, librarians).finally(function(){
             notifier.success('Library added successfully!');
             $window.location.href = '/admin/libraries';
+        }, function(reason) {
+            if(!(reason instanceof Object)) {
+                notifier.error(reason);
+            } else {
+
+
+                $scope.mongooseErrors = reason.errors || [reason];
+                console.log($scope.mongooseErrors);
+
+                notifier.error($filter('titleCase')(reason.name));
+            }
+
         });
     };
 

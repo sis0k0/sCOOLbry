@@ -1,0 +1,4 @@
+.row
+  ul.text-danger
+    li(ng-repeat='error in mongooseErrors')
+      p {{error.message}}

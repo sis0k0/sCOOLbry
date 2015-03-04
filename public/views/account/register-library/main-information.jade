@@ -6,7 +6,8 @@
             label.control-label(for='name') Name *
             .row
               .col-xs-12
-                  input.form-control(name='name', type='text', placeholder='Name', ng-model='library.name', required, on-focus)
+                  input.form-control(name='name', check-availability, type='text', placeholder='Name', ng-model='library.name', required, on-focus)
+                  span.has-error.help-block(ng-show="libraryForm.name.$error.available") Library name already taken
         .form-group(ng-class="{ 'has-success': (libraryForm.address.$valid), 'has-error': (libraryForm.address.$invalid) }")
             label.control-label(for='address') Address *
             .row
@@ -22,7 +23,7 @@
           label.control-label(for='yearOfEstablishment') Year of Establishment
           .row
             .col-xs-12
-                input.form-control(name='yearOfEstablishment', type='text', placeholder='Year', ng-model='library.yearOfEstablishment', ng-pattern='/^(1[0-9][0-9][0-9]|200[0-9]|201[0-5])$/')
+                input.form-control(name='yearOfEstablishment', type='text', placeholder='Year', ng-model='library.yearOfEstablishment')
       
         .form-group(ng-class="{ 'has-success': (libraryForm.tags.$valid && libraryForm.tags.$dirty) }")
           label.control-label(for='tags') Tags

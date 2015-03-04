@@ -8,7 +8,7 @@ module.exports = function(req, res) {
     Library.create(newLibraryData, function(err, library) {
         if (err) {
             console.log('Failed to add new library: ' + err);
-            return;
+            res.status(400).send({reason: err});
         }
         
         res.send(library);

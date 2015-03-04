@@ -31,7 +31,7 @@ module.exports = function(app, config) {
     }
 
     // Create user from panels
-    router.post('/librarianCreate', auth.isInRole('admin'), controllers.users.createLibrarian);
+    router.post('/librarianCreate', auth.isInRole('libraryOwner'), controllers.users.createLibrarian);
     router.put('/users', auth.isAuthenticatedOrInRole('moderator'), controllers.users.updateUser);
 
     // Check if available

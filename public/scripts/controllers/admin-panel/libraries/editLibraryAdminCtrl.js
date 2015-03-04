@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('EditLibraryAdminCtrl', function($scope, $http, $location, $window, Library, User, notifier, UserResource, ajaxPost, LibraryResource, $routeParams) {
+app.controller('EditLibraryAdminCtrl', function($scope, $http, $location, $window, Library, User, $filter, notifier, UserResource, ajaxPost, LibraryResource, $routeParams) {
 
     $scope.currentLibrarians = [];
 
@@ -107,6 +107,18 @@ app.controller('EditLibraryAdminCtrl', function($scope, $http, $location, $windo
         Library.updateLibrary(library, librarians).then(function() {
             notifier.success('Library updated!');
             $window.location.href = '/admin/libraries';
+        }, function(reason) {
+            if(!(reason instanceof Object)) {
+                notifier.error(reason);
+            } else {
+
+
+                $scope.mongooseErrors = reason.errors || [reason];
+                console.log($scope.mongooseErrors);
+
+                notifier.error($filter('titleCase')(reason.name));
+            }
+
         });
     };
 

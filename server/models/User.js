@@ -16,7 +16,7 @@ var userSchema = mongoose.Schema({
         require: '{PATH} is required',
         match: [
             /^[a-z.0-9_-]{3,16}$/,
-            '{PATH} must contain lowercase letters, digits, dots, hyphens and underscores. 3-16 characters'
+            'Username must contain lowercase letters, digits, dots, hyphens and underscores. 3-16 characters'
         ],
         unique: true 
     },
@@ -57,7 +57,17 @@ var userSchema = mongoose.Schema({
         default: 'Not specified'
     },
     dateOfBirth: Date,
-    aboutMe: String,
+    aboutMe: {
+        type: String,
+        validate: [
+            function(v) {
+                console.log(v);
+                console.log(v.length>0 && v.length<5);
+                return (v.length > 0 && v.length < 5);
+            },
+            'Length should be between 0 and 700 characters'
+        ]
+    },
     style: {
         type: String,
         default: 'darkly'

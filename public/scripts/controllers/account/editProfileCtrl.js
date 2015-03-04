@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('EditProfileCtrl', function($scope, $location, User, identity, ajaxPost, $window, $http, notifier) {
+app.controller('EditProfileCtrl', function($scope, $location, $filter, User, identity, ajaxPost, $window, $http, notifier) {
 
     $scope.user = identity.currentUser;
 
@@ -13,8 +13,14 @@ app.controller('EditProfileCtrl', function($scope, $location, User, identity, aj
             $scope.user = user;
             window.location.href = '/profile';
             notifier.success('Profile updated!');
-        }, function(reason) {
-            notifier.error(reason); 
+        }, function(reason){
+
+            if(reason instanceof Object) {
+                notifier.error($filter('titleCase')(reason.name));
+                $scope.mongooseErrors = reason.errors;
+            } else {
+                notifier.error(reason);
+            }
         });
     };
 

@@ -13,7 +13,8 @@
         
         .row
           .col-md-7
-          
+
+            include ../partials/mongoose-validation
             .col-xs-10.col-xs-offset-1
 
               .form-group(ng-class="{ 'has-success': (signUpForm.firstName.$valid && signUpForm.lastName.$valid) }")
@@ -36,7 +37,7 @@
                   .col-xs-12
                     input.form-control(name="email", check-availability, type="text", placeholder="Email", ng-model="user.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z0-9]+[a-z0-9-]+[a-z0-9]+[.][a-z]{2,5}$/", required)
                     span.has-error.help-block(ng-show="signUpForm.email.$error.available") Email already taken
-                    span.has-error.help-block(ng-show="signUpForm.email.$invalid && signUpForm.email.$dirty") Please enter valid email
+                    span.has-error.help-block(ng-show="signUpForm.email.$invalid && signUpForm.email.$dirty && !signUpForm.email.$error.available && !signUpForm.email.$error.mongoose") Please enter valid email
                     span.has-error.help-block(ng-show="signUpForm.email.$error.mongoose") {{signUpForm.email.$error.mongoose}}
               .form-group(ng-class="{ 'has-error': (signUpForm.password.$invalid && signUpForm.password.$dirty), 'has-success': (signUpForm.password.$valid) }")
                 label.control-label(for="password") Password
@@ -53,7 +54,7 @@
 
               .form-group
                 .pull-right
-                  button.btn.btn-primary(ng-click="signupNoCaptcha(signUpForm)", ng-disabled="signUpForm.$invalid") Create
+                  button.btn.btn-primary(ng-click="signupNoCaptcha()", ng-disabled="signUpForm.$invalid") Create
                   a.btn.btn-danger(href="/", style="margin-left:0.2em") Cancel
 
 

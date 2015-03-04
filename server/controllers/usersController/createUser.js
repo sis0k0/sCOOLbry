@@ -4,6 +4,9 @@ var encryption  = require('../../utilities/encryption'),
     User        = require('mongoose').model('User');
 
 module.exports = function(req, res) {
+
+    console.log('inside create');
+
     var newUserData = req.body;
     newUserData.salt = encryption.generateSalt();
     newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);

@@ -6,6 +6,7 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, identity
             var deferred = $q.defer(),
                 newUser = new UsersResource(librarian);
 
+
             // Create new user - the library owner's profile
             newUser.$save().then(function(userData) {
 
@@ -48,16 +49,36 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, identity
             newLibrary.$save(function(data) {
                 libraryID = data._id;
 
+                var newLibrariansCount = 0,
+                    librariansUpdatedCount = 0;
+
                 // Link the librarians to the created library
                 librarians.forEach(function(element){
-
                     element.ownLibraryID = libraryID;
                     var newUser = new LibrarianResource(element);
                     newUser.$save().then(function(data) {
+
+                        console.log('saved');
+                        console.log(data);
+
                         $http({
                             method: 'get',
                             url: '/api/library/addLibrarian/'+libraryID+'/'+data._id
+                        }).then(function(){
+                            newLibrariansCount++;
+
+                            if(newLibrariansCount===librarians.length && (!library.librarians || librariansUpdatedCount===library.librarians.length)) {
+                                deferred.resolve();
+                            }
+                            
+                        }, function(err) {
+                            deferred.reject(err);
                         });
+                    }, function(err) {
+                        console.log('rejected');
+                        console.log(err);
+
+                        deferred.reject(err);
                     });
                 });
 
@@ -71,15 +92,19 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, identity
                     var updatedUser = new UsersResource(user);
                     updatedUser._id = library.librarians[id]._id;
                     updatedUser.$update().then(function(){
+                        librariansUpdatedCount++;
+
+                        if((!librarians || newLibrariansCount===librarians.length) && librariansUpdatedCount===library.librarians.length) {
+                            deferred.resolve();
+                        }
+
                     }, function(reason) {
                         deferred.reject(reason);
                     });
 
                 }
                 library._id = libraryID;
-                
-            }).then(function() {
-                deferred.resolve();
+
             }, function(response) {
                 deferred.reject(response);
             });
@@ -91,8 +116,11 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, identity
             var updatedLibrary = new LibraryResource(library);
             
             // Update the library
-            updatedLibrary.$update(function(data) {
+            updatedLibrary.$update().then(function(data) {
                 libraryID = data._id;
+
+                var newLibrariansCount = 0,
+                    librariansUpdatedCount = 0;
 
                 // Link the librarians to the updated library
                 librarians.forEach(function(element){
@@ -100,10 +128,28 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, identity
                     element.ownLibraryID = libraryID;
                     var newUser = new LibrarianResource(element);
                     newUser.$save().then(function(data) {
+
+                        console.log('saved');
+                        console.log(data);
+
                         $http({
                             method: 'get',
                             url: '/api/library/addLibrarian/'+libraryID+'/'+data._id
+                        }).then(function(){
+                            newLibrariansCount++;
+
+                            if(newLibrariansCount===librarians.length && (!library.librarians || librariansUpdatedCount===library.librarians.length)) {
+                                deferred.resolve();
+                            }
+                            
+                        }, function(err) {
+                            deferred.reject(err);
                         });
+                    }, function(err) {
+                        console.log('rejected');
+                        console.log(err);
+
+                        deferred.reject(err);
                     });
                 });
 
@@ -117,15 +163,19 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, identity
                     var updatedUser = new UsersResource(user);
                     updatedUser._id = library.librarians[id]._id;
                     updatedUser.$update().then(function(){
+                        librariansUpdatedCount++;
+
+                        if((!librarians || newLibrariansCount===librarians.length) && librariansUpdatedCount===library.librarians.length) {
+                            deferred.resolve();
+                        }
+
                     }, function(reason) {
                         deferred.reject(reason);
                     });
 
                 }
                 library._id = libraryID;
-                
-            }).then(function() {
-                deferred.resolve();
+
             }, function(response) {
                 deferred.reject(response);
             });

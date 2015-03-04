@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibrarySettingsCtrl', function($scope, $http, identity, $window, Library, User, notifier, UserResource, ajaxPost, LibraryResource) {
+app.controller('LibrarySettingsCtrl', function($scope, $http, identity, $window, $filter, Library, User, notifier, UserResource, ajaxPost, LibraryResource) {
 
     $scope.currentLibrarians = [];
     $scope.refreshAddresses = function(address) {
@@ -109,6 +109,7 @@ app.controller('LibrarySettingsCtrl', function($scope, $http, identity, $window,
             library.librarians.push($scope.currentLibrarians[index]._id);
         }
 
+        console.log(librarians);
         Library.updateLibrary(library, librarians).then(function() {
             notifier.success('Library updated!');
             if(identity.ownLibraryID) {
@@ -116,6 +117,17 @@ app.controller('LibrarySettingsCtrl', function($scope, $http, identity, $window,
             } else {
                 $window.location.href = '/';
             }
+        }, function(reason) {
+            if(!(reason instanceof Object)) {
+                notifier.error(reason);
+            } else {
+
+                $scope.mongooseErrors = reason.data.reason.errors || [reason];
+                console.log($scope.mongooseErrors);
+
+                notifier.error($filter('titleCase')(reason.data.reason.name));
+            }
+
         });
     };
 

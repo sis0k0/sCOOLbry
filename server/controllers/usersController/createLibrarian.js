@@ -11,7 +11,7 @@ module.exports = function(req, res){
     User.create(newUserData, function(err, user) {
         if (err) {
             console.log('Failed to register new user: ' + err);
-            return;
+            res.status(400).send({reason: err});
         }
         res.send(user);
     });

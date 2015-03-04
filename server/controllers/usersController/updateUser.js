@@ -22,9 +22,12 @@ module.exports = function(req, res) {
     }
     
     User.update({_id: updatedId}, updatedUserData, function(err) {
-        if(err) {
-            res.status(503).send({reason: 'Cannot connect to database!'});
+        if (err) {
+            console.log('Failed to register new user: ' + err);
+            res.status(400).send({reason: err});
         }
+        console.log(err);
+        console.log('updated');
         res.status(200).end();
     });
 };

@@ -39,6 +39,8 @@ var isAuthorized = function(req) {
 };
 
 var roleChecker = function(userRoles, role) {
+    console.log(userRoles);
+    console.log(role);
     switch(role) {
         case 'admin':
             if(userRoles.indexOf('admin') > -1) {

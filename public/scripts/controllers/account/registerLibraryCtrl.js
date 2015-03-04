@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('RegisterLibraryCtrl', function($scope, $http, $location, $window, $anchorScroll, Library, User, notifier, UserResource, ajaxPost) {
+app.controller('RegisterLibraryCtrl', function($scope, $http, $location, $window, $anchorScroll, $filter, Library, User, notifier, UserResource, ajaxPost) {
 
     // Define library and default working hours
     $scope.library = new Object({});
@@ -30,35 +30,43 @@ app.controller('RegisterLibraryCtrl', function($scope, $http, $location, $window
     };
 
     // Add library
-    $scope.addLibrary = function(library) {
+    $scope.addLibrary = function() {
 
         var workdays = [];
         var workhours = [];
         var workhoursString = ''; 
         
         for(var i = 0; i < 7; i++) {            
-            if(library.workdays[i]===true) {
+            if($scope.library.workdays[i]===true) {
                 workdays[i] = true;
-                workhoursString = library.workHoursOpeningHour[i]+':'+library.workHoursOpeningMinutes[i]+'-'+library.workHoursClosingHour[i]+':'+library.workHoursClosingMinutes[i];
+                workhoursString = $scope.library.workHoursOpeningHour[i]+':'+$scope.library.workHoursOpeningMinutes[i]+'-'+$scope.library.workHoursClosingHour[i]+':'+$scope.library.workHoursClosingMinutes[i];
                 workhours[i] = workhoursString;
             }
 
         }
 
-        delete library.workdays;
-        delete library.workhours;
-        library.workdays = workdays;
-        library.workhours = workhours;
+        delete $scope.library.workdays;
+        delete $scope.library.workhours;
+        $scope.library.workdays = workdays;
+        $scope.library.workhours = workhours;
 
-
-
-        Library.registerLibrary(library, $scope.librarians[0]).then(function(){
+        Library.registerLibrary($scope.library, $scope.librarians[0]).then(function(){
             notifier.success('Library added successfully!');
             $location.path('/library-panel');
             $anchorScroll();
         }, function(reason){
-            notifier.error(reason);
+            if(!(reason instanceof Object)) {
+                notifier.error(reason);
+            } else {
+
+
+                $scope.mongooseErrors = reason.errors || [reason];
+                console.log($scope.mongooseErrors);
+
+                notifier.error($filter('titleCase')(reason.name));
+            }
             $window.Recaptcha.reload();
+
         });
     };
 
@@ -90,6 +98,8 @@ app.controller('RegisterLibraryCtrl', function($scope, $http, $location, $window
     };
 
     $scope.uploadFile = function() {
+
+        console.log('upload file');
         if (!$scope.uploadedFile) {
             return;
         }

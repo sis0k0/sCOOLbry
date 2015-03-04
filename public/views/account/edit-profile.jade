@@ -5,6 +5,7 @@
 .container
     form.form-horizontal(name='profileForm')
       fieldset
+        include ../partials/mongoose-validation
         input.form-control(type='hidden', ng-model='user._id')
         .row
           .col-md-11.col-md-offset-1

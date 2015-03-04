@@ -10,6 +10,7 @@ module.exports = function(app) {
     // Libraries
     router.get('/libraries', controllers.libraries.getAllLibraries);
     router.get('/libraries/:id', controllers.libraries.getLibraryById);
+    router.get('/nameAvailable/:name', controllers.libraries.libraryNameAvailable);
     router.post('/libraries', controllers.libraries.createLibrary);
     router.put('/libraries', controllers.libraries.updateLibrary);
     router.get('/library/delete/:id', auth.isInRole('admin'), controllers.libraries.deleteLibraryById);
@@ -60,7 +61,7 @@ module.exports = function(app) {
 
     router.get('/library/not-returned/:libraryID/:userID', controllers.libraries.getAllNotReturnedReadings);
 
-    router.get('/library/addLibrarian/:libraryID/:userID', auth.isInRole('admin'), controllers.libraries.addLibrarian);
+    router.get('/library/addLibrarian/:libraryID/:userID', auth.isInRole('libraryOwner'), controllers.libraries.addLibrarian);
 
     router.get('/library/subscribers/:libraryID', controllers.libraries.getLibraryUsersInLibraryCount);
 

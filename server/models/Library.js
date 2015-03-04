@@ -8,7 +8,11 @@ var librarySchema = mongoose.Schema({
         required: '{PATH is required}',
         unique: true
     },
-    yearOfEstablishment: Number,
+    yearOfEstablishment: {
+        type: Number,
+        min: 1900,
+        max: 2015
+    },
     published: {
         type: Date,
         default: Date.now

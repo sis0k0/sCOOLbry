@@ -28,7 +28,7 @@
                 .col-xs-12
                   input.form-control(name="email", check-availability, type="text", placeholder="Email", ng-model="librarian.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z0-9]+[a-z0-9-]+[a-z0-9]+[.][a-z]{2,5}$/", required)
                   span.has-error.help-block(ng-show="librarianForm.email.$error.available") Email already taken
-                  span.has-error.help-block(ng-show="librarianForm.email.$invalid && librarianForm.email.$dirty") Please enter valid email
+                  span.has-error.help-block(ng-show="librarianForm.email.$invalid && librarianForm.email.$dirty && !librarianForm.email.$error.available") Please enter valid email
             .form-group(ng-class="{ 'has-error': (librarianForm.password.$invalid), 'has-success': (librarianForm.password.$valid) }")
               label.control-label(for="password") Password
               .row

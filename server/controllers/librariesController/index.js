@@ -40,6 +40,7 @@ module.exports = {
     returnBook: require('./returnBook'),
     takeBook: require('./takeBook'),
     updateLibBook: require('./updateLibBook'),
-    updateLibrary: require('./updateLibrary')
+    updateLibrary: require('./updateLibrary'),
+    libraryNameAvailable: require('./libraryNameAvailable')
 
 };

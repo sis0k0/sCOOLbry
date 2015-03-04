@@ -19,6 +19,9 @@
         li
           a(href='#librarians', data-toggle='tab', target='_self')
             | Librarian profile
+          
+      include ../../partials/mongoose-validation
+
 
       #myTabContent.tab-content
 
@@ -27,5 +30,5 @@
         include ./librarians
 
       .pull-right
-        button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='addLibrary(library)') Register
+        button.btn.btn-success(ng-click='addLibrary()') Register
         a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') Cancel
