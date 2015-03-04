@@ -14,6 +14,10 @@ var userSchema = mongoose.Schema({
     username: { 
         type: String,
         require: '{PATH} is required',
+        match: [
+            /^[a-z.0-9_-]{3,16}$/,
+            '{PATH} must contain lowercase letters, digits, dots, hyphens and underscores. 3-16 characters'
+        ],
         unique: true 
     },
     firstName: { 
@@ -27,6 +31,10 @@ var userSchema = mongoose.Schema({
     email: {
         type: String,
         require: '{PATH} is required',
+        match: [
+            /^[a-z]+[a-z0-9._]+@[a-z0-9]+[a-z0-9-]+[a-z0-9]+[.][a-z]{2,5}$/,
+            'Please enter valid email'
+        ],
         unique: true
     },
     created: {
@@ -120,8 +128,7 @@ module.exports.seedInitialUsers = function() {
 
                 salt = encryption.generateSalt();
                 hashedPwd = encryption.generateHashedPassword(salt, 'password');
-                User.create({username: 'admin' +
-                    '', firstName: 'Admin', lastName: 'Adminov', email:'admin@scoolbry.com', salt: salt, hashPass: hashedPwd, roles: ['admin']});
+                User.create({username: 'admin', firstName: 'Admin', lastName: 'Adminov', email:'admin@scoolbry.com', salt: salt, hashPass: hashedPwd, roles: ['admin']});
                 
                 salt = encryption.generateSalt();
                 hashedPwd = encryption.generateHashedPassword(salt, 'password');
@@ -130,6 +137,7 @@ module.exports.seedInitialUsers = function() {
                 salt = encryption.generateSalt();
                 hashedPwd = encryption.generateHashedPassword(salt, 'password');
                 User.create({username: 'nobody', firstName: 'Just', lastName: 'Nobody', email:'shalqlq@abv.bg', salt: salt, hashPass: hashedPwd});
+                
                 console.log('Users added to database...');
             }
 

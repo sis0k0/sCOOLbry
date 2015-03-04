@@ -11,8 +11,6 @@ app.directive('checkAvailability', function ($http) {
         link: function (scope, elem, attrs, ngModel) {
 
             scope.$watch('field', function(value) {
-                console.log(value);
-                console.log(scope.currentValue);
 
                 // if the new value differs from the current one (the one before the modification)
                 if(value!==scope.currentValue) {
