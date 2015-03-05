@@ -1,6 +1,7 @@
 'use strict';
 
 app.controller('UserInfoCtrl', function($scope, $location, UserResource, $routeParams) {
+
     $scope.user = UserResource.get({id: $routeParams.id}, function(data){
         if(!data) {
             $location.path('/404');
