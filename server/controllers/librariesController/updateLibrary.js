@@ -13,7 +13,11 @@ module.exports = function(req, res) {
 
     
     Library.update({_id: updatedId}, updatedLibraryData, {runValidators: true}, function(err) {
-        console.log(err);
-        res.end();
+        if(err) {
+            console.log(err);
+            res.status(400).send({reason: err});
+        } else {
+            res.status(200).end();
+        }
     });
 };

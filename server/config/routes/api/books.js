@@ -9,7 +9,7 @@ module.exports = function(app) {
     
     // Get books
     router.get('/books', controllers.books.getAllBooks);
-    router.get('/book/sort/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.books.getAllBooksSortable);
+    router.get('/book/sort/:field/:order/:page/:perPage', controllers.books.getAllBooksSortable);
 
     // Check if book exists by isbn
     router.get('/isbnAvailable/:isbn', controllers.books.getBookExistsByISBN);

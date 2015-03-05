@@ -25,7 +25,9 @@ module.exports = function(req, res) {
         if (err) {
             console.log('Failed to update user: ' + err);
             res.status(400).send({reason: err});
+        } else {
+            res.status(200).end();
         }
-        res.status(200).end();
+            
     });
 };

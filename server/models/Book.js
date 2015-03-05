@@ -58,8 +58,10 @@ var bookSchema = mongoose.Schema({
     },
     description: {
         type: String,
-        match: [
-            /^.{0,1500}$/,
+        validate: [
+            function(v) {
+                return v.length>0 && v.length<1500;
+            },
             'Description should be between 0 and 1500 characters'
         ]
     },

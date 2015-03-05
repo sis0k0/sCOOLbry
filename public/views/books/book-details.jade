@@ -17,7 +17,7 @@
           span.text-info {{book.publisher}}
           span.text-info.pull-right {{ book.author }}
         div(ng-show='!showMore')
-          p.text-justify {{ book.description | limitTo: 400}}...
+          p.text-justify {{ book.description | cut:true:400:'...'}}
           a(href='#' ng-click='showMore=!showMore') Show more
         div(ng-show='!!showMore')
           p.text-justify {{ book.description}}

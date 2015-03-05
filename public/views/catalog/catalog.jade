@@ -1,0 +1,26 @@
+.jumbotron
+  .container
+    h1 Books catalog
+
+.container
+  .row
+    .col-md-2
+      h1 Filters
+    .col-md-10
+      div(ng-repeat='book in books', ng-init="pages();")
+        .row
+          a(ng-href='/book/{{book._id}}')
+            img.img-responsive(ng-src='{{book.cover}}').col-md-2.col-sm-2.col-xs-3
+          div.col-md-10.col-sm-10.col-xs-9
+            a(ng-href='/book/{{book._id}}')
+              h3.vcenter(style='margin:0.2em 0')
+                | {{book.title}} &nbsp;&nbsp;
+                span.badge.vcenter {{book.published | date:'MMM dd, yyyy'}}
+            p
+              | by 
+              span.text-info {{book.author}}
+            p.text-justify.hidden-xs {{ book.description | cut:true:250:'...'}}
+        hr
+      .pagination
+          li(ng-repeat="i in range(pagesCount) track by $index")
+            a(class="pageItem" href="#" ng-click="setPage($index+1, $event); reloadBooks();" id="page-{{ $index+1 }}") {{ $index+1 }}

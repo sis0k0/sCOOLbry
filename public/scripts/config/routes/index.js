@@ -40,6 +40,10 @@ app.config(function($routeProvider) {
 
         // Libraries
 
+        .when('/catalog', {
+            templateUrl: '/partials/catalog/catalog',
+            controller: 'CatalogCtrl'
+        })
         .when('/libraries', {
             templateUrl: '/partials/libraries/libraries-list',
             controller: 'LibrariesListCtrl'

@@ -11,8 +11,12 @@ module.exports = function(req, res) {
         delete updatedBookData.$promise;
         
         Book.update({_id: updatedId}, updatedBookData, {runValidators: true}, function(err) {
-            console.log(err);
-            res.status(400).send({reason: err});
+            if(err) {
+                console.log(err);
+                res.status(400).send({reason: err});
+            } else {
+                res.status(200).end();
+            }
         });
     }
     else {

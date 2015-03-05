@@ -39,6 +39,7 @@ app.controller('EditBookAdminCtrl', function($scope, $location, $http, $filter, 
             notifier.success('Book updated successfully!');
             $location.path('/admin/books');
         }, function(reason) {
+            console.log(reason);
             handleError(reason);
         });
     };

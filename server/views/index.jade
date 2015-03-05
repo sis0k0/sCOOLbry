@@ -43,6 +43,8 @@ block main-content
 
         ul#top-menu.nav.navbar-nav.navbar-right(ng-controller='LogInCtrl')
           li
+            a(href='/catalog') Catalog
+          li
             a(href='/libraries') Libraries
           li(ng-if='!identity.isAuthenticated()')
             a(href='/login') Log In
