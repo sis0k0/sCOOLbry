@@ -88,7 +88,7 @@ app.config(function($routeProvider) {
       resolve: routeUserChecks.adminRole
     })
     .when('/admin/library/:id', {
-      templateUrl: '/partials/admin-panel/libraries/libraries-info',
+      templateUrl: '/partials/admin-panel/libraries/library-info',
       controller: 'LibraryInfoCtrl',
       resolve: routeUserChecks.adminRole
     })

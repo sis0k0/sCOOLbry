@@ -31,14 +31,21 @@ app.config(function($routeProvider) {
 
         //Library Panel
         .when('/library-panel', {
-            templateUrl: '/partials/library-panel/settings',
+            templateUrl: '/partials/library-panel/info',
             controller: 'LibraryPanelCtrl',
             resolve: routeUserChecks.librarianRole
         })
 
-        // Library settings
+        //Library details
         .when('/library-panel/library-details', {
-            templateUrl: '/partials/library-panel/settings/library-details',
+            templateUrl: '/partials/library-panel/info',
+            controller: 'LibraryInfoCtrl',
+            resolve: routeUserChecks.librarianRole
+        })
+
+        // Library settings
+        .when('/library-panel/library-settings', {
+            templateUrl: '/partials/library-panel/settings',
             controller: 'LibrarySettingsCtrl',
             resolve: routeUserChecks.librarianRole
         })

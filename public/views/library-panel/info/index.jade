@@ -1,0 +1,34 @@
+include ../panel
+
+.container(ng-controller="LibraryInfoCtrl")
+  h1.text-center Library 
+    span.text-info '{{ library.name }}'
+
+
+
+  ul.nav.nav-tabs(style='margin-bottom: 25px')
+    li.active
+      a(href='#about', data-toggle='tab', target='_self').active
+        |  About
+    li
+      a(href='#library-books', data-toggle='tab', target='_self')
+        | Books
+    li
+      a(href='#library-users', data-toggle='tab', target='_self')
+        | Users
+    li
+      a(href='#working-schedule', data-toggle='tab', target='_self')
+        | Working schedule
+
+  #myTabContent.tab-content
+    
+    include ./about
+    include ./books
+    include ./users
+    include ./schedule
+      
+
+  .row
+    a.btn.btn-primary.pull-right(href='/library-panel/library-settings') Edit
+  
+

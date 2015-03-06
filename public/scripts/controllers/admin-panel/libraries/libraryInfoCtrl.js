@@ -1,8 +1,11 @@
 'use strict';
 
-app.controller('LibraryInfoCtrl', function($scope, $location, $http, LibraryResource, LibraryUsersResourceSortable, uiGmapGoogleMapApi, LibBooksResource, $routeParams) {
+app.controller('LibraryInfoCtrl', function($scope, $location, $http, LibraryResource, LibraryUsersResourceSortable, uiGmapGoogleMapApi, LibBooksResource, identity, $routeParams) {
 
-    $scope.library = LibraryResource.get({id: $routeParams.id}, function(data) {
+    var libraryID = $routeParams.id || identity.currentUser.ownLibraryID;
+    console.log(libraryID);
+
+    $scope.library = LibraryResource.get({id: libraryID}, function(data) {
         if(!data) {
             $location.path('/404');
         } else {
@@ -32,13 +35,15 @@ app.controller('LibraryInfoCtrl', function($scope, $location, $http, LibraryReso
     });
 
 
-    $scope.libraryBooks = LibBooksResource.get({id: $routeParams.id});
+    $scope.libraryBooks = LibBooksResource.get({id: libraryID});
 
-    $scope.libraryUsers = LibraryUsersResourceSortable.query({id: $routeParams.id}, function(data) {
+    $scope.libraryUsers = LibraryUsersResourceSortable.query({id: libraryID}, function(data) {
         console.log(data);
     });
 
-    $http.get('/api/library/user-count/' + $routeParams.id).success(function(data) {
+    $scope.days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+    $http.get('/api/library/user-count/' + libraryID).success(function(data) {
         $scope.membersCount = data;
     });
     

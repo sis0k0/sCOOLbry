@@ -1,0 +1,16 @@
+.tab-pane.fade#working-schedule
+
+  h2 Working schedule
+  table.table.table-striped.table-bordered.table-wrapped
+    tr
+      th Day
+      th Open 
+      th Opening 
+      th Closing
+    tr(ng-repeat='day in library.workdays track by $index')
+      td.col-md-4
+        strong {{ days[$index] }}
+      td
+        i.fa(ng-class="{ 'fa-check text-success': (day===true), 'fa-times text-danger': (day===false) }")
+      td {{ library.workhours[$index].substring(0, library.workhours[$index].indexOf('-')) }}0
+      td {{ library.workhours[$index].substring(library.workhours[$index].indexOf('-')+1, library.workhours[$index].length) }}0

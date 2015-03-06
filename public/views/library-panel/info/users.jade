@@ -1,0 +1,16 @@
+.tab-pane.fade#library-users
+  h2 Library users
+  table.table.table-striped.table-bordered.table-wrapped
+    tr
+      th Username
+      th Books given
+      th Books to return
+      th
+
+    tr(ng-repeat='user in libraryUsers')
+      td.col-md-4
+        strong {{ user.username }}
+      td {{user.given}}
+      td {{user.toReturn}}
+      td
+        a(ng-href='/admin/user/{{user.userID}}') Link
