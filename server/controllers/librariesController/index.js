@@ -25,6 +25,8 @@ module.exports = {
     getLibBookById: require('./getLibBookById'),
     getLibBookBySection: require('./getLibBookBySection'),
     getLibraryBooksById: require('./getLibraryBooksById'),
+    getLibraryBooksByIdSortable: require('./getLibraryBooksByIdSortable'),
+    getLibraryBooksCount: require('./getLibraryBooksCount'),
     getLibraryById: require('./getLibraryById'),
     getLibraryCount: require('./getLibraryCount'),
     getLibraryIDByOwner: require('./getLibraryIDByOwner'),

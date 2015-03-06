@@ -83,7 +83,7 @@
         | Favorite Books
       ul(ng-hide='favoriteBooks.length==0')
         li(ng-repeat='book in favoriteBooks')
-          a(href='/book/{{ bookID }}/{{ book.libraryID }}') {{ bookName }}
+          a(href='/book/{{ book.bookID }}/{{ book.libraryID }}') {{ book.bookName }}
       p(ng-hide='favoriteBooks.length!==0') No favorite books found.
 
     .tab-pane.fade#libraries

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserInfoCtrl', function($scope, $location, UserResource, $routeParams) {
+app.controller('UserInfoCtrl', function($scope, $location, $http, UserResource, $routeParams, $timeout, notifier, LibraryResource, FavoriteBookResource, BookingResourceSortable) {
 
     $scope.user = UserResource.get({id: $routeParams.id}, function(data){
         if(!data) {
@@ -29,9 +29,18 @@ app.controller('UserInfoCtrl', function($scope, $location, UserResource, $routeP
             
         }
 
+        data.libraries = [];
+        for(var lib = 0; lib < data.librarySubscriptions.length; lib++) {
+            data.libraries[lib] = LibraryResource.get({id: data.librarySubscriptions[lib]});
+        }
+        console.log(data.libraries);
+        
+
+
     }, function() {             // if error occurs
         $location.path('/404'); // go to 404 page
     });
-    
-   
+
+    $scope.favoriteBooks = FavoriteBookResource.get({userID: $routeParams.id});
+
 });
