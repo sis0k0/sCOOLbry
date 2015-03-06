@@ -1,48 +1,113 @@
 include ../panel
 
 .container
-  h1.text-center Name: 
-    span.text-info {{ library.name }}
-  table.table.table-striped.table-bordered.table-wrapped
-    tr(ng-repeat='(key, value) in library')
-      td.col-md-4
-        strong {{ key }}
-      td {{ value }}
+  h1.text-center Library 
+    span.text-info '{{ library.name }}'
 
-  div
-    h2 Certificate
-    img(src='{{library.certificate}}')
 
-  table.table.table-striped.table-bordered.table-wrapped
-    tr
-      td
-        h2 Library Users
-    tr
-      td
-        h2 Library Books
-        table.table.table-striped.table-bordered.table-wrapped
-          tr
-            th Book Name
-            th Total Copies 
-            th Copies Available 
-            th Copies Given 
-            th Book Section
-          tr(ng-repeat='book in libraryBooks')
-            td.col-md-4
-              strong {{ book.bookName }}
-            td {{ book.total }}
-            td {{ book.available }}
-            td {{ book.given }}
-            td {{ book.section }}
-    tr
-      td
-        h2 Library Requests
-    tr
-      td
-        h2 Library Reviews
-  
+.container
+
+  ul.nav.nav-tabs(style='margin-bottom: 25px')
+    li.active
+      a(href='#about', data-toggle='tab', target='_self').active
+        |  About
+    li
+      a(href='#library-books', data-toggle='tab', target='_self')
+        | Books
+    li
+      a(href='#library-users', data-toggle='tab', target='_self')
+        | Users
+
+  #myTabContent.tab-content
+    
+    .tab-pane.fade.active.in#about
+      .row
+        .col-md-7
+
+          h2 Main information
+          table.table.table-striped.table-bordered.table-wrapped
+            tr
+              td Registered
+              td {{library.published | date: 'MMM dd, yyyy'}}
+            tr
+              td Location
+              td {{library.address.formatted_address}}
+            tr
+              td Books count
+              td {{libraryBooks.length}}
+            tr
+              td Members count
+              td {{membersCount}}
+            tr
+              td Certified
+              td
+                i.fa(ng-class="{ 'fa-check text-success': (library.certified==true), 'fa-times text-danger': (library.certified==false) }")
+            tr
+              td Visible
+              td
+                i.fa(ng-class="{ 'fa-check text-success': (library.visible==true), 'fa-times text-danger': (library.visible==false) }")
+            tr
+              td Featured
+              td
+                i.fa(ng-class="{ 'fa-check text-success': (library.featured==true), 'fa-times text-danger': (library.featured==false) }")
+            tr
+              td Tags
+              td(ng-repeat='tag in library.tags')
+                span  {{tag}}
+                span(ng-show='!$last') ,
+          
+          div
+            h3 Certificate
+            img(src='{{library.certificate}}').img-responsive.img-thumbnail
+          div(ng-show='library.description')
+            h2.text-success Description
+            p {{ library.description }}
+
+        .col-md-4.col-md-offset-1
+
+          ui-gmap-google-map(center='map.center', zoom='map.zoom')
+            ui-gmap-marker(coords='marker.coords', idkey='marker.idkey', icon='marker.icon', options='marker.options')
+
+
+    .tab-pane.fade#library-books
+      h2 Library books
+      table.table.table-striped.table-bordered.table-wrapped
+        tr
+          th Book Name
+          th Total Copies 
+          th Copies Available 
+          th Copies Given
+          th Book Section
+          th
+        tr(ng-repeat='book in libraryBooks')
+          td.col-md-4
+            strong {{ book.bookName }}
+          td {{ book.total }}
+          td {{ book.available }}
+          td {{ book.given }}
+          td {{ book.section }}
+          td
+            a(ng-href='/book/{{book.bookID}}/{{library._id}}') Link
+
+    .tab-pane.fade#library-users
+      h2 Library users
+      table.table.table-striped.table-bordered.table-wrapped
+        tr
+          th Username
+          th Books given
+          th Books to return
+          th
+
+        tr(ng-repeat='user in libraryUsers')
+          td.col-md-4
+            strong {{ user.username }}
+          td {{user.given}}
+          td {{user.toReturn}}
+          td
+            a(ng-href='/admin/user/{{user.userID}}') Link
+      
   .row
     a.btn.btn-danger.pull-right(href='/admin/library/delete/{{ library._id }}' onclick='return window.confirm("Deleting a library" || "Are you sure that you want to delete this library?")') Delete   
     a.btn.btn-primary.pull-right(href='/admin/library/edit/{{ library._id }}', style='margin-right:0.25em') Edit
-    
+  
 

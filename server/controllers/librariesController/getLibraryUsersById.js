@@ -4,6 +4,8 @@ var LibUser = require('mongoose').model('LibUser');
 
 module.exports = function(req, res) {
 
+    console.log('inside');
+
     var order, field, page, perPage;
 
     if(req.params.order===undefined) {
@@ -33,6 +35,10 @@ module.exports = function(req, res) {
     var sortObject = {};
     sortObject[field] = order;
     LibUser.find({libraryID: req.params.id}, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage}).exec(function(err, collection) {
+        console.log('ret');
+        console.log(err);
+        console.log(collection);
+
         if (err) {
             console.log('Users could not be loaded: ' + err);
         }
