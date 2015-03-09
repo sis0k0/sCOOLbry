@@ -20,7 +20,7 @@ module.exports = function(app) {
 
     // Get library books
     router.get('/library/books/:id/:available/:userID', controllers.libraries.getLibraryBooksById);
-    router.get('/library/booksSort/:id/:field/:order/:page/:perPage/:userID', controllers.libraries.getLibraryBooksByIdSortable);
+    router.get('/library/booksSort/:id/:field/:order/:page/:perPage', controllers.libraries.getLibraryBooksByIdSortable);
     router.get('/library/bookCount/:id', controllers.libraries.getLibraryBooksCount);
 
     // Get all libraries that have a copy of a book

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, LibBooksSectionResource, $routeParams, $http, identity, BookResourceSortable) {
+app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, LibBooksSectionResource, $routeParams, $http, identity, LibBooksResourceSortable) {
     $scope.user = identity.currentUser;
     $scope.page = 1;
     $scope.perPage = 10;
@@ -12,7 +12,7 @@ app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, LibBoo
     };
     
     $scope.pages = function(){
-        $http.get('/api/book/count').success(function(data){
+        $http.get('/api/bookCount/'+$scope.user.ownLibraryID).success(function(data){
             $scope.booksCount = parseInt(data);
             $scope.pagesCount = Math.ceil($scope.booksCount/$scope.perPage);
         });
@@ -46,11 +46,12 @@ app.controller('LibraryBooksListCtrl', function($scope, LibBooksResource, LibBoo
     };
     
     $scope.reloadBooks = function(){
-        $scope.books = BookResourceSortable.query({
+        $scope.books = LibBooksResourceSortable.query({
             field: $scope.field,
             order: $scope.order,
             page: $scope.page,
-            perPage: $scope.perPage
+            perPage: $scope.perPage,
+            id: $scope.user.ownLibraryID
         });
     };
 
