@@ -1,8 +1,8 @@
 'use strict';
 
-app.directive('csvImport', function(notifier) {
+app.directive('databaseImport', function(notifier, XLSXReaderService) {
     return {
-        restrict: 'A',
+        restrict: 'E',
         transclude: true,
         replace: true,
         scope:{
@@ -10,7 +10,7 @@ app.directive('csvImport', function(notifier) {
             separator: '=',
             result: '='
         },
-        template: '<div class="col-md-4 text-center"><h3 class="text-center">Import from CSV</h3><div class="row"><input type="file" class="btn btn-info custom-file-input" style="margin-top:0"></input></div></div>',
+        templateUrl: '../../views/directive-templates/databaseImport.html',
         link: function(scope, element) {            
             element.on('keyup', function(){
                 if ( scope.content !== null ) {
@@ -24,11 +24,10 @@ app.directive('csvImport', function(notifier) {
 
             element.on('change', function(onChangeEvent) {
 
-                var type = onChangeEvent.target.files[0].type;
-                var extension = onChangeEvent.target.files[0].name.substring(onChangeEvent.target.files[0].name.lastIndexOf('.'));
+                var file = (onChangeEvent.srcElement || onChangeEvent.target).files[0],
+                    extension = file.name.substring(file.name.lastIndexOf('.'));
 
-                var mimetype = type ? type : extension;
-                if(mimetype==='application/vnd.ms-excel' || mimetype==='text/csv' || mimetype==='.csv') {
+                if(extension==='.csv') {
                     var reader = new FileReader();
                     reader.onload = function(onLoadEvent) {
                         scope.$apply(function() {
@@ -40,7 +39,7 @@ app.directive('csvImport', function(notifier) {
                         });
                     };
                     if ( (onChangeEvent.target.type === 'file') && (onChangeEvent.target.files !== null || onChangeEvent.srcElement.files !== null) )  {
-                        reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
+                        reader.readAsText(file);
                     } else {
                         if ( scope.content !== null ) {
                             var content = {
@@ -49,8 +48,14 @@ app.directive('csvImport', function(notifier) {
                             scope.result = csvToArray(content);
                         }
                     }
+                } else if(extension==='.xlsx') {
+                    console.log(onChangeEvent.target);
+                    XLSXReaderService.readFile(file, true).then(function(xlsxData) {
+                        console.log(xlsxData);
+                        scope.result = xlsxData;
+                    });
                 } else {
-                    notifier.error('Wrong file type! Please upload CSV file!');
+                    notifier.error('Wrong file type! Please upload CSV or XSLX file!');
                 }
 
             });

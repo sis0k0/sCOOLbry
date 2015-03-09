@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserInfoCtrl', function($scope, $location, $http, UserResource, $routeParams, $timeout, notifier, LibraryResource, FavoriteBookResource, BookingResourceSortable) {
+app.controller('UserInfoCtrl', function($scope, $location, $http, UserResource, $routeParams, $timeout, notifier, LibraryResource, FavoriteBookResource) {
 
     $scope.user = UserResource.get({id: $routeParams.id}, function(data){
         if(!data) {

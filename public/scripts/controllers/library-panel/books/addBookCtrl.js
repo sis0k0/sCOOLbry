@@ -103,32 +103,26 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
     };
 
 
-    $scope.showCSVForms = function(includeTopRow) {
-        $scope.books = [];
-        var b=-1;
+    // Link the imported csv/xlsx tables
+    $scope.showCSVForms = function(includeTopRow, sheet) {
+        $scope.books = []; // Define the books array
 
-        var i;
-        if(includeTopRow==='true') {
-            i=0;
-        } else {
-            i=1;
-        }
+        var len = (sheet && $scope.csv.result.sheets[sheet].data.length) || $scope.csv.result.length; // Inizialize the books length - sheet data length or result length (excel or csv)
+        for(var i = (includeTopRow) ? 0 : 1; i<len; i++) {
 
-        for(i; i<$scope.csv.result.length; i++) {
-
-            b++;
-            $scope.books[b] = new Object({});
-
-            for(var j=0; j<$scope.csv.result[i].length; j++) {
-                if(typeof($scope.matches[j]) !== 'undefined') {
-                    $scope.books[b][$scope.matches[j]] = $scope.csv.result[i][j];
+            var book = {}; // Define new book object
+            for(var j=0; j<fieldsOptions.length; j++) {
+                if(typeof($scope.matches[j]) !== 'undefined') { // If the field is specified
+                    book[$scope.matches[j]] = sheet ? $scope.csv.result.sheets[sheet].data[i][j] : $scope.csv.result[i][j]; // Assign new property to the book
                 }
             }
+            $scope.books.push(book); // Push the book object to the books array in the scope
         }
-        $scope.displayForm = true;
 
+        $scope.displayForm = true;
         $anchorScroll();
     };
+
 
     // Remove book form
 

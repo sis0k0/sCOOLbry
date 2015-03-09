@@ -44,6 +44,7 @@
     "spyOn"                : false,
     "spyOnEvent"           : false,
     "waitsFor"             : false,
-    "xdescribe"            : false
+    "xdescribe"            : false,
+    "XLSXReader"           : false
   }
 }

@@ -20,43 +20,15 @@ include ../panel
               input.form-control(name='isbn', id='searchByIsbn', type='text', placeholder='ISBN', style='border-radius: 0', ng-model='ISBNSearch', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/', on-focus, ng-keypress="($event.which === 13 && !!ISBNSearch) ? findBook() : 0")
             button.btn.btn-success.pull-right.col-xs-4(id='searchByIsbnButton', style='border-radius: 0', loading-button, data-loading-text='Searching...',  ng-disabled='!ISBNSearch', ng-click='findBook()') Search
           
-          .import.ng-isolate-scope(csv-import content='csv.content', header='csv.header', separator='csv.separator', result='csv.result')
+          database-import
 
+        include ../../partials/import-result
 
         .row
           h3.text-center.text-danger(ng-if='searchState===false && !existInLibrary') Book not found! Please try something else!
           h3.text-center.text-success(ng-if='searchState===true') Book found! Please check the fields, because there may be differences.
           h3.text-center.text-info(ng-if='existInLibrary') The book exist in your Library! 
             a(ng-href='/library-panel/bookInfo/{{libBook._id}}') Click
-
-
-
-        .row(ng-if='csv.result && !displayForm')
-
-          div
-            .row.text-center.text-info
-              h3.col-xs-4 Column
-              h3.col-xs-3.text-center holds
-              h3.col-xs-4 Value
-
-
-          div(ng-repeat='(key, value) in csv.result[0]')
-            .row.text-center
-              h3.col-xs-4 {{ key }} {{ ::value }}
-              h3.col-xs-3.text-center -->
-              .col-xs-4
-                select.form-control(style='margin-top:15px', name='field', ng-init="value = value + ' '"  ng-attr-tooltip='{{ key }}', ng-options="field for field in fields[ {{ key }} ] track by field", ng-model='value', ng-change="updateSelections(key, value)")
-
-
-          .col-xs-11(style='margin-top:0.5em')
-
-            h3.text-info.text-center Include the top row as a book: 
-              input.form-control(type='checkbox', ng-model='checkbox.includeTopRow', ng-true-value="'true'", ng-false-value="'false'")
-
-            .pull-right
-              button.btn.btn-primary(ng-click='showCSVForms(checkbox.includeTopRow)') Next
-              a.btn.btn-danger(href='/admin/books', style='margin-left:0.2em') Cancel
-
 
         div(ng-if='book')
             h1.text-succes.text-center The book exist in sCOOLbry database!

@@ -1,0 +1,31 @@
+.row(ng-if='csv.result && !displayForm')
+
+  div
+    h3(ng-if='csv.result.sheets').text-warning Please select a sheet
+    form(name='sheetSelector')
+      select.form-control(name='sheet', ng-if='csv.result.sheets', ng-model='selectedSheet', ng-options='value as value for (value, data) in csv.result.sheets')
+
+  div(ng-if='csv.result[0] || csv.result.sheets[sheetSelector.sheet.$viewValue].data[0]')
+    .row.text-center.text-info
+      h3.col-xs-1 Column
+      h3.col-xs-3 Title
+      h3.col-xs-3.text-center holds
+      h3.col-xs-4 Value
+
+  div(ng-repeat='(key, value) in (csv.result.sheets[sheetSelector.sheet.$viewValue].data[0] || csv.result[0])')
+    .row.text-center
+      h3.col-xs-1 {{ key }}
+      h3.col-xs-3 {{ ::value }}
+      h3.col-xs-3.text-center -->
+      .col-xs-4
+        select.form-control(style='margin-top:15px', name='field', ng-init="value = value + ' '"  ng-attr-tooltip='{{ ::value }}', ng-options="field as (field | titleCase) for field in fields[ {{ key }} ] track by field", ng-model='value', ng-change="updateSelections(key, value)")
+
+
+  .col-xs-11(style='margin-top:0.5em', ng-if='csv.result[0] || csv.result.sheets[sheetSelector.sheet.$viewValue].data[0]')
+
+    h3.text-info.text-center Include the top row as a book: 
+      input.form-control(type='checkbox', ng-model='checkbox.includeTopRow', ng-true-value="'true'", ng-false-value="'false'")
+
+    .pull-right
+      button.btn.btn-primary(ng-click='showCSVForms(checkbox.includeTopRow, sheetSelector.sheet.$viewValue)') Next
+      a.btn.btn-danger(href='/admin/books', style='margin-left:0.2em') Cancel

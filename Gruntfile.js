@@ -26,82 +26,99 @@ module.exports = function(grunt) {
         }
       },
 
-        // build every .styl file to a single site.css file
-        stylus: {
-          options: {
-              compress: true
-          },
-          compile: {
-              files: {
-                  'public/styles/site.css': ['public/styles/*.styl']
-              }
-          }
+      // build every .styl file to a single site.css file
+      stylus: {
+        options: {
+            compress: true
         },
-
-        // minify site css and themes css
-        // and move them to the distribution folder
-        cssmin: {
-          add_banner: {
-            options: {
-              banner: '/* Minified site css file */'
-            },
+        compile: {
             files: {
-              'public/dist/styles/site.min.css': ['public/styles/*.css'],
+                'public/styles/site.css': ['public/styles/*.styl']
             }
+        }
+      },
+
+      // minify site css and themes css
+      // and move them to the distribution folder
+      cssmin: {
+        add_banner: {
+          options: {
+            banner: '/* Minified site css file */'
           },
-          minify: {
+          files: {
+            'public/dist/styles/site.min.css': ['public/styles/*.css'],
+          }
+        },
+        minify: {
+          expand: true,
+          cwd: 'public/styles/themes',
+          src: ['*.css', '!*.min.css'],
+          dest: 'public/dist/styles/themes',
+          ext: '.min.css'
+        }
+      },
+
+      // compile directive templates
+      jade: {
+        compile: {
+          options: {
+            data: {}
+          },
+          files: [{
             expand: true,
-            cwd: 'public/styles/themes',
-            src: ['*.css', '!*.min.css'],
-            dest: 'public/dist/styles/themes',
-            ext: '.min.css'
-          }
-        },
+            src: ['public/views/directive-templates/**/*.jade'],
+            ext: '.html'
+          }]
+        }
+      },
 
-
-        // watch css and js files and process the above tasks
-        watch: {
-          options: {
-            livereload: true,
-          },
-          jade: {
-            files: ['public/**/*.jade', 'server/**/*.jade']
-          },
-          stylus: {
-            files: ['public/styles/*.styl'],
-            tasks: ['newer:stylus']
-          },
-          css: {
-            files: ['public/styles/**/**.css'],
-            tasks: ['newer:cssmin']
-          },
-          js: {
-            files: ['server/**/*.js', 'public/scripts/app.js', 'public/scripts/**/*.js', ],
-            tasks: ['jshint', 'uglify']
-          }
+      // watch css and js files and process the above tasks
+      watch: {
+        options: {
+          livereload: true,
         },
-
-        // watch our node server for changes
-        nodemon: {
-          dev: {
-            script: 'server.js'
-          }
+        jade: {
+          files: ['public/views/**/*.jade', 'server/views/**/*.jade'] // Watch the jade files and just reload page (without compilations)
         },
-
-        // run watch and nodemon at the same time
-        concurrent: {
-          options: {
-            logConcurrentOutput: true
-          },
-          tasks: ['nodemon', 'watch']
+        jadeCompile: {
+          files: 'public/views/directive-templates/**/*.jade',
+          tasks: ['newer:jade']
         },
-
-        // open the app in the browser
-        open: {
-          server: {
-            url: 'http://localhost:3030'
-          }
+        stylus: {
+          files: ['public/styles/*.styl'],
+          tasks: ['newer:stylus']
         },
+        css: {
+          files: ['public/styles/**/**.css'],
+          tasks: ['newer:cssmin']
+        },
+        js: {
+          files: ['server/**/*.js', 'public/scripts/app.js', 'public/scripts/**/*.js', ],
+          tasks: ['jshint', 'uglify']
+        }
+      },
+
+      // watch our node server for changes
+      nodemon: {
+        dev: {
+          script: 'server.js'
+        }
+      },
+
+      // run watch and nodemon at the same time
+      concurrent: {
+        options: {
+          logConcurrentOutput: true
+        },
+        tasks: ['nodemon', 'watch']
+      },
+
+      // open the app in the browser
+      open: {
+        server: {
+          url: 'http://localhost:3030'
+        }
+      },
 
 
     });
@@ -113,6 +130,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-jade');
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-newer');
@@ -122,7 +140,7 @@ module.exports = function(grunt) {
     // Default: check with jshint, build everything, run server and watch for changes
     grunt.registerTask(
         'default',
-        [ 'jshint', 'newer:stylus', 'newer:cssmin', 'uglify', 'open', 'concurrent' ]
+        [ 'jshint', 'newer:stylus', 'newer:cssmin', 'newer:jade', 'uglify', 'open', 'concurrent' ]
     );
 
     // JShint: check all javascript files
@@ -134,7 +152,7 @@ module.exports = function(grunt) {
     // Build: check javascript with jshint, and then make a new build of everything
     grunt.registerTask(
         'build',
-        [ 'jshint', 'stylus', 'cssmin', 'uglify' ]
+        [ 'jshint', 'stylus', 'newer:jade', 'cssmin', 'uglify' ]
     );
 
 };
