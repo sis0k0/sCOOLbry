@@ -7,7 +7,6 @@ app.directive('databaseImport', function(notifier, XLSXReaderService) {
         replace: true,
         scope:{
             content:'=',
-            separator: '=',
             result: '='
         },
         templateUrl: '../../views/directive-templates/databaseImport.html',
@@ -24,29 +23,27 @@ app.directive('databaseImport', function(notifier, XLSXReaderService) {
 
             element.on('change', function(onChangeEvent) {
 
-                var file = (onChangeEvent.srcElement || onChangeEvent.target).files[0],
-                    extension = file.name.substring(file.name.lastIndexOf('.'));
+                var file = (onChangeEvent.srcElement || onChangeEvent.target).files[0], // Get target file
+                    extension = file.name.substring(file.name.lastIndexOf('.')); // Target file extension (mimetypes are not well specified for excel files)
 
-                if(extension==='.csv') {
+                if(extension==='.csv') { // If the file is CSV type
                     var reader = new FileReader();
-                    reader.onload = function(onLoadEvent) {
+                    reader.onload = function(onLoadEvent) { // When the FileReader loads
                         scope.$apply(function() {
                             var content = {
-                                csv: onLoadEvent.target.result
+                                csv: onLoadEvent.target.result // Get the file content
                             };
                             scope.content = content.csv;
-                            scope.result = csvToArray(content);
+                            scope.result = csvToArray(content); // And read it line by line
                         });
                     };
                     if ( (onChangeEvent.target.type === 'file') && (onChangeEvent.target.files !== null || onChangeEvent.srcElement.files !== null) )  {
-                        reader.readAsText(file);
-                    } else {
-                        if ( scope.content !== null ) {
-                            var content = {
-                                csv: scope.content
-                            };
-                            scope.result = csvToArray(content);
-                        }
+                        reader.readAsText(file); // Read file as text (line by line)
+                    } else if(scope.content !== null) {
+                        var content = {
+                            csv: scope.content
+                        };
+                        scope.result = csvToArray(content);
                     }
                 } else if(extension==='.xlsx') {
                     console.log(onChangeEvent.target);
@@ -63,26 +60,19 @@ app.directive('databaseImport', function(notifier, XLSXReaderService) {
             var csvToArray = function(content) {
                 var lines = content.csv.split('\n'),
                     result = [],
-                    start = 0,
-                    separator = '';
+                    separator = (lines[0].indexOf(',')!==-1 && lines[0].indexOf(',')>lines[0].indexOf(';')) ? ',' : ';', // Get the separator
+                    columnCount = lines[0].split(separator).length;
 
-
-                if(lines[0].indexOf(',')!==-1 && lines[0].indexOf(',')>lines[0].indexOf(';')) {
-                    separator = ',';
-                } else {
-                    separator = ';';
-                }
-
-                var columnCount = lines[0].split(separator).length;
-
-                for (var i=start; i<lines.length; i++) {
-                    var arr = [];
-                    var currentline=lines[i].split(separator);
-                    if ( currentline.length === columnCount ) {
-                        for (var k=0; k<currentline.length; k++) {
-                            arr.push(currentline[k]);
+                for (var i=0; i<lines.length; i++) { // Iterate through the lines
+                    var currentlineWords=lines[i].split(separator); // Get current line words
+                    if (currentlineWords.length <= columnCount) { // If words count is equal or lower than the columns count
+                        result.push(currentlineWords); // Add them to the result
+                    } else { // If words count is greater than the columns count
+                        var shrinkedWords = [];
+                        for (var j=0; j<columnCount; j++) { // Add only the first "columnCount" words
+                            shrinkedWords.push(currentlineWords[j]);
                         }
-                        result.push(arr);
+                        result.push(shrinkedWords);
                     }
                 }
                 return result;

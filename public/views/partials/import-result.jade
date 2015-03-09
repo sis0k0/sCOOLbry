@@ -1,18 +1,18 @@
-.row(ng-if='csv.result && !displayForm')
+.row(ng-if='result && !displayForm')
 
   div
-    h3(ng-if='csv.result.sheets').text-warning Please select a sheet
+    h3(ng-if='result.sheets').text-warning Please select a sheet
     form(name='sheetSelector')
-      select.form-control(name='sheet', ng-if='csv.result.sheets', ng-model='selectedSheet', ng-options='value as value for (value, data) in csv.result.sheets')
+      select.form-control(name='sheet', ng-if='result.sheets', ng-model='selectedSheet', ng-options='value as value for (value, data) in result.sheets')
 
-  div(ng-if='csv.result[0] || csv.result.sheets[sheetSelector.sheet.$viewValue].data[0]')
+  div(ng-if='result[0] || result.sheets[sheetSelector.sheet.$viewValue].data[0]')
     .row.text-center.text-info
       h3.col-xs-1 Column
       h3.col-xs-3 Title
       h3.col-xs-3.text-center holds
       h3.col-xs-4 Value
 
-  div(ng-repeat='(key, value) in (csv.result.sheets[sheetSelector.sheet.$viewValue].data[0] || csv.result[0])')
+  div(ng-repeat='(key, value) in (result.sheets[sheetSelector.sheet.$viewValue].data[0] || result[0])')
     .row.text-center
       h3.col-xs-1 {{ key }}
       h3.col-xs-3 {{ ::value }}
@@ -21,7 +21,7 @@
         select.form-control(style='margin-top:15px', name='field', ng-init="value = value + ' '"  ng-attr-tooltip='{{ ::value }}', ng-options="field as (field | titleCase) for field in fields[ {{ key }} ] track by field", ng-model='value', ng-change="updateSelections(key, value)")
 
 
-  .col-xs-11(style='margin-top:0.5em', ng-if='csv.result[0] || csv.result.sheets[sheetSelector.sheet.$viewValue].data[0]')
+  .col-xs-11(style='margin-top:0.5em', ng-if='result[0] || result.sheets[sheetSelector.sheet.$viewValue].data[0]')
 
     h3.text-info.text-center Include the top row as a book: 
       input.form-control(type='checkbox', ng-model='checkbox.includeTopRow', ng-true-value="'true'", ng-false-value="'false'")

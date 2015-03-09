@@ -83,7 +83,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, $f
 
     $scope.updateSelections = function(key, value) {
         $scope.matches[key] = value;
-        for(var i = 0; i < Object.keys($scope.csv.result[0]).length; i++) {
+        for(var i = 0; i < Object.keys($scope.result[0]).length; i++) {
             $scope.fields[i] = [];
             for(var j = 0; j < fieldsOptionsCopy.length; j++){
                 if($scope.matches.indexOf(fieldsOptionsCopy[j])<0) {
@@ -102,13 +102,13 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, $f
     $scope.showCSVForms = function(includeTopRow, sheet) {
         $scope.books = []; // Define the books array
 
-        var len = (sheet && $scope.csv.result.sheets[sheet].data.length) || $scope.csv.result.length; // Inizialize the books length - sheet data length or result length (excel or csv)
+        var len = (sheet && $scope.result.sheets[sheet].data.length) || $scope.result.length; // Inizialize the books length - sheet data length or result length (excel or csv)
         for(var i = (includeTopRow) ? 0 : 1; i<len; i++) {
 
             var book = {}; // Define new book object
             for(var j=0; j<fieldsOptions.length; j++) {
                 if(typeof($scope.matches[j]) !== 'undefined') { // If the field is specified
-                    book[$scope.matches[j]] = sheet ? $scope.csv.result.sheets[sheet].data[i][j] : $scope.csv.result[i][j]; // Assign new property to the book
+                    book[$scope.matches[j]] = sheet ? $scope.result.sheets[sheet].data[i][j] : $scope.result[i][j]; // Assign new property to the book
                 }
             }
             $scope.books.push(book); // Push the book object to the books array in the scope
