@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('CatalogCtrl', function($scope, BookResourceSortable, $routeParams, $http) {
+app.controller('CatalogCtrl', function($scope, BookResourceSortable, BookResourceFilterable, $routeParams, $http) {
     
 
     // Get genres
@@ -17,6 +17,8 @@ app.controller('CatalogCtrl', function($scope, BookResourceSortable, $routeParam
     $scope.perPage = 10;
     $scope.field = 'uploaded';
     $scope.order = 'desc';
+    $scope.criteria = 'all';
+    $scope.phrase = ' ';
     
     $scope.range = function(n) {
         return new Array(n);
@@ -24,12 +26,21 @@ app.controller('CatalogCtrl', function($scope, BookResourceSortable, $routeParam
     
 
     $scope.pages = function(){  
-        $http.get('/api/book/count').success(function(data){
-            $scope.booksCount = parseInt(data);
-            $scope.pagesCount = Math.ceil($scope.booksCount/$scope.perPage);
-            console.log(data);
-            console.log($scope.pagesCount);
-        });
+        if($scope.phrase===' '){
+            $http.get('/api/book/count').success(function(data){
+                $scope.booksCount = parseInt(data);
+                $scope.pagesCount = Math.ceil($scope.booksCount/$scope.perPage);
+                console.log(data);
+                console.log($scope.pagesCount);
+            });
+        }else{
+            $http.get('/api/book/countFilter/'+$scope.field+'/'+$scope.order+'/'+$scope.page+'/'+$scope.perPage+'/'+$scope.criteria+'/'+$scope.phrase).success(function(data){
+                $scope.booksCount = parseInt(data);
+                $scope.pagesCount = Math.ceil($scope.booksCount/$scope.perPage);
+                console.log(data);
+                console.log($scope.pagesCount);
+            });
+        }
     };
 
     $scope.setPage = function(page, event){
@@ -50,20 +61,28 @@ app.controller('CatalogCtrl', function($scope, BookResourceSortable, $routeParam
     };
     
     $scope.reloadBooks = function(){
-        $scope.books = BookResourceSortable.query({
+        if($scope.phrase==='') $scope.phrase = ' ';
+        $scope.books = BookResourceFilterable.query({
             field: $scope.field,
             order: $scope.order,
             page: $scope.page,
-            perPage: $scope.perPage
+            perPage: $scope.perPage,
+            criteria: $scope.criteria,
+            phrase: $scope.phrase
+        }, function() {
+            console.log($scope.books);
         });
     };
     
     
-    $scope.books = BookResourceSortable.query({
+    $scope.books = BookResourceFilterable.query({
         field: $scope.field,
         order: $scope.order,
         page: $scope.page,
-        perPage: $scope.perPage
+        perPage: $scope.perPage,
+        criteria: $scope.criteria,
+        phrase: $scope.phrase
+
     }, function() {
         console.log($scope.books);
     });
