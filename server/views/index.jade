@@ -1,7 +1,7 @@
 extends includes/layout
 block main-content
 
-  .container-fluid.ng-cloak
+  .container-fluid(ng-cloak)
     header(role='navigation').nav.navbar-default.navbar-fixed-top
       .navbar-header
 
@@ -13,7 +13,7 @@ block main-content
         div(ng-controller='NotificationsCtrl')
           button#navbar-collapsed-notifications.notifications-icon.btn.btn-default.dropdown.navbar-toggle(aria-hidden='true', data-toggle='dropdown')
             span.glyphicon.glyphicon-bell
-            span.badge(ng-show='notifications.length>0') {{notifications.length}}
+            span.badge(ng-show='notifications.length>0', ng-bind='notifications.length')
           ul#mobile-notifications.dropdown-menu.notifications
             h4.text-center.bg-primary Notifications
             li(ng-show='notifications.length===0')
@@ -53,7 +53,7 @@ block main-content
           li(ng-controller='NotificationsCtrl', ng-if='!!identity.isAuthenticated()')
             span#navbar-default-notifications.notifications-icon.dropdown(aria-hidden='true', data-toggle='dropdown', ng-class=" {'btn-success': notifications.length>0, 'notifications-icon-none': notifications.length===0, 'btn': true} ")
               span(ng-class="{'glyphicon': true, 'glyphicon-bell': true}")
-              span(ng-show='notifications.length>0', ng-bind='notification.length', ng-class="{'badge': true}")
+              span(ng-show='notifications.length>0', ng-bind='notifications.length', ng-class="{'badge': true}")
             ul.dropdown-menu.notifications
               h4.text-center.bg-primary Notifications
               li(ng-show='notifications.length===0')
