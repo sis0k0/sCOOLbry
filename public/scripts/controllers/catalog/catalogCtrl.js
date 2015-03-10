@@ -61,7 +61,10 @@ app.controller('CatalogCtrl', function($scope, BookResourceSortable, BookResourc
     };
     
     $scope.reloadBooks = function(){
-        if($scope.phrase==='') $scope.phrase = ' ';
+        if($scope.phrase==='') {
+            $scope.phrase = ' ';
+        }
+        
         $scope.books = BookResourceFilterable.query({
             field: $scope.field,
             order: $scope.order,
