@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('databaseImport', function(notifier, XLSXReaderService) {
+app.directive('databaseImport', function(notifier, XLSXReaderService, XLSReaderService) {
     return {
         restrict: 'E',
         transclude: true,
@@ -50,6 +50,12 @@ app.directive('databaseImport', function(notifier, XLSXReaderService) {
                     XLSXReaderService.readFile(file, true).then(function(xlsxData) {
                         console.log(xlsxData);
                         scope.result = xlsxData;
+                    });
+                } else if(extension==='.xls') {
+                    console.log(onChangeEvent.target);
+                    XLSReaderService.readFile(file, true).then(function(xlsData) {
+                        console.log(xlsData);
+                        scope.result = xlsData;
                     });
                 } else {
                     notifier.error('Wrong file type! Please upload CSV or XSLX file!');

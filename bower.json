@@ -33,7 +33,8 @@
     "angular-google-maps": "~2.0.12",
     "angular-typeahead": "~0.2.1",
     "angular-socket-io": "~0.7.0",
-    "js-xlsx": "~0.7.11"
+    "js-xlsx": "~0.7.11",
+    "js-xls": "~0.7.5"
   },
   "directory": "public/lib"
 }
