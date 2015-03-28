@@ -20,7 +20,7 @@ include ../panel
         .col-md-5.col-xs-5
           .row
             h4.text-bold
-            {{ user.firstName }} {{ user.lastName }} ({{ user.username }}) 
+              {{ user.firstName }} {{ user.lastName }} ({{ user.username }}) 
             i.fa.fa-male.blue(ng-show='user.gender=="Male"', title='Male', style='font-size: 1.2em')
             i.fa.fa-female.pink(ng-show='user.gender=="Female"', title='Female', style='font-size: 1.2em')
             i.fa.fa-user(ng-show='user.gender=="Not specified"', title='Not Specified', style='font-size: 1.2em')

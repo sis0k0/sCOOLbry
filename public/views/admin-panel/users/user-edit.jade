@@ -30,7 +30,17 @@ include ../panel
                     input.form-control(name='dateOfBirth', type='text', datepicker-popup='d MMMM yyyy', is-open='opened', ng-focus='opened=true', min-date='"1900-01-01"', max-date='today', placeholder='Date of birth', ng-model='user.dateOfBirth')
                     span.input-group-addon
                       i.glyphicon.glyphicon-th
-        
+              .form-group(ng-class="{ 'has-success': (profileForm.facebookUrl.$valid && (!!user.facebookUrl)) }")
+                  label.control-label(for='facebook-url') Facebook URL
+                  .row
+                      .col-xs-12
+                          input.form-control(name='facebookUrl', type='text', placeholder='Facebook URL', ng-model='user.facebookUrl')
+              .form-group(ng-class="{ 'has-success': (profileForm.googlePlusUrl.$valid && (!!user.googlePlusUrl)) }")
+                  label.control-label(for='google-plus-url') Google Plus URL
+                  .row
+                      .col-xs-12
+                          input.form-control(name='googlePlusUrl', type='text', placeholder='Google+ URL', ng-model='user.googlePlusUrl')
+
             .col-md-5.col-md-offset-1
               .form-group(ng-class="{ 'has-success': (profileForm.gender.$valid && (!!user.gender)) }")
                 label.control-label(for='gender') Gender
@@ -52,6 +62,11 @@ include ../panel
                     .col-xs-12
                         input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", fields-match="user.password")
                         span.help-block(ng-show="profileForm.confirmPassword.$error.fieldsMatch && profileForm.confirmPassword.$dirty") These passwords don't match. Try again?
+              .form-group(ng-class="{ 'has-success': (profileForm.twitterURL.$valid && (!!user.twitterURL)) }")
+                  label.control-label(for='twitter-url') Twitter URL
+                  .row
+                      .col-xs-12
+                          input.form-control(name='twitterURL', type='text', placeholder='Twitter URL', ng-model='user.twitterUrl')
                                 
         .row
           .col-md-10.col-md-offset-1

@@ -20,6 +20,7 @@ module.exports = function(req, res) {
     }else{
         delete updatedUserData.roles;
     }
+    console.log(updatedUserData);
     
     User.update({_id: updatedId}, updatedUserData, {runValidators: true}, function(err) {
         if (err) {

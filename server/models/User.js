@@ -72,6 +72,9 @@ var userSchema = mongoose.Schema({
         default: 'darkly'
     },
     ownLibraryID: String,
+    facebookUrl: String,
+    twitterUrl: String,
+    googlePlusUrl: String,
     librarySubscriptions: [String],
     facebook         : {
         id           : String,
