@@ -87,6 +87,8 @@ module.exports = function(app) {
     router.get('/library/booking-count/:libraryID/:bookID', controllers.libraries.getBookingCountBook);
     router.get('/library/booking-count/:libraryID', controllers.libraries.getBookingCountLibrary);
 
+    router.get('/library/bookings-user/:userID', controllers.libraries.getBookingsByUser);
+
     router.get('/library/available/:bookID/:libraryID', controllers.libraries.isBookAvailable);
     app.use('/api/', router);
 };

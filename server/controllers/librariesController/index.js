@@ -18,6 +18,7 @@ module.exports = {
     getAllReadings: require('./getAllReadings'),
     getAllReadingsSortable: require('./getAllReadingsSortable'),
     getBookingsBookInLibrary: require('./getBookingsBookInLibrary'),
+    getBookingsByUser: require('./getBookingsByUser'),
     getBookingCountBook: require('./getBookingCountBook'),
     getBookingCountLibrary: require('./getBookingCountLibrary'),
     getLibBook: require('./getLibBook'),

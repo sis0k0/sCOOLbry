@@ -11,6 +11,9 @@ include ../panel
     li
       a(href="#personal-libraries", data-toggle="tab", target="_self")
         | Libraries
+    li
+      a(href="#personal-readings", data-toggle="tab", target="_self")
+        | Readings
 
   #myTabContent.tab-content
     .tab-pane.fade.active.in#personal-information
@@ -52,19 +55,19 @@ include ../panel
 
       .row
         hr
-        .col-md-6(ng-if='bookings.length>0', ng-class="{ 'col-xs-offset-3': readings.length<1 }")
+        .col-md-6(ng-show='user.bookings.length>0', ng-class="{ 'col-xs-offset-3': readings.length<1 }")
           h2.text-center Bookings
           p
             accordion(close-others='true')
-              accordion-group(ng-repeat='booking in bookings', is-open='booking.open')
+              accordion-group(ng-repeat='booking in user.bookings', is-open='booking.open')
                 accordion-heading
                   span {{booking.title}}
-                  timer.pull-right.text-success(end-time='booking.end')
+                  timer.pull-right.text-success(end-time='booking.bookDate')
                     | {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds left
-                img.img-responsive.img-thumbnail.col-xs-3(ng-src='{{ booking.cover }}', err-src='assets/images/missing-cover1.png', style='margin-right:2em')
+                img.img-responsive.img-thumbnail.col-xs-3(ng-src='{{ booking.book.cover }}', err-src='assets/images/missing-cover1.png', style='margin-right:2em')
                 span.text-info Author: 
-                span {{ booking.author }}
-                span.pull-right {{ booking.publisher }}
+                span {{ booking.book.author }}
+                span.pull-right {{ booking.book.publisher }}
                 span.text-info.pull-right Publisher:&nbsp;
                 span.col-xs-8(style='padding:0')
                   span.text-info Library: 
@@ -73,11 +76,11 @@ include ../panel
                 a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ booking._id }}/{{ booking.libraryID }}')
                   | See more
 
-        .col-md-6(ng-if='readings.length>0', ng-class="{ 'col-xs-offset-3': bookings.length<1 }")
+        .col-md-6(ng-show='user.readings.length>0', ng-class="{ 'col-xs-offset-3': bookings.length<1 }")
           h2.text-center Readings
           p
             accordion(close-others='true')
-              accordion-group(ng-repeat='reading in readings', is-open='reading.open')
+              accordion-group(ng-repeat='reading in user.readings', is-open='reading.open')
                 accordion-heading
                   span {{reading.title}}
                   span.pull-right.text-success Till&nbsp; {{reading.end | date:'dd/MM/yyyy'}}
@@ -109,3 +112,10 @@ include ../panel
         li(ng-repeat='library in user.libraries')
           a(href='/admin/library/{{ library._id }}') {{ library.name }}
       p(ng-hide='favoriteBooks.length!==0') No library subscriptions found.
+    .tab-pane.fade#personal-readings
+      h3
+        | Readings
+      ul(ng-hide='user.readings.length==0')
+        li(ng-repeat='reading in user.readings')
+          p {{ reading.bookName }} in {{ reading.libraryName }}
+      p(ng-hide='user.readings.length!==0') No read books found.
