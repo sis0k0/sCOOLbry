@@ -58,7 +58,7 @@ app.directive('databaseImport', function(notifier, XLSXReaderService, XLSReaderS
                         scope.result = xlsData;
                     });
                 } else {
-                    notifier.error('Wrong file type! Please upload CSV or XSLX file!');
+                    notifier.error('Wrong file type! Please upload CSV, XLS or XSLX file!');
                 }
 
             });

@@ -17,7 +17,7 @@ module.exports = function(req, res) {
     LibBook.create(data, function(err, book){
         if(err){
             console.log('Failed to assign new book to library: ' +  err);
-            return;
+            res.status(400).send({reason: err});
         }
         console.log(book);
         res.send(book);

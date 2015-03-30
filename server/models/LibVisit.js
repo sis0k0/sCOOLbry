@@ -5,19 +5,19 @@ var mongoose = require('mongoose');
 var libVisitSchema = mongoose.Schema({
     libraryID: {
         type: String,
-        require: '{PATH} is required'
+        required: '{PATH} is required'
     },
     libraryName: {
         type: String,
-        require: '{PATH} is required'
+        required: '{PATH} is required'
     },
     userID: {
         type: String,
-        require: '{PATH} is required'
+        required: '{PATH} is required'
     },
     userName: {
         type: String,
-        require: '{PATH} is required'
+        required: '{PATH} is required'
     },
     date: {
         type: Date,

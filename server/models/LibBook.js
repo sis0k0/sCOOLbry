@@ -4,17 +4,40 @@ var mongoose = require('mongoose');
 
 var libBookSchema = mongoose.Schema({
     bookID: String,
-    bookISBN: String, 
+    bookISBN: {
+        type: String,
+        match: [
+            /((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/,
+            'ISBN format is not valid'
+        ]
+    }, 
+    bookName: {
+        type: String,
+        required: '{PATH} is required',
+        match: [
+            /^.{1,100}$/,
+            'Title should be between 1 and 100 characters'
+        ]
+    },
     libraryID: String,
-    bookName: String,
-    total: Number,
-    available: Number,
+    total: {
+        type: Number,
+        required: '{PATH} is required',
+        min: 0
+    },
+    available: {
+        type: Number,
+        required: '{PATH} is required',
+        min: 0
+    },
     given: {
         type: Number,
+        min: 0,
         default: 0
     },
     section: {
         type: Number, // which is the section
+        min: 0,
         default: 0
     },
     added: {

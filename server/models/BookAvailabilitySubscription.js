@@ -5,20 +5,20 @@ var mongoose = require('mongoose');
 var bookAvailabilitySubscriptionSchema = mongoose.Schema({
     users: {
         type: [String],
-        require: '{PATH} is required'
+        required: '{PATH} is required'
     },
     bookID: {
         type: String,
-        require: '{PATH} is required'
+        required: '{PATH} is required'
     },
     libraryID: {
         type: String,
-        require: '{PATH} is required'
+        required: '{PATH} is required'
     },
     broadcasted: {
         type: Boolean,
         default: false,
-        require: '{PATH} is required'
+        required: '{PATH} is required'
     }
 });
 

@@ -77,7 +77,7 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, $f
     fieldsOptions.push('published');
     fieldsOptionsCopy = fieldsOptions;
 
-    for(var i = 0; i < 10; i++){
+    for(var i = 0; i < 20; i++){
         $scope.fields.push(fieldsOptions);
     }
 
@@ -98,8 +98,8 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, $f
 
     };
 
-    // Link the imported csv/xlsx tables
-    $scope.showCSVForms = function(includeTopRow, sheet) {
+    // Link the imported csv/xlsx/xls tables
+    $scope.showCSVForms = function(includeTopRow, sheet, notDisplayingForm) {
         $scope.books = []; // Define the books array
 
         var len = (sheet && $scope.result.sheets[sheet].data.length) || $scope.result.length; // Inizialize the books length - sheet data length or result length (excel or csv)
@@ -114,12 +114,53 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, $f
             $scope.books.push(book); // Push the book object to the books array in the scope
         }
 
-        $scope.displayForm = true;
-        $anchorScroll();
+        if(!notDisplayingForm) {
+            $scope.displayForm = true;
+            $anchorScroll();
+        }
+    };
+
+    // Import all books from csv/xls/xlsx at once
+    $scope.importAll = function(includeTopRow, sheet) {
+        $scope.showCSVForms(includeTopRow, sheet, true); // Match table data with scoolbry database fields
+
+        var counter = 0,
+            booksCount = $scope.books.length;
+
+        // Add book, keep index to remove the book from the books array if added successfully
+        function addBookFunc(index) {
+            Book.add($scope.books[index]).then(function() {
+                $scope.books.splice(index,1);
+                bookResponse();
+            }, function() {
+                bookResponse();
+            });
+        }
+
+        // Increment counter manually, because the requests are async
+        function bookResponse() {
+            counter++;
+            if(counter===booksCount) { // If all books are iterated
+                if($scope.books.length>0) { // If there are still books in the books array
+                    // Display error message and show to forms to the user
+                    notifier.error('Some books couldn\'t be added! Please check all the required fields!');
+                    $scope.displayForm = true;
+                    $anchorScroll();
+                } else { // If there are no books in the array
+                    // Show success message and redirect to library books
+                    notifier.success('Books added successfully!');
+                    $location.path('/library-panel/books-library');
+                }
+            }
+        }
+
+        // Iterate through the books
+        for(var book in $scope.books) {
+            addBookFunc(book);
+        }
     };
 
     // Remove book form
-
     $scope.removeBookForm = function(index) {
         $scope.books.splice(index,1);
         notifier.success('Book Form removed successfully!');
@@ -131,7 +172,6 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, $f
     };
 
     // Add book
-
     $scope.addBook = function(book, index) {
         Book.add(book).then(function() {
             notifier.success('Book added successfully!');

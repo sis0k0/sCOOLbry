@@ -1,7 +1,6 @@
 'use strict';
 
 var Booking = require('mongoose').model('Booking');
-var Book = require('mongoose').model('Book');
 
 module.exports = function(req, res) {
     var now = new Date();

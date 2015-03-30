@@ -6,32 +6,46 @@ app.factory('Book', function($q, $http, BookResource, LibraryBook, FavoriteBookA
         add: function(book, libraryID) {
             var deferred = $q.defer();
 
-            if(book.hasOwnProperty('foundInDatabase')===true) {
-                book.libraryID = libraryID;
-                LibraryBook.add(book).then(function() {
-                    deferred.resolve();
-                }, function(err) {
-                    deferred.reject(err);
+            function addBook(data) {
+                if(book.hasOwnProperty('foundInDatabase')===true || data===true) {
+                    book.libraryID = libraryID;
+                    book.available = book.total;
+                    LibraryBook.add(book).then(function() {
+                        deferred.resolve();
+                    }, function(err) {
+                        deferred.reject(err);
+                    });
+                } else {
+                    var newBook = new BookResource(book);
+                    newBook.$save().then(function(data) {
+                        console.log(libraryID);
+                        if(typeof(libraryID) !== 'undefined') {
+                            book.libraryID = libraryID;
+                            book._id = data._id;
+                            book.available = book.total;
+                            LibraryBook.add(book).then(function() {
+                                deferred.resolve();
+                            }, function(err) {
+                                deferred.reject(err);
+                            });
+                        } else {
+                            deferred.resolve();
+                        }
+
+                    }, function(response) {
+                        deferred.reject(response);
+                    });
+                }
+            }
+            if(book.isbn) {
+                var responsePromise = $http.get('/api/isbnAvailable/' + book.isbn);
+                responsePromise.success(function(data) {
+                    addBook(data);
+                }, function(reason) {
+                    deferred.reject(reason);
                 });
             } else {
-                var newBook = new BookResource(book);
-                newBook.$save().then(function(data) {
-                    console.log(libraryID);
-                    if(typeof(libraryID) !== 'undefined') {
-                        book.libraryID = libraryID;
-                        book._id = data._id;
-                        LibraryBook.add(book).then(function() {
-                            deferred.resolve();
-                        }, function(err) {
-                            deferred.reject(err);
-                        });
-                    } else {
-                        deferred.resolve();
-                    }
-
-                }, function(response) {
-                    deferred.reject(response);
-                });
+                addBook(false);
             }
 
 

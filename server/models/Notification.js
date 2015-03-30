@@ -5,15 +5,15 @@ var mongoose = require('mongoose');
 var notificationSchema = mongoose.Schema({
     message: {
         type: String,
-        require: '{PATH} is required'
+        required: '{PATH} is required'
     },
     href: {
         type: String,
-        require: '{PATH} is required'
+        required: '{PATH} is required'
     },
     userID: {
         type: String,
-        require: '{PATH} is required'
+        required: '{PATH} is required'
     },
     date: {
         type: Date,
@@ -22,7 +22,7 @@ var notificationSchema = mongoose.Schema({
     seen: {
         type: Boolean,
         default: false,
-        require: '{PATH} is required'
+        required: '{PATH} is required'
     }
 });
 

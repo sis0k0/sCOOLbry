@@ -28,7 +28,7 @@
                 label.control-label(for="username") Username
                 .row
                   .col-xs-12
-                    input.form-control(name="username", check-availability, type="text", placeholder="Username", tooltip-placement='top',  tooltip-trigger="focus", tooltip="Lowercase letters, digits, dots, hyphens and underscores. 3-16 characters", ng-pattern='/^[a-z.0-9_-]{3,16}$/', ng-model="user.username", required)
+                    input.form-control(name="username", check-availability, type="text", placeholder="Username", tooltip-placement='top',  tooltip-trigger="focus", tooltip="Lowercase letters, digits, dots, hyphens and underscores. 3-16 characters", ng-pattern='/^[a-z.0-9_-]{3,16}$/', ng-model="user.username")
                     span.help-block(ng-show="signUpForm.username.$error.available") Username already taken
                     span.help-block(ng-show="signUpForm.username.$error.mongoose") {{signUpForm.username.$error.mongoose}}
               .form-group(ng-class="{ 'has-error': (signUpForm.email.$invalid && signUpForm.email.$dirty), 'has-success': (signUpForm.email.$valid) }")

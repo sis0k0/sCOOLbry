@@ -41,7 +41,7 @@ include ../panel
                   label.control-label(for='quantity') Quantity
                   .row
                     .col-xs-12
-                        input.form-control(name='quantity', type='number', min='1', placeholder='Quantity', ng-model='book.total', on-focus, required)   
+                        input.form-control(name='quantity', type='number', min='1', placeholder='Quantity', ng-model='book.total', on-focus)   
 
             .row(style='margin-top: 3em')
               .col-md-10.col-md-offset-1
@@ -105,26 +105,26 @@ include ../panel
                     label.control-label(for='isbn') ISBN
                     .row
                       .col-xs-12
-                        input.form-control(name='isbn', check-availability, type='text', placeholder='ISBN', on-focus, ng-model='book.isbn')  
+                        input.form-control(name='isbn', check-availability, type='text', placeholder='ISBN', ng-model='book.isbn', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/')  
                         a.has-error.help-block(ng-show='bookForm.isbn.$error.available', isbn='{{book.isbn}}', get-book-link, ng-href='/library-panel/bookInfo/{{foundBookId}}') The book is already in the database!
                 .form-group(ng-class="{ 'has-success': (bookForm.title.$valid), 'has-error': (bookForm.title.$invalid) }")
                     label.control-label(for='title') Title *
                     .row
                       .col-xs-12
-                        input.form-control(name='title', type='text', placeholder='Title', ng-model='book.title', ng-pattern='/^.{0,100}$/', required)
-                        span.help-block(ng-show='bookForm.title.$invalid && bookForm.title.$dirty') Title should be between 0 and 100 characters
+                        input.form-control(name='title', type='text', placeholder='Title', ng-model='book.title', ng-pattern='/^.{1,100}$/', required)
+                        span.help-block(ng-show='bookForm.title.$invalid && bookForm.title.$dirty') Title should be between 1 and 100 characters
                 .form-group(ng-class="{ 'has-success': (bookForm.author.$valid), 'has-error': (bookForm.author.$invalid) }")
                     label.control-label(for='author') Author *
                     .row
                       .col-xs-12
-                        input.form-control(name='author', type='text', placeholder='Author', ng-model='book.author', ng-pattern='/^.{0,100}$/', required)
-                        span.help-block(ng-show='bookForm.author.$invalid && bookForm.author.$dirty') Author's name should be between 0 and 100 characters
+                        input.form-control(name='author', type='text', placeholder='Author', ng-model='book.author', ng-pattern='/^.{1,100}$/', required)
+                        span.help-block(ng-show='bookForm.author.$invalid && bookForm.author.$dirty') Author's name should be between 1 and 100 characters
                 .form-group(ng-class="{ 'has-success': (bookForm.publisher.$valid), 'has-error': (bookForm.publisher.$invalid) }")
                   label.control-label(for='publisher') Publisher *
                   .row
                     .col-xs-12
-                      input.form-control(name='publisher', type='text', placeholder='Publisher', ng-model='book.publisher', ng-pattern='/^.{0,100}$/', required)
-                      span.help-block(ng-show='bookForm.publisher.$invalid && bookForm.publisher.$dirty') Publisher's name should be between 0 and 100 characters
+                      input.form-control(name='publisher', type='text', placeholder='Publisher', ng-model='book.publisher', ng-pattern='/^.{1,100}$/', required)
+                      span.help-block(ng-show='bookForm.publisher.$invalid && bookForm.publisher.$dirty') Publisher's name should be between 1 and 100 characters
                 .form-group(ng-class="{ 'has-success': !!book.section }")
                   label.control-label(for='section') Section
                   .row
@@ -140,14 +140,14 @@ include ../panel
                   label.control-label(for='language') Language
                   .row
                     .col-xs-12
-                      input.form-control(name='language', type='text', placeholder='Book Language', ng-model='book.language', ng-pattern='/^.{0,50}$/')
-                      span.help-block(ng-show='bookForm.language.$invalid') Language should be between 0 and 50 characters
+                      input.form-control(name='language', type='text', placeholder='Book Language', ng-model='book.language', ng-pattern='/^.{2,50}$/')
+                      span.help-block(ng-show='bookForm.language.$invalid') Language should be between 2 and 50 characters
                 .form-group(ng-class="{ 'has-success': !!book.authorNationality }")
                   label.control-label(for='authorNationality') Author Nationality
                   .row
                     .col-xs-12
-                      input.form-control(name='authorNationality', type='text', placeholder='Author Nationality', ng-model='book.authorNationality', ng-pattern='/^.{0,50}$/')
-                      span.help-block(ng-show='bookForm.authorNationality.$invalid') Author's Nationality should be between 0 and 50 characters
+                      input.form-control(name='authorNationality', type='text', placeholder='Author Nationality', ng-model='book.authorNationality', ng-pattern='/^.{2,50}$/')
+                      span.help-block(ng-show='bookForm.authorNationality.$invalid') Author's Nationality should be between 2 and 50 characters
                 .form-group(ng-class="{ 'has-success': book.themes.length>0 }")
                   label.control-label(for='themes') Themes
                   .row

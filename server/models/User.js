@@ -13,7 +13,7 @@ var userSchema = mongoose.Schema({
     },
     username: { 
         type: String,
-        require: '{PATH} is required',
+        required: '{PATH} is required',
         match: [
             /^[a-z.0-9_-]{3,16}$/,
             'Username must contain lowercase letters, digits, dots, hyphens and underscores. 3-16 characters'
@@ -22,15 +22,15 @@ var userSchema = mongoose.Schema({
     },
     firstName: { 
         type: String,
-        require: '{PATH} is required' 
+        required: '{PATH} is required' 
     },
     lastName: { 
         type: String,
-        require: '{PATH} is required' 
+        required: '{PATH} is required' 
     },
     email: {
         type: String,
-        require: '{PATH} is required',
+        required: '{PATH} is required',
         match: [
             /^[a-z]+[a-z0-9._]+@[a-z0-9]+[a-z0-9-]+[a-z0-9]+[.][a-z]{2,5}$/,
             'Email format is not valid'

@@ -30,9 +30,7 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
     $scope.page = 1;
     $scope.perPage = 3;
     $scope.field = '_id';
-    $scope.library = LibraryResource.get({id: identity.currentUser.ownLibraryID}, function(data) {
-        console.log(data);
-    });
+    $scope.library = LibraryResource.get({id: identity.currentUser.ownLibraryID});
 
     $scope.range = function(n) {
         return new Array(n);
@@ -65,6 +63,7 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
     var fieldsOptions = [], fieldsOptionsCopy = [];
     $scope.fields = [];
     $scope.matches = [];
+    fieldsOptions.push('quantity');
     fieldsOptions.push('isbn');
     fieldsOptions.push('title');
     fieldsOptions.push('author');
@@ -81,13 +80,14 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
     fieldsOptions.push('published');
     fieldsOptionsCopy = fieldsOptions;
 
-    for(var i = 0; i < 10; i++){
+    for(var i = 0; i < 20; i++){
         $scope.fields.push(fieldsOptions);
     }
 
     $scope.updateSelections = function(key, value) {
+        value = (value.toString()==='quantity') ? 'total' : value;
         $scope.matches[key] = value;
-        for(var i = 0; i < Object.keys($scope.csv.result[0]).length; i++) {
+        for(var i = 0; i < Object.keys($scope.result[0]).length; i++) {
             $scope.fields[i] = [];
             for(var j = 0; j < fieldsOptionsCopy.length; j++){
                 if($scope.matches.indexOf(fieldsOptionsCopy[j])<0) {
@@ -102,30 +102,69 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
 
     };
 
-
-    // Link the imported csv/xlsx tables
-    $scope.showCSVForms = function(includeTopRow, sheet) {
+    // Link the imported csv/xlsx/xls tables
+    $scope.showCSVForms = function(includeTopRow, sheet, notDisplayingForm) {
         $scope.books = []; // Define the books array
 
-        var len = (sheet && $scope.csv.result.sheets[sheet].data.length) || $scope.csv.result.length; // Inizialize the books length - sheet data length or result length (excel or csv)
+        var len = (sheet && $scope.result.sheets[sheet].data.length) || $scope.result.length; // Inizialize the books length - sheet data length or result length (excel or csv)
         for(var i = (includeTopRow) ? 0 : 1; i<len; i++) {
 
             var book = {}; // Define new book object
             for(var j=0; j<fieldsOptions.length; j++) {
                 if(typeof($scope.matches[j]) !== 'undefined') { // If the field is specified
-                    book[$scope.matches[j]] = sheet ? $scope.csv.result.sheets[sheet].data[i][j] : $scope.csv.result[i][j]; // Assign new property to the book
+                    book[$scope.matches[j]] = sheet ? $scope.result.sheets[sheet].data[i][j] : $scope.result[i][j]; // Assign new property to the book
                 }
             }
             $scope.books.push(book); // Push the book object to the books array in the scope
         }
 
-        $scope.displayForm = true;
-        $anchorScroll();
+        if(!notDisplayingForm) {
+            $scope.displayForm = true;
+            $anchorScroll();
+        }
     };
 
+    // Import all books from csv/xls/xlsx at once
+    $scope.importAll = function(includeTopRow, sheet) {
+        $scope.showCSVForms(includeTopRow, sheet, true); // Match table data with scoolbry database fields
+
+        var counter = 0,
+            booksCount = $scope.books.length;
+
+        // Add book, keep index to remove the book from the books array if added successfully
+        function addBookFunc(index) {
+            Book.add($scope.books[index], identity.currentUser.ownLibraryID).then(function() {
+                $scope.books.splice(index,1);
+                bookResponse();
+            }, function() {
+                bookResponse();
+            });
+        }
+
+        // Increment counter manually, because the requests are async
+        function bookResponse() {
+            counter++;
+            if(counter===booksCount) { // If all books are iterated
+                if($scope.books.length>0) { // If there are still books in the books array
+                    // Display error message and show to forms to the user
+                    notifier.error('Some books couldn\'t be added! Please check all the required fields!');
+                    $scope.displayForm = true;
+                    $anchorScroll();
+                } else { // If there are no books in the array
+                    // Show success message and redirect to library books
+                    notifier.success('Books added successfully!');
+                    $location.path('/library-panel/books-library');
+                }
+            }
+        }
+
+        // Iterate through the books
+        for(var book in $scope.books) {
+            addBookFunc(book);
+        }
+    };
 
     // Remove book form
-
     $scope.removeBookForm = function(index) {
         $scope.books.splice(index,1);
         notifier.success('Book Form removed successfully!');
@@ -137,12 +176,9 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
     };
 
     // Add book
-
     $scope.addBook = function(book, index) {
-        book.available = book.total;
         Book.add(book, identity.currentUser.ownLibraryID).then(function() {
             notifier.success('Book added successfully!');
-
             if(typeof $scope.books !== 'undefined') {
                 $scope.books.splice(index,1);
             }
@@ -198,8 +234,6 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
                 data.isbn = $scope.ISBNSearch.replace(/-/gi, '');
 
                 if((typeof data.themes !== 'undefined') && (typeof $scope.library.librarySections !== 'undefined')) {
-
-                    console.log(data.themes);
 
                     data.themes.forEach(function(theme) {
                         if($scope.library.librarySections.sectionsTheme.indexOf(theme)>-1) {
