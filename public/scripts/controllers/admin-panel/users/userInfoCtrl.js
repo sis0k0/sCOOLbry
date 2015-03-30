@@ -31,7 +31,7 @@ app.controller('UserInfoCtrl', function($scope, $location, $http, UserResource, 
 
         data.libraries = [];
         data.readings = UserReadingsResource.get({id: data._id });
-        //data.bookings = UserBookingsResource.get({userID: data._id});
+        data.bookings = UserBookingsResource.get({userID: data._id});
 
         //console.log(data.bookings);
 
