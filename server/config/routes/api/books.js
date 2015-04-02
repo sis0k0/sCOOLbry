@@ -6,6 +6,9 @@ var auth        = require('../../auth'),
     router      = express.Router();
 
 module.exports = function(app) {
+
+    // Book parsers
+    router.get('/books/epub/:filePath', controllers.books.parseEpub);
     
     // Get books
     router.get('/books', controllers.books.getAllBooks);

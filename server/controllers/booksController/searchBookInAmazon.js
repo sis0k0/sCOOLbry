@@ -1,6 +1,6 @@
 'use strict';
 
-var    OperationHelper = require('apac').OperationHelper;
+var OperationHelper = require('apac').OperationHelper;
 
 // Define the App's specific API IDs
 var opHelper = new OperationHelper({

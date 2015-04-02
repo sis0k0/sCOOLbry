@@ -21,6 +21,7 @@ module.exports = {
     getFavouriteBooks: require('./getFavouriteBooks'),
     getFavouriteBooksInLibrary: require('./getFavouriteBooksInLibrary'),
     isFavourite: require('./isFavourite'),
+    parseEpub: require('./parseEpub'),
     removeBookAvailabilitySubscription: require('./removeBookAvailabilitySubscription'),
     scrapBookByISBN: require('./scrapBookByISBN'),
     searchBookInAmazon: require('./searchBookInAmazon'),

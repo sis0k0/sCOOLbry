@@ -19,6 +19,7 @@
     "bower": "^0.6.x",
     "cheerio": "^0.17.0",
     "cookie-parser": "^1.0.1",
+    "epub": "^0.1.6",
     "express": "^4.0.0",
     "express-session": "^1.0.2",
     "imgur-node-api": "^0.0.2",
