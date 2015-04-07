@@ -60,9 +60,10 @@ module.exports.seedInitialLibraries = function() {
         }
         
         if (collection.length === 0) {
+            // Add one default library
 
             Library.create({
-                'name': 'Fantasy Library',
+                'name': 'sCOOLbry Library',
                 'address': {
                     'types': [
                         'country',
@@ -112,6 +113,8 @@ module.exports.seedInitialLibraries = function() {
                 'visible': true,
                 'featured': true,
             });
+
+            console.log('Library added');
         }
     });
 };

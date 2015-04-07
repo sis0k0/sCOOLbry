@@ -133,25 +133,90 @@ module.exports.seedInitialUsers = function() {
             return;
         }
 
+        if (collection.length === 0) {
+            var salt;
+            var hashedPwd;
 
-            if (collection.length === 0) {
-                var salt;
-                var hashedPwd;
+            // Admin
+            salt = encryption.generateSalt();
+            hashedPwd = encryption.generateHashedPassword(salt, 'scoolbry');
+            User.create({
+                username: 'admin',
+                firstName: 'Admin',
+                lastName: 'Adminov',
+                email:'admin@scoolbry.com',
+                salt: salt,
+                hashPass: hashedPwd,
+                roles: ['admin']
+            });
+  
+            // Standart          
+            salt = encryption.generateSalt();
+            hashedPwd = encryption.generateHashedPassword(salt, 'scoolbry');
+            User.create({
+                username: 'user',
+                firstName: 'Standart',
+                lastName: 'User',
+                email:'user@scoolbry.com',
+                salt: salt,
+                hashPass: hashedPwd,
+                roles: ['standard']
+            });
+          
+            // Moderator
+            salt = encryption.generateSalt();
+            hashedPwd = encryption.generateHashedPassword(salt, 'scoolbry');
+            User.create({
+                username: 'moderator',
+                firstName: 'Moderator',
+                lastName: 'Test',
+                email:'moderator@scoolbry.com',
+                salt: salt,
+                hashPass: hashedPwd,
+                roles: ['moderator']
+            });
+            
+            // Library owner
+            salt = encryption.generateSalt();
+            hashedPwd = encryption.generateHashedPassword(salt, 'scoolbry');
+            User.create({
+                username: 'owner',
+                firstName: 'Library',
+                lastName: 'Owner',
+                email:'owner@scoolbry.com',
+                salt: salt,
+                hashPass: hashedPwd,
+                roles: ['libraryOwner']
+            });
+            
+            // Librarian
+            salt = encryption.generateSalt();
+            hashedPwd = encryption.generateHashedPassword(salt, 'scoolbry');
+            User.create({
+                username: 'librarian',
+                firstName: 'Just',
+                lastName: 'Librarian',
+                email:'librarian@scoolbry.com',
+                salt: salt,
+                hashPass: hashedPwd,
+                roles: ['librarian']
+            });
 
-                salt = encryption.generateSalt();
-                hashedPwd = encryption.generateHashedPassword(salt, 'password');
-                User.create({username: 'admin', firstName: 'Admin', lastName: 'Adminov', email:'admin@scoolbry.com', salt: salt, hashPass: hashedPwd, roles: ['admin']});
-                
-                salt = encryption.generateSalt();
-                hashedPwd = encryption.generateHashedPassword(salt, 'password');
-                User.create({username: 'standart', firstName: 'Standart', lastName: 'User', email:'test@abv.bg', salt: salt, hashPass: hashedPwd, roles: ['standard']});
-                
-                salt = encryption.generateSalt();
-                hashedPwd = encryption.generateHashedPassword(salt, 'password');
-                User.create({username: 'nobody', firstName: 'Just', lastName: 'Nobody', email:'shalqlq@abv.bg', salt: salt, hashPass: hashedPwd});
-                
-                console.log('Users added to database...');
-            }
+            // Additional admin
+            salt = encryption.generateSalt();
+            hashedPwd = encryption.generateHashedPassword(salt, 'dsadsa');
+            User.create({
+                username: 'sis0k0',
+                firstName: 'Stanimira',
+                lastName: 'Vlaeva',
+                email:'sis0k0@abv.com',
+                salt: salt,
+                hashPass: hashedPwd,
+                roles: ['admin']
+            });
+            
+            console.log('Users added to database...');
+        }
 
     });
 };
