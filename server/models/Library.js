@@ -60,12 +60,58 @@ module.exports.seedInitialLibraries = function() {
         }
         
         if (collection.length === 0) {
-            Library.create({name: 'ПМГ Бургас', featured: true, published: new Date('19/8/2014'), tags: ['ученическа библиотека, българска литература, световна литература']});
-            Library.create({name: 'Библиотека на ТКЗС в с. Библиотекарово', featured: true, published: new Date('19/8/2014'), tags: ['селскостопанска литература, български класици']});
-            Library.create({name: 'Публичната библиотека на дядо Матейко', featured: false, published: new Date('19/8/2014'), tags: ['български класици']});
-            Library.create({name: 'Книжки ще има за всички от сърце', featured: false, published: new Date('19/8/2014'), tags: ['детска литература']});
-            Library.create({name: 'Библиотека за програмисти', featured: true, published: new Date('19/8/2014'), tags: ['техническа литература', 'програмиране']});
-            Library.create({name: 'Библиотека "For Dummies"', featured: true, published: new Date('19/8/2014'), tags: ['самообучители']});
+
+            Library.create({
+                'name': 'Fantasy Library',
+                'address': {
+                    'types': [
+                        'country',
+                        'political'
+                    ],
+                    'geometry': {
+                        'viewport': {
+                            'southwest': {
+                                'lng': 22.3573446,
+                                'lat': 41.2354469
+                            },
+                            'northeast': {
+                                'lng': 28.6092632,
+                                'lat': 44.2145381
+                            }
+                        },
+                        'location_type': 'APPROXIMATE',
+                        'location': {
+                            'lng': 25.48583,
+                            'lat': 42.733883
+                        },
+                        'bounds': {
+                            'southwest': {
+                                'lng': 22.3573446,
+                                'lat': 41.2354469
+                            },
+                            'northeast': {
+                                'lng': 28.6092632,
+                                'lat': 44.2145381
+                            }
+                        }
+                    },
+                    'formatted_address': 'Bulgaria',
+                    'address_components': [
+                        {
+                            'types': [
+                                'country',
+                                'political'
+                            ],
+                            'short_name': 'BG',
+                            'long_name': 'Bulgaria'
+                        }
+                    ]
+                },
+                'certificate': 'http://i.imgur.com/qVo1Hhbm.jpg',
+                'certified': true,
+                'visible': true,
+                'featured': true,
+            });
         }
     });
 };

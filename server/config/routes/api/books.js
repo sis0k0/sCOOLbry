@@ -8,7 +8,7 @@ var auth        = require('../../auth'),
 module.exports = function(app) {
 
     // Book parsers
-    router.get('/books/epub/:filePath', controllers.books.parseEpub);
+    router.post('/books/upload', controllers.books.parseEpub);
     
     // Get books
     router.get('/books', controllers.books.getAllBooks);
