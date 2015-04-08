@@ -66,7 +66,7 @@ app.controller('CatalogCtrl', function($scope, BookResourceFilterable, $routePar
             perPage: $scope.perPage,
             criteria: $scope.criteria,
             phrase: $scope.phrase,
-            libraryID: undefined
+            libraryID: 'all'
         });
     };
     

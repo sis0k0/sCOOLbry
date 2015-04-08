@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserInfoCtrl', function($scope, $location, $http, UserResource, $routeParams, $timeout, notifier, LibraryResource, FavoriteBookResource, UserReadingsResource) {
+app.controller('UserInfoCtrl', function($scope, $location, $http, UserResource, $routeParams, $timeout, notifier, LibraryResource, FavoriteBookResource, UserReadingsResource, UserBookingsResource) {
 
     $scope.user = UserResource.get({id: $routeParams.id}, function(data){
         if(!data) {
@@ -31,9 +31,10 @@ app.controller('UserInfoCtrl', function($scope, $location, $http, UserResource, 
 
         data.libraries = [];
         data.readings = UserReadingsResource.get({id: data._id });
-        // data.bookings = UserBookingsResource.get({userID: data._id});
+        console.log(data.readings);
+        data.bookings = UserBookingsResource.get({userID: data._id});
 
-        //console.log(data.bookings);
+        console.log(data.bookings);
 
         for(var lib = 0; lib < data.librarySubscriptions.length; lib++) {
             data.libraries[lib] = LibraryResource.get({id: data.librarySubscriptions[lib]});

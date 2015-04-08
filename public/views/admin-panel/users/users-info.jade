@@ -59,41 +59,41 @@ include ../panel
           h2.text-center Bookings
           p
             accordion(close-others='true')
-              accordion-group(ng-repeat='booking in user.bookings', is-open='booking.open')
+              accordion-group(ng-repeat='bookingItem in user.bookings', is-open='bookingItem.open')
                 accordion-heading
-                  span {{booking.title}}
-                  timer.pull-right.text-success(end-time='booking.bookDate')
-                    | {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds left
-                img.img-responsive.img-thumbnail.col-xs-3(ng-src='{{ booking.book.cover }}', err-src='assets/images/missing-cover1.png', style='margin-right:2em')
+                  span {{bookingItem.booking.bookName}}
+                  timer.pull-right.text-success(end-time='bookingItem.booking.bookDate')
+                    | {{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds left
+                img.img-responsive.img-thumbnail.col-xs-3(ng-src='{{ bookingItem.book.cover }}', err-src='assets/images/missing-cover1.png', style='margin-right:2em')
                 span.text-info Author: 
-                span {{ booking.book.author }}
-                span.pull-right {{ booking.book.publisher }}
+                span {{ bookingItem.book.author }}
+                span.pull-right {{ bookingItem.book.publisher }}
                 span.text-info.pull-right Publisher:&nbsp;
                 span.col-xs-8(style='padding:0')
                   span.text-info Library: 
-                  a(href='/libraries/{{booking.libraryID}}')
-                    span {{ booking.libraryName }}
-                a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ booking._id }}/{{ booking.libraryID }}')
+                  a(href='/libraries/{{bookingItem.booking.libraryID}}')
+                    span {{ bookingItem.booking.libraryName }}
+                a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ bookingItem.booking.bookID }}/{{ bookingItem.booking.libraryID }}')
                   | See more
 
-        .col-md-6(ng-show='user.readings.length>0', ng-class="{ 'col-xs-offset-3': bookings.length<1 }")
+        .col-md-6(ng-show='user.readings.length>0', ng-class="{ 'col-xs-offset-3': bookingItem.booking.length<1 }")
           h2.text-center Readings
           p
             accordion(close-others='true')
               accordion-group(ng-repeat='reading in user.readings', is-open='reading.open')
                 accordion-heading
-                  span {{reading.title}}
-                  span.pull-right.text-success Till&nbsp; {{reading.end | date:'dd/MM/yyyy'}}
-                img.img-responsive.img-thumbnail.col-xs-3(ng-src='{{ reading.cover }}', err-src='assets/images/missing-cover1.png', style='margin-right:2em')
+                  span {{reading.bookName}}
+                  span.pull-right.text-success Till&nbsp; {{reading.endDate | date:'dd/MM/yyyy'}}
+                img.img-responsive.img-thumbnail.col-xs-3(ng-src='{{ reading.book.cover }}', err-src='assets/images/missing-cover1.png', style='margin-right:2em')
                 span.text-info Author: 
-                span {{ reading.author }}
-                span.pull-right {{ reading.publisher }}
+                span {{ reading.book.author }}
+                span.pull-right {{ reading.book.publisher }}
                 span.text-info.pull-right Publisher:&nbsp;
                 span.col-xs-8(style='padding:0')
                   span.text-info Library: 
                   a(href='/libraries/{{reading.libraryID}}')
                     span {{ reading.libraryName }}
-                a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ reading._id }}/{{ reading.libraryID }}')
+                a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ reading.bookID }}/{{ reading.libraryID }}')
                   | See more
 
 

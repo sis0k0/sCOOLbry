@@ -29,10 +29,11 @@ module.exports = function(req, res) {
         condition  = { $or: [ criteriaObj ] };          
     }
 
-    console.log(req.params.libraryID);
-    if(typeof req.params.libraryID !== 'undefined') {
-        console.log('lib');
-        // Find library books and populate the book obj
+
+    if(req.params.libraryID !== 'all') {
+        console.log('libraryID provided');
+        //todo: Нагласи си заявката според идеята ти ;)
+        
         LibBook
         .find({libraryID: req.params.libraryID})
         .populate('bookID', condition, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage})
@@ -46,7 +47,7 @@ module.exports = function(req, res) {
         });
     } else {
     // Find book
-        console.log('not');
+        console.log('All libraries');
         Book
         .find(condition, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage})
         .exec(function(err, collection) {

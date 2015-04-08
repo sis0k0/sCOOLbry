@@ -3,16 +3,16 @@
 app.factory('BookResourceFilterable', function($resource) {
     var BookResourceFilterable = $resource('/api/books/filter/:field/:order/:page/:perPage/:criteria/:phrase/:libraryID',
         {
-            _id:'@id',
             field: 'uploaded',
             order: 'desc',
             page: 1,
             perPage: 10,
             criteria: 'all',
-            phrase: ' '
+            phrase: ' ',
+            libraryID: 'all'
         },
         { 
-            update: {method: 'PUT', isArray: false}
+            update: {method: 'PUT', isArray: true}
         });
 
     BookResourceFilterable.prototype.isAdmin = function() {
