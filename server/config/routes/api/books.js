@@ -12,7 +12,7 @@ module.exports = function(app) {
     
     // Get books
     router.get('/books', controllers.books.getAllBooks);
-    router.get('/books/filter/:field/:order/:page/:perPage/:criteria/:phrase', controllers.books.getAllBooksFilterable);
+    router.get('/books/filter/:field/:order/:page/:perPage/:criteria/:phrase/:libraryID', controllers.books.getAllBooksFilterable);
     router.get('/book/sort/:field/:order/:page/:perPage', controllers.books.getAllBooksSortable);
 
     // Check if book exists by isbn

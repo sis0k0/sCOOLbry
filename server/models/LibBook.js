@@ -1,11 +1,18 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    ObjectId = mongoose.Schema.ObjectId;
 
 var libBookSchema = mongoose.Schema({
-    bookID: String,
+    bookID: {
+        type: ObjectId,
+        ref: 'Book',
+        required: '{PATH} is required'
+    },
     bookISBN: {
         type: String,
+        unique: true,
+        sparse: true,
         match: [
             /((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/,
             'ISBN format is not valid'
@@ -19,7 +26,11 @@ var libBookSchema = mongoose.Schema({
             'Title should be between 1 and 100 characters'
         ]
     },
-    libraryID: String,
+    libraryID: {
+        type: ObjectId,
+        ref: 'Library',
+        required: '{PATH} is required'
+    },
     total: {
         type: Number,
         required: '{PATH} is required',

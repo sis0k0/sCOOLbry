@@ -31,7 +31,7 @@ include ../panel
           div.col-xs-5(ng-repeat='(key,value) in book.other')
             li
               span.text-success.text-bold {{ key | titleCase }} 
-              span : {{ value }}
+              span : {{ value | titleCase }}
   
   .row
     a.btn.btn-danger.pull-right(href='/admin/book/delete/{{ book._id }}' onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")') Delete   

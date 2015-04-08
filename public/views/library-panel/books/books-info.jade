@@ -31,7 +31,7 @@ include ../panel
           div.col-xs-5(ng-repeat='(key,value) in book.other')
             li
               span.text-success.text-bold {{ key | titleCase }} 
-              span : {{ value }}
+              span : {{ value | titleCase}}
 
   h1.text-info.text-center At the library's storage:
 

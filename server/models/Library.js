@@ -114,7 +114,7 @@ module.exports.seedInitialLibraries = function() {
                 'featured': true,
             });
 
-            console.log('Library added');
+            console.log('Library added to the database...');
         }
     });
 };

@@ -1,15 +1,40 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    ObjectId = mongoose.Schema.ObjectId;
 
 var bookingSchema = mongoose.Schema({
-    userID: String,
-    userName: String,
-    libraryID: String,
-    libraryName: String,
-    bookID: String,
-    bookName: String,
-    bookDate: Date
+    userID: {
+        type: ObjectId,
+        ref: 'User',
+        required: '{PATH} is required'
+    },
+    userName: {
+        type: String,
+        required: '{PATH} is required'
+    },
+    libraryID: {
+        type: ObjectId,
+        ref: 'Library',
+        required: '{PATH} is required'
+    },
+    libraryName: {
+        type: String,
+        required: '{PATH} is required'
+    },
+    bookID: {
+        type: ObjectId,
+        ref: 'Book',
+        required: '{PATH} is required'
+    },
+    bookName: {
+        type: String,
+        required: '{PATH} is required'
+    },
+    bookDate: {
+        type: String,
+        required: '{PATH} is required'
+    }
 });
 
 var Booking = mongoose.model('Booking', bookingSchema);
