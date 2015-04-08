@@ -5,6 +5,7 @@ module.exports = function(app, config) {
     require('./filters')(app);
     require('./libraries')(app);
     require('./readings')(app);
+    require('./notifications')(app);
     require('./users')(app, config);
 
 };

@@ -19,10 +19,6 @@ module.exports = function(app, config) {
     // Get by short id
     router.get('/user/:id', controllers.users.getUserByShortId);
 
-    // Notifications
-    router.get('/user/notifications/:id', auth.isAuthorized(), controllers.users.getUserNotifications);
-    router.put('/user/notifications/:id/:userID', auth.isAuthorized(), controllers.users.updateUserNotification);
-
     // Sign up
     if(config.captcha===false) {
         router.post('/users', controllers.users.createUser);

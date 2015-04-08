@@ -32,7 +32,7 @@ var bookingSchema = mongoose.Schema({
         required: '{PATH} is required'
     },
     bookDate: {
-        type: String,
+        type: Date,
         required: '{PATH} is required'
     }
 });

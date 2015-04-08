@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('NotificationsCtrl', function($scope, $http, Socket, User, identity) {
+app.controller('NotificationsCtrl', function($scope, $http, Socket, Notification, identity) {
 
     // Get current user
     $scope.identity = identity;
@@ -8,7 +8,7 @@ app.controller('NotificationsCtrl', function($scope, $http, Socket, User, identi
 
     // Get user notifications function
     $scope.loadNotifications = function() {
-        User.getNotifications($scope.user).
+        Notification.getForUser($scope.user).
         then(function(notifications) {
             notifications.reverse();
             $scope.notifications = notifications;
@@ -16,9 +16,9 @@ app.controller('NotificationsCtrl', function($scope, $http, Socket, User, identi
     };
 
     // Update notifications (seen->true)
-    $scope.markAsRead = function(notification) {
+    $scope.markAsSeen = function(notification) {
         notification.seen = true;
-        User.markNotificationAsSeen(notification);
+        Notification.markAsSeen(notification);
     };
 
     if(!!$scope.user) {

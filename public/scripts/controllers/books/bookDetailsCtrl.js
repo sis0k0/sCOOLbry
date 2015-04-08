@@ -151,9 +151,11 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
         $scope.isFavorite = false;
 
 
+        var url = '/api/library/booking/'+$scope.libraryID+'/'+$routeParams.id;
+        console.log(url);
+        $http.get(url).success(function(data){
 
-        $http.get('/api/library/booking/'+$scope.libraryID+'/'+$routeParams.id).success(function(data){
-
+            console.log(data);
             $scope.bookings = data;
 
             if(typeof $scope.user === 'undefined') {
@@ -171,6 +173,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
                 });
                 
                 var flag = false;
+                console.log($scope.bookings);
                 for(var i=0; i<$scope.bookings.length; i++) {
                     if($scope.bookings[i].userID === $scope.user._id) {
                         flag = true;

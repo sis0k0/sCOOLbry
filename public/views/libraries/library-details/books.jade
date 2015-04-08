@@ -39,10 +39,10 @@
         .col-md-9
           div(ng-repeat='book in books', ng-init='pages();')
             .row
-              a(ng-href='/book.bookID/{{book.bookID._id}}')
+              a(ng-href='/book/{{book.bookID._id}}/{{libraryID}}')
                 img.img-responsive(ng-src='{{book.bookID.cover}}').col-md-2.col-sm-2.col-xs-3
               div.col-md-10.col-sm-10.col-xs-9
-                a(ng-href='/book.bookID/{{book.bookID._id}}')
+                a(ng-href='/book/{{book.bookID._id}}/{{libraryID}}')
                   h3.vcenter(style='margin:0.2em 0')
                     | {{book.bookID.title}} &nbsp;&nbsp;
                     span.badge.vcenter {{book.bookID.published | date:'MMM dd, yyyy'}}

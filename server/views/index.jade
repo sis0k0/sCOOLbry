@@ -20,7 +20,7 @@ block main-content
               div
                 h5.text-center.text-info No new notifications!
             li(ng-repeat='notification in notifications track by notification._id')
-              a(ng-href='{{notification.href}}', ng-click='markAsRead(notification)')
+              a(ng-href='{{notification.href}}', ng-click='markAsSeen(notification)')
                 div(ng-bind-html='notification.message')
                 small.text-muted.pull-right(time-passed) {{notification.date}}
       nav#site-navigation.navbar-collapse.collapse
@@ -60,7 +60,7 @@ block main-content
                 div
                   h5.text-center.text-info No new notifications!
               li(ng-repeat='notification in notifications track by notification._id')
-                a(ng-href='{{notification.href}}', ng-click='markAsRead(notification)')
+                a(ng-href='{{notification.href}}', ng-click='markAsSeen(notification)')
                   div(ng-bind-html='notification.message')
                   small.text-muted.pull-right(time-passed) {{notification.date}}
           li.dropdown(ng-if='!!identity.isAuthenticated()')
