@@ -4,7 +4,7 @@
     .row
       .col-md-7.col-xs-6
         label(for='phrase') Filter Phrase
-        input.form-control(name='phrase', type='text', ng-model='phrase', ng-change='reloadBooks(); setPage(); pages();', placeholder='Phrase', style='width: 100%;')
+        input.form-control(name='phrase', type='text', ng-model='phrase', ng-change='reloadBooks(); setPage(); pages();', placeholder='Phrase', style='width: 100%;', on-focus)
       .col-md-3.col-xs-3
         label(for='criteria') Filter By
         select.form-control(name='criteria', ng-model='criteria', ng-change='reloadBooks(); setPage(); pages();')
@@ -21,36 +21,36 @@
           option(value='100') 100   
       
 .container
-  .row
-    .col-md-3
-      .form-group
-        label(for='field') Order By
-        select.form-control(name='field', ng-model='field', ng-change='reloadBooks(); setPage(); pages();')
-          option(value='title') Title
-          option(value='author') Author
-          option(value='published') Year
-          option(value='themes') Themes
-          option(value='uploaded') Date Added To sCOOLbry
-      .form-group
-        label(for='order') Order
-        select.form-control(name='order', ng-model='order', ng-change='reloadBooks(); setPage(); pages();')
-          option(value='asc') Ascending (A-Z)
-          option(value='desc') Descending (Z-A)
-    .col-md-9
-      div(ng-repeat='book in books', ng-init='pages();')
-        .row
-          a(ng-href='/book/{{book._id}}')
-            img.img-responsive(ng-src='{{book.cover}}').col-md-2.col-sm-2.col-xs-3
-          div.col-md-10.col-sm-10.col-xs-9
+    .row
+      .col-md-3
+        .form-group
+          label(for='field') Order By
+          select.form-control(name='field', ng-model='field', ng-change='reloadBooks(); setPage(); pages();')
+            option(value='title') Title
+            option(value='author') Author
+            option(value='published') Year
+            option(value='themes') Themes
+            option(value='uploaded') Date Added To sCOOLbry
+        .form-group
+          label(for='order') Order
+          select.form-control(name='order', ng-model='order', ng-change='reloadBooks(); setPage(); pages();')
+            option(value='asc') Ascending (A-Z)
+            option(value='desc') Descending (Z-A)
+      .col-md-9
+        div(ng-repeat='book in books', ng-init='pages();')
+          .row
             a(ng-href='/book/{{book._id}}')
-              h3.vcenter(style='margin:0.2em 0')
-                | {{book.title}} &nbsp;&nbsp;
-                span.badge.vcenter {{book.published | date:'MMM dd, yyyy'}}
-            p
-              | by 
-              span.text-info {{book.author}}
-            p.text-justify.hidden-xs {{ book.description | cut:true:250:'...'}}
-        hr
-      .pagination
-          li(ng-repeat='i in range(pagesCount) track by $index')
-            a(class='pageItem', href='#', ng-click='setPage($index+1, $event); reloadBooks();', id='page-{{ $index+1 }}') {{ $index+1 }}
+              img.img-responsive(ng-src='{{book.cover}}').col-md-2.col-sm-2.col-xs-3
+            div.col-md-10.col-sm-10.col-xs-9
+              a(ng-href='/book/{{book._id}}')
+                h3.vcenter(style='margin:0.2em 0')
+                  | {{book.title}} &nbsp;&nbsp;
+                  span.badge.vcenter {{book.published | date:'MMM dd, yyyy'}}
+              p
+                | by 
+                span.text-info {{book.author}}
+              p.text-justify.hidden-xs {{ book.description | cut:true:250:'...'}}
+          hr
+        .pagination
+            li(ng-repeat='i in range(pagesCount) track by $index')
+              a(class='pageItem', href='#', ng-click='setPage($index+1, $event); reloadBooks();', id='page-{{ $index+1 }}') {{ $index+1 }}

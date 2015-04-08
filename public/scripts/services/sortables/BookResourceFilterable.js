@@ -1,7 +1,7 @@
 'use strict';
 
 app.factory('BookResourceFilterable', function($resource) {
-    var BookResourceFilterable = $resource('/api/books/filter/:field/:order/:page/:perPage/:criteria/:phrase/:libraryID',
+    var BookResourceFilterable = $resource('/api/books/filter/:libraryID/:field/:order/:page/:perPage/:criteria/:phrase',
         {
             field: 'uploaded',
             order: 'desc',
@@ -12,7 +12,7 @@ app.factory('BookResourceFilterable', function($resource) {
             libraryID: 'all'
         },
         { 
-            update: {method: 'PUT', isArray: true}
+            query: {method: 'GET', isArray: true}
         });
 
     BookResourceFilterable.prototype.isAdmin = function() {

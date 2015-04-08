@@ -5,8 +5,6 @@ var Book    = require('mongoose').model('Book'),
 
 module.exports = function(req, res) {
 
-    console.log('inside');
-
     // Set sort params
     var order = req.params.order || 'asc',
         field = req.params.field || '_id',
@@ -29,21 +27,29 @@ module.exports = function(req, res) {
         condition  = { $or: [ criteriaObj ] };          
     }
 
-
     if(req.params.libraryID !== 'all') {
-        console.log('libraryID provided');
-        //todo: Нагласи си заявката според идеята ти ;)
-        
+    // Get lib books and populate the matched books        
         LibBook
         .find({libraryID: req.params.libraryID})
-        .populate('bookID', condition, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage})
-        .exec(function(err, collection) {
+        .populate({
+            path: 'bookID', 
+            match: condition, 
+            options: {sort: sortObject, limit: perPage, skip: (page-1)*perPage}
+        })
+        .exec(function(err, books) {
 
             if(err) {
                 console.log('Books could not be loaded: ' + err);
             }
 
-            res.send(collection);
+            var matchedBooks = [];
+            for(var index in books) {
+                if(books[index].bookID !== null) {
+                    matchedBooks.push(books[index]);
+                }
+            }
+
+            res.send(matchedBooks);
         });
     } else {
     // Find book

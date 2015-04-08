@@ -1,25 +1,56 @@
-.tab-pane.fade#books
-
-  h2.text-center Library Books
-  .col-md-11
-
-    input.form-control.col-xs-offset-1.col-xs-9(type="text", placeholder="Type to search in {{ books.length }} books...", ng-model="search")
-
-    div(ng-repeat='book in books | filter: search' ng-class-even="'row'" ng-class-odd="'md-col-6'")
-      .col-md-6
-          .col-xs-4(style='margin-top: 3em')
-            a(href='/book/{{ book._id }}/{{library._id}}')
-              img.img-responsive.img-thumbnail(src='{{book.cover}}', style='margin-top:10.5px')
-          .col-xs-8(style='margin-top: 3em')
-            a(href='/book/{{ book._id }}/{{library._id}}')
-              h4.text-info {{book.title | cut:true:35:'...'}}
-            div
-              span.text-bold.text-muted Publisher: 
-              span.text-info {{book.publisher}}
-            div
-              span.text-bold.text-muted Author: 
-              span.text-info {{ book.author }}
-            div.text-muted
-              span.text-bold ISBN: 
-              span {{ book.isbn }}
-  .row
+.tab-pane.fade#books(ng-controller='CatalogCtrl')
+    .jumbotron
+      .container
+        h1 Books Catalog
+        .row
+          .col-md-7.col-xs-6
+            label(for='phrase') Filter Phrase
+            input.form-control(name='phrase', type='text', ng-model='phrase', ng-change='reloadBooks(); setPage(); pages();', placeholder='Phrase', style='width: 100%;')
+          .col-md-3.col-xs-3
+            label(for='criteria') Filter By
+            select.form-control(name='criteria', ng-model='criteria', ng-change='reloadBooks(); setPage(); pages();')
+              option(value='all') All
+              option(value='title') Titles
+              option(value='author') Authors
+              option(value='themes') Themes
+          .col-md-2.col-xs-3
+            label(for='per-page') Items/page
+            select.form-control(name='per-page', ng-model='perPage', ng-change='reloadBooks(); pages();')
+              option(value='10') 10
+              option(value='20') 20
+              option(value='30') 30
+              option(value='100') 100   
+    .container
+      .row
+        .col-md-3
+          .form-group
+            label(for='field') Order By
+            select.form-control(name='field', ng-model='field', ng-change='reloadBooks(); setPage(); pages();')
+              option(value='title') Title
+              option(value='author') Author
+              option(value='published') Year
+              option(value='themes') Themes
+              option(value='uploaded') Date Added To sCOOLbry
+          .form-group
+            label(for='order') Order
+            select.form-control(name='order', ng-model='order', ng-change='reloadBooks(); setPage(); pages();')
+              option(value='asc') Ascending (A-Z)
+              option(value='desc') Descending (Z-A)
+        .col-md-9
+          div(ng-repeat='book in books', ng-init='pages();')
+            .row
+              a(ng-href='/book.bookID/{{book.bookID._id}}')
+                img.img-responsive(ng-src='{{book.bookID.cover}}').col-md-2.col-sm-2.col-xs-3
+              div.col-md-10.col-sm-10.col-xs-9
+                a(ng-href='/book.bookID/{{book.bookID._id}}')
+                  h3.vcenter(style='margin:0.2em 0')
+                    | {{book.bookID.title}} &nbsp;&nbsp;
+                    span.badge.vcenter {{book.bookID.published | date:'MMM dd, yyyy'}}
+                p
+                  | by 
+                  span.text-info {{book.bookID.author}}
+                p.text-justify.hidden-xs {{ book.bookID.description | cut:true:250:'...'}}
+            hr
+          .pagination
+              li(ng-repeat='i in range(pagesCount) track by $index')
+                a(class='pageItem', href='#', ng-click='setPage($index+1, $event); reloadBooks();', id='page-{{ $index+1 }}') {{ $index+1 }}

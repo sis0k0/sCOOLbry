@@ -10,8 +10,10 @@ app.controller('CatalogCtrl', function($scope, BookResourceFilterable, $routePar
     $scope.criteria = 'all';
     $scope.phrase = ' ';
 
+    $scope.libraryID = $routeParams.id || 'all';
+
     // Load books
-    $scope.books = BookResourceFilterable.query();
+    $scope.books = BookResourceFilterable.query({libraryID: $scope.libraryID});
 
     // Get range for books to be shown
     $scope.range = function(n) {
@@ -21,17 +23,20 @@ app.controller('CatalogCtrl', function($scope, BookResourceFilterable, $routePar
     /// Get pages count
     $scope.pages = function(){
         if($scope.phrase===' '){
-            $http.get('/api/book/count').success(function(data){
+            var url = $routeParams.id ? '/api/book/count/'+$routeParams.id : '/api/book/count';
+            $http.get(url).success(function(data){
                 $scope.booksCount = parseInt(data);
                 $scope.pagesCount = Math.ceil($scope.booksCount/$scope.perPage);
             });
         }else{
-            $http.get('/api/book/countFilter/'+$scope.field+'/'+$scope.order+'/'+$scope.page+'/'+$scope.perPage+'/'+$scope.criteria+'/'+$scope.phrase).success(function(data){
+            $http.get('/api/book/countFilter/'+$scope.field+'/'+$scope.order+'/'+$scope.page+'/'+$scope.perPage+'/'+$scope.criteria+'/'+$scope.phrase+'/'+$scope.libraryID).success(function(data){
                 $scope.booksCount = parseInt(data);
                 $scope.pagesCount = Math.ceil($scope.booksCount/$scope.perPage);
             });
         }
     };
+
+    $scope.pages();
 
     // Change page, according to user interaction
     $scope.setPage = function(page, event){
@@ -66,7 +71,7 @@ app.controller('CatalogCtrl', function($scope, BookResourceFilterable, $routePar
             perPage: $scope.perPage,
             criteria: $scope.criteria,
             phrase: $scope.phrase,
-            libraryID: 'all'
+            libraryID: $scope.libraryID
         });
     };
     

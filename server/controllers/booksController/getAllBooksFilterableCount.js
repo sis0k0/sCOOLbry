@@ -1,46 +1,19 @@
 'use strict';
 
-var Book = require('mongoose').model('Book');
+var Book    = require('mongoose').model('Book'),
+    LibBook = require('mongoose').model('LibBook');
 
 module.exports = function(req, res) {
-    var order, field, page, perPage, criteria, phrase, criteriaObj, condition;
-    
-    if(req.params.order===undefined) {
-        order = 'asc';
-    }else{
-        order = req.params.order;
-    }
-    
-    if(req.params.field===undefined) {
-        field = '_id';
-    }else{
-        field = req.params.field;
-    }
-    
-    if(req.params.page===undefined) {
-        page = 1;
-    }else{
-        page = req.params.page;
-    }
-    
-    if(req.params.perPage===undefined) {
-        perPage = 10;
-    }else{
-        perPage = req.params.perPage;
-    }
 
-    if(req.params.criteria===undefined) {
-        criteria = 'all';
-    }else{
-        criteria = req.params.criteria; //title, author, themes, isbn
-    }
+    // Set sort params
+    var order = req.params.order || 'asc',
+        field = req.params.field || '_id',
+        page = req.params.page || 1,
+        perPage = req.params.perPage || 10,
+        criteria = req.params.criteria || 'all',
+        phrase = req.params.phrase || '';
 
-    if(req.params.phrase===undefined) {
-        phrase = '';
-    }else{
-        phrase = req.params.phrase;
-    }
-    
+    var condition = {};
     var sortObject = {};
     sortObject[field] = order;
 
@@ -49,18 +22,43 @@ module.exports = function(req, res) {
     }else if(phrase===' ' || phrase===''){
         condition = {};
     }else{
-        criteriaObj = {};
+        var criteriaObj = {};
         criteriaObj[criteria] = new RegExp(req.params.phrase, 'i');
         condition  = { $or: [ criteriaObj ] };          
     }
-    console.log(req.params);
 
-    Book.count(condition).exec(function(err, collection) {
+    // If the libraryID is specified
+    if(req.params.libraryID !== 'all') {
+        // Get the library books count        
+        LibBook
+        .find({libraryID: req.params.libraryID})
+        .populate({
+            path: 'bookID', 
+            match: condition, 
+            options: {sort: sortObject, limit: perPage, skip: (page-1)*perPage}
+        })
+        .exec(function(err, books) {
 
-            if (err) {
+            if(err) {
                 console.log('Books could not be loaded: ' + err);
             }
 
-            res.send(''+collection);
-    });
+            var matchedBooks = [];
+            for(var index in books) {
+                if(books[index].bookID !== null) {
+                    matchedBooks.push(books[index]);
+                }
+            }
+            res.send(''+matchedBooks.length);
+        }); 
+    } else { // If the library ID is not specified
+        // Get the books count
+        Book.count(condition).exec(function(err, count) {
+            if (err) {
+                console.log('Books could not be loaded: ' + err);
+            }
+            res.send(''+count);
+        });
+        
+    }
 };
