@@ -8,7 +8,7 @@ var auth        = require('../../auth'),
 module.exports = function(app) {
 
     router.get('/notifications/:id', auth.isAuthorized(), controllers.notifications.getUserNotifications);
-    router.put('/notifications/:id/:userID', auth.isAuthorized(), controllers.notifications.updateNotification);
+    router.delete('/notifications/:id/:userID', auth.isAuthorized(), controllers.notifications.deleteNotification);
 
     app.use('/api/', router);
 };

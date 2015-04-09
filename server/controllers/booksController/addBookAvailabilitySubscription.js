@@ -18,14 +18,19 @@ module.exports = function(req, res) {
                 res.end();
             });
         } else {
-            subscription.users.push(req.body.userID);
-            BookSub.update({_id: subscription._id}, subscription, function(err) {
-                if(err) {
-                    console.log('Failed to add new subscription: ' + err);
-                    res.status(503).send('Cannot connect to database');
-                }
+            console.log(subscription);
+            if(subscription.users.indexOf(req.body.userID)<0) {
+                subscription.users.push(req.body.userID);
+                BookSub.update({_id: subscription._id}, subscription, function(err) {
+                    if(err) {
+                        console.log('Failed to add new subscription: ' + err);
+                        res.status(503).send('Cannot connect to database');
+                    }
+                    res.end();
+                });
+            } else {
                 res.end();
-            });
+            }
         }
     });
 };

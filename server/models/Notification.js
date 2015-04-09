@@ -1,6 +1,7 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    ObjectId = mongoose.Schema.ObjectId;
 
 var notificationSchema = mongoose.Schema({
     message: {
@@ -12,17 +13,13 @@ var notificationSchema = mongoose.Schema({
         required: '{PATH} is required'
     },
     userID: {
-        type: String,
+        type: ObjectId,
+        ref: 'User',
         required: '{PATH} is required'
     },
     date: {
         type: Date,
         default: Date.now
-    },
-    seen: {
-        type: Boolean,
-        default: false,
-        required: '{PATH} is required'
     }
 });
 

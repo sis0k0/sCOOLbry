@@ -55,6 +55,7 @@ app.controller('UserInteractLibraryCtrl', function($scope, $location, UserResour
         give.startDate    = new Date();
         give.endDate      = new Date(new Date().getTime() + 1000*60*60*24*30);
 
+        console.log(give);
         delete give._id;
         delete give.__v;
 

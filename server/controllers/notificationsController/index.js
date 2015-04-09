@@ -2,5 +2,5 @@
 
 module.exports = {
     getUserNotifications: require('./getUserNotifications'),
-    updateNotification: require('./updateNotification')
+    deleteNotification: require('./deleteNotification')
 };

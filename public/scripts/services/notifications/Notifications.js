@@ -18,9 +18,9 @@ app.factory('Notification', function($http, $q, NotificationResource) {
         },
         markAsSeen: function(notification) {
             var deferred = $q.defer();
-            var updatedNotification = new NotificationResource(notification);
+            var seenNotification = new NotificationResource(notification);
 
-            updatedNotification.$update().then(function() {
+            seenNotification.$delete().then(function() {
                 deferred.resolve(true);
             }, function(reason) {
                 deferred.reject(reason.data.reason);

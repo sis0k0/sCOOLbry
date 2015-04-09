@@ -1,18 +1,22 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    ObjectId = mongoose.Schema.ObjectId;
 
 var bookAvailabilitySubscriptionSchema = mongoose.Schema({
     users: {
-        type: [String],
+        type: [ObjectId],
+        ref: 'User',
         required: '{PATH} is required'
     },
     bookID: {
-        type: String,
+        type: ObjectId,
+        ref: 'Book',
         required: '{PATH} is required'
     },
     libraryID: {
-        type: String,
+        type: ObjectId,
+        ref: 'Library',
         required: '{PATH} is required'
     },
     broadcasted: {

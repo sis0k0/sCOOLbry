@@ -196,6 +196,11 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
                             $scope.libBook.available--;
                         } else if(action==='increase') {
                             $scope.libBook.available++;
+
+                            // Remove subscription, if the notification is already broadcasted
+                            if($scope.subscribedForAvailability===true) {
+                                $scope.subscribedForAvailability = false;
+                            }
                         }
                         $scope.available = (($scope.libBook.available-$scope.bookings.length)>0 && $scope.isMember) ? true : false;
                     });
