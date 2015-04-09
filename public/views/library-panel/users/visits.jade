@@ -1,11 +1,7 @@
 include ../panel
 
 .container
-    h1.text-center Books taken
-    
-    .row
-      .col-md-8.col-md-offset-2
-        input(placeholder="Search...", ng-model="search")
+    h1.text-center Library visits
 
     #users-list.table-responsive(ng-init="pages();")
       table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
@@ -15,13 +11,13 @@ include ../panel
               span#_id.glyphicon.glyphicon-sort.text-right
             td#userName(ng-click="sort($event); reloadVisits()") User
               span#userName.glyphicon.glyphicon-sort.text-right
-            td#date(ng-click="sort($event); reloadVisits()") Date
+            td#date(ng-click="sort($event); reloadVisits()") Date/Hour
               span#date.glyphicon.glyphicon-sort.text-right
             td Actions
         tr(ng-repeat="visit in visits")
           td.text-bold {{ visit._id }}
           td {{ visit.userName }}
-          td {{ visit.date | date:'HH:mm:ss &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dd/MM/yyyy' }}
+          td {{ visit.date | date:'dd/MM/yyyy &nbsp;&nbsp;&nbsp;HH:mm:ss' }}
           td
             a.btn-sm(href='/library-panel/user/interact/{{ visit.userID }}', tooltip='Return A Book')
               span.glyphicon.glyphicon-book.text-success

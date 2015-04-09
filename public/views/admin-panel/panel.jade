@@ -11,7 +11,7 @@
         ul.nav.nav-tabs.nav-justified(role='tablist')
 
           li(ng-class="{ 'active' : (path == '/admin') }")
-            a(href='/admin', data-toggle="tab") Settings
+            a(href='/admin', data-toggle="tab") About
 
           li(ng-repeat='obj in menu', ng-class="{ 'active' : (obj.name == currentMenuItem) }")
             a(href='#{{obj.name}}', data-toggle='tab', target='_self')
