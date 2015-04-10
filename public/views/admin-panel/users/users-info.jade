@@ -14,6 +14,9 @@ include ../panel
     li
       a(href="#personal-readings", data-toggle="tab", target="_self")
         | Readings
+    li
+      a(href="#personal-bookings", data-toggle="tab", target="_self")
+        | Bookings
 
   #myTabContent.tab-content
     .tab-pane.fade.active.in#personal-information
@@ -53,50 +56,6 @@ include ../panel
             a.btn.btn-primary.pull-left(href='/admin/user/edit/{{ user._id }}') Edit
             a.btn.btn-danger.pull-left.col-sm-offset-1(href='/admin/user/delete/{{ user._id }}' onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")') Delete   
 
-      .row
-        hr
-        .col-md-6(ng-show='user.bookings.length>0', ng-class="{ 'col-xs-offset-3': readings.length<1 }")
-          h2.text-center Bookings
-          p
-            accordion(close-others='true')
-              accordion-group(ng-repeat='bookingItem in user.bookings', is-open='bookingItem.open')
-                accordion-heading
-                  span {{bookingItem.booking.bookName}}
-                  timer.pull-right.text-success(end-time='bookingItem.booking.bookDate')
-                    | {{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds left
-                img.img-responsive.img-thumbnail.col-xs-3(ng-src='{{ bookingItem.book.cover }}', err-src='assets/images/missing-cover1.png', style='margin-right:2em')
-                span.text-info Author: 
-                span {{ bookingItem.book.author }}
-                span.pull-right {{ bookingItem.book.publisher }}
-                span.text-info.pull-right Publisher:&nbsp;
-                span.col-xs-8(style='padding:0')
-                  span.text-info Library: 
-                  a(href='/libraries/{{bookingItem.booking.libraryID}}')
-                    span {{ bookingItem.booking.libraryName }}
-                a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ bookingItem.booking.bookID }}/{{ bookingItem.booking.libraryID }}')
-                  | See more
-
-        .col-md-6(ng-show='user.readings.length>0', ng-class="{ 'col-xs-offset-3': bookingItem.booking.length<1 }")
-          h2.text-center Readings
-          p
-            accordion(close-others='true')
-              accordion-group(ng-repeat='reading in user.readings', is-open='reading.open')
-                accordion-heading
-                  span {{reading.bookName}}
-                  span.pull-right.text-success Till&nbsp; {{reading.endDate | date:'dd/MM/yyyy'}}
-                img.img-responsive.img-thumbnail.col-xs-3(ng-src='{{ reading.book.cover }}', err-src='assets/images/missing-cover1.png', style='margin-right:2em')
-                span.text-info Author: 
-                span {{ reading.book.author }}
-                span.pull-right {{ reading.book.publisher }}
-                span.text-info.pull-right Publisher:&nbsp;
-                span.col-xs-8(style='padding:0')
-                  span.text-info Library: 
-                  a(href='/libraries/{{reading.libraryID}}')
-                    span {{ reading.libraryName }}
-                a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ reading.bookID }}/{{ reading.libraryID }}')
-                  | See more
-
-
     .tab-pane.fade#favorites
       h3
         | Favorite Books
@@ -111,11 +70,80 @@ include ../panel
       ul(ng-hide='user.libraries.length==0')
         li(ng-repeat='library in user.libraries')
           a(href='/admin/library/{{ library._id }}') {{ library.name }}
-      p(ng-hide='favoriteBooks.length!==0') No library subscriptions found.
+      p(ng-hide='user.libraries.length!==0') No library subscriptions found.
     .tab-pane.fade#personal-readings
       h3
         | Readings
-      ul(ng-hide='user.readings.length==0')
-        li(ng-repeat='reading in user.readings')
-          p {{ reading.bookName }} in {{ reading.libraryName }}
+
+        accordion(close-others='true')
+          .row
+            .col-md-6(ng-repeat='readingItem in user.readings', style='margin-top: 10px;')   
+              accordion-group(is-open='readingItem.open', style='padding: 0px;')
+                accordion-heading
+                  span {{readingItem.book.title}}
+                  span.pull-right.text-success Till&nbsp; {{readingItem.reading.endDate | date:'dd/MM/yyyy'}}
+                .row
+
+                  img.img-responsive.img-thumbnail.col-xs-3.pull-left.text-center(ng-src='{{ readingItem.book.cover }}', err-src='assets/images/missing-cover1.png', style='margin: 0 0.5em;')
+                  .col-xs-7
+                    .row
+                      .col-md-6(style='padding:0px;')
+                        span.text-info.pull-left Author: 
+                      .col-md-6(style='padding:0px;')
+                        span.pull-left {{ readingItem.book.author }}
+                    .row
+                      .col-md-6(style='padding:0px;')
+                        span.text-info.pull-left Publisher:&nbsp;
+                      .col-md-6(style='padding:0px;')
+                        span.pull-left {{ readingItem.book.publisher }}
+                
+                    .row
+                      .col-md-6(style='padding: 0px;')
+                        span.text-info Library: 
+                      .col-md-6(style='padding: 0px;')
+                        a(href='/libraries/{{readingItem.reading.libraryID}}')
+                          span {{ readingItem.reading.libraryName }}
+                    .row
+                      .col-md-12(style='padding: 0px;')
+                        a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ readingItem.reading.bookID }}/{{ readingItem.reading.libraryID }}')
+                          | See more
       p(ng-hide='user.readings.length!==0') No read books found.
+    
+    .tab-pane.fade#personal-bookings
+      h3
+        | Bookings
+
+        accordion(close-others='true')
+          .row
+            .col-md-6(ng-repeat='bookingItem in user.bookings', style='margin-top: 10px;')   
+              accordion-group(is-open='bookingItem.open', style='padding: 0px;')
+                accordion-heading
+                  span {{bookingItem.booking.bookName}}
+                  timer.pull-right.text-success(end-time='bookingItem.booking.bookDate')
+                    | {{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds left
+                .row
+
+                  img.img-responsive.img-thumbnail.col-xs-3.pull-left.text-center(ng-src='{{ bookingItem.book.cover }}', err-src='assets/images/missing-cover1.png', style='margin: 0 0.5em;')
+                  .col-xs-7
+                    .row
+                      .col-md-6(style='padding:0px;')
+                        span.text-info.pull-left Author: 
+                      .col-md-6(style='padding:0px;')
+                        span.pull-left {{ bookingItem.book.author }}
+                    .row
+                      .col-md-6(style='padding:0px;')
+                        span.text-info.pull-left Publisher:&nbsp;
+                      .col-md-6(style='padding:0px;')
+                        span.pull-left {{ bookingItem.book.publisher }}
+                
+                    .row
+                      .col-md-6(style='padding: 0px;')
+                        span.text-info Library: 
+                      .col-md-6(style='padding: 0px;')
+                        a(href='/libraries/{{bookingItem.booking.libraryID}}')
+                          span {{ bookingItem.booking.libraryName }}
+                    .row
+                      .col-md-12(style='padding: 0px;')
+                        a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ bookingItem.booking.bookID }}/{{ bookingItem.booking.libraryID }}')
+                          | See more
+      p(ng-hide='user.bookings.length!==0') No bookings found.

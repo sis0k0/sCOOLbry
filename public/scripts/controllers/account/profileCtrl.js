@@ -1,67 +1,46 @@
 'use strict';
 
-app.controller('ProfileCtrl', function($scope, $http, $timeout, identity, LibraryResource, FavoriteBookResource, BookingResourceSortable, notifier) {
-    $scope.user = identity.currentUser;
+app.controller('ProfileCtrl', function($scope, $http, $timeout, identity, UserResource, LibraryResource, FavoriteBookResource, UserReadingProfileResource, UserBookingsResource, notifier, $location) {
+    $scope.user = UserResource.get({id: identity.currentUser._id}, function(data){
+        if(!data) {
+            $location.path('/404');
+        } else {
 
-    $scope.user.libraries = [];
-    if(typeof $scope.user.ownLibraryID !== 'undefined') {
-
-        var url = '/api/library/pending/' + $scope.user.id + '/' + $scope.user.ownLibraryID;
-        $http.get(url).
-        success(function(pendings) {
-            // Separate the requests to bookings and readings
-            for(var i=0; i<pendings.length; i++) {
-
-                if(pendings[i].book !== null) {
-
-                    pendings[i].book.end = pendings[i].end;
-                    pendings[i].book.libraryName = pendings[i].library.name;
-                    pendings[i].book.libraryID = pendings[i].library.id;
-
-                    if(pendings[i].type === 'booking') {
-                        pendings[i].book.libraryName = pendings[i].library.name;
-                        $scope.bookings.push(pendings[i].book);
-                    } else if(pendings[i].type === 'reading') {
-                        $scope.readings.push(pendings[i].book);
-                    }
-                }
+            if(data.dateOfBirth===undefined){
+                data.dateOfBirth = 'N/A';
             }
-
-            console.log($scope.bookings);
-            console.log($scope.readings);
-            if($scope.bookings.length>0) {
-                $scope.bookings[0].open = true;
+        
+            if(data.facebookUrl===undefined){
+                data.facebookUrl = 'N/A';
             }
-            if($scope.readings.length>0) {
-                $scope.readings[0].open = true;
+        
+            if(data.twitterUrl===undefined){
+                data.twitterUrl = 'N/A';
             }
-        }).
-        error(function(err) {
-            notifier.error(err.data);
-        });
-
-        $scope.bookings = [];
-        $scope.readings = [];
-
-        var iteratorBookings = 0,
-            iteratorReadings = 0;
-
-        var openNextTab = function() {
-            if($scope.bookings.length>0) {
-                $scope.bookings[iteratorBookings].open = true;
-                iteratorBookings = (iteratorBookings<$scope.bookings.length-1) ? ++iteratorBookings : 0;
+        
+            if(data.googlePlusUrl===undefined){
+                data.googlePlusUrl = 'N/A';
             }
-            if($scope.readings.length>0) {
-                $scope.readings[iteratorReadings].open = true;
-                iteratorReadings = (iteratorReadings<$scope.readings.length-1) ? ++iteratorReadings : 0;
+        
+            if(data.aboutMe===undefined){
+                data.aboutMe = 'N/A';
             }
-            $timeout(openNextTab, 5000);
-        };
+            
+        }
 
-        openNextTab();
-    }
+        data.libraries = [];
+        data.readings = UserReadingProfileResource.get({userID: data._id });
+        data.bookings = UserBookingsResource.get({userID: data._id});
+
+        for(var lib = 0; lib < data.librarySubscriptions.length; lib++) {
+            data.libraries[lib] = LibraryResource.get({id: data.librarySubscriptions[lib]});
+        }
+        
+
+    }, function() {             // if error occurs
+        $location.path('/404'); // go to 404 page
+    });
 
     $scope.favoriteBooks = FavoriteBookResource.get({userID: identity.currentUser._id});
-
 
 });

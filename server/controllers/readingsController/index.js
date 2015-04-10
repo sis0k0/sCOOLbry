@@ -7,6 +7,7 @@ module.exports = {
     getAllReadingsInLibraryForUser: require('./getAllReadingsInLibraryForUser'),
     getAllReadingsSortable: require('./getAllReadingsSortable'),
     getAllReadingsUser: require('./getAllReadingsUser'),
+    getAllReadingsUserProfile: require('./getAllReadingsUserProfile'),
     getAllReadingsUserSortable: require('./getAllReadingsUserSortable')
 
 };

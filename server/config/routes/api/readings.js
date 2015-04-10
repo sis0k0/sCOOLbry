@@ -11,7 +11,10 @@ module.exports = function(app) {
     router.get('/all-readings', auth.isInRole('moderator'), controllers.readings.getAllReadings);
 
     // All readings for user
-    router.get('/all-readings/:id', auth.isAuthenticatedOrInRole('moderator'), controllers.readings.getAllReadingsUser);
+    router.get('/all-readings/:userID', auth.isAuthenticatedOrInRole('moderator'), controllers.readings.getAllReadingsUser);
+
+    // All readings for user, used in profile info
+    router.get('/all-readings-profile/:userID', auth.isAuthenticatedOrInRole('moderator'), controllers.readings.getAllReadingsUserProfile);
 
     // All readings for user in specific library
     router.get('/all-readings/:libraryID/:userID', auth.isAuthenticatedOrInRole('librarian'), controllers.readings.getAllReadingsInLibraryForUser);
