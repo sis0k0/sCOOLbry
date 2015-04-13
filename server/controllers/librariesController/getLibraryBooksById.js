@@ -45,7 +45,6 @@ module.exports = function(req, res) {
                         availableBooks.push(books[i]);
                     }
                 }
-
                 res.send(availableBooks);
 
             });

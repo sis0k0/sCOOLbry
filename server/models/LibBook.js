@@ -22,8 +22,8 @@ var libBookSchema = mongoose.Schema({
         type: String,
         required: '{PATH} is required',
         match: [
-            /^.{1,100}$/,
-            'Title should be between 1 and 100 characters'
+            /^.{1,200}$/,
+            'Title should be between 1 and 200 characters'
         ]
     },
     libraryID: {

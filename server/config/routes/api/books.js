@@ -9,7 +9,7 @@ module.exports = function(app) {
 
     // Book parsers
     router.post('/books/upload', controllers.books.parseEpub);
-    
+
     // Get books
     router.get('/books', controllers.books.getAllBooks);
     router.get('/books/filter/:libraryID/:field/:order/:page/:perPage/:criteria/:phrase', controllers.books.getAllBooksFilterable);
@@ -20,6 +20,9 @@ module.exports = function(app) {
     
     // Add book
     router.post('/books', auth.isInRole('librarian'), controllers.books.createBook);
+
+    // Import books
+    router.post('/books/import', auth.isInRole('librarian'), controllers.books.insertBooks);
 
     // Search books
     router.get('/books/:id', controllers.books.getBookById);

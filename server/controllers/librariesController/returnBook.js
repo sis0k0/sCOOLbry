@@ -25,7 +25,7 @@ module.exports = function(req, res) {
                 // Notify all subscribed users
                 var result = Notification.addBookAvailable(socketio, reading);
                 if(result) {
-                    res.status(402).send({reason: result});
+                    res.status(400).send({reason: result});
                     return;
                 } else {
                     res.status(200).end();

@@ -6,8 +6,6 @@ var usersController         = require('../controllers/usersController'),
     readingsController      = require('../controllers/readingsController'),
     notificationsController = require('../controllers/notificationsController');
 
-
-
 module.exports = {
     users: usersController,
     libraries: librariesController,

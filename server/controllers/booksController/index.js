@@ -20,6 +20,7 @@ module.exports = {
     getBookExistsByISBN: require('./getBookExistsByISBN'),
     getFavouriteBooks: require('./getFavouriteBooks'),
     getFavouriteBooksInLibrary: require('./getFavouriteBooksInLibrary'),
+    insertBooks: require('./insertBooks'),
     isFavourite: require('./isFavourite'),
     parseEpub: require('./parseEpub'),
     removeBookAvailabilitySubscription: require('./removeBookAvailabilitySubscription'),

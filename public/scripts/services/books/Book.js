@@ -1,8 +1,21 @@
-
 'use strict';
 
-app.factory('Book', function($q, $http, BookResource, LibraryBook, FavoriteBookAddResource) {
+app.factory('Book', function($q, $http, BookResource, BooksResource, LibraryBook, FavoriteBookAddResource) {
     return {
+        importAll: function(file, matches) {
+            
+            var deferred = $q.defer();
+
+            var newBooks = new BooksResource({file: file, matches: matches});
+            newBooks.$save().then(function(data) {
+                console.log(data);
+                deferred.resolve();
+            }, function(response) {
+                console.log(response);
+                deferred.reject(response);
+            });
+            
+        },
         add: function(book, libraryID) {
             var deferred = $q.defer();
 

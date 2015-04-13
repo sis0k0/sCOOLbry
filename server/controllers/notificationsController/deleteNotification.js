@@ -9,14 +9,14 @@ module.exports = function(req, res) {
     Notification.findOne({_id: req.params.id}, function(err, notification) {
         if(err || !notification) {
             console.log('Cannot find notification: ' + err);
-            res.status(402).send({reason: err});
+            res.status(400).send({reason: err});
         } else {
 
             // If it exists - remove it
             Notification.remove({_id: req.params.id}, function(err) {
                 if (err) {
                     console.log('Cannot remove notification: ' + err);
-                    res.status(402).send({reason: err});
+                    res.status(400).send({reason: err});
                 } else {
                     res.status(200).end();
                     notification.action = 'removed';

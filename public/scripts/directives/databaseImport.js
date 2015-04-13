@@ -7,15 +7,19 @@ app.directive('databaseImport', function(notifier, XLSXReaderService, XLSReaderS
         replace: true,
         scope:{
             content:'=',
-            result: '='
+            result: '=',
+            file: '='
         },
         templateUrl: '../../views/directive-templates/databaseImport.html',
-        link: function(scope, element) {            
+        link: function(scope, element) { 
+
             element.on('keyup', function(){
                 if ( scope.content !== null ) {
                     var content = {
                         csv: scope.content
                     };
+                    console.log('element');
+                    console.log(element);
                     scope.result = csvToArray(content);
                     scope.$apply();
                 }
@@ -23,8 +27,20 @@ app.directive('databaseImport', function(notifier, XLSXReaderService, XLSReaderS
 
             element.on('change', function(onChangeEvent) {
 
+                console.log('evenet');
+                console.log(scope.import);
+                console.log(scope.database);
+                console.log(onChangeEvent);
+
+                //     $('img').fadeIn('fast').attr('src', URL.createObjectURL(onChangeEvent.target.files[0]));
+
+                //     $('#disp_tmp_path').html('Temporary Path(Copy it and try pasting it in browser address bar) --> <strong>['+tmppath+']</strong>');
+                // });
+
                 var file = (onChangeEvent.srcElement || onChangeEvent.target).files[0], // Get target file
                     extension = file.name.substring(file.name.lastIndexOf('.')); // Target file extension (mimetypes are not well specified for excel files)
+                // var tmppath = URL.createObjectURL(file);
+                // console.log(tmppath);
 
                 if(extension==='.csv') { // If the file is CSV type
                     var reader = new FileReader();
@@ -35,6 +51,7 @@ app.directive('databaseImport', function(notifier, XLSXReaderService, XLSReaderS
                             };
                             scope.content = content.csv;
                             scope.result = csvToArray(content); // And read it line by line
+                            scope.file = file;
                         });
                     };
                     if ( (onChangeEvent.target.type === 'file') && (onChangeEvent.target.files !== null || onChangeEvent.srcElement.files !== null) )  {
@@ -44,18 +61,17 @@ app.directive('databaseImport', function(notifier, XLSXReaderService, XLSReaderS
                             csv: scope.content
                         };
                         scope.result = csvToArray(content);
+                        scope.file = file;
                     }
                 } else if(extension==='.xlsx') {
-                    console.log(onChangeEvent.target);
                     XLSXReaderService.readFile(file, true).then(function(xlsxData) {
-                        console.log(xlsxData);
                         scope.result = xlsxData;
+                        scope.file = file;
                     });
                 } else if(extension==='.xls') {
-                    console.log(onChangeEvent.target);
                     XLSReaderService.readFile(file, true).then(function(xlsData) {
-                        console.log(xlsData);
                         scope.result = xlsData;
+                        scope.file = file;
                     });
                 } else {
                     notifier.error('Wrong file type! Please upload CSV, XLS or XSLX file!');
@@ -64,6 +80,7 @@ app.directive('databaseImport', function(notifier, XLSXReaderService, XLSReaderS
             });
 
             var csvToArray = function(content) {
+                content.csv = content.csv.replace('\r\n', '\n').replace('\r', '\n');
                 var lines = content.csv.split('\n'),
                     result = [],
                     separator = (lines[0].indexOf(',')!==-1 && lines[0].indexOf(',')>lines[0].indexOf(';')) ? ',' : ';', // Get the separator
@@ -75,7 +92,7 @@ app.directive('databaseImport', function(notifier, XLSXReaderService, XLSReaderS
                         result.push(currentlineWords); // Add them to the result
                     } else { // If words count is greater than the columns count
                         var shrinkedWords = [];
-                        for (var j=0; j<columnCount; j++) { // Add only the first "columnCount" words
+                        for (var j=0; j<columnCount; j++) { // Add only the first 'columnCount' words
                             shrinkedWords.push(currentlineWords[j]);
                         }
                         result.push(shrinkedWords);

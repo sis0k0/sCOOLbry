@@ -17,16 +17,16 @@ var bookSchema = mongoose.Schema({
         type: String,
         required: '{PATH} is required',
         match: [
-            /^.{1,100}$/,
-            'Title should be between 1 and 100 characters'
+            /^.{1,200}$/,
+            'Title should be between 1 and 200 characters'
         ]
     },
     author: {
         type: String,
         required: '{PATH} is required',
         match: [
-            /^.{1,100}$/,
-            'Author\'s name should be between 1 and 100 characters'
+            /^.{1,200}$/,
+            'Author\'s name should be between 1 and 200 characters'
         ]
     },
     pages: {
@@ -45,8 +45,8 @@ var bookSchema = mongoose.Schema({
         type: String,
         required: '{PATH} is required',
         match: [
-            /^.{1,100}$/,
-            'Publisher\'s name should be between 1 and 100 characters'
+            /^.{1,200}$/,
+            'Publisher\'s name should be between 1 and 200 characters'
         ]
     },
     authorNationality: {

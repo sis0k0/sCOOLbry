@@ -30,6 +30,10 @@ module.exports = function(app) {
     router.get('/library/book/:id', controllers.libraries.getLibBookById);
     router.post('/library/book', auth.isInRole('librarian'), controllers.libraries.addLibBook);
     router.put('/library/book', auth.isInRole('librarian'), controllers.libraries.updateLibBook);
+
+    // Import
+    router.post('/library/books/import/:id', auth.isInRole('librarian'), controllers.libraries.importBooks);
+
     
     router.get('/library/book2/:bookID/:libraryID', controllers.libraries.getLibBook);
     router.get('/library/section/:section/:libraryID', controllers.libraries.getLibBookBySection);

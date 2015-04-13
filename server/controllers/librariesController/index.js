@@ -38,6 +38,7 @@ module.exports = {
     getUserLibraryVisits: require('./getUserLibraryVisits'),
     getUserPendingReadings: require('./getUserPendingReadings'),
     getReadingCountLibrary: require('./getReadingCountLibrary'),
+    importBooks: require('./importBooks'),
     isBookAvailable: require('./isBookAvailable'),
     isMember: require('./isMember'),
     returnBook: require('./returnBook'),

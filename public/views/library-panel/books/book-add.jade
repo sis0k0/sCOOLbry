@@ -23,6 +23,9 @@ include ../panel
           database-import
 
         include ../../partials/import-result
+        h1.col-xs-6.col-xs-offset-4.text-info(ng-show='loading') Please wait 
+          i.fa.fa-spinner.fa-spin.text-warning
+
 
         .row
           h3.text-center.text-danger(ng-if='searchState===false && !existInLibrary') Book not found! Please try something else!
@@ -35,8 +38,6 @@ include ../panel
             h3.text-info.text-center Just add the quantity in your library
 
             form(name='quantityForm', novalidate)
-
-
               .form-group(ng-class="{ 'has-success': (quantityForm.quantity.$valid), 'has-error': (quantityForm.quantity.$invalid) }")
                   label.control-label(for='quantity') Quantity
                   .row
@@ -81,8 +82,13 @@ include ../panel
               button.btn.btn-primary.col-xs-2.col-xs-offset-9(ng-disabled='quantityForm.$invalid' ng-click='addBook(book)') Add
               .col-xs-1
 
+        h3.text-danger(ng-if='isbnExists') The following books are already in the library's database: 
+        div(ng-repeat='book in isbnExists')
+          span
+            a(ng-href='/library-panel/bookInfo/{{book._id}}') {{book.bookName}} ({{book.bookISBN}})
 
         div#book-forms(ng-if='displayForm', ng-init='getPagesCount()')
+
           div(ng-repeat='book in books | startFrom:(page-1)*perPage | limitTo:perPage')
             ng-form.form-horizontal(name='bookForm', novalidate)
 
@@ -111,20 +117,20 @@ include ../panel
                     label.control-label(for='title') Title *
                     .row
                       .col-xs-12
-                        input.form-control(name='title', type='text', placeholder='Title', ng-model='book.title', ng-pattern='/^.{1,100}$/', required)
-                        span.help-block(ng-show='bookForm.title.$invalid && bookForm.title.$dirty') Title should be between 1 and 100 characters
+                        input.form-control(name='title', type='text', placeholder='Title', ng-model='book.title', ng-pattern='/^.{1,200}$/', required)
+                        span.help-block(ng-show='bookForm.title.$invalid && bookForm.title.$dirty') Title should be between 1 and 200 characters
                 .form-group(ng-class="{ 'has-success': (bookForm.author.$valid), 'has-error': (bookForm.author.$invalid) }")
                     label.control-label(for='author') Author *
                     .row
                       .col-xs-12
-                        input.form-control(name='author', type='text', placeholder='Author', ng-model='book.author', ng-pattern='/^.{1,100}$/', required)
-                        span.help-block(ng-show='bookForm.author.$invalid && bookForm.author.$dirty') Author's name should be between 1 and 100 characters
+                        input.form-control(name='author', type='text', placeholder='Author', ng-model='book.author', ng-pattern='/^.{1,200}$/', required)
+                        span.help-block(ng-show='bookForm.author.$invalid && bookForm.author.$dirty') Author's name should be between 1 and 200 characters
                 .form-group(ng-class="{ 'has-success': (bookForm.publisher.$valid), 'has-error': (bookForm.publisher.$invalid) }")
                   label.control-label(for='publisher') Publisher *
                   .row
                     .col-xs-12
-                      input.form-control(name='publisher', type='text', placeholder='Publisher', ng-model='book.publisher', ng-pattern='/^.{1,100}$/', required)
-                      span.help-block(ng-show='bookForm.publisher.$invalid && bookForm.publisher.$dirty') Publisher's name should be between 1 and 100 characters
+                      input.form-control(name='publisher', type='text', placeholder='Publisher', ng-model='book.publisher', ng-pattern='/^.{1,200}$/', required)
+                      span.help-block(ng-show='bookForm.publisher.$invalid && bookForm.publisher.$dirty') Publisher's name should be between 1 and 200 characters
                 .form-group(ng-class="{ 'has-success': !!book.section }")
                   label.control-label(for='section') Section
                   .row

@@ -126,42 +126,49 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
 
     // Import all books from csv/xls/xlsx at once
     $scope.importAll = function(includeTopRow, sheet) {
-        $scope.showCSVForms(includeTopRow, sheet, true); // Match table data with scoolbry database fields
 
-        var counter = 0,
-            booksCount = $scope.books.length;
+        var results = sheet ? $scope.result.sheets[sheet].data[0] : $scope.result[0];
+        var matches = {};
 
-        // Add book, keep index to remove the book from the books array if added successfully
-        function addBookFunc(index) {
-            Book.add($scope.books[index], identity.currentUser.ownLibraryID).then(function() {
-                $scope.books.splice(index,1);
-                bookResponse();
-            }, function() {
-                bookResponse();
-            });
-        }
-
-        // Increment counter manually, because the requests are async
-        function bookResponse() {
-            counter++;
-            if(counter===booksCount) { // If all books are iterated
-                if($scope.books.length>0) { // If there are still books in the books array
-                    // Display error message and show to forms to the user
-                    notifier.error('Some books couldn\'t be added! Please check all the required fields!');
-                    $scope.displayForm = true;
-                    $anchorScroll();
-                } else { // If there are no books in the array
-                    // Show success message and redirect to library books
-                    notifier.success('Books added successfully!');
-                    $location.path('/library-panel/books-library');
-                }
+        for(var i=0; i<$scope.matches.length; i++) {
+            if(typeof $scope.matches[i] !== 'undefined') {
+                matches[$scope.matches[i]] = results[i];
             }
         }
+        matches = JSON.stringify(matches);
+        var fd = new FormData();
+        //Take the first selected file
+        fd.append('file', $scope.file);
+        fd.append('matches', matches);
+        fd.append('topRow', includeTopRow);
+        fd.append('sheet', sheet);
 
-        // Iterate through the books
-        for(var book in $scope.books) {
-            addBookFunc(book);
-        }
+        $scope.loading = true;
+        $http.post('/api/library/books/import/'+$scope.library._id, fd, {
+            withCredentials: true,
+            headers: {'Content-Type': undefined },
+            transformRequest: angular.identity
+        }).success(function success(data) {
+            console.log(data);
+            notifier.success('All books were added successfully');
+            $location.path('/library-panel/books-library');
+        }).error(function error(error) {
+            console.log(error);
+            if(error.reason) {
+                notifier.error(error.reason);
+            }
+
+            if(error.failed || error.isbnExists) {
+                $scope.books       = error.failed;
+                $scope.isbnExists  = error.isbnExists;
+                $scope.displayForm = true;
+
+                notifier.error('Some books were not added. Please check all fields');
+                $anchorScroll();
+            }
+        }).finally(function() {
+            $scope.loading = false;
+        });
     };
 
     // Remove book form

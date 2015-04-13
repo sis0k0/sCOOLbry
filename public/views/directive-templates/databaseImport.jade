@@ -1,6 +1,7 @@
-.import.ng-isolate-scope(content='content', result='result')
+.import.ng-isolate-scope(content='content', result='result', file='file')
 
   .col-md-4.text-center
     h3.text-center(tooltip='Allowed formats are .csv, .xls and .xlsx') Import from file
       .row
-        input.btn.btn-info.custom-file-input(type='file')
+        form#uploadForm(name='import', enctype='multipart/form-data', action='/api/books/import', method='post')
+          input.btn.btn-info.custom-file-input(name='database', ng-model='database', type='file')

@@ -26,7 +26,7 @@ include ../panel
           td Actions
       tr(ng-repeat="book in books")
         td.text-bold {{ book._id }}
-        td {{ book.uploaded }}
+        td {{ book.uploaded | date:'dd/MM/yyyy'  }}
         td {{ book.isbn }}
         td {{ book.title }}
         td {{ book.author }}
