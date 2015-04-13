@@ -10,7 +10,7 @@
   },
   "engines": {
     "node": "0.10.x",
-    "npm": "1.4.x"
+    "npm": "2.1.x"
   },
   "author": "Stanimira Vlaeva & Petar Petrov",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "adm-zip": "^0.4.7",
     "apac": "0.0.14",
     "body-parser": "^1.0.2",
-    "bower": "^0.6.x",
+    "bower": "^1.4.1",
     "cheerio": "^0.17.0",
     "cookie-parser": "^1.0.1",
     "epub": "^0.1.6",
