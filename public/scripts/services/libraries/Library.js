@@ -134,6 +134,7 @@ app.factory('Library', function($http, $q, UsersResource, UserResource, identity
 
                         $http({
                             method: 'get',
+        cache: true,
                             url: '/api/library/addLibrarian/'+libraryID+'/'+data._id
                         }).then(function(){
                             newLibrariansCount++;

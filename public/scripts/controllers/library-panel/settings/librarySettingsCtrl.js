@@ -156,6 +156,7 @@ app.controller('LibrarySettingsCtrl', function($scope, $http, identity, $window,
     // Get list of all countries to choose from for library's location
     $http({
         method: 'get',
+        cache: true,
         url: '/api/countries'
     }).success(function(data) {
         $scope.countries = data;

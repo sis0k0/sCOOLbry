@@ -15,6 +15,7 @@ app.controller('AddUserAdminCtrl', function($scope, $location, $routeParams, $ht
 
     $http({
         method: 'get',
+        cache: true,
         url: '/api/roles'
     }).success(function(data) {
         $scope.roles = data;
@@ -28,7 +29,6 @@ app.controller('AddUserAdminCtrl', function($scope, $location, $routeParams, $ht
         url: '/api/libraries'
     }).success(function(data) {
         $scope.libraries = data;
-        // $scope.libraryObject = $scope.user.ownLibraryID;
     }).error(function(err) {
         console.log(err);
     });
@@ -36,6 +36,7 @@ app.controller('AddUserAdminCtrl', function($scope, $location, $routeParams, $ht
     // Get list of all countries to choose from for library's location
     $http({
         method: 'get',
+        cache: true,
         url: '/api/countries'
     }).success(function(data) {
         $scope.countries = data;

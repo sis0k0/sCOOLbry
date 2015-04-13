@@ -8,7 +8,6 @@ var app = angular.module('app', [
     'reCAPTCHA',
     'nya.bootstrap.select',
     'timer',
-    'oc.lazyLoad',
     'ui.select',
     'ui.bootstrap',
     'btford.socket-io',

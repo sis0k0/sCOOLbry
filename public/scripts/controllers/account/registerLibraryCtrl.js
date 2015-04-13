@@ -73,6 +73,7 @@ app.controller('RegisterLibraryCtrl', function($scope, $http, $location, $window
     // Get list of all countries to choose from for library's location
     $http({
         method: 'get',
+        cache: true,
         url: '/api/countries'
     }).success(function(data) {
         $scope.countries = data;

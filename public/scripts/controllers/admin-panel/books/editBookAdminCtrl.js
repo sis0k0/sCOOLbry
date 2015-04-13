@@ -26,6 +26,7 @@ app.controller('EditBookAdminCtrl', function($scope, $location, $http, $filter, 
     // Get book genres
     $http({
         method: 'get',
+        cache: true,
         url: '/api/genres'
     }).success(function(data) {
         $scope.genres = data;

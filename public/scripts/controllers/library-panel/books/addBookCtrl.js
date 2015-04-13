@@ -18,6 +18,7 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
     // Get genres
     $http({
         method: 'get',
+        cache: true,
         url: '/api/genres'
     }).success(function(data) {
         $scope.genres = data;

@@ -93,6 +93,7 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, $filter, Libra
     // Get list of all countries to choose from for library's location
     $http({
         method: 'get',
+        cache: true,
         url: '/api/countries'
     }).success(function(data) {
         $scope.countries = data;

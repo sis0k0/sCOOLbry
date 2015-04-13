@@ -69,6 +69,7 @@ app.controller('EditProfileAdminCtrl', function($scope, $location, $routeParams,
     // Get website's available roles
     $http({
         method: 'get',
+        cache: true,
         url: '/api/roles'
     }).success(function(data) {
         $scope.roles = data;
@@ -90,6 +91,7 @@ app.controller('EditProfileAdminCtrl', function($scope, $location, $routeParams,
     // Get list of all countries to choose from for user's location
     $http({
         method: 'get',
+        cache: true,
         url: '/api/countries'
     }).success(function(data) {
         $scope.countries = data;
