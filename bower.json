@@ -19,7 +19,7 @@
   "dependencies": {
     "jquery": "~2.1.0",
     "toastr": "~2.0.1",
-    "angular": "~1.3.9",
+    "angular": "~1.3.15",
     "angular-resource": "~1.2.16",
     "angular-route": "~1.2.16",
     "bootstrap": "~3.1.1",
@@ -35,6 +35,9 @@
     "js-xlsx": "~0.7.11",
     "js-xls": "~0.7.5",
     "mediatizr": "~0.4.3"
+  },
+  "resolutions": {
+    "angular": "~1.3.15"
   },
   "directory": "public/lib"
 }
