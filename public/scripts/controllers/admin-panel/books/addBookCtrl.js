@@ -56,31 +56,26 @@ app.controller('AddBookCtrl', function($scope, $window, $http, $anchorScroll, $f
         $scope.perPage = perPage;
     };
 
-
     // Define schema's fields
 
     var fieldsOptions = [], fieldsOptionsCopy = [];
     $scope.fields = [];
     $scope.matches = [];
-    fieldsOptions.push('isbn');
-    fieldsOptions.push('title');
-    fieldsOptions.push('author');
-    fieldsOptions.push('description');
-    fieldsOptions.push('publisher');
-    fieldsOptions.push('cover');
-    fieldsOptions.push('authorNationality');
-    fieldsOptions.push('language');
-    fieldsOptions.push('pages');
-    fieldsOptions.push('themes');
-    fieldsOptions.push('genres');
-    fieldsOptions.push('edition');
-    fieldsOptions.push('illustrated');
-    fieldsOptions.push('published');
-    fieldsOptionsCopy = fieldsOptions;
 
-    for(var i = 0; i < 20; i++){
-        $scope.fields.push(fieldsOptions);
-    }
+    // Get book schema fields
+    $http({
+        method: 'get',
+        cache: true,
+        url: '/api/books/fields/false'
+    }).success(function(data) {
+        fieldsOptions = data;
+        fieldsOptionsCopy = fieldsOptions;
+        for(var i = 0; i < 20; i++){
+            $scope.fields.push(fieldsOptions);
+        }
+    }).error(function(err) {
+        console.log(err);
+    });
 
     $scope.updateSelections = function(key, value) {
         $scope.matches[key] = value;

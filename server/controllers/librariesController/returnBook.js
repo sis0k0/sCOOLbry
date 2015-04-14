@@ -5,7 +5,6 @@ var Reading      = require('mongoose').model('Reading'),
     Notification = require('../../services/NotificationService');
 
 module.exports = function(req, res) {
-
     
     Reading.update({bookISBN: req.body.bookISBN, userID: req.body.userID, libraryID: req.body.libraryID, returnDate: undefined}, req.body, function(err) {
             
@@ -30,11 +29,7 @@ module.exports = function(req, res) {
                 } else {
                     res.status(200).end();
                 }
-                
             });
-        
-
         });
-
     });
 };

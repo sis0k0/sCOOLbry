@@ -1,18 +1,13 @@
 'use strict';
 
-var    User = require('mongoose').model('User');
+var User = require('mongoose').model('User');
 
 module.exports = function(req, res) {
     User.findOne({username: req.params.username}).exec(function(err, user) {
-        if (err) {
+        if (err || !user) {
             res.send(false);
         }else{
-            if(user===null){
-                res.send(false);
-            }else{
-                res.send(true);
-            }
-            
+            res.send(true);
         }
     });
 };

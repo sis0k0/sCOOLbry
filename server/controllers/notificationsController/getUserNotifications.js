@@ -3,13 +3,9 @@
 var Notification = require('mongoose').model('Notification');
 
 module.exports = function(req, res) {
-    console.log('inside');
-    console.log(req.params);
-
     Notification
     .find({userID: req.params.id})
     .exec(function(err, collection) {
-
         console.log(collection);
         if (err) {
             console.log('Cannot load notifications: ' + err);

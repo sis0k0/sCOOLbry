@@ -21,11 +21,7 @@ include ../panel
             button.btn.btn-success.pull-right.col-xs-4(id='searchByIsbnButton', style='border-radius: 0', loading-button, data-loading-text='Searching...',  ng-disabled='!ISBNSearch', ng-click='findBook()') Search
           
           database-import
-
         include ../../partials/import-result
-        h1.col-xs-6.col-xs-offset-4.text-info(ng-show='loading') Please wait 
-          i.fa.fa-spinner.fa-spin.text-warning
-
 
         .row
           h3.text-center.text-danger(ng-if='searchState===false && !existInLibrary') Book not found! Please try something else!

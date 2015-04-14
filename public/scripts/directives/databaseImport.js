@@ -18,8 +18,6 @@ app.directive('databaseImport', function(notifier, XLSXReaderService, XLSReaderS
                     var content = {
                         csv: scope.content
                     };
-                    console.log('element');
-                    console.log(element);
                     scope.result = csvToArray(content);
                     scope.$apply();
                 }
@@ -27,22 +25,11 @@ app.directive('databaseImport', function(notifier, XLSXReaderService, XLSReaderS
 
             element.on('change', function(onChangeEvent) {
 
-                console.log('evenet');
-                console.log(scope.import);
-                console.log(scope.database);
-                console.log(onChangeEvent);
-
-                //     $('img').fadeIn('fast').attr('src', URL.createObjectURL(onChangeEvent.target.files[0]));
-
-                //     $('#disp_tmp_path').html('Temporary Path(Copy it and try pasting it in browser address bar) --> <strong>['+tmppath+']</strong>');
-                // });
-
                 var file = (onChangeEvent.srcElement || onChangeEvent.target).files[0], // Get target file
                     extension = file.name.substring(file.name.lastIndexOf('.')); // Target file extension (mimetypes are not well specified for excel files)
-                // var tmppath = URL.createObjectURL(file);
-                // console.log(tmppath);
 
                 if(extension==='.csv') { // If the file is CSV type
+
                     var reader = new FileReader();
                     reader.onload = function(onLoadEvent) { // When the FileReader loads
                         scope.$apply(function() {
@@ -81,6 +68,7 @@ app.directive('databaseImport', function(notifier, XLSXReaderService, XLSReaderS
 
             var csvToArray = function(content) {
                 content.csv = content.csv.replace('\r\n', '\n').replace('\r', '\n');
+
                 var lines = content.csv.split('\n'),
                     result = [],
                     separator = (lines[0].indexOf(',')!==-1 && lines[0].indexOf(',')>lines[0].indexOf(';')) ? ',' : ';', // Get the separator

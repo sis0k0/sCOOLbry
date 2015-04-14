@@ -7,7 +7,6 @@ var LibBook = require('mongoose').model('LibBook'),
 module.exports = function(req, res) {
         
     var request = req.body;
-    console.log(request);
 
     LibBook.findOne({libraryID: request.libraryID, bookID: request.bookID}).exec(function(err, book) {
         if(err) {

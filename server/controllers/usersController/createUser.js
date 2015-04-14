@@ -5,8 +5,6 @@ var encryption  = require('../../utilities/encryption'),
 
 module.exports = function(req, res) {
 
-    console.log('inside create');
-
     var newUserData = req.body;
     newUserData.salt = encryption.generateSalt();
     newUserData.hashPass = encryption.generateHashedPassword(newUserData.salt, newUserData.password);
@@ -15,8 +13,6 @@ module.exports = function(req, res) {
             console.log('Failed to register new user: ' + err);
             res.status(400).send({reason: err});
         }
-
-        console.log(user);
 
         if(req.hasOwnProperty('user') && req.user.roles.indexOf('admin')>-1) {
             res.send(user);

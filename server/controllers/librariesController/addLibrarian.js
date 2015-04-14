@@ -5,8 +5,6 @@ var Library = require('mongoose').model('Library');
 module.exports = function(req, res) {
     Library.findOne({_id: req.params.libraryID}).exec(function(err, library) {
 
-        console.log('add librarian');
-
         if (err) {
             console.log('Library could not be loaded: ' + err);
         }

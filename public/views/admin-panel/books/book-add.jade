@@ -1,7 +1,5 @@
 include ../panel
 
-
-
 .container
   fieldset(style='margin-bottom: 2em')
     .row
@@ -23,11 +21,8 @@ include ../panel
             button.btn.btn-success.pull-right.col-xs-4(style='border-radius: 0', id='searchByIsbnButton', type='submit', loading-button, data-loading-text='Searching...',  ng-disabled='!ISBNSearch', ng-click='findBook()') Search
           
           database-import
-
         include ../../partials/import-result
-        h1.col-xs-6.col-xs-offset-4.text-info(ng-show='loading') Please wait 
-          i.fa.fa-spinner.fa-spin.text-warning
-
+        
         .row
           h3.text-center.text-danger(ng-if='searchState===false && found===false') The book was not found! Please try something else!
           h3.text-center.text-success(ng-if='searchState===true') The book was found! Please check the fields, because there may be differences.

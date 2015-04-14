@@ -15,6 +15,9 @@ module.exports = function(app) {
     router.get('/books/filter/:libraryID/:field/:order/:page/:perPage/:criteria/:phrase', controllers.books.getAllBooksFilterable);
     router.get('/book/sort/:field/:order/:page/:perPage', controllers.books.getAllBooksSortable);
 
+    // Get schema fields
+    router.get('/books/fields/:isLibrary'/*, auth.isInRole('librarian')*/, controllers.books.getBookFields);
+
     // Check if book exists by isbn
     router.get('/isbnAvailable/:isbn', controllers.books.getBookExistsByISBN);
     

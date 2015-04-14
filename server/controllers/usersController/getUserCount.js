@@ -1,6 +1,6 @@
 'use strict';
 
-var    User = require('mongoose').model('User');
+var User = require('mongoose').model('User');
 
 module.exports = function(req, res) {
     User.count({}).exec(function(err, collection) {

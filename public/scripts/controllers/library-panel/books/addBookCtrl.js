@@ -64,26 +64,21 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
     var fieldsOptions = [], fieldsOptionsCopy = [];
     $scope.fields = [];
     $scope.matches = [];
-    fieldsOptions.push('quantity');
-    fieldsOptions.push('isbn');
-    fieldsOptions.push('title');
-    fieldsOptions.push('author');
-    fieldsOptions.push('description');
-    fieldsOptions.push('publisher');
-    fieldsOptions.push('cover');
-    fieldsOptions.push('authorNationality');
-    fieldsOptions.push('language');
-    fieldsOptions.push('pages');
-    fieldsOptions.push('themes');
-    fieldsOptions.push('genres');
-    fieldsOptions.push('edition');
-    fieldsOptions.push('illustrated');
-    fieldsOptions.push('published');
-    fieldsOptionsCopy = fieldsOptions;
 
-    for(var i = 0; i < 20; i++){
-        $scope.fields.push(fieldsOptions);
-    }
+    // Get book schema fields
+    $http({
+        method: 'get',
+        cache: true,
+        url: '/api/books/fields/true'
+    }).success(function(data) {
+        fieldsOptions = data;
+        fieldsOptionsCopy = fieldsOptions;
+        for(var i = 0; i < 20; i++){
+            $scope.fields.push(fieldsOptions);
+        }
+    }).error(function(err) {
+        console.log(err);
+    });
 
     $scope.updateSelections = function(key, value) {
         value = (value.toString()==='quantity') ? 'total' : value;

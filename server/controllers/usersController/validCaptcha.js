@@ -1,6 +1,6 @@
 'use strict';
 
-var    http        = require('http'),
+var http        = require('http'),
     querystring = require('querystring');
 
 module.exports = function(req, res, next) {
