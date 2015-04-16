@@ -1,13 +1,29 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    ObjectId = require('mongoose').Schema.ObjectId;
 
 var libUserSchema = mongoose.Schema({
-    userID: String,
-    libraryID: String,
+    userID: {
+        type: ObjectId,
+        ref: 'User',
+        required: '{PATH} is required'
+    },
+    libraryID: {
+        type: ObjectId,
+        ref: 'Library',
+        required: '{PATH} is required'
+    },
     username: String,
     given: Number,
-    toReturn: Number
+    toReturn: Number,
+    subscribed: {
+        type: Date,
+        default: Date.now
+    },
+    lastPaid: {
+        type: Date
+    }
 });
 
 var LibUser = mongoose.model('LibUser', libUserSchema);

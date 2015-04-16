@@ -36,7 +36,23 @@ var librarySchema = mongoose.Schema({
     certificate: {
         type: String
     },
-    description: String,
+    tax: {
+        ammount: {
+            type: Number,
+        },
+        currency: {
+            type: String,
+        }
+    },
+    description: {
+        type: String,
+        validate: [
+            function(v) {
+                return v.length>0 && v.length<500;
+            },
+            '"Description" length should be between 0 and 500 characters'
+        ]
+    },
     librarians: [String],
     tags: [String],
     workdays: {

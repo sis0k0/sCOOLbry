@@ -39,6 +39,18 @@ app.controller('EditLibraryAdminCtrl', function($scope, $http, $location, $windo
         $location.path('/404'); // go to 404 page
     });
 
+
+    // Get all currency
+    $http({
+        method: 'get',
+        cache: true,
+        url: '/api/currency'
+    }).success(function(data) {
+        $scope.currency = data;
+    }).error(function(err) {
+        console.log(err);
+    });
+
     $scope.predicate = '_id';
     $scope.reverse = false;
 

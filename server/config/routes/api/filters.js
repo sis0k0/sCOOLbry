@@ -15,5 +15,8 @@ module.exports = function(app) {
     // Countries
     router.get('/countries', filters.countries.getAllCountries);
 
+    // Currency
+    router.get('/currency', filters.currency.getAllCurrency);
+
     app.use('/api/', router);
 };

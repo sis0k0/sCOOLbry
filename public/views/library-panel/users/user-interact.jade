@@ -38,8 +38,6 @@ include ../panel
             .form-group
               label(for='book') Book
                 .row
-
-
                   ui-select(ng-model='returnForm.bookInfo', ng-disabled='disabled', style='min-width: 450px;', required)
                       ui-select-match(placeholder='Please select a book') {{$select.selected.bookName}} ({{$select.selected.bookISBN}})
                       ui-select-choices(repeat='book in booksToReturn | propsFilter: {bookName: $select.search, bookISBN: $select.search}')

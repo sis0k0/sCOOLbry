@@ -58,6 +58,17 @@ app.controller('LibrarySettingsCtrl', function($scope, $http, identity, $window,
         $scope.reverse = false;
 
 
+    // Get all currency
+    $http({
+        method: 'get',
+        cache: true,
+        url: '/api/currency'
+    }).success(function(data) {
+        $scope.currency = data;
+    }).error(function(err) {
+        console.log(err);
+    });
+
     // Update library
     
     $scope.updateLibrary = function(library, librarians) {

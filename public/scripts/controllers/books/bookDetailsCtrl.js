@@ -161,6 +161,17 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
             if(typeof $scope.user === 'undefined') {
                 $scope.isMember = false;
             }else{
+
+                // TO DO
+                // After payments are implemented,
+                // a checking should be performed before taking a book
+
+                // var responsePromise = $http.get('/api/library/member/'+$routeParams.id+'/'+identity.currentUser._id);
+                // responsePromise.success(function(data) {
+                //     console.log(data);
+                //     $scope.isMember = data ? true : false;
+                // });
+
                 $scope.isMember = (typeof $scope.user.librarySubscriptions !== 'undefined' && $scope.user.librarySubscriptions.indexOf($scope.libraryID) > -1) ? true : false;
                 
                 $http.get('/api/book/availabilitySubscription/' + $routeParams.id + '/' + $routeParams.libraryID + '/' + $scope.user._id).

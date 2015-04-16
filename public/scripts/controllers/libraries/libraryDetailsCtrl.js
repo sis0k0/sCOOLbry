@@ -62,11 +62,8 @@ app.controller('LibraryDetailsCtrl', function($scope, $location, User, $routePar
     }else{
         var responsePromise = $http.get('/api/library/member/'+$routeParams.id+'/'+identity.currentUser._id);
         responsePromise.success(function(data) {
-            if(data===true){
-                $scope.isMember = true;
-            }else{
-                $scope.isMember = false;
-            }
+            console.log(data);
+            $scope.isMember = data ? true : false;
         });
         console.log($scope.isMember);
         $scope.isLoggedIn = true;

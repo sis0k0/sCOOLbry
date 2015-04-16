@@ -18,6 +18,18 @@ app.controller('RegisterLibraryCtrl', function($scope, $http, $location, $window
         $scope.library.workHoursClosingMinutes[i] = 0;
     }
 
+    // Get all currency
+    $http({
+        method: 'get',
+        cache: true,
+        url: '/api/currency'
+    }).success(function(data) {
+        $scope.currency = data;
+    }).error(function(err) {
+        console.log(err);
+    });
+
+    // Get dynamic addresses from google maps api
     $scope.refreshAddresses = function(address) {
         var params = {address: address, sensor: false};
         return $http.get(
@@ -31,6 +43,7 @@ app.controller('RegisterLibraryCtrl', function($scope, $http, $location, $window
 
     // Add library
     $scope.addLibrary = function() {
+        console.log($scope.library.tax);
 
         var workdays = [];
         var workhours = [];

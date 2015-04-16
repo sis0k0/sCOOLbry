@@ -27,6 +27,17 @@ app.controller('AddLibraryCtrl', function($scope, $http, $window, $filter, Libra
         });
     };
 
+    // Get all currency
+    $http({
+        method: 'get',
+        cache: true,
+        url: '/api/currency'
+    }).success(function(data) {
+        $scope.currency = data;
+    }).error(function(err) {
+        console.log(err);
+    });
+
     // Add library
     $scope.addLibrary = function(library, librarians) {
 
