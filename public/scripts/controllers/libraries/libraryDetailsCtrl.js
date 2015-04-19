@@ -9,7 +9,7 @@ app.controller('LibraryDetailsCtrl', function($scope, $location, User, $routePar
         collection.every(function(library) {
             if (library._id === $routeParams.id) {
                 $scope.library = library;
-
+                
                 uiGmapGoogleMapApi.then(function() {
                     $scope.map = { 
                         center: { latitude: library.address.geometry.location.lat, longitude: library.address.geometry.location.lng },

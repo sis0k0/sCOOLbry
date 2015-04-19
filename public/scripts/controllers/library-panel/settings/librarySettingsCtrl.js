@@ -12,6 +12,7 @@ app.controller('LibrarySettingsCtrl', function($scope, $http, identity, $window,
             $scope.addresses = response.data.results;
         });
     };
+
     $scope.library = LibraryResource
         .get({id: identity.currentUser.ownLibraryID}, function(data){
 

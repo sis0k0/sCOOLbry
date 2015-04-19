@@ -25,6 +25,10 @@ var librarySchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
+    paid: {
+        type: Boolean,
+        default: false
+    },
     visible: {
         type: Boolean,
         default: false
@@ -36,13 +40,13 @@ var librarySchema = mongoose.Schema({
     certificate: {
         type: String
     },
-    tax: {
-        ammount: {
-            type: Number,
-        },
-        currency: {
-            type: String,
-        }
+    amount: {
+        type: Number,
+        default: 0.00
+    },
+    currency: {
+        type: String,
+        default: ''
     },
     description: {
         type: String,
@@ -128,6 +132,7 @@ module.exports.seedInitialLibraries = function() {
                 'certified': true,
                 'visible': true,
                 'featured': true,
+                'paid': false
             });
 
             console.log('Library added to the database...');

@@ -8,6 +8,7 @@
       div(ng-show='isLoggedIn && !isMember')
         h2.text-success Become a Member
         button.btn.btn-primary(ng-click='subscribeForLibrary()') Subscribe
+        //todo: add if + paypal button
       div(ng-show='isLoggedIn && isMember')
         h2.text-success Unsubscribe
         button.btn.btn-primary(ng-click='unsubscribeForLibrary()') Unsubscribe
@@ -21,6 +22,12 @@
           p
             span.text-success.text-bold Books count:
             | &nbsp;&nbsp;{{ booksCount }}
+          p(ng-show='library.paid')
+            span.text-success.text-bold Membership tax:
+            | &nbsp;&nbsp;{{ library.amount }} {{ library.currency }}
+          p(ng-show='library.paid===false')
+            span.text-success.text-bold Membership tax:
+            | &nbsp;&nbsp;FREE
           p
             span.text-success.text-bold Members:
             | &nbsp;&nbsp;{{ membersCount }}

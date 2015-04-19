@@ -51,7 +51,13 @@
                   .row
                     .col-xs-12
                         input.form-control.checkbox(name='certified', type='checkbox', ng-model='library.certified') 
-          
+            .col-xs-3
+              .form-group(ng-class="{ 'has-success': (library.paid === true) }")
+                label.control-label(for='paid') &nbsp;Paid&nbsp;&nbsp;
+                  .row
+                    .col-xs-12
+                        input.form-control.checkbox(name='paid', type='checkbox', ng-model='library.paid') 
+      
 
 
   .row
@@ -75,17 +81,18 @@
           .col-xs-4
             img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
             input(type='hidden', ng-model='library.certificate', required)
+  .row
+    .col-md-10.col-md-offset-1
+      .row(ng-show='library.paid')
 
-      .row(ng-show='paid')
-
-        .form-group(ng-class = "{ 'has-success': (!!library.tax.ammount && libraryForm.tax.$valid) }")
-          label.control-label(for='tax') Tax
+        .form-group(ng-class = "{ 'has-success': (!!libraryForm.amount) }")
+          label.control-label(for='tax') Amount
           .row
             .col-xs-12
-              input.form-control(name='tax', ng-model='library.tax.ammount')
+              input.form-control(name='tax', ng-model='library.amount')
 
         .form-group(ng-class = "{ 'has-success': libraryForm.currency.$dirty }")
           label.control-label(for='currency') Currency
           .row
             .col-xs-12
-                select.form-control.nya-selectpicker(name='currency', tooltip='Select tax currency', live-search='true', ng-options='curr for curr in currency track by curr', ng-model='library.tax.currency')
+                select.form-control.nya-selectpicker(name='currency', tooltip='Select tax currency', live-search='true', ng-options='curr for curr in currency track by curr', ng-model='library.currency')
