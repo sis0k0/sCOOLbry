@@ -10,6 +10,7 @@ var mongoose                     = require('mongoose'),
     libVisit                     = require('../models/LibVisit'),
     libUser                      = require('../models/LibUser'),
     libMap                       = require('../models/LibMap'),
+    libFines                     = require('../models/LibFines'),
     reading                      = require('../models/Reading'),
     bookAvailabilitySubscription = require('../models/BookAvailabilitySubscription'),
     notification                 = require('../models/Notification'),
@@ -41,6 +42,7 @@ module.exports = function(config) {
     libVisit.seedInitialLibVisit();
     libUser.seedInitialLibUser();
     libMap.seedInitialLibMap();
+    libFines.seedInitialLibFines();
     reading.seedInitialReadings();
     booking.seedInitialBookings();
     notification.seedInitialNotifications();
