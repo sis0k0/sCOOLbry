@@ -122,5 +122,24 @@ app.config(function($routeProvider) {
             templateUrl: '/partials/library-panel/users/visits',
             controller: 'LibraryVisitsCtrl',
             resolve: routeUserChecks.librarianRole
+        })
+
+        //fines
+        .when('/library-panel/fines', {
+            templateUrl: '/partials/library-panel/fines/fines-list',
+            controller: 'LibraryFinesCtrl',
+            resolve: routeUserChecks.librarianRole
+        })
+        .when('/library-panel/fine/:id', {
+            templateUrl: '/partials/library-panel/fines/fine-info',
+            controller: 'LibraryFineInfoCtrl',
+            resolve: routeUserChecks.librarianRole
+        })
+        .when('/library-panel/fine-add/:id', {
+            templateUrl: '/partials/library-panel/fines/add-fine',
+            controller: 'LibraryAddFineCtrl',
+            resolve: routeUserChecks.librarianRole
         });
+        
+
 });

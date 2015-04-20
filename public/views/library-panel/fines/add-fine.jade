@@ -1,0 +1,25 @@
+include ../panel
+
+.container(ng-controller='LibraryAddFineCtrl')
+
+  .row
+    h1.text-center User: 
+      a(ng-href='/library-panel/userInfo/{{user._id}}') {{ user.firstName }} {{ user.lastName }}
+
+  .row
+    .col-md-6.text-center
+      h2 Issue Fine
+      form.form-horizontal(name='fineForm')
+        fieldset
+          .row
+            .form-group
+              label(for='amount') Fine Amount
+                .row
+                  input.form-control(ng-model='fineForm.amount', type='text')
+
+            .form-group
+              label(for='reason') Readon
+                .row
+                  textarea.form-control(name='reason', cols='50', ng-model='fineForm.reason')
+          .row
+            button.btn.btn-success(ng-click='addFine(fineForm)', ng-disabled='fineForm.$invalid') Issue Fine

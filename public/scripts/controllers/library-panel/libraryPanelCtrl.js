@@ -22,6 +22,14 @@ app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
                 'books taken' : '/library-panel/users/books-taken',
                 'library visits' : '/library-panel/users/visits'
             }
+        },
+
+        {
+            'name' : 'fines',
+            links : {
+                'browse' : '/library-panel/fines',
+                'add fine' : '/library-panel/fines/add-fine',
+            }
         }
     ];
 
