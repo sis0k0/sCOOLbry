@@ -128,6 +128,17 @@ include ../panel
                           textarea.form-control.col-xs-4(name='description', placeholder='Book review', ng-model='book.description', rows='6', ng-maxlength='1500')
                           span.help-block(ng-show='bookForm.description.$error.maxlength') Length must be below 1500 characters
 
+
+                  .col-xs-12
+                    .form-group(ng-class="{ 'has-success': (!!book.ebook), 'has-error': (epubUploadError) }")
+                      label.control-label(for='ebook') Upload ebook
+                      .row
+                        .col-xs-11
+                          input.form-control(type='file', name='ebook', ng-model='book.ebook', tooltip='The supported type is epub', tooltip-trigger='focus', tooltip-placement='top', onchange='angular.element(this).scope().setFileEventListener(this)')
+                          button.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadEbook($index)', ng-disabled='!uploadButtonState', style='margin-top:0.5em') Upload file
+                          span.help-block.text-success {{ebookUploadSuccess}}
+                          span.help-block.text-danger {{ebookUploadError}}
+
               .row
                 button.btn.btn-primary.col-xs-2.col-xs-offset-9(ng-disabled='bookForm.$invalid' ng-click='addBook(book, $index)') Add
                 .col-xs-1

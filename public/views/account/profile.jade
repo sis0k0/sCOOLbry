@@ -19,19 +19,19 @@
   #myTabContent.tab-content
     .tab-pane.fade.active.in#personal-information
       .row.vcenter
-        .col-md-6.col-xs-6
-          img.img-responsive.img-thumbnail(ng-src='{{ user.avatar }}')
         .col-md-5.col-xs-5
+          img.img-responsive.img-thumbnail(ng-src='{{ user.avatar }}')
+        .col-md-7.col-xs-7
           .row
-            h4.text-bold
+            h3.text-info.text-bold
               {{ user.firstName }} {{ user.lastName }} ({{ user.username }}) 
             i.fa.fa-male.blue(ng-show='user.gender=="Male"', title='Male', style='font-size: 1.2em')
             i.fa.fa-female.pink(ng-show='user.gender=="Female"', title='Female', style='font-size: 1.2em')
             i.fa.fa-user(ng-show='user.gender=="Not specified"', title='Not Specified', style='font-size: 1.2em')
           .row
-            small Member since: {{ user.created | date:'dd MMMM yyyy&nbsp;HH:mm:ss'}}
+            span Member since: {{ user.created | date:'dd MMMM yyyy HH:mm:ss'}}
           .row(ng-show='user.dateOfBirth!=="N/A"')
-            small Birthday: {{ user.dateOfBirth | date:'dd MMMM yyyy'}}
+            span Birthday: {{ user.dateOfBirth | date:'dd MMMM yyyy'}}
           .row
             a(href='{{ user.facebookUrl }}', ng-show='user.facebookUrl!=="N/A"')
               i.fa.fa-facebook(style='font-size: 1.5em; color: #fff;')
@@ -40,14 +40,19 @@
             a(href='{{ user.googlePlusUrl }}', ng-show='user.googlePlusUrl!=="N/A"')
               i.fa.fa-google-plus(style='font-size: 1.5em; color: #fff;')
           .row
-            small Email: {{ user.email }}&nbsp;
+            span Email: {{ user.email }}&nbsp;
             a(href='mailto:{{ user.email }}', title='Send an email')
               i.fa.fa-envelope(style='color: #fff;')
           .row(ng-show='user.aboutMe!==""')
-            small About: {{ user.aboutMe }}
+            span About: {{ user.aboutMe }}
           .row
             h4.text-bold Roles
-            small(ng-repeat='(key, value) in user.roles') {{ value }}; 
+            span(ng-repeat='(key, value) in user.roles')
+              span {{ value | titleCase }}
+              span(ng-if='!$last') , 
+          .row
+            h4
+              a(href='/profile/edit') Edit profile
 
       .row
         hr

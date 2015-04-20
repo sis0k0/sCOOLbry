@@ -34,6 +34,31 @@ app.controller('EditBookAdminCtrl', function($scope, $location, $http, $filter, 
         console.log(err);
     });
 
+    // Upload ebook
+    $scope.uploadEbook = function() {
+        var fd = new FormData();
+        //Take the first selected file
+        fd.append('file', $scope.uploadedFile);
+
+        $http.post('/api/books/upload', fd, {
+            withCredentials: true,
+            headers: {'Content-Type': undefined },
+            transformRequest: angular.identity
+        }).success(function success(data) {
+            $scope.book.ebookUrl = data;
+            $scope.ebookUploadSuccess = 'Ebook successfully uploaded';
+            $scope.ebookUploadError = undefined;
+            console.log(data);
+
+        }).error(function error(error) {
+            if(error.reason) {
+                console.log(error);
+                $scope.ebookUploadError = error.reason.name || error.reason;
+                $scope.ebookUploadSuccess = undefined;
+            }
+        });
+    };
+
     // Update the book
     $scope.update = function(book) {
         Book.update(book).then(function() {

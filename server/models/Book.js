@@ -82,7 +82,10 @@ var bookSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    other: Object
+    other: Object,
+    ebookUrl: {
+        type: String
+    }
 });
 
 var Book = mongoose.model('Book', bookSchema);

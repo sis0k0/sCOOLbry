@@ -11,7 +11,7 @@ module.exports = function(req, res) {
         page = req.params.page || 1,
         perPage = req.params.perPage || 10,
         criteria = req.params.criteria || 'all',
-        phrase = req.params.phrase || '';
+        phrase = req.params.phrase || ' ';
 
     var condition = {};
     var sortObject = {};
@@ -53,7 +53,6 @@ module.exports = function(req, res) {
         });
     } else {
     // Find book
-        console.log('All libraries');
         Book
         .find(condition, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage})
         .exec(function(err, collection) {

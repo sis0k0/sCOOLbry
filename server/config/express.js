@@ -20,7 +20,7 @@ module.exports = function(app, config) {
     app.use(bodyParser.json());
 
     // Configure multer
-    app.use(multer({ dest: './public/uploads/',
+    app.use(multer({ dest: './server/uploads/',
         limits: {
             fieldNameSize: 100,
             files: 2,

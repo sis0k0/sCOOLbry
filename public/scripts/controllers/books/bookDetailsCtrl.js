@@ -11,6 +11,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
         collection.every(function(book) {
             if (book._id === $routeParams.id) {
                 $scope.book = book;
+                console.log(book);
                 found = true;
                 return false;
             }
@@ -25,6 +26,44 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
     $scope.gotoOtherLibraries = function() {
       $location.hash('other');
       $anchorScroll();
+    };
+
+    $scope.downloadEbook = function() {
+        console.log($scope.book.ebookUrl);
+
+
+
+        $http({
+            url: '/api/book/ebook/', 
+            method: 'GET',
+            params: {path: $scope.book.ebookUrl},
+            headers: {
+               'Content-type': 'application/epub+zip'
+            },
+            responseType: 'arraybuffer'
+         })
+        .success(function(data) {
+
+            // create new blob with the data buffer
+            var blob = new Blob([data], {
+                type: 'application/epub+zip'
+            });
+            var objectUrl = URL.createObjectURL(blob);
+
+            // create new hidden anchor element, trigger click and download the file 
+            var element = angular.element('<a/>');
+            element.attr({
+                href: objectUrl,
+                target: '_blank',
+                download: $scope.book.title + '.epub'
+            })[0].click();
+
+
+        })
+        .error(function(err) {
+            console.log(err);
+            notifier.error(err.reason || err);
+        });
     };
 
     $http.get('/api/library/lib-books/'+$routeParams.id)
@@ -192,6 +231,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
                         $scope.booking = $scope.bookings[i];
 
                         $scope.reservationEnd = $scope.bookings[i].bookDate;
+                        console.log($scope.reservationEnd);
 
                         var wrapper = angular.element(document.querySelector( '#timerWrapper' ));
 

@@ -16,12 +16,12 @@
             span(ng-show='$last') &nbsp; / 
           span.text-info {{book.publisher}}
           span.text-info.pull-right {{ book.author }}
-        div(ng-show='!showMore')
+        div(ng-show='!showMore && !!book.description')
           p.text-justify {{ book.description | cut:true:400:'...'}}
-          a(href='#' ng-click='showMore=!showMore') Show more
-        div(ng-show='!!showMore')
+          a(href='#', ng-click='showMore=!showMore') Show more
+        div(ng-show='!!showMore && !!book.description')
           p.text-justify {{ book.description}}
-          a(href='#' ng-click='showMore=!showMore') Show less
+          a(href='#', ng-click='showMore=!showMore') Show less
 
       .col-xs-12(ng-show='book.other')
         .panel.panel-primary(style='margin-top:2em', ng-show='!!showMore')
@@ -46,10 +46,14 @@
           div(ng-show='reservationEnd', id='timerWrapper')
           button.btn.btn-danger(ng-show='booking', ng-click='removeBooking()', ng-confirm-click='Are you sure you want to cancel that reservation?') Cancel reservation
 
-          div(style='margin-top:0.5em')
-            button.btn.btn-primary(ng-hide='isFavorite || !isMember', ng-click='addFavorite(book.title, book.isbn)') Add favorite book
-            button.btn.btn-danger(ng-show='isFavorite && isMember', ng-click="removeFavorite()") Remove favorite book
-            button(style='margin-left:0.2em', ng-click='gotoOtherLibraries()').btn.btn-info Other libraries
+          div
+            button.btn.btn-info(style='margin-right:0.5em', ng-show='book.ebookUrl', ng-click='downloadEbook()', href='#') Download ebook
+            button.btn.btn-primary(style='margin:0.5em 0', ng-hide='isFavorite || !isMember', ng-click='addFavorite(book.title, book.isbn)') Add favorite book
+            button.btn.btn-danger(style='margin:0.5em 0', ng-show='isFavorite && isMember', ng-click="removeFavorite()") Remove favorite book
+            button.btn.btn-primary(ng-click='gotoOtherLibraries()') 
+              span(ng-show='libraryID') Other 
+              span(ng-hide='libraryID') At 
+              span ibraries
 
         .panel-body(ng-hide='user')
           h2

@@ -1,7 +1,7 @@
 extends includes/layout
 block main-content
 
-  .container-fluid(ng-cloak)
+  .container-fluid.ng-cloak
     header(role='navigation').nav.navbar-default.navbar-fixed-top
       .navbar-header
 
@@ -23,6 +23,7 @@ block main-content
               a(ng-href='{{notification.href}}', ng-click='markAsSeen(notification)')
                 div(ng-bind-html='notification.message')
                 small.text-muted.pull-right(time-passed) {{notification.date}}
+   
       nav#site-navigation.navbar-collapse.collapse
 
         ui-select#search-header.navbar-left(ng-controller='SearchCtrl', name='result', ng-model='result.selected', ng-disabled='disabled', reset-search-input='false', on-select='goToResult($item)')
@@ -31,7 +32,7 @@ block main-content
             div(ng-if='!$last')
               div
                 span(ng-bind-html='result.title | highlight: $select.search')
-                span  (
+                span (
                 span(ng-bind-html='result.author | highlight: $select.search')
                 span )
               small.text-muted.text-bold(ng-bind='ISBN: ')

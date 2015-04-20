@@ -8,6 +8,7 @@ module.exports = {
     deleteBookById: require('./deleteBookById'),
     deleteFavouriteBookById: require('./deleteFavouriteBookById'),
     deleteBookFromLibraryById: require('./deleteBookFromLibraryById'),
+    downloadEbook: require('./downloadEbook'),
     getAllBooks: require('./getAllBooks'),
     getAllBooksFilterable: require('./getAllBooksFilterable'),
     getAllBooksFilterableCount: require('./getAllBooksFilterableCount'),

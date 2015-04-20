@@ -26,6 +26,30 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
         console.log(err);
     });
 
+    // Upload ebook
+    $scope.uploadEbook = function(index) {
+        var fd = new FormData();
+        //Take the first selected file
+        fd.append('file', $scope.uploadedFile);
+
+        $http.post('/api/books/upload', fd, {
+            withCredentials: true,
+            headers: {'Content-Type': undefined },
+            transformRequest: angular.identity
+        }).success(function success(data) {
+            $scope.books[index].ebookUrl = data;
+            $scope.ebookUploadSuccess = 'Ebook successfully uploaded';
+            $scope.ebookUploadError = undefined;
+            console.log(data);
+
+        }).error(function error(error) {
+            if(error.reason) {
+                console.log(error);
+                $scope.ebookUploadError = error.reason.name || error.reason;
+                $scope.ebookUploadSuccess = undefined;
+            }
+        });
+    };
     // Set pagination
 
     $scope.page = 1;

@@ -8,7 +8,7 @@ var auth        = require('../../auth'),
 module.exports = function(app) {
 
     // Book parsers
-    router.post('/books/upload', auth.isInRole('admin'), controllers.books.parseEpub);
+    router.post('/books/upload', /*auth.isInRole('admin'),*/ controllers.books.parseEpub);
 
     // Get books
     router.get('/books', controllers.books.getAllBooks);
@@ -62,6 +62,8 @@ module.exports = function(app) {
     router.get('/book/availabilitySubscription/:bookID/:libraryID/:userID', auth.isAuthorized(), controllers.books.getBookAvailabilitySubscription);
     router.delete('/book/availabilitySubscription/:bookID/:libraryID/:userID', auth.isAuthorized(), controllers.books.removeBookAvailabilitySubscription);
 
+    // Download ebook
+    router.get('/book/ebook', controllers.books.downloadEbook);
 
     app.use('/api/', router);
 };

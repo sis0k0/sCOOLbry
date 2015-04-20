@@ -5,7 +5,7 @@ var Book = require('mongoose').model('Book');
 module.exports = function(req, res) {
     var order   = req.params.order || 'asc',
         field   = req.params.field || '_id',
-        page    = req.page.page || 1,
+        page    = req.params.page || 1,
         perPage = req.params.perPage || 10;
 
     var sortObject = {};

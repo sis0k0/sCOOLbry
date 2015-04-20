@@ -1,27 +1,31 @@
 'use strict';
 
 var mongoose = require('mongoose');
-// var mongoosastic = require('mongoosastic');
-//var ObjectId = mongoose.Schema.ObjectId;
+var ObjectId = mongoose.Schema.ObjectId;
 
 var eBookSchema = mongoose.Schema({
-    title: {
-        type: String,
-    },
+    // title: {
+    //     type: String,
+    //     required: '{PATH} is required'
+    // },
     path: {
         type: String,
         required: '{PATH} is required'
     },
     chapters: {
         type: [String],
-        required: '{PATH} is required',
-        text : true
+        // required: '{PATH} is required',
+        // text : true
     },
-    // uploaderID: {
-    //     type: ObjectId,
-    //     ref: 'User',
-    //     required: '{PATH} is required'
-    // },
+    uploaderID: {
+        type: ObjectId,
+        ref: 'User',
+        required: '{PATH} is required'
+    },
+    books: [{
+        type: ObjectId,
+        ref: 'Book'
+    }],
     uploaded: {
         type: Date,
         default: Date.now
@@ -29,14 +33,6 @@ var eBookSchema = mongoose.Schema({
 });
 
 var eBook = mongoose.model('eBook', eBookSchema);
-
-eBook.on('index', function(err) {
-    if (err) {
-        console.error('eBook index error: %s', err);
-    } else {
-        console.info('eBook indexing complete');
-    }
-});
 
 module.exports.seedInitialEbooks = function() {
     eBook.find({}).exec(function(err, collection) {

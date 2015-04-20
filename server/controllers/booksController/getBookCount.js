@@ -13,7 +13,7 @@ module.exports = function(req, res) {
             if(err) {
                 console.log('Books could not be counted: ' + err);
             }
-            res.send(count);
+            res.send(''+count);
         });
     // Else - count all books
     } else {
