@@ -27,8 +27,7 @@ app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
         {
             'name' : 'fines',
             links : {
-                'browse' : '/library-panel/fines',
-                'add fine' : '/library-panel/fines/add-fine',
+                'browse' : '/library-panel/fines'
             }
         }
     ];

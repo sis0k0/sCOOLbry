@@ -94,5 +94,8 @@ module.exports = function(app) {
     router.get('/library/bookings-user/:userID', controllers.libraries.getBookingsByUser);
 
     router.get('/library/available/:bookID/:libraryID', controllers.libraries.isBookAvailable);
+    
+    // FINES
+    router.post('/library/fine', auth.isInRole('librarian'), controllers.libraries.addFine);
     app.use('/api/', router);
 };

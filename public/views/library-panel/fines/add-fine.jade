@@ -4,7 +4,7 @@ include ../panel
 
   .row
     h1.text-center User: 
-      a(ng-href='/library-panel/userInfo/{{user._id}}') {{ user.firstName }} {{ user.lastName }}
+      a(ng-href='/library-panel/userInfo/{{finedUserInfo._id}}') {{ finedUserInfo.firstName }} {{ finedUserInfo.lastName }}
 
   .row
     .col-md-6.text-center
@@ -15,11 +15,11 @@ include ../panel
             .form-group
               label(for='amount') Fine Amount
                 .row
-                  input.form-control(ng-model='fineForm.amount', type='text')
+                  input.form-control(ng-model='fine.amount', type='text')
 
             .form-group
-              label(for='reason') Readon
+              label(for='reason') Reason
                 .row
-                  textarea.form-control(name='reason', cols='50', ng-model='fineForm.reason')
+                  textarea.form-control(name='reason', cols='50', ng-model='fine.reason')
           .row
-            button.btn.btn-success(ng-click='addFine(fineForm)', ng-disabled='fineForm.$invalid') Issue Fine
+            button.btn.btn-success(ng-click='addFine(fine)', ng-disabled='fineForm.$invalid') Issue Fine

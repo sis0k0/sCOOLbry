@@ -127,7 +127,6 @@ app.config(function($routeProvider) {
         //fines
         .when('/library-panel/fines', {
             templateUrl: '/partials/library-panel/fines/fines-list',
-            controller: 'LibraryFinesCtrl',
             resolve: routeUserChecks.librarianRole
         })
         .when('/library-panel/fine/:id', {
@@ -135,7 +134,7 @@ app.config(function($routeProvider) {
             controller: 'LibraryFineInfoCtrl',
             resolve: routeUserChecks.librarianRole
         })
-        .when('/library-panel/fine-add/:id', {
+        .when('/library-panel/add-fine/:userID', {
             templateUrl: '/partials/library-panel/fines/add-fine',
             controller: 'LibraryAddFineCtrl',
             resolve: routeUserChecks.librarianRole
