@@ -14,6 +14,10 @@ var libFinesSchema = mongoose.Schema({
         ref: 'Library',
         required: '{PATH} is required'
     },
+    amount: {
+        type: Number,
+        default: 0.00
+    },
     username: String,
     reason: String,
     added: {

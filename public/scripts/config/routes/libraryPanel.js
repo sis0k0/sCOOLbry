@@ -127,6 +127,7 @@ app.config(function($routeProvider) {
         //fines
         .when('/library-panel/fines', {
             templateUrl: '/partials/library-panel/fines/fines-list',
+            controller: 'LibraryFinesListCtrl',
             resolve: routeUserChecks.librarianRole
         })
         .when('/library-panel/fine/:id', {
@@ -138,7 +139,18 @@ app.config(function($routeProvider) {
             templateUrl: '/partials/library-panel/fines/add-fine',
             controller: 'LibraryAddFineCtrl',
             resolve: routeUserChecks.librarianRole
+        })
+        .when('/library-panel/fine-paid/:id', {
+            templateUrl: '/partials/library-panel/fines/fine-paid',
+            controller: 'FinePaidLibraryCtrl',
+            resolve: routeUserChecks.librarianRole
+        })
+        .when('/library-panel/fine-remove/:id', {
+            templateUrl: '/partials/library-panel/fines/fine-remove',
+            controller: 'FineDeleteFromLibraryCtrl',
+            resolve: routeUserChecks.librarianRole
         });
+
         
 
 });

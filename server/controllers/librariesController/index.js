@@ -51,6 +51,7 @@ module.exports = {
     returnBook: require('./returnBook'),
     takeBook: require('./takeBook'),
     updateLibBook: require('./updateLibBook'),
+    updateLibFine: require('./updateLibFine'),
     updateLibrary: require('./updateLibrary'),
     libraryNameAvailable: require('./libraryNameAvailable')
 

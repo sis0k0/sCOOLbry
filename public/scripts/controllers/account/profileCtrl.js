@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('ProfileCtrl', function($scope, $http, $timeout, identity, UserResource, LibraryResource, FavoriteBookResource, UserReadingProfileResource, UserBookingsResource, notifier, $location) {
+app.controller('ProfileCtrl', function($scope, $http, $timeout, $location, notifier, identity, UserResource, LibraryResource, FavoriteBookResource, UserReadingProfileResource, UserBookingsResource, UserFinesResource) {
     $scope.user = UserResource.get({id: identity.currentUser._id}, function(data){
         if(!data) {
             $location.path('/404');
@@ -42,5 +42,7 @@ app.controller('ProfileCtrl', function($scope, $http, $timeout, identity, UserRe
     });
 
     $scope.favoriteBooks = FavoriteBookResource.get({userID: identity.currentUser._id});
+    $scope.fines = UserFinesResource.get({userID: identity.currentUser._id});
+    console.log($scope.fines);
 
 });

@@ -15,6 +15,9 @@
     li
       a(href="#personal-bookings", data-toggle="tab", target="_self")
         | Bookings
+    li
+      a(href="#personal-fines", data-toggle="tab", target="_self")
+        | Fines
 
   #myTabContent.tab-content
     .tab-pane.fade.active.in#personal-information
@@ -155,3 +158,29 @@
                         a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ bookingItem.booking.bookID }}/{{ bookingItem.booking.libraryID }}')
                           | See more
       p(ng-hide='user.bookings.length!==0') No bookings found.
+    .tab-pane.fade#personal-fines
+      h3
+        | Fines
+      .row
+        #fines-list.col-md-10.col-md-offset-1.table-responsive(ng-hide='fines.length===0')
+          table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
+            thead
+              tr.text-bold.text-primary
+                td#amount Amount
+                  span#amount.text-right
+                td#reason Reason
+                  span#reason.text-right
+                td#added Date Added
+                  span#added.text-right
+                td#paid Date Paid
+                  span#paid.text-right
+                td Actions
+              tr(ng-repeat="fine in fines")
+                td {{ fine.amount }}
+                td {{ fine.reason }}
+                td {{ fine.added }}
+                td {{ fine.paid }}
+                td
+                  a.btn-sm(href='#', tooltip='Pay Fine')
+                    span.glyphicon.glyphicon-credit-card.text-success
+      p(ng-show='fines.length===0') You don't have any fines.

@@ -1,0 +1,38 @@
+include ../panel
+
+.container
+  h1.text-center Fines list
+
+  #fines-list.table-responsive(ng-init="pages();")
+    table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
+      thead
+        tr.text-bold.text-primary
+          td#userID(ng-click="sort($event); reloadFines()") User ID
+            span#userID.glyphicon.glyphicon-sort.text-right
+          td#username(ng-click="sort($event); reloadFines()") Username
+            span#username.glyphicon.glyphicon-sort.text-right
+          td#amount(ng-click="sort($event); reloadFines()") Amount
+            span#amount.glyphicon.glyphicon-sort.text-right
+          td#reason(ng-click="sort($event); reloadFines()") Reason
+            span#reason.glyphicon.glyphicon-sort.text-right
+          td#added(ng-click="sort($event); reloadFines()") Date Added
+            span#added.glyphicon.glyphicon-sort.text-right
+          td#paid(ng-click="sort($event); reloadFines()") Date Paid
+            span#paid.glyphicon.glyphicon-sort.text-right
+          td Actions
+      tr(ng-repeat="fine in fines")
+        td {{ fine.userID }}
+        td {{ fine.username }}
+        td {{ fine.amount }}
+        td {{ fine.reason }}
+        td {{ fine.added }}
+        td {{ fine.paid }}
+        td
+          a.btn-sm(href='/library-panel/fine-paid/{{ fine._id }}', tooltip='Mark As Paid')
+            span.glyphicon.glyphicon-edit.text-success
+          a.btn-sm(href='/library-panel/fine-remove/{{ fine._id }}', tooltip='Remove')
+            span.glyphicon.glyphicon-remove.text-primary
+  .pagination
+      li(ng-repeat="i in range(pagesCount) track by $index")
+        a(class="pageItem" href="#" ng-click="setPage($index+1, $event); reloadFines();" id="page-{{ $index+1 }}") {{ $index+1 }}
+

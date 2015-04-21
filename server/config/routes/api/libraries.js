@@ -97,5 +97,13 @@ module.exports = function(app) {
     
     // FINES
     router.post('/library/fine', auth.isInRole('librarian'), controllers.libraries.addFine);
+    router.get('/library/fines/:libraryID', auth.isInRole('librarian'), controllers.libraries.getAllFines);
+    router.get('/library/fineInfo/:id', auth.isInRole('librarian'), controllers.libraries.getFineById);
+    router.get('/library/fines-sort/:libraryID/:field/:order/:page/:perPage', auth.isInRole('librarian'), controllers.libraries.getAllFinesSortable);
+    router.get('/library/fine-paid/:id', auth.isInRole('librarian'), controllers.libraries.updateLibFine);
+    router.get('/library/fine-remove/:id', auth.isInRole('librarian'), controllers.libraries.deleteLibFine);
+    router.get('/finesInLibraryCount/:libraryID', auth.isInRole('librarian'), controllers.libraries.getLibFineCountLibrary);
+    router.get('/library/finesUser/:userID', controllers.libraries.getFinesByUser);
+    
     app.use('/api/', router);
 };

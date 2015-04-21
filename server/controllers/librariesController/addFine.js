@@ -12,8 +12,6 @@ module.exports = function(req, res) {
     newFine.reason = req.body.reason;
     newFine.added = now;
     newFine.paid = undefined;
-
-    console.log(newFine);
     
     LibFines.create(newFine, function(err, fine){
         if(err) {
