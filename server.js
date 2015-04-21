@@ -3,7 +3,7 @@ var http     = require('http');
 var socketio = require('socket.io');
 var passport = require('passport');
 
-var env = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV || 'production';
 
 var app = express();
 var config = require('./server/config/config')[env];
