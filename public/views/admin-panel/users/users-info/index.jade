@@ -1,0 +1,32 @@
+include ../../panel
+
+.container
+  ul.nav.nav-tabs(style="margin-bottom: 25px")
+    li.active
+      a(href="#personal-information", data-toggle="tab", target="_self").active
+        | Personal information
+    li
+      a(href="#favorites", data-toggle="tab", target="_self")
+        | Favorites
+    li
+      a(href="#library-subscriptions", data-toggle="tab", target="_self")
+        | Libraries
+    li
+      a(href="#readings", data-toggle="tab", target="_self")
+        | Readings
+    li
+      a(href="#bookings", data-toggle="tab", target="_self")
+        | Bookings
+
+  #myTabContent.tab-content
+
+    include ./personal-information
+    include ./favorites
+    include ./libraries
+    include ./readings
+    include ./bookings
+    include ./fines
+    .row  
+      .col-md-3.vcenter(style="margin-top: 1em;")
+          a.btn.btn-primary.pull-left(href='/admin/user/edit/{{ user._id }}') Edit
+          a.btn.btn-danger.pull-left(style='margin-left: 0.5em', href='/admin/user/delete/{{ user._id }}' onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")') Delete

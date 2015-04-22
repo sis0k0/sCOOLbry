@@ -1,10 +1,10 @@
 .tab-pane.fade#bookings
   h3
-    | Bookings
+    | Bookings at our Library
     accordion
       .row
         .col-xs-12(ng-repeat='bookingItem in user.bookings', style='margin-top: 10px;')
-          accordion-group(is-open='bookingItem.open', style='padding: 0px;')
+          accordion-group(is-open='bookingItem.open', style='padding: 0px;', ng-if='bookingItem.booking.libraryID === libraryID')
             accordion-heading {{bookingItem.book.title}}
               timer.pull-right.text-success(end-time='bookingItem.booking.bookDate')
                 | {{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds left
@@ -28,5 +28,5 @@
                   .col-md-12(style='padding: 0px;')
                     a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ bookingItem.booking.bookID }}/{{ bookingItem.booking.libraryID }}')
                       | See more
-
+  
   p(ng-hide='user.bookings.length') No bookings found.

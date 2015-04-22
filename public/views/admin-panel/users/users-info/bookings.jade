@@ -28,5 +28,5 @@
                   .col-md-12(style='padding: 0px;')
                     a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ bookingItem.booking.bookID }}/{{ bookingItem.booking.libraryID }}')
                       | See more
-
-  p(ng-hide='user.bookings.length') No bookings found.
+  p(ng-hide='user.bookings.length!==0') No bookings found.
+  

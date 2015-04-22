@@ -6,27 +6,11 @@ app.controller('UserInfoCtrl', function($scope, $location, $http, UserResource, 
         if(!data) {
             $location.path('/404');
         } else {
-
-            if(data.dateOfBirth===undefined){
-                data.dateOfBirth = 'N/A';
-            }
-        
-            if(data.facebookUrl===undefined){
-                data.facebookUrl = 'N/A';
-            }
-        
-            if(data.twitterUrl===undefined){
-                data.twitterUrl = 'N/A';
-            }
-        
-            if(data.googlePlusUrl===undefined){
-                data.googlePlusUrl = 'N/A';
-            }
-        
-            if(data.aboutMe===undefined){
-                data.aboutMe = 'N/A';
-            }
-            
+            data.dateOfBirth = data.dateOfBirth || 'N/A';
+            data.facebookUrl = data.facebookUrl || 'N/A';
+            data.twitterUrl = data.twitterUrl || 'N/A';
+            data.googlePlusUrl = data.googlePlusUrl || 'N/A';
+            data.aboutMe = data.aboutMe || 'N/A';
         }
 
         data.libraries = [];

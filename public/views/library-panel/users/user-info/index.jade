@@ -1,0 +1,24 @@
+include ../../panel
+
+.container
+  ul.nav.nav-tabs(style="margin-bottom: 25px")
+    li.active
+      a(href="#personal-information", data-toggle="tab", target="_self").active
+        | Personal information
+    li
+      a(href="#favorites", data-toggle="tab", target="_self")
+        | Favorites
+    li
+      a(href="#readings", data-toggle="tab", target="_self")
+        | Readings
+    li
+      a(href="#bookings", data-toggle="tab", target="_self")
+        | Bookings
+
+  #myTabContent.tab-content
+
+    include ./personal-information
+    include ./favorites
+    include ./readings
+    include ./bookings
+    include ./fines

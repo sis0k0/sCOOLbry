@@ -31,9 +31,7 @@
         span(ng-repeat='(key, value) in user.roles')
           span {{ value | titleCase }}
           span(ng-if='!$last') , 
-      .row
-        h4
-          a(href='/profile/edit') Edit profile
+
   .row
     hr
     .col-md-3.col-md-offset-2.col-sm-3.vcenter.col-xs-offset-2.col-sm-offset-0(style='margin-right:5em;')

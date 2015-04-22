@@ -1,0 +1,19 @@
+.tab-pane.fade#favorites
+  h3
+    | Favorite Books at our Library
+  
+  div(ng-repeat='favBook in favoriteBooks')
+    .row(style='margin-bottom: 1em', ng-if='favBook.libraryID === libraryID')
+      a(ng-href='/book/{{favBook.bookID._id}}/{{favBook.libraryID}}')
+        img.img-responsive(ng-src='{{favBook.bookID.cover}}').col-md-2.col-sm-2.col-xs-3
+      div.col-md-10.col-sm-10.col-xs-9
+        a(ng-href='/book/{{favBook.bookID._id}}')
+          h3.vcenter(style='margin:0.2em 0')
+            | {{favBook.bookID.title | cut:true:45:'...'}} &nbsp;&nbsp;
+            span.badge.vcenter {{favBook.bookID.published | date:'MMM dd, yyyy'}}
+        p
+          | by 
+          span.text-info {{favBook.bookID.author}}
+        p.text-justify.hidden-xs {{ favBook.bookID.description | cut:true:250:'...'}}
+
+  p(ng-hide='favoriteBooks.length') No favorite books found.

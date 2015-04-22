@@ -1,11 +1,11 @@
 .tab-pane.fade#readings
   h3
-    | Readings
+    | Readings at our Library
 
     accordion
       .row
         .col-xs-12(ng-repeat='readingItem in user.readings', style='margin-top: 10px;')
-          div(ng-class="{ 'accordion-bg-success': !readingItem.reading.returnDate }") 
+          div(ng-class="{ 'accordion-bg-success': !readingItem.reading.returnDate }", ng-if='readingItem.reading.libraryID === libraryID') 
             accordion-group(is-open='readingItem.open', style='padding: 0px;')
               accordion-heading {{readingItem.book.title}}
                 span(ng-hide='readingItem.reading.returnDate').pull-right Till&nbsp; {{readingItem.reading.endDate | date:'dd/MM/yyyy'}}

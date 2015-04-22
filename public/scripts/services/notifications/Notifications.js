@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('Notification', function($http, $q, NotificationResource) {
+app.factory('NotificationService', function($http, $q, NotificationResource) {
     return {
         getForUser: function(user) {
             var deferred = $q.defer();
