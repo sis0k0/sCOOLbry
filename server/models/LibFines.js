@@ -26,6 +26,10 @@ var libFinesSchema = mongoose.Schema({
     },
     paid: {
         type: Date
+    },
+    paymentId: {
+        type: String,
+        default: ''
     }
 });
 

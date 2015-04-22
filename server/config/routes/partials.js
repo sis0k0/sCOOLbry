@@ -14,6 +14,7 @@ module.exports = function(app) {
 
     // Partials ----------------------------------------------
     router.get('/partials/*', function(req, res) {
+
         var requestedView = path.join('../../public/views', req.params[0]);
         res.render(requestedView, function(err, html) {
             if(err) {

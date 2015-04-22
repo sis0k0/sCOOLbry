@@ -19,6 +19,8 @@ include ../panel
             span#added.glyphicon.glyphicon-sort.text-right
           td#paid(ng-click="sort($event); reloadFines()") Date Paid
             span#paid.glyphicon.glyphicon-sort.text-right
+          td#PaymentId(ng-click="sort($event); reloadFines()") PaymentId
+            span#PaymentId.glyphicon.glyphicon-sort.text-right
           td Actions
       tr(ng-repeat="fine in fines")
         td {{ fine.userID }}
@@ -27,6 +29,7 @@ include ../panel
         td {{ fine.reason }}
         td {{ fine.added }}
         td {{ fine.paid }}
+        td {{ fine.paymentId }}
         td
           a.btn-sm(href='/library-panel/fine-paid/{{ fine._id }}', tooltip='Mark As Paid')
             span.glyphicon.glyphicon-edit.text-success

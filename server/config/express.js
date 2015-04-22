@@ -62,4 +62,15 @@ module.exports = function(app, config) {
     app.use(passport.session());
 
     app.use(express.static(config.rootPath + '/public'));
+
+    //fix paypal querystring
+    app.use(function (req, res, next) {
+        
+        if(req.query.paymentId!==undefined) {
+            req.url = '/api/payment/execute/'+req.query.paymentId+'/'+req.query.token+'/'+req.query.PayerID;        
+            
+        }
+        next();
+    });
+
 };

@@ -4,6 +4,7 @@ var usersController         = require('../controllers/usersController'),
     librariesController     = require('../controllers/librariesController'),
     booksController         = require('../controllers/booksController'),
     readingsController      = require('../controllers/readingsController'),
+    paymentsController      = require('../controllers/paymentsController'),
     notificationsController = require('../controllers/notificationsController');
 
 module.exports = {
@@ -11,5 +12,6 @@ module.exports = {
     libraries: librariesController,
     books: booksController,
     readings: readingsController,
+    payments: paymentsController,
     notifications: notificationsController
 };
