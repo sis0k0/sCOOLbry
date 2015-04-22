@@ -5,7 +5,7 @@
 
 .container
   .row
-    .col-xs-12.col-md-8
+    .col-xs-12.col-md-7
       .col-md-3.hidden-xs.col-sm-2
         img.img-responsive.img-thumbnail(src='{{book.cover}}')
       .col-md-9.col-sm-10
@@ -30,7 +30,7 @@
               li
                 span.text-success.text-bold {{ key | titleCase }} 
                 span : {{ value }}
-    .col-xs-5.col-md-4
+    .col-xs-12.col-sm-6.col-md-5
       .panel.panel-primary.text-center
         .panel-heading
           h4 Get the book
@@ -38,7 +38,7 @@
           div(ng-hide='reservationEnd || !libraryID')
             a.btn.btn-success(ng-show='!isMember && (libBook.available>bookings.length && libBook.available>0)', ng-href='/libraries/{{library._id}}') Subscribe to reserve
 
-            button.btn.btn-success(ng-click='addBooking()', ng-show='(libBook.available>bookings.length && libBook.available>0) && isMember', ng-confirm-click='Are you sure you want to reserve that book?').btn.btn-primary Reserve
+            button.btn.btn-success(style='margin-bottom: 0.25em', ng-click='addBooking()', ng-show='(libBook.available>bookings.length && libBook.available>0) && isMember', ng-confirm-click='Are you sure you want to reserve that book?').btn.btn-primary Reserve
             button(style='margin-top:0.5em', ng-hide='(libBook.available>bookings.length && libBook.available>0) || !isMember || subscribedForAvailability', ng-click='subscribeForAvailabilityNotification()').btn.btn-success Notify me when available
             button(style='margin-top:0.5em', ng-show='subscribedForAvailability && (libBook.available<=bookings.length || libBook.available===0)', ng-click='unsubscribeForAvailabilityNotification()').btn.btn-danger Don't notify when available
 
@@ -50,7 +50,7 @@
             button.btn.btn-info(style='margin-right:0.5em', ng-show='book.ebookUrl', ng-click='downloadEbook()', href='#') Download ebook
             button.btn.btn-primary(style='margin:0.5em 0', ng-hide='isFavorite || !isMember', ng-click='addFavorite(book.title, book.isbn)') Add favorite book
             button.btn.btn-danger(style='margin:0.5em 0', ng-show='isFavorite && isMember', ng-click="removeFavorite()") Remove favorite book
-            button.btn.btn-primary(ng-click='gotoOtherLibraries()') 
+            button.btn.btn-primary(style='margin-left:0.5em', ng-click='gotoOtherLibraries()') 
               span(ng-show='libraryID') Other 
               span(ng-hide='libraryID') At 
               span ibraries

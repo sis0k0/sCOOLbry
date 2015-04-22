@@ -5,27 +5,11 @@ app.controller('ProfileCtrl', function($scope, $http, $timeout, $location, notif
         if(!data) {
             $location.path('/404');
         } else {
-
-            if(data.dateOfBirth===undefined){
-                data.dateOfBirth = 'N/A';
-            }
-        
-            if(data.facebookUrl===undefined){
-                data.facebookUrl = 'N/A';
-            }
-        
-            if(data.twitterUrl===undefined){
-                data.twitterUrl = 'N/A';
-            }
-        
-            if(data.googlePlusUrl===undefined){
-                data.googlePlusUrl = 'N/A';
-            }
-        
-            if(data.aboutMe===undefined){
-                data.aboutMe = 'N/A';
-            }
-            
+            data.dateOfBirth = data.dateOfBirth || 'N/A';
+            data.facebookUrl = data.facebookUrl || 'N/A';
+            data.twitterUrl = data.twitterUrl || 'N/A';
+            data.googlePlusUrl = data.googlePlusUrl || 'N/A';
+            data.aboutMe = data.aboutMe || 'N/A';
         }
 
         data.libraries = [];
@@ -35,7 +19,6 @@ app.controller('ProfileCtrl', function($scope, $http, $timeout, $location, notif
         for(var lib = 0; lib < data.librarySubscriptions.length; lib++) {
             data.libraries[lib] = LibraryResource.get({id: data.librarySubscriptions[lib]});
         }
-        
 
     }, function() {             // if error occurs
         $location.path('/404'); // go to 404 page
@@ -43,6 +26,4 @@ app.controller('ProfileCtrl', function($scope, $http, $timeout, $location, notif
 
     $scope.favoriteBooks = FavoriteBookResource.get({userID: identity.currentUser._id});
     $scope.fines = UserFinesResource.get({userID: identity.currentUser._id});
-    console.log($scope.fines);
-
 });

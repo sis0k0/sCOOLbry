@@ -1,13 +1,32 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    ObjectId = mongoose.Schema.ObjectId;
 
 var favBookSchema = mongoose.Schema({
-    bookID: String,
-    bookISBN: String,
-    libraryID: String,
-    bookName: String,
-    userID: String
+    bookID: {
+        type: ObjectId,
+        ref: 'Book',
+        required: '{PATH} is required'
+    },
+    bookISBN: {
+        type: String,
+        required: '{PATH} is required'
+    },
+    libraryID: {
+        type: ObjectId,
+        ref: 'Library',
+        required: '{PATH} is required'
+    },
+    bookName: {
+        type: String,
+        required: '{PATH} is required'
+    },
+    userID:{
+        type: ObjectId,
+        ref: 'User',
+        required: '{PATH} is required'
+    }
 });
 
 var FavBook = mongoose.model('FavBook', favBookSchema);

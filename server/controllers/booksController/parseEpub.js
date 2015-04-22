@@ -21,22 +21,11 @@ module.exports = function(req, res) {
         res.status(400).send({reason: 'Wrong filetype'});
     }
 
-    var dirname = __dirname;
-    var i=3;
-    while(i--) {
-        dirname = dirname.substring(0, dirname.lastIndexOf('\\'));
-    }
-    console.log(dirname);
-
-    var path = dirname + '\\' + file.path;
-    console.log(path);
-
-    res.send(path);
-
+    res.send(file.path);
 
     // Add new ebook
     Ebook.create({
-        path: path,
+        path: file.path,
         uploaderID: req.user._id
     }, function(err, book) {
         if(err) {

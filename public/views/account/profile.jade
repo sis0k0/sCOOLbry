@@ -27,7 +27,7 @@
         .col-md-7.col-xs-7
           .row
             h3.text-info.text-bold
-              {{ user.firstName }} {{ user.lastName }} ({{ user.username }}) 
+              | {{ user.firstName }} {{ user.lastName }} ({{ user.username }}) 
             i.fa.fa-male.blue(ng-show='user.gender=="Male"', title='Male', style='font-size: 1.2em')
             i.fa.fa-female.pink(ng-show='user.gender=="Female"', title='Female', style='font-size: 1.2em')
             i.fa.fa-user(ng-show='user.gender=="Not specified"', title='Not Specified', style='font-size: 1.2em')
@@ -71,26 +71,65 @@
     .tab-pane.fade#favorites
       h3
         | Favorite Books
-      ul(ng-hide='favoriteBooks.length==0')
-        li(ng-repeat='book in favoriteBooks')
-          a(href='/book/{{ book.bookID }}/{{ book.libraryID }}') {{ book.bookName }}
-      p(ng-hide='favoriteBooks.length!==0') No favorite books found.
+      
+      div(ng-repeat='favBook in favoriteBooks')
+        .row(style='margin-bottom: 1em')
+          a(ng-href='/book/{{favBook.bookID._id}}/{{favBook.libraryID}}')
+            img.img-responsive(ng-src='{{favBook.bookID.cover}}').col-md-2.col-sm-2.col-xs-3
+          div.col-md-10.col-sm-10.col-xs-9
+            a(ng-href='/book/{{favBook.bookID._id}}')
+              h3.vcenter(style='margin:0.2em 0')
+                | {{favBook.bookID.title | cut:true:45:'...'}} &nbsp;&nbsp;
+                span.badge.vcenter {{favBook.bookID.published | date:'MMM dd, yyyy'}}
+            p
+              | by 
+              span.text-info {{favBook.bookID.author}}
+            p.text-justify.hidden-xs {{ favBook.bookID.description | cut:true:250:'...'}}
+
+      p(ng-hide='favoriteBooks.length') No favorite books found.
 
     .tab-pane.fade#personal-libraries
       h3
         | Library Subscriptions
-      ul(ng-hide='user.libraries.length==0')
-        li(ng-repeat='library in user.libraries')
-          a(href='/admin/library/{{ library._id }}') {{ library.name }}
-      p(ng-hide='user.libraries.length!==0') No library subscriptions found.
+
+
+      .row
+        .col-md-10
+          input.form-control(type="text", placeholder="Type to search in {{ user.libraries.length }} libraries...", ng-model="search", on-focus)
+        .col-md-2
+          select.form-control.nya-selectpicker(name="sort", ng-model="sort", tooltip="Sort by...")
+            option(value="name") Name
+            option(value="yearOfEstablishment") Year of establishment
+      br
+      table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
+        thead
+          tr
+            th.text-center Name
+            th.text-center Address
+            th.text-center Year of establishment
+        tbody
+          tr(ng-repeat="library in user.libraries | filter: search | orderBy: sort")
+            td
+              a(href="/libraries/{{ library._id }}") {{ library.name }}
+            td {{ library.address.formatted_address }}
+            td.text-center {{ library.yearOfEstablishment }}
+
+
+
+
+
+
+      div(ng-hide='user.libraries.length')
+        h4
+          a(href='/libraries') No library subscriptions found. Check out all sCOOLbry libraries and subscribe!
     .tab-pane.fade#personal-readings
       h3
         | Readings
 
-        accordion(close-others='true')
+        accordion
           .row
             .col-md-6(ng-repeat='readingItem in user.readings', style='margin-top: 10px;')   
-              accordion-group(is-open='readingItem.open', style='padding: 0px;')
+              accordion-group(is-open='true', style='padding: 0px;')
                 accordion-heading
                   span {{readingItem.book.title}}
                   span.pull-right.text-success Till&nbsp; {{readingItem.reading.endDate | date:'dd/MM/yyyy'}}
@@ -124,10 +163,10 @@
       h3
         | Bookings
 
-        accordion(close-others='true')
+        accordion
           .row
             .col-md-6(ng-repeat='bookingItem in user.bookings', style='margin-top: 10px;')   
-              accordion-group(is-open='bookingItem.open', style='padding: 0px;')
+              accordion-group(is-open='true', style='padding: 0px;')
                 accordion-heading
                   span {{bookingItem.booking.bookName}}
                   timer.pull-right.text-success(end-time='bookingItem.booking.bookDate')
@@ -183,4 +222,4 @@
                 td
                   a.btn-sm(ng-hide='fine.paid', href='/api/payment/create/paypal/{{fine.amount}}/USD/fine/{{fine._id}}', tooltip='Pay Fine', target='_blank')
                     span.glyphicon.glyphicon-credit-card.text-success
-      p(ng-show='fines.length===0') You don't have any fines.
+      p(ng-show='fines.length===0') No fines found.
