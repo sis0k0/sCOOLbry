@@ -35,7 +35,7 @@ module.exports = function(req, res) {
 
        		}
     		res.writeHead(302, {
-              'Location': '../profile'
+              'Location': '/profile'
               //add other headers here...
             });
             res.end();
