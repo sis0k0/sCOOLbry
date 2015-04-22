@@ -1,0 +1,77 @@
+.container-fluid.ng-cloak
+  header(role='navigation').nav.navbar-default.navbar-fixed-top
+    .navbar-header
+
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='#site-navigation')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='/')
+      div(ng-controller='NotificationsCtrl')
+        button#navbar-collapsed-notifications.notifications-icon.btn.btn-success.dropdown.navbar-toggle(aria-hidden='true', data-toggle='dropdown', ng-class=" {'notification-success': notifications.length} ")
+          span.glyphicon.glyphicon-bell
+          span.badge(ng-show='notifications.length', ng-bind='notifications.length')
+        ul#mobile-notifications.dropdown-menu.notifications
+          h4.text-center.bg-primary Notifications
+          li(ng-hide='notifications.length')
+            div
+              h5.text-center.text-info No new notifications!
+          li(ng-repeat='notification in notifications track by notification._id')
+            a(ng-href='{{notification.href}}', ng-click='markAsSeen(notification)')
+              div(ng-bind-html='notification.message')
+              small.text-muted.pull-right(time-passed) {{notification.date}}
+ 
+    nav#site-navigation.navbar-collapse.collapse
+
+      ui-select#search-header.navbar-left(ng-controller='SearchCtrl', name='result', ng-model='result.selected', ng-disabled='disabled', reset-search-input='false', on-select='goToResult($item)')
+        ui-select-match(placeholder='Search for books by title/author/genre/isbn') {{$select.selected.title}}
+        ui-select-choices(repeat='result in results', refresh='search($select.search)', refresh-delay='0', style='font-size: 1em')
+          div(ng-if='!$last')
+            div
+              span(ng-bind-html='result.title | highlight: $select.search')
+              span (
+              span(ng-bind-html='result.author | highlight: $select.search')
+              span )
+            small.text-muted.text-bold(ng-bind='ISBN: ')
+            small.text-muted(ng-bind-html='result.isbn | highlight: $select.search')
+          div.text-center.text-success(ng-if='$last')
+            h4(style='margin:0', ng-bind='result.message')
+            small.text-muted(ng-bind='"Showing first "')
+            small.text-muted(ng-bind='results.length-1 + " results"')
+
+      ul#top-menu.nav.navbar-nav.navbar-right(ng-controller='LogInCtrl')
+        li
+          a(href='/catalog') Catalog
+        li
+          a(href='/libraries') Libraries
+        li(ng-if='!identity.isAuthenticated()')
+          a(href='/login') Log In
+        li(ng-if='!identity.isAuthenticated()')
+          a(href='/signup').sign-up Sign Up
+        li(ng-controller='NotificationsCtrl', ng-if='!!identity.isAuthenticated()')
+          span#navbar-default-notifications.notifications-icon.dropdown(aria-hidden='true', data-toggle='dropdown', ng-class=" {'btn-success': notifications.length, 'notifications-icon-none': notifications.length===0, 'btn': true} ")
+            span(ng-class="{'glyphicon': true, 'glyphicon-bell': true}")
+            span(ng-show='notifications.length', ng-bind='notifications.length', ng-class="{'badge': true}")
+          ul.dropdown-menu.notifications
+            h4.text-center.bg-primary Notifications
+            li(ng-hide='notifications.length')
+              div
+                h5.text-center.text-info No new notifications!
+            li(ng-repeat='notification in notifications track by notification._id')
+              a(ng-href='{{notification.href}}', ng-click='markAsSeen(notification)')
+                div(ng-bind-html='notification.message')
+                small.text-muted.pull-right(time-passed) {{notification.date}}
+        li.dropdown(ng-if='!!identity.isAuthenticated()')
+          a.dropdown-toggle(href='', data-toggle='dropdown')
+            span(ng-bind-template='{{ identity.currentUser.firstName }} {{ identity.currentUser.lastName }}')
+            b(ng-class="{ 'caret': true }")
+          ul.dropdown-menu
+            li(ng-if='identity.currentUser.isAdmin()')
+              a(href='/admin') Admin Panel
+            li(ng-if='identity.currentUser.hasLibraryPanel()')
+              a(href='/library-panel') Library Panel
+            li(ng-if='identity.isAuthenticated()')
+              a(href='/profile') Profile
+            li.divider
+            li
+              a(href='/' ng-click='logout()') Sign Out
