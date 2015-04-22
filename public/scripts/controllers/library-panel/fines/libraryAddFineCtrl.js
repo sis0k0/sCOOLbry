@@ -4,9 +4,9 @@ app.controller('LibraryAddFineCtrl', function($scope, $routeParams, $location, i
     // Add Fine
     $scope.finedUserInfo = UserResource.get({id: $routeParams.userID}, function(){
     	
-    	//process user info if needed
+	//process user info if needed
 
-    }, function() {             // if error occurs
+    }, function() {                             // if error occurs
         $location.path('/library-panel/fines'); // go to 404 page
     });
 

@@ -1,0 +1,26 @@
+.tab-pane.fade#fines
+  h3
+    | Fines
+  .row
+    #fines-list.col-md-12.table-responsive(ng-hide='fines.length===0')
+      table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
+        thead
+          tr.text-bold.text-primary
+            td#amount Amount
+              span#amount.text-right
+            td#reason Reason
+              span#reason.text-right
+            td#added Date Added
+              span#added.text-right
+            td#paid Date Paid
+              span#paid.text-right
+            td Actions
+          tr(ng-repeat="fine in fines")
+            td {{ fine.amount }}
+            td {{ fine.reason }}
+            td {{ fine.added }}
+            td {{ fine.paid }}
+            td
+              a.btn-sm(ng-hide='fine.paid', href='/api/payment/create/paypal/{{fine.amount}}/USD/fine/{{fine._id}}', tooltip='Pay Fine', target='_blank')
+                span.glyphicon.glyphicon-credit-card.text-success
+  p(ng-show='fines.length===0') No fines found.

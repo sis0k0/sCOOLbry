@@ -31,7 +31,7 @@ module.exports = function(req, res) {
             'description': description
         }]
     };
-
+/*jshint camelcase: false */
     if (method === 'paypal') {
         payment.payer.payment_method = 'paypal';
         payment.redirect_urls = {
@@ -56,6 +56,7 @@ module.exports = function(req, res) {
         payment.payer.funding_instruments = funding_instruments;
     } */
 
+/*jshint camelcase: true */
     paypal.payment.create(payment, function (error, payment) {
         if (error) {
             console.log(error);

@@ -4,6 +4,22 @@ var Notification = require('mongoose').model('Notification'),
     Subscription = require('mongoose').model('BookAvailabilitySubscription');
 
 module.exports = {
+    addFine: function(socketio, amount, userID) {
+        Notification.create({
+            href: '/profile#fines',
+            message: '<strong class="text-info">You<\/strong> have been fined with <strong class="text-info">$' + amount + '<\/strong>!',
+            // message: 'You have been fined with <strong class="text-info>"$' + amount + '<\/strong>!',
+            date: Date.now(),
+            userID: userID
+        }, function(error, notification) {
+            if(!error) {
+                socketio.sockets.emit(userID + ' notification added', notification);
+            }
+            // Return null or error
+            return error;
+        });
+    },
+
     addBookAvailable: function(socketio, booking) {
 
         Subscription

@@ -1,0 +1,38 @@
+.tab-pane.fade#bookings
+  h3
+    | Bookings
+
+    accordion
+      .row
+        .col-md-6(ng-repeat='bookingItem in user.bookings', style='margin-top: 10px;')   
+          accordion-group(is-open='true', style='padding: 0px;')
+            accordion-heading
+              span {{bookingItem.booking.bookName}}
+              timer.pull-right.text-success(end-time='bookingItem.booking.bookDate')
+                | {{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds left
+            .row
+
+              img.img-responsive.img-thumbnail.col-xs-3.pull-left.text-center(ng-src='{{ bookingItem.book.cover }}', err-src='assets/images/missing-cover1.png', style='margin: 0 0.5em;')
+              .col-xs-7
+                .row
+                  .col-md-6(style='padding:0px;')
+                    span.text-info.pull-left Author: 
+                  .col-md-6(style='padding:0px;')
+                    span.pull-left {{ bookingItem.book.author }}
+                .row
+                  .col-md-6(style='padding:0px;')
+                    span.text-info.pull-left Publisher:&nbsp;
+                  .col-md-6(style='padding:0px;')
+                    span.pull-left {{ bookingItem.book.publisher }}
+            
+                .row
+                  .col-md-6(style='padding: 0px;')
+                    span.text-info Library: 
+                  .col-md-6(style='padding: 0px;')
+                    a(href='/libraries/{{bookingItem.booking.libraryID}}')
+                      span {{ bookingItem.booking.libraryName }}
+                .row
+                  .col-md-12(style='padding: 0px;')
+                    a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ bookingItem.booking.bookID }}/{{ bookingItem.booking.libraryID }}')
+                      | See more
+  p(ng-hide='user.bookings.length!==0') No bookings found.
