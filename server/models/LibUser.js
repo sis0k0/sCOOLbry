@@ -23,6 +23,14 @@ var libUserSchema = mongoose.Schema({
     },
     lastPaid: {
         type: Date
+    },
+    paymentId: {
+        type: String,
+        default: ''
+    },
+    active: {
+        type: Boolean,
+        default: true
     }
 });
 

@@ -10,6 +10,8 @@ module.exports = function(req, res) {
     newLibraryUser.username = req.body.username;
     newLibraryUser.given = req.body.given;
     newLibraryUser.toReturn = req.body.toReturn;
+    newLibraryUser.active = req.body.active;
+
     
     LibUser.create(newLibraryUser, function(err, user){
         if(err) {

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryDetailsCtrl', function($scope, $location, User, $routeParams, $route, uiGmapGoogleMapApi, BookResource, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier) {
+app.controller('LibraryDetailsCtrl', function($scope, $location, User, $routeParams, $route, uiGmapGoogleMapApi, BookResource, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier, $window) {
 
     $scope.user = identity.currentUser;
 
@@ -79,9 +79,16 @@ app.controller('LibraryDetailsCtrl', function($scope, $location, User, $routePar
         identity.currentUser.given = 0;
         identity.currentUser.toReturn = 0;
         identity.currentUser.userID = identity.currentUser._id;
-        LibraryUsers.addUserToLibrary(identity.currentUser, $routeParams.id).then(function() {
-            notifier.success('You\'ve subscribed successfully!');
-            $route.reload();
+        
+
+        LibraryUsers.addUserToLibrary(identity.currentUser, $routeParams.id, $scope.library.paid).then(function(data) {
+            if($scope.library.paid===false) {
+                notifier.success('You\'ve subscribed successfully!');
+                $route.reload();
+            }else{
+                console.log('/api/payment/create/paypal/'+$scope.library.amount+'/USD/subscription/'+data._id);
+                $window.location.href = '/api/payment/create/paypal/'+$scope.library.amount+'/USD/subscription/'+data._id;
+            }
         }, function(reason){
                 notifier.error(reason);
             });

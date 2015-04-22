@@ -6,7 +6,8 @@ module.exports = function(req, res) {
     LibUser
     .findOne({
         userID: req.params.userID,
-        libraryID: req.params.libraryID
+        libraryID: req.params.libraryID,
+        active: true
     })
     .exec(function(err, member) {
         if (err || !member) {

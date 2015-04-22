@@ -2,6 +2,7 @@
 
 var paypal = require('paypal-rest-sdk');
 var LibFines = require('mongoose').model('LibFines');
+var LibUser = require('mongoose').model('LibUser');
 
 module.exports = function(req, res) {
     var method = req.param('method');
@@ -15,9 +16,10 @@ module.exports = function(req, res) {
     if(paymentType==='fine') {
         description = 'Fine '+itemID;
     }else{
-        description = 'subscription';
-        //todo: set subscription thing
+        description = 'Subscription '+itemID;
     }
+
+    console.log(req);
 
     var payment = {
         'intent': 'sale',
@@ -77,8 +79,17 @@ module.exports = function(req, res) {
 
             }else{
                 req.session.paymentType = 'subscription';
-                description = 'subscription';
-                //todo: set subscription thing
+                 var paymentObject = {
+                    paymentId: payment.id,
+                    active: false
+                };
+
+                LibUser.update({_id: itemID}, paymentObject, {runValidators: true}, function(err) {
+                    console.log(err);
+                    res.end();
+                });
+
+
             }
 
             res.writeHead(302, {
