@@ -35,8 +35,14 @@ module.exports = function(req, res) {
     if (method === 'paypal') {
         payment.payer.payment_method = 'paypal';
         payment.redirect_urls = {
-            'return_url': 'http://www.scoolbry.com/api/payment/execute/',
-            'cancel_url': 'http://www.scoolbry.com/'
+            // Production
+            // 'return_url': 'http://www.scoolbry.com/api/payment/execute/',
+            // 'cancel_url': 'http://www.scoolbry.com/'
+
+            // Development
+            'return_url': 'http://127.0.0.1:3030/api/payment/execute/',
+            'cancel_url': 'http://127.0.0.1:3030/'
+
         };
     }
     /* else if (method === 'credit_card') {
