@@ -12,10 +12,10 @@ include ../panel
       form.form-horizontal(name='fineForm')
         fieldset
           .row
-            .form-group
+            .form-group(ng-class="{ 'has-success': (fineForm.amount.$valid), 'has-error': (fineForm.amount.$invalid) }")
               label(for='amount') Fine Amount
                 .row
-                  input.form-control(ng-model='fine.amount', type='text')
+                  input.form-control(name='amount', ng-model='fine.amount', type='number', min='1')
 
             .form-group
               label(for='reason') Reason
