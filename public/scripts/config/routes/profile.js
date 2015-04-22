@@ -50,6 +50,10 @@ app.config(function($routeProvider) {
             controller: 'ProfileCtrl',
             resolve: routeUserChecks.authenticated
         })
+        .when('/thank-you', {
+            templateUrl: '/partials/account/thank-you',
+            resolve: routeUserChecks.authenticated
+        })
         .when('/profile/edit', {
             templateUrl: '/partials/account/edit-profile',
             controller: 'EditProfileCtrl',

@@ -49,7 +49,7 @@ module.exports = function(req, res) {
       }
     	
       res.writeHead(302, {
-          'Location': '/profile'
+          'Location': '/thank-you'
       });
       
       res.end();
