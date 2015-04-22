@@ -19,8 +19,6 @@ module.exports = function(req, res) {
         description = 'Subscription '+itemID;
     }
 
-    console.log(req);
-
     var payment = {
         'intent': 'sale',
         'payer': {
@@ -37,8 +35,8 @@ module.exports = function(req, res) {
     if (method === 'paypal') {
         payment.payer.payment_method = 'paypal';
         payment.redirect_urls = {
-            'return_url': 'http://127.0.0.1:3030/api/payment/execute/',
-            'cancel_url': 'http://127.0.0.1:3030/'
+            'return_url': 'http://www.scoolbry.com/api/payment/execute/',
+            'cancel_url': 'http://www.scoolbry.com/'
         };
     }
     /* else if (method === 'credit_card') {
@@ -65,7 +63,6 @@ module.exports = function(req, res) {
             res.send(error);
         } else {
             req.session.paymentId = payment.id;
-            console.log(payment);
             if(paymentType==='fine') {
                 req.session.paymentType = 'fine';
                 var paymentObject = {
