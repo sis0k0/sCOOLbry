@@ -1,36 +1,29 @@
 .tab-pane.fade#bookings
   h3
     | Bookings
-
     accordion
       .row
-        .col-md-6(ng-repeat='bookingItem in user.bookings', style='margin-top: 10px;')   
-          accordion-group(is-open='true', style='padding: 0px;')
-            accordion-heading
-              span {{bookingItem.booking.bookName}}
+        .col-xs-12(ng-repeat='bookingItem in user.bookings', style='margin-top: 10px;')
+          accordion-group(is-open='bookingItem.open', style='padding: 0px;')
+            accordion-heading {{bookingItem.book.title}}
               timer.pull-right.text-success(end-time='bookingItem.booking.bookDate')
                 | {{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds left
             .row
 
-              img.img-responsive.img-thumbnail.col-xs-3.pull-left.text-center(ng-src='{{ bookingItem.book.cover }}', err-src='assets/images/missing-cover1.png', style='margin: 0 0.5em;')
-              .col-xs-7
+              img.img-responsive.img-thumbnail.col-md-2.col-sm-3.col-xs-4.pull-left.text-center(ng-src='{{ bookingItem.book.cover }}', err-src='assets/images/missing-cover1.png', style='margin: 0 0.5em;')
+              .col-md-9.col-sm-9.col-xs-8
                 .row
-                  .col-md-6(style='padding:0px;')
-                    span.text-info.pull-left Author: 
-                  .col-md-6(style='padding:0px;')
-                    span.pull-left {{ bookingItem.book.author }}
-                .row
-                  .col-md-6(style='padding:0px;')
-                    span.text-info.pull-left Publisher:&nbsp;
-                  .col-md-6(style='padding:0px;')
-                    span.pull-left {{ bookingItem.book.publisher }}
-            
-                .row
-                  .col-md-6(style='padding: 0px;')
-                    span.text-info Library: 
-                  .col-md-6(style='padding: 0px;')
-                    a(href='/libraries/{{bookingItem.booking.libraryID}}')
-                      span {{ bookingItem.booking.libraryName }}
+                  a(ng-href='/book/{{book._id}}')
+                    h3.vcenter(style='margin:0.2em 0')
+                      | {{bookingItem.book.title}} &nbsp;&nbsp;
+                      span.badge.vcenter {{bookingItem.book.published | date:'MMM dd, yyyy'}}
+                  p
+                    | by 
+                    span.text-info {{bookingItem.book.author}}
+                  p.text-justify.hidden-xs {{ bookingItem.book.description | cut:true:250:'...'}}
+
+                  span.text-info Library: 
+                  span {{ bookingItem.booking.libraryName }}
                 .row
                   .col-md-12(style='padding: 0px;')
                     a.col-xs-8(style='padding:10px 0', ng-href='/book/{{ bookingItem.booking.bookID }}/{{ bookingItem.booking.libraryID }}')

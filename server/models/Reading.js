@@ -1,16 +1,45 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    ObjectId = mongoose.Schema.ObjectId;
 
 var readingSchema = mongoose.Schema({
-    userID: String,
-    userName: String,
-    libraryID: String,
-    libraryName: String,
-    librarian1ID: String,
-    librarian2ID: String,
-    bookID: String,
-    bookName: String,
+    userID: {
+        type: ObjectId,
+        ref: 'User',
+        required: '{PATH} is required'
+    },
+    userName: {
+        type: String,
+        required: '{PATH} is required'
+    },
+    libraryID: {
+        type: ObjectId,
+        ref: 'Library',
+        required: '{PATH} is required'
+    },
+    libraryName: {
+        type: String,
+        required: '{PATH} is required'
+    },
+    librarian1ID: {
+        type: ObjectId,
+        ref: 'User',
+        required: '{PATH} is required'
+    },
+    librarian2ID: {
+        type: ObjectId,
+        ref: 'User'
+    },
+    bookID: {
+        type: ObjectId,
+        ref: 'Book',
+        required: '{PATH} is required'
+    },
+    bookName: {
+        type: String,
+        required: '{PATH} is required'
+    },
     bookISBN: String,
     startDate: {
         type: Date,
