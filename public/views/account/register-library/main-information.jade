@@ -57,7 +57,7 @@
 
 
       .col-xs-5.col-xs-offset-1
-        img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
+        img.image-responsive.img-thumbnail(fallback-src, ng-src='{{ library.certificate }}', ng-bind='library.certificate')
         input(type='hidden', ng-model='library.certificate', required)
 
   .row

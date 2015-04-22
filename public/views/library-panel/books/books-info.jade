@@ -5,7 +5,7 @@ include ../panel
   .row(style='margin-top: 3em')
     .col-md-10.col-md-offset-1
       .col-xs-2
-        img.img-responsive.img-thumbnail(ng-src='{{book.cover}}', style='margin-top:21px')
+        img.img-responsive.img-thumbnail(fallback-src, ng-src='{{book.cover}}', style='margin-top:21px')
       .col-xs-10
         h2 {{book.title}}
         div

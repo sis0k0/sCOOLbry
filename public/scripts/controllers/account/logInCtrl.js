@@ -8,7 +8,7 @@ app.controller('LogInCtrl', function($scope, $location, notifier, identity, User
         User.login(user).then(function(success) {
             if (success) {
                 notifier.success('Successful login!');
-                $window.location.href = '/';
+                $window.location.href = '/profile';
             }
             else {
                 notifier.error('Username/Password combination is not valid or the RECAPTCHA Challenge is not complete!');
@@ -22,7 +22,7 @@ app.controller('LogInCtrl', function($scope, $location, notifier, identity, User
         User.loginNoCaptcha(user).then(function(success) {
             if (success) {
                 notifier.success('Successful login!');
-                $window.location.href = '/';
+                $window.location.href = '/profile';
             }
             else {
                 notifier.error('Username/Password combination is not valid!');

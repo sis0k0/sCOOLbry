@@ -85,7 +85,7 @@ include ../panel
                     span.help-block(ng-show='avatarTypeError') The supported types are GIF, JPEG, PNG and TIFF
                     span.help-block(ng-show='avatarUploadError') An error occured. Please try again later.
                 .col-xs-4
-                  img.image-responsive.img-thumbnail(ng-src='{{ user.avatar }}', ng-bind='user.avatar')
+                  img.image-responsive.img-thumbnail(fallback-src, ng-src='{{ user.avatar }}', ng-bind='user.avatar')
 
 
             .form-group(ng-class = "{ 'has-success': profileForm.roles.$dirty }")
@@ -191,7 +191,7 @@ include ../panel
                           span.help-block(ng-show='certificateTypeError') The supported types are GIF, JPEG, PNG and TIFF
                           span.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
                       .col-xs-4
-                        img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
+                        img.image-responsive.img-thumbnail(fallback-src, ng-src='{{ library.certificate }}', ng-bind='library.certificate')
                         input(type='hidden', ng-model='library.certificate', required)
 
 

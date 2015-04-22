@@ -40,7 +40,7 @@
         div(ng-repeat='book in books', ng-init='pages();')
           .row
             a(ng-href='/book/{{book._id}}')
-              img.img-responsive(ng-src='{{book.cover}}').col-md-2.col-sm-2.col-xs-3
+              img.img-responsive(fallback-src, ng-src='{{book.cover}}').col-md-2.col-sm-2.col-xs-3
             div.col-md-10.col-sm-10.col-xs-9
               a(ng-href='/book/{{book._id}}')
                 h3.vcenter(style='margin:0.2em 0')

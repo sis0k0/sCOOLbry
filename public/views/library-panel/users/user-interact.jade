@@ -64,7 +64,7 @@ include ../panel
               span {{booking.title}}
               timer.pull-right.text-success(end-time='booking.end')
                 | {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds left
-            img.img-responsive.img-thumbnail.col-xs-3(ng-src='{{ booking.cover }}', err-src='assets/images/missing-cover1.png', style='margin-right:2em')
+            img.img-responsive.img-thumbnail.col-xs-3(fallback-src, ng-src='{{ booking.cover }}', err-src='assets/images/missing-cover1.png', style='margin-right:2em')
             span.text-info Author: 
             span {{ booking.author }}
             span.pull-right {{ booking.publisher }}
@@ -80,7 +80,7 @@ include ../panel
             accordion-heading
               span {{reading.title}}
               span.pull-right.text-success Till&nbsp; {{reading.end | date:'dd/MM/yyyy'}}
-            img.img-responsive.img-thumbnail.col-xs-3(ng-src='{{ reading.cover }}', err-src='assets/images/missing-cover1.png', style='margin-right:2em')
+            img.img-responsive.img-thumbnail.col-xs-3(fallback-src, ng-src='{{ reading.cover }}', err-src='assets/images/missing-cover1.png', style='margin-right:2em')
             span.text-info Author: 
             span {{ reading.author }}
             span.pull-right {{ reading.publisher }}

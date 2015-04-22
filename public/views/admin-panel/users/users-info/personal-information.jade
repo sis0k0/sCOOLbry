@@ -1,7 +1,7 @@
 .tab-pane.fade.active.in#personal-information
   .row.vcenter
     .col-md-5.col-xs-5
-      img.img-responsive.img-thumbnail(ng-src='{{ user.avatar }}')
+      img.img-responsive.img-thumbnail(fallback-src, ng-src='{{ user.avatar }}')
     .col-md-7.col-xs-7
       .row
         h3.text-info.text-bold
