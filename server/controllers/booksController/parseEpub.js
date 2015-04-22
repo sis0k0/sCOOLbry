@@ -21,6 +21,8 @@ module.exports = function(req, res) {
         res.status(400).send({reason: 'Wrong filetype'});
     }
 
+    console.log(__dirname);
+
     var dirname = __dirname;
     var i=3;
     while(i--) {
