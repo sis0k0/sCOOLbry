@@ -18,7 +18,6 @@ var isAuthenticated = function(req) {
 
 
 var isAuthorized = function(req) {
-    console.log('authorization func');
     var id;
 
     if(typeof(req.params.userID) !== 'undefined') {
@@ -39,8 +38,6 @@ var isAuthorized = function(req) {
 };
 
 var roleChecker = function(userRoles, role) {
-    console.log(userRoles);
-    console.log(role);
     switch(role) {
         case 'admin':
             if(userRoles.indexOf('admin') > -1) {
