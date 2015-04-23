@@ -101,7 +101,7 @@
                     span.help-block(ng-show='avatarTypeError') The supported types are GIF, JPEG, PNG and TIFF
                     span.help-block(ng-show='avatarUploadError') An error occured. Please try again later.
                 .col-xs-4
-                  img.image-responsive.img-thumbnail(fallback-src, ng-src='{{ user.avatar }}', ng-bind='user.avatar')
+                  img.image-responsive.img-thumbnail(ng-src='{{ user.avatar }}', ng-bind='user.avatar')
 
         .pull-right(style='margin-bottom:1em')
           button.btn.btn-primary(ng-click='update(user)', ng-disabled='profileForm.$invalid') Update

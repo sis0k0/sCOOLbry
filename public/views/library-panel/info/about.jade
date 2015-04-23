@@ -36,7 +36,7 @@
       
       div
         h3 Certificate
-        img(src='{{library.certificate}}').img-responsive.img-thumbnail
+        img(fallback-src, ng-src='{{library.certificate}}').img-responsive.img-thumbnail
       div(ng-show='library.description')
         h2.text-success Description
         p {{ library.description }}

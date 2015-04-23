@@ -79,7 +79,7 @@
               span.help-block(ng-show='certificateTypeError') The supported types are GIF, JPEG, PNG and TIFF
               span.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
           .col-xs-4
-            img.image-responsive.img-thumbnail(fallback-src, ng-src='{{ library.certificate }}', ng-bind='library.certificate')
+            img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
             input(type='hidden', ng-model='library.certificate', required)
   .row
     .col-md-10.col-md-offset-1
