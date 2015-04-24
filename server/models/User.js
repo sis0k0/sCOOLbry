@@ -69,7 +69,7 @@ var userSchema = mongoose.Schema({
     },
     style: {
         type: String,
-        default: 'darkly'
+        default: 'flatly'
     },
     ownLibraryID: String,
     facebookUrl: String,

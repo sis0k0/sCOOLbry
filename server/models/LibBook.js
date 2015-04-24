@@ -11,8 +11,6 @@ var libBookSchema = mongoose.Schema({
     },
     bookISBN: {
         type: String,
-        unique: true,
-        sparse: true,
         match: [
             /((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/,
             'ISBN format is not valid'

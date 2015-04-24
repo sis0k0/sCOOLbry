@@ -9,8 +9,6 @@ app.controller('LibrariesListCtrl', function($scope, $window, cachedLibraries, n
 
                 for(var i=0; i<$scope.libraries.length; i++) {
                     $scope.libraries[i].distance = calculateDistance(success.coords.latitude, success.coords.longitude, $scope.libraries[i].address.geometry.location.lat, $scope.libraries[i].address.geometry.location.lng);
-                    console.log(calculateDistance(success.coords.latitude, success.coords.longitude, $scope.libraries[i].address.geometry.location.lat, $scope.libraries[i].address.geometry.location.lng));
-                    console.log($scope.libraries[i].distance);
                 }
                 $scope.$apply();
 

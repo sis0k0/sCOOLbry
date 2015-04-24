@@ -78,6 +78,7 @@ module.exports = function(req, res) {
 
                     var book = data.items[0].volumeInfo;
 
+                    console.log(book);
                     // Title
                     if (book.title) {
                         result.title = book.title;

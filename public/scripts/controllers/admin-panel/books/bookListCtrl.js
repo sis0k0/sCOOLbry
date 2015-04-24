@@ -3,7 +3,7 @@
 app.controller('BookListCtrl', function($scope, BookResourceSortable, $routeParams, $http) {
     
     $scope.page = 1;
-    $scope.perPage = 10;
+    $scope.perPage = 150;
     $scope.field = 'uploaded';
     $scope.order = 'desc';
     

@@ -91,7 +91,6 @@ module.exports = function(req, res) {
                             }
                         }
 
-
                         // Make a book object that has properties, analogous to the app's Book Model
                         var book = {};
 

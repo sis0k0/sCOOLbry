@@ -50,19 +50,18 @@ app.factory('bookSearch', function($q, $http) {
             promisesArray.push(findInAmazonPromise);
             findInAmazonPromise.success(function(data) {
                 if(data!=='false' && data!==false) {
-                    console.log(data);
                     deferred.resolve(data);
                 }
             });
 
             // Make http request to the Google Books API, implemented within our server side
-            var findInGoogleBooksPromise = $http.get('/api/book/googleBooksSearch/' + isbn, {timeout: deferred.promise});
-            promisesArray.push(findInGoogleBooksPromise);
-            findInGoogleBooksPromise.success(function(data) {
-                if(data!=='false' && data!==false) {
-                    deferred.resolve(data);
-                }
-            });
+            // var findInGoogleBooksPromise = $http.get('/api/book/googleBooksSearch/' + isbn, {timeout: deferred.promise});
+            // promisesArray.push(findInGoogleBooksPromise);
+            // findInGoogleBooksPromise.success(function(data) {
+            //     if(data!=='false' && data!==false) {
+            //         deferred.resolve(data);
+            //     }
+            // });
 
             // If all http requests are finished and the promise is still not resolved,
             // then the book is not found and we reject the promise.

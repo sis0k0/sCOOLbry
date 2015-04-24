@@ -76,7 +76,7 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
                 $window.navigator.geolocation.getCurrentPosition(function(success) {
                     $scope.map = { 
                         center: { latitude: success.coords.latitude, longitude: success.coords.longitude },
-                        zoom: 8
+                        zoom: 12
                     };
                     var marker = {
                         latitude: success.coords.latitude,
@@ -201,7 +201,6 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
                 $scope.isMember = false;
             }else{
 
-                // TO DO
                 // After payments are implemented,
                 // a checking should be performed before taking a book
 

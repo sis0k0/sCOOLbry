@@ -12,7 +12,17 @@ module.exports = function(req, res) {
             res.send(book);
         } else {
 
-            if(bookISBN.length===13) {
+            if(bookISBN.indexOf('-')>0) {
+                bookISBN = bookISBN.replace(/-/gi, '');
+                Book.findOne({isbn: bookISBN}).exec(function(error, returnedBook) {
+                    if(returnedBook!==null && !error) {
+                        console.log('database');
+                        res.send(returnedBook);
+                    } else {
+                        res.send(false);
+                    }
+                });                
+            } else if(bookISBN.length===13) {
                 bookISBN = bookISBN.substring(3,13);
 
                 Book.findOne({isbn: bookISBN}).exec(function(error, returnedBook) {
@@ -37,15 +47,7 @@ module.exports = function(req, res) {
                 });
 
             } else {
-                bookISBN = bookISBN.replace(/-/gi, '');
-                Book.findOne({isbn: bookISBN}).exec(function(error, returnedBook) {
-                    if(returnedBook!==null && !error) {
-                        console.log('database');
-                        res.send(returnedBook);
-                    } else {
-                        res.send(false);
-                    }
-                });
+                res.send(false);
             }
         }
     });

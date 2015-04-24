@@ -236,6 +236,8 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
         var bookPromise = bookSearch.search($scope.ISBNSearch);
         bookPromise.then(function success(data) {
 
+            console.log(data);
+
             if(data.foundInDatabase) {
 
                 LibBookResource.get({bookID: data._id, libraryID: $scope.library._id}, function(book) {

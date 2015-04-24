@@ -1,6 +1,11 @@
 include ../panel
 
-.container
+.container.text-center(ng-hide='books.length')
+  h1.text-danger No books to show!
+  h3
+    a(href='/library-panel/books/add') Click here to add books
+
+.container(ng-show='books.length')
   h1.text-center Books list
 
   #users-list.table-responsive(ng-init="pages();")
