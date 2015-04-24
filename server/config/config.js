@@ -29,13 +29,14 @@ module.exports = {
     production: {
         rootPath: rootPath,
         // db: 'mongodb://admin:test@ds029541.mongolab.com:29541/scoolbry2',
-        db: 'mongodb://admin:test@ds053109.mongolab.com:53109/scoolbry',
+        // db: 'mongodb://admin:test@ds053109.mongolab.com:53109/scoolbry',
         // db: 'mongodb://admin:test@ds043971.mongolab.com:43971/scoolbry-test',
 
 
         // DEMO
         // db: 'mongodb://admin:test@ds045097.mongolab.com:45097/scoolbry-testfordemo',
         // db: 'mongodb://admin:test@dbh13.mongolab.com:27137/scoolbry-demo',
+        db: 'mongodb://admin:test@ds045027.mongolab.com:45027/test-demo-scoolbry',
         port: process.env.PORT || 3030,
         facebook: {
             clientID: '1511950165721139',
