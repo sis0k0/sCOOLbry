@@ -14,6 +14,8 @@ module.exports = {
     getAllBooksFilterableCount: require('./getAllBooksFilterableCount'),
     getAllBooksSortable: require('./getAllBooksSortable'),
     getAllBooksSearchable: require('./getAllBooksSearchable'),
+    getEbooks: require('./getEbooks'),
+    getEbooksByGenre: require('./getEbooksByGenre'),
     getBookAvailabilitySubscription: require('./getBookAvailabilitySubscription'),
     getBookById: require('./getBookById'),
     getBookByISBN: require('./getBookByISBN'),

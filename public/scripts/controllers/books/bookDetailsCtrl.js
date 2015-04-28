@@ -43,12 +43,15 @@ app.controller('BookDetailsCtrl', function($scope, $routeParams, cachedBooks, ui
             responseType: 'arraybuffer'
          })
         .success(function(data) {
+            console.log(data);
 
             // create new blob with the data buffer
             var blob = new Blob([data], {
                 type: 'application/epub+zip'
             });
             var objectUrl = URL.createObjectURL(blob);
+
+            console.log(objectUrl);
 
             // create new hidden anchor element, trigger click and download the file 
             var element = angular.element('<a/>');

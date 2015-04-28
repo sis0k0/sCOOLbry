@@ -65,5 +65,12 @@ module.exports = function(app) {
     // Download ebook
     router.get('/book/ebook', controllers.books.downloadEbook);
 
+    // Get all books with uploaded ebook
+    router.get('/ebooks', controllers.books.getEbooks);
+
+    // Get all books with uploaded ebook by genre
+    router.get('/ebook/:genre', controllers.books.getEbooksByGenre);
+
+
     app.use('/api/', router);
 };
