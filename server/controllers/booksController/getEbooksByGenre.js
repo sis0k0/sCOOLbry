@@ -6,9 +6,11 @@ module.exports = function(req, res) {
 
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-    
+
+    var genre = req.params.genre;
+
     Book
-    .find({genres: req.params.genre})
+    .find({genres: { $regex : new RegExp(genre, 'i') }})
     .exists('ebookUrl')
     .exec(function(err, collection) {
         if (err) {
