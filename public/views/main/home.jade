@@ -1,17 +1,36 @@
 .container-fluid
   .jumbotron#welcome-section
     .row
-      .col-md-4.col-xs-4.vcenter
-        img(src="../../dist/images/hourglass.png").img-responsive
-      .col-md-8.col-xs-8.vcenter
-         h1 Thousands of books
-         h2
-          | Just&nbsp;
-          a(href="/libraries") 1 click
-          | &nbsp;away
-         .btn-group-lg.text-center
-           a(href="/libraries").btn.btn-info.btn-lg See libraries
-           a(href="/signup", ng-show="!identity.isAuthenticated()").btn.btn-primary.btn-lg Sign up
+      .col-xs-12
+        .col-xs-10.col-xs-offset-1
+          .text-center
+             h1 Thousands of books
+             h2
+              | Just&nbsp;
+              a(href="/catalog") 1 click
+              | &nbsp;away
+
+        .col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2.col-xs-12
+          ui-select#search-header.navbar-left(ng-controller='SearchCtrl', name='result', ng-model='result.selected', ng-disabled='disabled', reset-search-input='false', on-select='goToResult($item)')
+            ui-select-match(placeholder='Find your book') {{$select.selected.title}}
+            ui-select-choices(repeat='result in results', refresh='search($select.search)', refresh-delay='0')
+              div(ng-if='!$last')
+                div
+                  span(ng-bind-html='result.title | highlight: $select.search')
+                  span (
+                  span(ng-bind-html='result.author | highlight: $select.search')
+                  span )
+                small.text-muted.text-bold(ng-bind='ISBN: ')
+                small.text-muted(ng-bind-html='result.isbn | highlight: $select.search')
+              div.text-center.text-success(ng-if='$last')
+                h4(style='margin:0', ng-bind='result.message')
+                small.text-muted(ng-bind='"Showing first "')
+                small.text-muted(ng-bind='results.length-1 + " results"')
+
+        .row.text-center
+          .btn-group.text-center(style='margin-top:0.5em')
+            a(href="/advanced-search").text-center.btn.btn-primary.btn-lg Advanced search
+            a(href="/libraries").text-center.btn.btn-info.btn-lg Explore libraries
 
 
 .container#homepage-container

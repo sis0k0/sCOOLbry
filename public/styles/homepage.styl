@@ -8,15 +8,22 @@
 */
 
 #welcome-section
+  background url('../images/book-min.jpg') no-repeat bottom left
+  background-size cover !important
   font-size 25px
   font-size 2.5rem
-  padding 20px
+  height 90vh
   h1
     font-size 3.6em
+    margin-top 0.8em
   h2
     font-size 2.4em
-    margin-top 0.4em
+    margin-top 0.5em
+    a
+      color #428bca
   h1, h2
+    color #fff
+    font-family gothic !important
     text-align center
     font-weight normal
   img
@@ -24,8 +31,30 @@
   a
     &:hover
       text-decoration none
-  .btn-group-lg
+  .ui-select-container
+    width 100%
     margin-top 2.5em
+    .ui-select-choices
+      font-size 0.6em
+    .ui-select-search
+      font-size 1.2em !important
+      padding 1em !important
+    .ui-select-match
+      .ui-select-toggle
+        outline 0
+        padding 2em
+        background rgba(255,255,255,0.3)
+        position relative
+        span
+          color #4D4D48
+          font-size 2em
+          position absolute
+          top 9px
+          text-align center
+
+
+  .btn-group
+    margin-top 2em !important
     a
       padding 0.76em 0.64em
       font-size 1em
@@ -33,34 +62,36 @@
       border-radius(6px)
       width 11em
       border 1px solid #fff
-    .btn-info
-      margin-right 1em
-    .btn-primary
-      margin-right 1em
 
-
-@media screen and (max-width: 1285px)
+@media screen and (max-width: 1485px)
   #welcome-section
-    font-size 20px
-    font-size 2rem
-    img
-      width 60%
-    .col-md-8
-      margin-left -3%
+    font-size 18px
+    font-size 1.8rem
+    // img
+      // width 60%
+    // .col-md-8
+    //   margin-left -3%
 
 @media screen and (max-width: 1032px)
   #welcome-section
     font-size 18px
     font-size 1.8rem
-    img
-      width 50%
-    .col-md-8
-      margin-left -5%
+    // img
+      // width 50%
+    // .col-md-8
+    //   margin-left -5%
 
 @media screen and (max-width: 942px)
   #welcome-section
     font-size 16px
     font-size 1.6rem
+    .ui-select-container
+      .ui-select-match
+        .ui-select-toggle
+          span
+            color #B9D9F0
+            top 11px
+            font-size 1.6em
 
 @media screen and (max-width: 849px)
   #welcome-section
