@@ -71,6 +71,9 @@ module.exports = function(app) {
     // Get all books with uploaded ebook by genre
     router.get('/ebook/:genre', controllers.books.getEbooksByGenre);
 
+    // Full-text search inside books
+    router.get('/books/full-text/:phrase', controllers.books.getBookByContent);
+
 
     app.use('/api/', router);
 };

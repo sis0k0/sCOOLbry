@@ -2,12 +2,18 @@
 
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
+var mongoosastic = require('mongoosastic');
+// var elmongo = require('elmongo');
 
 var eBookSchema = mongoose.Schema({
     // title: {
     //     type: String,
     //     required: '{PATH} is required'
     // },
+    name: {
+        type: String,
+        default: 'default'
+    },
     path: {
         type: String,
         required: '{PATH} is required'
@@ -15,12 +21,14 @@ var eBookSchema = mongoose.Schema({
     chapters: {
         type: [String],
         // required: '{PATH} is required',
-        // text : true
+        /*jshint camelcase: false */
+        es_indexed: true
+        /*jshint camelcase: true */
     },
     uploaderID: {
         type: ObjectId,
-        ref: 'User',
-        required: '{PATH} is required'
+        ref: 'User'
+        // required: '{PATH} is required'
     },
     books: [{
         type: ObjectId,
@@ -32,7 +40,15 @@ var eBookSchema = mongoose.Schema({
     }
 });
 
+eBookSchema.plugin(mongoosastic);
+
 var eBook = mongoose.model('eBook', eBookSchema);
+
+// eBook.sync(function(err) {
+//     if(err) {
+//         console.log(err);
+//     }
+// });
 
 module.exports.seedInitialEbooks = function() {
     eBook.find({}).exec(function(err, collection) {
@@ -45,3 +61,4 @@ module.exports.seedInitialEbooks = function() {
         }
     });
 };
+

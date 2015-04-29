@@ -7,6 +7,7 @@ module.exports = {
     development: {
         rootPath: rootPath,
         db: 'mongodb://localhost/scoolbry',
+        elasticHost: 'localhost:9200',
         port: process.env.PORT || 3030,
         facebook: {
             clientID: '1511950165721139',
@@ -28,8 +29,10 @@ module.exports = {
     },
     production: {
         rootPath: rootPath,
-        // db: 'mongodb://admin:test@ds029541.mongolab.com:29541/scoolbry2',
-        db: 'mongodb://admin:test@ds053109.mongolab.com:53109/scoolbry',
+        // elasticHost: 'localhost:9200',
+        elasticHost: 'https://711fqwx7:p9azlyuf5unldabk@apricot-5221687.us-east-1.bonsai.io/',
+        db: 'mongodb://admin:test@ds029541.mongolab.com:29541/scoolbry2',
+        // db: 'mongodb://admin:test@ds053109.mongolab.com:53109/scoolbry',
         // db: 'mongodb://admin:test@ds043971.mongolab.com:43971/scoolbry-test',
 
 

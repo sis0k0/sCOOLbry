@@ -19,3 +19,4 @@
 id_rsa
 id_rsa.pub
 /public/lib
+/elasticsearch-0.90.1

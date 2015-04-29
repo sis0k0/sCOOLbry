@@ -1,12 +1,17 @@
 'use strict';
     
-var Book        = require('mongoose').model('Book'),
-    LibraryBook = require('mongoose').model('LibBook'),
-    fs          = require('fs'),
-    Converter   = require('csvtojson').core.Converter,
-    XLS         = require('xlsjs'),
-    XLSX        = require('xlsx'),
-    ObjectId    = require('mongoose').Types.ObjectId;
+var Book          = require('mongoose').model('Book'),
+    LibraryBook   = require('mongoose').model('LibBook'),
+    fs            = require('fs'),
+    Converter     = require('csvtojson').core.Converter,
+    XLS           = require('xlsjs'),
+    XLSX          = require('xlsx'),
+    ObjectId      = require('mongoose').Types.ObjectId,
+    ePub          = require('epub'),
+    elasticsearch = require('elasticsearch');
+
+var env = process.env.NODE_ENV || 'production';
+var config = require('../config/config')[env];
 
 
 function fileToJSON(file, sheet, callback) {
@@ -212,6 +217,83 @@ var importBooks = function(file, matches, includeTopRow, sheet, isLibraryBook, c
     });
 };
 
+function parseEbook(eBookURL, callback) {
+    var epub = new ePub(eBookURL);
+
+    epub.on('error', function (err) {
+        console.log('err');
+        console.log(err);
+        return callback(err);
+    });
+
+    epub.on('end', function () {
+
+        console.log('end');
+
+        var content = '',
+            htmlCut = /(<([^>]+)>)/ig,
+            chapterCounter = 0;
+
+        epub.flow.forEach(function(chapter){
+            epub.getChapterRaw(chapter.id, function(err, text) {
+                chapterCounter++;
+
+                if(err) {
+                    return callback(err);
+                } else {
+
+                    // Get only the text contents of the chapter
+                    text = (text.indexOf('<body')>-1) ? text.substring(text.indexOf('<body'), text.lastIndexOf('</body')) : text; // Only the text within the body tag
+                    text = text.replace(htmlCut, ''); // Remove the tags
+                    text = text.trim(); // Remove whitespaces
+
+                    content = content.concat(text);
+
+                    if(chapterCounter===epub.flow.length) { // If all chapters are iterated, return them
+                        return callback(null, content);
+                    }
+                }
+            });
+
+        });
+
+
+    });
+
+    epub.parse();
+}
+
+function addEbookIndex(bookID, text, callback) {
+    /*jshint camelcase: false */
+
+    var client = new elasticsearch.Client({
+        host: config.elasticHost,
+        log: 'trace'
+    });
+
+    client.index({
+        index: 'ebook',
+        type: 'string',
+        analyzer: 'whitespace',
+        body: {
+            id: bookID,
+            text: text,
+            index_options: 'offsets'
+        }
+    }, function (error, response) {
+        if(error || !response) {
+            console.log(error);
+            console.log('Index couldn\'t be created!');
+            return callback(error);
+        } else {
+            console.log('Index created!');
+            return callback();
+        }
+    }, function(err) {
+        return callback(err);
+    });
+}
+
 module.exports = {
     importBooks: importBooks,
     importLibraryBooks : function(file, matches, includeTopRow, sheet, libraryID, callback) {
@@ -321,6 +403,20 @@ module.exports = {
             }
 
         });
-
+    },
+    indexEbook: function(bookID, eBookURL, callback) {
+        parseEbook(eBookURL, function(err, content) {
+            if(err) {
+                return callback({reason: err});
+            } else {
+                addEbookIndex(bookID, content, function(err) {
+                    if(err) {
+                        return callback({reason: 'Index cannot be added'});
+                    } else {
+                        return callback();
+                    }
+                });
+            }
+        });
     }
 };
