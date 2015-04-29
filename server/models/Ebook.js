@@ -2,8 +2,6 @@
 
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.ObjectId;
-var mongoosastic = require('mongoosastic');
-// var elmongo = require('elmongo');
 
 var eBookSchema = mongoose.Schema({
     // title: {
@@ -21,9 +19,6 @@ var eBookSchema = mongoose.Schema({
     chapters: {
         type: [String],
         // required: '{PATH} is required',
-        /*jshint camelcase: false */
-        es_indexed: true
-        /*jshint camelcase: true */
     },
     uploaderID: {
         type: ObjectId,
@@ -39,8 +34,6 @@ var eBookSchema = mongoose.Schema({
         default: Date.now
     }
 });
-
-eBookSchema.plugin(mongoosastic);
 
 var eBook = mongoose.model('eBook', eBookSchema);
 
