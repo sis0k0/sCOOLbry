@@ -8,7 +8,7 @@ var auth        = require('../../auth'),
 module.exports = function(app) {
 
     // Book parsers
-    router.post('/books/upload', /*auth.isInRole('admin'),*/ controllers.books.parseEpub);
+    router.post('/books/upload', auth.isInRole('admin'), controllers.books.parseEpub);
 
     // Get books
     router.get('/books', controllers.books.getAllBooks);
@@ -72,8 +72,10 @@ module.exports = function(app) {
     router.get('/ebook/:genre', controllers.books.getEbooksByGenre);
 
     // Full-text search inside books
-    router.get('/books/full-text/:phrase', controllers.books.getBookByContent);
+    router.post('/books/full-text', controllers.books.getBookByContent);
 
+    // Recognize text from image
+    router.post('/image/text', controllers.books.getTextFromImage);
 
     app.use('/api/', router);
 };

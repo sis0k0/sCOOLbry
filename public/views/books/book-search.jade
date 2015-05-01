@@ -15,7 +15,7 @@
             div
               span.text-bold.text-muted Author: 
               span.text-info {{ book.author }}
-            div.text-muted
+            div.text-muted(ng-show='book.isbn')
               span.text-bold ISBN: 
               span {{ book.isbn }}
   .row

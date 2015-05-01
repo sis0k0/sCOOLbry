@@ -23,6 +23,7 @@ module.exports = {
     getBookCount: require('./getBookCount'),
     getBookExistsByISBN: require('./getBookExistsByISBN'),
     getBookFields: require('./getBookFields'),
+    getTextFromImage: require('./getTextFromImage'),
     getFavouriteBooks: require('./getFavouriteBooks'),
     getFavouriteBooksInLibrary: require('./getFavouriteBooksInLibrary'),
     insertBooks: require('./insertBooks'),
