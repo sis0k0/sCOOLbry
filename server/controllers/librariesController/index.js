@@ -15,6 +15,7 @@ module.exports = {
     getAllBookingsSortable: require('./getAllBookingsSortable'),
     getAllFines: require('./getAllFines'),
     getAllFinesSortable: require('./getAllFinesSortable'),
+    getAllLateReadings: require('./getAllLateReadings'),
     getAllLibraries: require('./getAllLibraries'),
     getAllLibraryVisitsSortable: require('./getAllLibraryVisitsSortable'),
     getAllLibrariesSortable: require('./getAllLibrariesSortable'),

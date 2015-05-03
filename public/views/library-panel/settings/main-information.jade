@@ -30,7 +30,11 @@
             .row
               .col-xs-12
                   input.form-control(name='tags', type='text', placeholder='Tags', ng-model='library.tags')
-          
+          .form-group(ng-class="{ 'has-success': (libraryForm.lateFine.$dirty)}")
+            label.control-label(for='lateFine') Fine for late returning
+            .row
+              .col-xs-12
+                input.form-control(name='lateFine', ng-model='library.lateFine')
 
 
   .row
@@ -55,6 +59,8 @@
             img.image-responsive.img-thumbnail(fallback-src, ng-src='{{ library.certificate }}', ng-bind='library.certificate')
             input(type='hidden', ng-model='library.certificate', required)
 
+
+                      
       .row(ng-show='library.paid')
 
         .form-group(ng-class = "{ 'has-success': (!!library.amount) }")

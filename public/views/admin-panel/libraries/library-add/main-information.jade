@@ -81,6 +81,13 @@
           .col-xs-4
             img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
             input(type='hidden', ng-model='library.certificate', required)
+
+      .form-group
+        label.control-label(for='lateFine') Fine for late returning
+        .row
+          .col-xs-12
+            input.form-control(name='lateFine', ng-model='library.lateFine')
+
   .row
     .col-md-10.col-md-offset-1
       .row(ng-show='library.paid')

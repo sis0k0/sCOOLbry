@@ -22,5 +22,6 @@ module.exports = function(app) {
     // All readings in library
     router.get('/all-readings-library/:libraryID', auth.isInRole('librarian'), controllers.readings.getAllReadingsInLibrary);
     
+    
     app.use('/api/', router);
 };

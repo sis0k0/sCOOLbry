@@ -12,10 +12,10 @@
           span.glyphicon.glyphicon-bell
           span.badge(ng-show='notifications.length', ng-bind='notifications.length')
         ul#mobile-notifications.dropdown-menu.notifications
-          h4.text-center.bg-primary Notifications
+          h4.text-center.bg-primary= __("Notifications")
           li(ng-hide='notifications.length')
             div
-              h5.text-center.text-info No new notifications!
+              h5.text-center.text-info= __("No new notifications!")
           li(ng-repeat='notification in notifications track by notification._id')
             a(ng-href='{{notification.href}}', ng-click='markAsSeen(notification)')
               div(ng-bind-html='notification.message')
@@ -24,7 +24,7 @@
     nav#site-navigation.navbar-collapse.collapse
 
       ui-select#search-header.navbar-left(ng-controller='SearchCtrl', name='result', ng-model='result.selected', ng-disabled='disabled', reset-search-input='false', on-select='goToResult($item)')
-        ui-select-match(placeholder='Search for books by title/author/genre/isbn') {{$select.selected.title}}
+        ui-select-match(placeholder='#{__("Search for books")}') {{$select.selected.title}}
         ui-select-choices(repeat='result in results', refresh='search($select.search)', refresh-delay='0', style='font-size: 1em')
           div(ng-if='!$last')
             div
@@ -41,22 +41,22 @@
 
       ul#top-menu.nav.navbar-nav.navbar-right(ng-controller='LogInCtrl')
         li
-          a(href='/catalog') Catalog
+          a(href='/catalog')= __("Catalog")
         li
-          a(href='/libraries') Libraries
+          a(href='/libraries')= __("Libraries")
         li(ng-if='!identity.isAuthenticated()')
-          a(href='/login') Log In
+          a(href='/login')= __("Log In")
         li(ng-if='!identity.isAuthenticated()')
-          a(href='/signup').sign-up Sign Up
+          a(href='/signup').sign-up= __("Sign Up")
         li(ng-controller='NotificationsCtrl', ng-if='!!identity.isAuthenticated()')
           span#navbar-default-notifications.notifications-icon.dropdown(aria-hidden='true', data-toggle='dropdown', ng-class=" {'btn-success': notifications.length, 'notifications-icon-none': notifications.length===0, 'btn': true} ")
             span(ng-class="{'glyphicon': true, 'glyphicon-bell': true}")
             span(ng-show='notifications.length', ng-bind='notifications.length', ng-class="{'badge': true}")
           ul.dropdown-menu.notifications
-            h4.text-center.bg-primary Notifications
+            h4.text-center.bg-primary= __("Notifications")
             li(ng-hide='notifications.length')
               div
-                h5.text-center.text-info No new notifications!
+                h5.text-center.text-info= __("No new notifications!")
             li(ng-repeat='notification in notifications track by notification._id')
               a(ng-href='{{notification.href}}', ng-click='markAsSeen(notification)')
                 div(ng-bind-html='notification.message')
@@ -67,11 +67,11 @@
             b(ng-class="{ 'caret': true }")
           ul.dropdown-menu
             li(ng-if='identity.currentUser.isAdmin()')
-              a(href='/admin') Admin Panel
+              a(href='/admin')= __("Admin Panel")
             li(ng-if='identity.currentUser.hasLibraryPanel()')
-              a(href='/library-panel') Library Panel
+              a(href='/library-panel')= __("Library Panel")
             li(ng-if='identity.isAuthenticated()')
-              a(href='/profile') Profile
+              a(href='/profile')= __("Profile")
             li.divider
             li
-              a(href='/' ng-click='logout()') Sign Out
+              a(href='/' ng-click='logout()')= __("Sign Out")

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
+app.controller('LibraryPanelCtrl', function($scope, identity, $location, $http) {
     $scope.identity = identity;
     $scope.path = $location.path();
 
@@ -47,5 +47,11 @@ app.controller('LibraryPanelCtrl', function($scope, identity, $location) {
     };
 
     $scope.currentMenuItem = $scope.getCurrentMenuItem($scope.path);
+    $http.get('/api/library/late-readings').success(function(){
+        console.log('fined');
+    }).error(function(data){
+        console.log('error: '+data);
+
+    });
 
 });

@@ -30,5 +30,6 @@ module.exports = function(app) {
         res.render('index', {currentUser: req.user});
     });
 
+
     app.use('/', router);
 };

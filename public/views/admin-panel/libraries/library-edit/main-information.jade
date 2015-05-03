@@ -82,8 +82,14 @@
             img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
             input(type='hidden', ng-model='library.certificate', required)
 
-      .row(ng-show='library.paid')
+      .row
+        .form-group
+          label.control-label(for='lateFine') Fine for late returning
+          .row
+            .col-xs-12
+              input.form-control(name='lateFine', ng-model='library.lateFine')
 
+      .row(ng-show='library.paid')
         .form-group(ng-class = "{ 'has-success': (!!libraryForm.amount) }")
           label.control-label(for='tax') Amount
           .row

@@ -20,24 +20,6 @@ module.exports = function(app, config) {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 
-    //translation
-    i18n.configure({
-       locales:['en', 'bg'],
-       cookie: 'locale',
-       directory: __dirname + '/locales',
-       defaultLocale: 'bg'
-    });
-
-    app.use(i18n.init);
-
-
-    // set a cookie to requested locale
-    app.get('/:locale', function (req, res) {
-        res.cookie('locale', req.params.locale);
-        res.redirect('/');
-    });
-
-   
     // Configure multer
     app.use(multer({ dest: './server/uploads/',
         limits: {
@@ -92,7 +74,11 @@ module.exports = function(app, config) {
         next();
     });
 
-
+    //translation
+    i18n.configure({
+       locales:['en', 'bg'],
+       directory: __dirname + '/locales'
+    });
 
 
 };

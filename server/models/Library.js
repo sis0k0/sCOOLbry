@@ -67,6 +67,10 @@ var librarySchema = mongoose.Schema({
         type: Array,
         default: [ '10:00-18:00', '10:00-18:00', '10:00-18:00', '10:00-18:00', '10:00-18:00' ]
     },
+    lateFine: {
+        type: Number,
+        default: 5.00
+    },
     librarySections: Object
 });
 

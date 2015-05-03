@@ -47,6 +47,7 @@ var readingSchema = mongoose.Schema({
     },
     endDate: Date,
     returnDate: Date,
+    fined: Date,
     comment: {
         type: String,
         default: ''
@@ -64,6 +65,11 @@ module.exports.seedInitialReadings = function() {
         
         if (collection.length === 0) {
             //TODO: Insert some default data
+            var now = new Date();
+
+            Reading.create({userID: '549fc6190e1655f01adb01be', userName: 'sis0k0', libraryID: '5435728127965d5d083da959', libraryName: 'Test Library', librarian1ID: '549fc6190e1655f01adb01be', bookID: '5534ffffa962f7030019b66e', bookName: 'War and Peace (Vintage Classics)', bookISBN: '9781400079988', startDate: now, endDate: now});
+
         }
+      
     });
 };

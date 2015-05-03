@@ -71,6 +71,9 @@ module.exports = function(app) {
 
     router.get('/library/subscribers/:libraryID', controllers.libraries.getLibraryUsersInLibraryCount);
 
+    // All late readings in library
+    router.get('/library/late-readings', controllers.libraries.getAllLateReadings);
+
     // LIBRARY VISITS
 
     // All visits for library

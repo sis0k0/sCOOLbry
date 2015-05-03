@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('AdminPanelCtrl', function($scope, $location, identity) {
+app.controller('AdminPanelCtrl', function($scope, $location, $http, identity) {
     $scope.identity = identity;
     $scope.path = $location.path();
 
@@ -45,4 +45,11 @@ app.controller('AdminPanelCtrl', function($scope, $location, identity) {
     };
 
     $scope.currentMenuItem = $scope.getCurrentMenuItem($scope.path);
+    $http.get('/api/library/late-readings').success(function(){
+        console.log('fined');
+    }).error(function(data){
+        console.log('error: '+data);
+
+    });
+
 });
