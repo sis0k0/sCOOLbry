@@ -1,6 +1,6 @@
 .jumbotron
   .container
-    h1 Edit your profile
+    h1 #{__("Edit profile")}
 
 .container
     form.form-horizontal(name='profileForm')
@@ -11,48 +11,48 @@
           .col-md-11.col-md-offset-1
             .col-md-5
               .form-group(ng-class="{ 'has-success': (profileForm.firstName.$valid && profileForm.lastName.$valid) }")
-                  label.control-label(for="first-name") Name
+                  label.control-label(for="first-name") #{__("Name")}
                   .row
                       .col-xs-6
-                          input.form-control(name="firstName", type="text", placeholder="First Name", ng-model="user.firstName", required)
+                          input.form-control(name="firstName", type="text", placeholder="#{__('First Name')}", ng-model="user.firstName", required)
                       .col-xs-6
-                          input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model="user.lastName", required)
+                          input.form-control(name="lastName", type="text", placeholder="#{__('Last Name')}", ng-model="user.lastName", required)
               .form-group(ng-class="{ 'has-error': (profileForm.email.$invalid && profileForm.email.$dirty), 'has-success': (profileForm.email.$valid) }")
-                  label.control-label(for="email") Email
+                  label.control-label(for="email") #{__("Email")}
                   .row
                       .col-xs-12
-                          input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email",check-availability='::user.email', email='user.email' required)
-                          span.help-block(ng-show="profileForm.email.$error.available") Email already taken
-                          span.help-block(ng-show="profileForm.email.$invalid && profileForm.email.$dirty") Please enter valid email
+                          input.form-control(name="email", type="text", placeholder="#{__('Email')}", ng-model="user.email",check-availability='::user.email', email='user.email' required)
+                          span.help-block(ng-show="profileForm.email.$error.available") #{__("Email already taken")}
+                          span.help-block(ng-show="profileForm.email.$invalid && profileForm.email.$dirty") #{__("Please enter valid email")}
               .form-group(ng-class="{ 'has-success': (profileForm.dateOfBirth.$valid && (!!user.dateOfBirth)) }")
-                label.control-label(for='date-of-birth') Date of birth
+                label.control-label(for='date-of-birth') #{__("Date of birth")}
                 .row.input-group.date
-                    input.form-control(name='dateOfBirth', type='text', datepicker-popup='d MMMM yyyy', is-open='opened', ng-focus='opened=true', min-date='"1900-01-01"', max-date='today', placeholder='Date of birth', ng-model='user.dateOfBirth')
+                    input.form-control(name='dateOfBirth', type='text', datepicker-popup='d MMMM yyyy', is-open='opened', ng-focus='opened=true', min-date='"1900-01-01"', max-date='today', placeholder='#{__("Date of birth")}', ng-model='user.dateOfBirth')
                     span.input-group-addon
                       i.glyphicon.glyphicon-th
               .form-group(ng-class="{ 'has-success': (profileForm.facebookUrl.$valid && (!!user.facebookUrl)) }")
-                  label.control-label(for='facebook-url') Facebook URL
+                  label.control-label(for='facebook-url') #{__("Facebook URL")}
                   .row
                       .col-xs-12
-                          input.form-control(name='facebookUrl', type='text', placeholder='Facebook URL', ng-model='user.facebookUrl')
+                          input.form-control(name='facebookUrl', type='text', placeholder='#{__("Facebook URL")}', ng-model='user.facebookUrl')
               .form-group(ng-class="{ 'has-success': (profileForm.googlePlusUrl.$valid && (!!user.googlePlusUrl)) }")
-                  label.control-label(for='google-plus-url') Google Plus URL
+                  label.control-label(for='google-plus-url') #{__("Google Plus URL")}
                   .row
                       .col-xs-12
-                          input.form-control(name='googlePlusUrl', type='text', placeholder='Google+ URL', ng-model='user.googlePlusUrl')
+                          input.form-control(name='googlePlusUrl', type='text', placeholder='#{__("Google Plus URL")}', ng-model='user.googlePlusUrl')
 
             .col-md-5.col-md-offset-1
               .form-group(ng-class="{ 'has-success': (profileForm.gender.$valid && (!!user.gender)) }")
-                label.control-label(for='gender') Gender
+                label.control-label(for='gender') #{__("Gender")}
                 .row
                   .col-xs-12
                     select.form-control(name='gender', form='profileForm', ng-model='user.gender')
-                      option Not specified
-                      option Male
-                      option Female
+                      option #{__("Not specified")}
+                      option #{__("Male")}
+                      option #{__("Female")}
 
               .form-group(ng-class="{ 'has-success': (profileForm.style.$valid && (!!user.style)) }")
-                label.control-label(for='style') Style
+                label.control-label(for='style') #{__("Style")}
                 .row
                   .col-xs-12
                     select.form-control(name='style', form='profileForm', ng-model='user.style')
@@ -68,41 +68,41 @@
                       option yeti
 
               .form-group(ng-class="{ 'has-error': (profileForm.password.$invalid && profileForm.password.$dirty), 'has-success': (profileForm.password.$valid && profileForm.password.$dirty) }")
-                  label.control-label(for="password") New Password
+                  label.control-label(for="password") #{__("New Password")}
                   .row
                       .col-xs-12
-                          input.form-control(name="password", type="password", placeholder="Password", tooltip-placement="left", tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/")
+                          input.form-control(name="password", type="password", placeholder="#{__('Password')}", tooltip-placement="left", tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/")
         
               .form-group(ng-class="{ 'has-error': (profileForm.confirmPassword.$invalid && profileForm.confirmPassword.$dirty), 'has-success': (profileForm.confirmPassword.$valid && profileForm.confirmPassword.$dirty) }")
-                  label.control-label(for="confirm-password") Confirm password
+                  label.control-label(for="confirm-password") #{__("Confirm Password")}
                   .row
                     .col-xs-12
-                        input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", fields-match="user.password")
-                        span.help-block(ng-show="profileForm.confirmPassword.$error.fieldsMatch && profileForm.confirmPassword.$dirty") These passwords don't match. Try again?
+                        input.form-control(name="confirmPassword", type="password", placeholder="#{__('Confirm Password')}", ng-model="passwordConfirm", fields-match="user.password")
+                        span.help-block(ng-show="profileForm.confirmPassword.$error.fieldsMatch && profileForm.confirmPassword.$dirty") #{__("These passwords don't match. Try again?")}
               .form-group(ng-class="{ 'has-success': (profileForm.twitterURL.$valid && (!!user.twitterURL)) }")
-                  label.control-label(for='twitter-url') Twitter URL
+                  label.control-label(for='twitter-url') #{__("Twitter URL")}
                   .row
                       .col-xs-12
-                          input.form-control(name='twitterURL', type='text', placeholder='Twitter URL', ng-model='user.twitterUrl')               
+                          input.form-control(name='twitterURL', type='text', placeholder='#{__("Twitter URL")}', ng-model='user.twitterUrl')               
         .row
           .col-md-10.col-md-offset-1
             .form-group(ng-class="{ 'has-error': profileForm.aboutMe.$invalid, 'has-success': (profileForm.aboutMe.$valid && (!!user.aboutMe)) }")
-              label.control-label(for='aboutMe') About Me
+              label.control-label(for='aboutMe') #{__("About Me")}
               .row
                 .col-xs-12
-                  textarea.form-control(name='aboutMe', rows='3', placeholder='About Me', ng-model='user.aboutMe', ng-maxlength='500')
-                  span.help-block(ng-show='profileForm.aboutMe.$error.maxlength') Length must be below 500 characters
+                  textarea.form-control(name='aboutMe', rows='3', placeholder='#{__("About Me")}', ng-model='user.aboutMe', ng-maxlength='500')
+                  span.help-block(ng-show='profileForm.aboutMe.$error.maxlength') #{__("Length must be below 500 characters")}
             .form-group(ng-class="{ 'has-success': (avatarUploadSuccessful), 'has-error': (avatarUploadError || avatarTypeError) }")
-              label.control-label(for='avatar') Avatar
+              label.control-label(for='avatar') #{__("Avatar")}
               .row
                 .col-xs-8
                     input.form-control(name='avatar', type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
-                    button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadFile()', ng-disabled='!uploadButtonState', style='margin-top:0.5em') Upload file
-                    span.help-block(ng-show='avatarTypeError') The supported types are GIF, JPEG, PNG and TIFF
-                    span.help-block(ng-show='avatarUploadError') An error occured. Please try again later.
+                    button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='#{__("Send")}', ng-click='uploadFile()', ng-disabled='!uploadButtonState', style='margin-top:0.5em') #{__("Upload file")}
+                    span.help-block(ng-show='avatarTypeError') #{__("The supported types are GIF, JPEG, PNG and TIFF")}
+                    span.help-block(ng-show='avatarUploadError') #{__("An error occured. Please try again later.")}
                 .col-xs-4
                   img.image-responsive.img-thumbnail(ng-src='{{ user.avatar }}', ng-bind='user.avatar')
 
         .pull-right(style='margin-bottom:1em')
-          button.btn.btn-primary(ng-click='update(user)', ng-disabled='profileForm.$invalid') Update
-          a.btn.btn-danger(href='/', style="margin-left:0.2em") Cancel
+          button.btn.btn-primary(ng-click='update(user)', ng-disabled='profileForm.$invalid') #{__("Update")}
+          a.btn.btn-danger(href='/', style="margin-left:0.2em") #{__("Cancel")}

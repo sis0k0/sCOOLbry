@@ -1,6 +1,6 @@
 .tab-pane.fade#libraries
   h3
-    | Library Subscriptions
+    |#{__("Library Subscriptions")}
 
   div(ng-show='user.libraries.length')
     .row
@@ -8,15 +8,15 @@
         input.form-control(type="text", placeholder="Type to search in {{ user.libraries.length }} libraries...", ng-model="search", on-focus)
       .col-md-2
         select.form-control.nya-selectpicker(name="sort", ng-model="sort", tooltip="Sort by...")
-          option(value="name") Name
-          option(value="yearOfEstablishment") Year of establishment
+          option(value="name")= __("Name")
+          option(value="yearOfEstablishment")= __("Year of establishment")
     br
     table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
       thead
         tr
-          th.text-center Name
-          th.text-center Address
-          th.text-center Year of establishment
+          th.text-center= __("Name")
+          th.text-center= __("Address")
+          th.text-center= __("Year of establishment")
       tbody
         tr(ng-repeat="library in user.libraries | filter: search | orderBy: sort")
           td
@@ -26,4 +26,4 @@
 
   div(ng-hide='user.libraries.length')
     h4
-      a(href='/libraries') No library subscriptions found. Check out all sCOOLbry libraries and subscribe!
+      a(href='/libraries')= __("No library subscriptions found. Check out all sCOOLbry libraries and subscribe!")

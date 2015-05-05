@@ -1,5 +1,5 @@
 .container
-  h2.text-center Search Results
+  h2.text-center #{__("Search Results")}
   .col-md-11
   div(ng-repeat='book in books | filter: phrase' ng-class-even="'row'" ng-class-odd="'md-col-6'")
       .col-md-6
@@ -10,13 +10,13 @@
             a(href='/book/{{ book._id }}/{{library._id}}')
               h4.text-info {{book.title | cut:true:35:'...'}}
             div
-              span.text-bold.text-muted Publisher: 
+              span.text-bold.text-muted #{__("Publisher")}: 
               span.text-info {{book.publisher}}
             div
-              span.text-bold.text-muted Author: 
+              span.text-bold.text-muted #{__("Author")}: 
               span.text-info {{ book.author }}
             div.text-muted(ng-show='book.isbn')
-              span.text-bold ISBN: 
+              span.text-bold #{__("ISBN")}: 
               span {{ book.isbn }}
   .row
   

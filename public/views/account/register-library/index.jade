@@ -1,6 +1,6 @@
 .jumbotron
   .container
-    h1 Register a library
+    h1 #{__("Register a library")}
 
 
 .container
@@ -12,13 +12,13 @@
         
         li.active
           a(href='#main-information', data-toggle='tab', target='_self').active
-            |  Main information
+            | #{__("Main information")}
         li
           a(href='#working-schedule', data-toggle='tab', target='_self')
-            | Working schedule
+            | #{__("Working schedule")}
         li
           a(href='#librarians', data-toggle='tab', target='_self')
-            | Librarian profile
+            | #{__("Librarian profile")}
           
       include ../../partials/mongoose-validation
 
@@ -30,5 +30,5 @@
         include ./librarians
 
       .pull-right
-        button.btn.btn-success(ng-click='addLibrary()') Register
-        a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') Cancel
+        button.btn.btn-success(ng-click='addLibrary()') #{__("Register")}
+        a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') #{__("Cancel")}

@@ -1,13 +1,13 @@
 .jumbotron(ng-hide='text')
   .container
-    h1 Advanced search
-    h2 Search by citation, cover or page from book
+    h1 #{__("Advanced search!")}
+    h2 #{__("Search by citation, cover or page from book")}
 
 .container(ng-hide='text')
 
   .col-xs-6
     form(name='uploadImage')
-      h3 Upload cover or page from the book
+      h3 #{__("Upload cover or page from the book")}
       input.form-control(type='file', loading='loading', name='file', text='text', uploadError='uploadError', fileupload='file', ng-model='file')
       p.text-danger(ng-show='uploadError')
 
@@ -15,18 +15,18 @@
 
   .col-xs-6
     form(name='searchByText')
-      h3 Search by citation
-      textarea.form-control(ng-model='citation', placeholder='Enter words to search for...')
-      button.btn.btn-primary.pull-right(style='margin-top:0.5em', ng-click='findBookByText()') Search
+      h3 #{__("Search by citation")}
+      textarea.form-control(ng-model='citation', placeholder='#{__("Enter words to search for...")}')
+      button.btn.btn-primary.pull-right(style='margin-top:0.5em', ng-click='findBookByText()') #{__("Search")}
 
-  h1.col-xs-6.col-xs-offset-4.text-info(ng-show='loading') Please wait 
+  h1.col-xs-6.col-xs-offset-4.text-info(ng-show='loading') #{__("Please wait")} 
     i.fa.fa-spinner.fa-pulse.text-warning
   h1.text-center.text-danger {{uploadError}}
 
 .jumbotron(ng-show='text')
   .container
-    h1 Book found!
-    h2 Search Results:
+    h1 #{__("Book found!")}
+    h2 #{__("Search Results:")}
 
 .container(ng-show='text')
   div(ng-repeat='book in text')
@@ -38,16 +38,16 @@
           a(href='/book/{{ book._id }}/{{library._id}}')
             h3(style='margin-top:0').text-info {{book.title | cut:true:35:'...'}}
           div
-            span.text-bold Publisher: 
+            span.text-bold #{__("Publisher")}: 
             span.text-info {{book.publisher}}
           div
-            span.text-bold Author: 
+            span.text-bold #{__("Author")}: 
             span.text-info {{ book.author }}
           div(ng-show='book.isbn')
-            span.text-bold ISBN: 
+            span.text-bold #{__("ISBN")}: 
             span {{ book.isbn }}
           div.text-highlight
-            span.text-bold Highlight: 
+            span.text-bold #{__("Highlight")}: 
             span.text-info ...
             span.text-info(ng-bind-html='book.description')
             span.text-info ...

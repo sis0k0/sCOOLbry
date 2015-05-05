@@ -2,38 +2,38 @@
   .well
     form.form-horizontal(name='logInForm', ng-controller='LogInCtrl')
       fieldset
-        legend Login
+        legend #{__("Login")}
         .row
           .col-md-7
             .form-group
-              label.col-md-2.control-label(for='username') Username
+              label.col-md-2.control-label(for='username') #{__("Username")}
               .col-md-9
-                input.form-control(type='text', placeholder='Username', ng-model='user.username', required='required', on-focus)
+                input.form-control(type='text', placeholder='#{__("Username")}', ng-model='user.username', required='required', on-focus)
             .form-group
-              label.col-md-2.control-label(for='password') Password
+              label.col-md-2.control-label(for='password') #{__("Password")}
               .col-md-9
-                input.form-control(type='password', placeholder='Password', ng-model='user.password', required='required')
+                input.form-control(type='password', placeholder='#{__("Password")}', ng-model='user.password', required='required')
             .form-group
               .col-md-9.col-md-offset-2
                 .pull-right
-                  button.btn.btn-primary(ng-click='loginNoCaptcha(user)', ng-disabled='logInForm.$invalid') Login
-                  a.btn.btn-danger(href="/", style="margin-left:0.2em") Cancel
+                  button.btn.btn-primary(ng-click='loginNoCaptcha(user)', ng-disabled='logInForm.$invalid') #{__("Login")}
+                  a.btn.btn-danger(href="/", style="margin-left:0.2em") #{__("Cancel")}
 
           .col-md-5
             .col-xs-10.col-xs-offset-1
                 .form-group(style='margin-top:2em')
                   a.btn.btn-lg.btn-facebook.btn-block(href="api/auth/facebook", target="_blank")
                     i.fa.fa-facebook
-                    span.visible-xs &nbsp; Login
-                    span.hidden-xs &nbsp; Connect with Facebook
+                    span.visible-xs &nbsp; #{__("Login")}
+                    span.hidden-xs &nbsp; #{__("Connect with Facebook")}
                 .form-group
                   a.btn.btn-lg.btn-twitter.btn-block(href="api/auth/twitter", target="_blank")
                     i.fa.fa-twitter
-                    span.visible-xs &nbsp; Login
-                    span.hidden-xs &nbsp; Connect with Twitter
+                    span.visible-xs &nbsp; #{__("Login")}
+                    span.hidden-xs &nbsp; #{__("Connect with Twitter")}
                 .form-group
                   a.btn.btn-lg.btn-google-plus.btn-block(href="api/auth/google", target="_blank")
                     i.fa.fa-google-plus
-                    span.visible-xs &nbsp; Login
-                    span.hidden-xs &nbsp; Connect with Google
+                    span.visible-xs &nbsp; #{__("Login")}
+                    span.hidden-xs &nbsp; #{__("Connect with Twitter")}
 

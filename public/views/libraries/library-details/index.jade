@@ -3,23 +3,23 @@
     h1 {{ library.name }}
     div(ng-show='!isLoggedIn')
       h3
-        a(href='/login') Log in
-        |  or 
-        a(href='/signup') Sign up
-        |  to subscribe
+        a(href='/login') #{__("Log in")}
+        |  #{__("or")} 
+        a(href='/signup') #{__("Sign up")}
+        |  #{__("to subscribe")}
 
 .container
 
   ul.nav.nav-tabs(style='margin-bottom: 25px')
     li.active
       a(href='#about', data-toggle='tab', target='_self').active
-        |  About
+        | #{__("About")} 
     li
       a(href='#books', data-toggle='tab', target='_self')
-        | Books
+        | #{__("Books")} 
     li(ng-show='isMember')
       a(href='#interactions', data-toggle='tab', target='_self')
-        | My interactions
+        | #{__("My interactions")}
 
   #myTabContent.tab-content
      

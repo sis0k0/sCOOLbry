@@ -1,16 +1,16 @@
 .row(ng-if='result && !displayForm')
 
   div
-    h3(ng-if='result.sheets').text-warning Please select a sheet
+    h3(ng-if='result.sheets').text-warning #{__("Please select a sheet")}
     form(name='sheetSelector')
       select.form-control(name='sheet', ng-if='result.sheets', ng-model='selectedSheet', ng-options='value as value for (value, data) in result.sheets')
 
   div(ng-if='result[0] || result.sheets[sheetSelector.sheet.$viewValue].data[0]')
     .row.text-center.text-info
-      h3.col-xs-1 Column
-      h3.col-xs-3 Title
-      h3.col-xs-3.text-center holds
-      h3.col-xs-4 Value
+      h3.col-xs-1 #{__("Column")}
+      h3.col-xs-3 #{__("Title")}
+      h3.col-xs-3.text-center #{__("holds")}
+      h3.col-xs-4 #{__("Value")}
 
   div(ng-repeat='(key, value) in (result.sheets[sheetSelector.sheet.$viewValue].data[0] || result[0])')
     .row.text-center
@@ -23,13 +23,13 @@
 
   .col-xs-11(style='margin-top:0.5em', ng-if='result[0] || result.sheets[sheetSelector.sheet.$viewValue].data[0]')
 
-    h3.text-info.text-center Include the top row as a book: 
+    h3.text-info.text-center #{__("Include the top row as a book")}: 
       input.form-control(type='checkbox', ng-model='checkbox.includeTopRow', ng-true-value="'true'", ng-false-value="'false'")
 
     .pull-right
-      button.btn.btn-success(ng-click='importAll(checkbox.includeTopRow, sheetSelector.sheet.$viewValue)') Import all
-      button.btn.btn-primary(ng-click='showCSVForms(checkbox.includeTopRow, sheetSelector.sheet.$viewValue)', style='margin-left:0.2em') Next
-      a.btn.btn-danger(href='/admin/books', style='margin-left:0.2em') Cancel
+      button.btn.btn-success(ng-click='importAll(checkbox.includeTopRow, sheetSelector.sheet.$viewValue)') #{__("Import All")}
+      button.btn.btn-primary(ng-click='showCSVForms(checkbox.includeTopRow, sheetSelector.sheet.$viewValue)', style='margin-left:0.2em') #{__("Next")}
+      a.btn.btn-danger(href='/admin/books', style='margin-left:0.2em') #{__("Cancel")}
 
-h1.col-xs-6.col-xs-offset-4.text-info(ng-show='loading') Please wait 
+h1.col-xs-6.col-xs-offset-4.text-info(ng-show='loading') #{__("Please wait")}
   i.fa.fa-spinner.fa-pulse.text-warning

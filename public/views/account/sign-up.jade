@@ -5,10 +5,10 @@
         legend
           .row
             .col-md-4.col-xs-4.vcenter
-              h2 Sign up
+              h2 #{__("Sign up")}
             .col-md-8.col-xs-8.vcenter
-              h5.text-right Already have an account? 
-                a(href="../login") Log in
+              h6.text-right #{__("Already have an account?")}
+                a(href="../login") &nbsp;#{__("Login")}
         
         
         .row
@@ -21,43 +21,43 @@
                 label.control-label(for="first-name") Name
                 .row
                   .col-xs-6
-                    input.form-control(name="firstName", type="text", placeholder="First Name", ng-model="user.firstName", required, on-focus)
+                    input.form-control(name="firstName", type="text", placeholder="#{__('First Name')}", ng-model="user.firstName", required, on-focus)
                   .col-xs-6
-                    input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model="user.lastName", required)
+                    input.form-control(name="lastName", type="text", placeholder="#{__('Last Name')}", ng-model="user.lastName", required)
               .form-group(ng-class="{ 'has-error': (signUpForm.username.$invalid && signUpForm.username.$dirty), 'has-success': (signUpForm.username.$valid) }")
-                label.control-label(for="username") Username
+                label.control-label(for="username") #{__("Username")}
                 .row
                   .col-xs-12
-                    input.form-control(name="username", type="text", placeholder="Username", tooltip-placement='top',  tooltip-trigger="focus", tooltip="Lowercase letters, digits, dots, hyphens and underscores. 3-16 characters", ng-model="user.username", ng-pattern='/^[a-z.0-9_-]{3,16}$/', check-availability, required)
-                    span.help-block(ng-show="signUpForm.username.$error.available") Username already taken
+                    input.form-control(name="username", type="text", placeholder="#{__('Username')}", tooltip-placement='top',  tooltip-trigger="focus", tooltip="Lowercase letters, digits, dots, hyphens and underscores. 3-16 characters", ng-model="user.username", ng-pattern='/^[a-z.0-9_-]{3,16}$/', check-availability, required)
+                    span.help-block(ng-show="signUpForm.username.$error.available") #{__("Username already taken")}
               .form-group(ng-class="{ 'has-error': (signUpForm.email.$invalid && signUpForm.email.$dirty), 'has-success': (signUpForm.email.$valid) }")
-                label.control-label(for="email") Email
+                label.control-label(for="email") #{__("Email")}
                 .row
                   .col-xs-12
-                    input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email",  check-availability, ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z0-9]+[a-z0-9-]+[a-z0-9]+[.][a-z]{2,5}$/", required)
-                    span.help-block(ng-show="signUpForm.email.$error.available") Email already taken
-                    span.help-block(ng-show="signUpForm.email.$invalid && signUpForm.email.$dirty && !signUpForm.email.$error.available") Please enter valid email
+                    input.form-control(name="email", type="text", placeholder="#{__('Email')}", ng-model="user.email",  check-availability, ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z0-9]+[a-z0-9-]+[a-z0-9]+[.][a-z]{2,5}$/", required)
+                    span.help-block(ng-show="signUpForm.email.$error.available") #{__("Email already taken")}
+                    span.help-block(ng-show="signUpForm.email.$invalid && signUpForm.email.$dirty && !signUpForm.email.$error.available") #{__("Please enter valid email")}
               .form-group(ng-class="{ 'has-error': (signUpForm.password.$invalid && signUpForm.password.$dirty), 'has-success': (signUpForm.password.$valid) }")
-                label.control-label(for="password") Password
+                label.control-label(for="password") #{__("Password")}
                 .row
                   .col-xs-12
-                    input.form-control(name="password", type="password", placeholder="Password", tooltip-placement='top',  tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
+                    input.form-control(name="password", type="password", placeholder="#{__('Password')}", tooltip-placement='top',  tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
               .form-group(ng-class="{ 'has-error': (signUpForm.confirmPassword.$invalid && signUpForm.confirmPassword.$dirty), 'has-success': (signUpForm.confirmPassword.$valid) }")
-                label.control-label(for="confirm-password") Confirm password
+                label.control-label(for="confirm-password") #{__("Confirm password")}
                 .row
                   .col-xs-12
-                    input.form-control(name="confirmPassword", fields-match="user.password", type="password", placeholder="Confirm password", ng-model="passwordConfirm", required)
-                    span.help-block(ng-show="signUpForm.confirmPassword.$error.fieldsMatch") These passwords don't match. Try again?
+                    input.form-control(name="confirmPassword", fields-match="user.password", type="password", placeholder="#{__('Confirm password')}", ng-model="passwordConfirm", required)
+                    span.help-block(ng-show="signUpForm.confirmPassword.$error.fieldsMatch") #{__("These passwords don't match. Try again?")}
               .form-group
-                label.control-label(for="recaptcha") RECAPTCHA Challenge
+                label.control-label(for="recaptcha") #{__("RECAPTCHA Challenge")}
                 .row
                   .col-xs-12
                     div(name="recaptcha", re-captcha, ng-model="user.captcha")
 
               .form-group
                 .pull-right
-                  button.btn.btn-primary(ng-click="signup(signUpForm)", ng-disabled="signUpForm.$invalid") Create
-                  a.btn.btn-danger(href="/", style="margin-left:0.2em") Cancel
+                  button.btn.btn-primary(ng-click="signup(signUpForm)", ng-disabled="signUpForm.$invalid") #{__("Create")}
+                  a.btn.btn-danger(href="/", style="margin-left:0.2em") #{__("Cancel")}
 
 
           .col-md-5
@@ -67,21 +67,21 @@
                 .form-group(style='margin-top:2em')
                   a.btn.btn-lg.btn-facebook.btn-block(href="api/auth/facebook", target="_blank")
                       i.fa.fa-facebook
-                      span.visible-xs &nbsp; Signup
-                      span.hidden-xs &nbsp; Connect with Facebook 
+                      span.visible-xs &nbsp; #{__("Sign up")}
+                      span.hidden-xs &nbsp; #{__("Connect with Facebook")}
                 .form-group
                   a.btn.btn-lg.btn-twitter.btn-block(href="api/auth/twitter", target="_blank")
                       i.fa.fa-twitter
-                      span.visible-xs &nbsp; Signup
-                      span.hidden-xs &nbsp; Connect with Twitter
+                      span.visible-xs &nbsp; #{__("Sign up")}
+                      span.hidden-xs &nbsp; #{__("Connect with Twitter")}
                 .form-group
                   a.btn.btn-lg.btn-google-plus.btn-block(href="api/auth/google", target="_blank")
                     i.fa.fa-google-plus
-                    span.visible-xs &nbsp; Signup
-                    span.hidden-xs &nbsp; Connect with Google+
+                    span.visible-xs &nbsp; #{__("Sign up")}
+                    span.hidden-xs &nbsp; #{__("Connect with Google+")}
 
                 .form-group
                   h2.text-center.text-info(style='margin: 1em 0') Or
                   a.btn.btn-lg.btn-primary.btn-block(href='/register-library')
                     i.glyphicon.glyphicon-book
-                    |&nbsp; Register a Library
+                    |&nbsp; #{__("Register a library")}

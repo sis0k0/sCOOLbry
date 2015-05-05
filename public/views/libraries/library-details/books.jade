@@ -1,20 +1,20 @@
 .tab-pane.fade#books(ng-controller='CatalogCtrl')
     .jumbotron
       .container
-        h1 Books Catalog
+        h1 #{__("Books Catalog")}
         .row
           .col-md-7.col-xs-6
-            label(for='phrase') Filter Phrase
-            input.form-control(name='phrase', type='text', ng-model='phrase', ng-change='reloadBooks(); setPage(); pages();', placeholder='Phrase', style='width: 100%;')
+            label(for='phrase') #{__("Filter Phrase")}
+            input.form-control(name='phrase', type='text', ng-model='phrase', ng-change='reloadBooks(); setPage(); pages();', placeholder='#{__("Phrase")}', style='width: 100%;')
           .col-md-3.col-xs-3
-            label(for='criteria') Filter By
+            label(for='criteria') #{__("Filter By")}
             select.form-control(name='criteria', ng-model='criteria', ng-change='reloadBooks(); setPage(); pages();')
-              option(value='all') All
-              option(value='title') Titles
-              option(value='author') Authors
-              option(value='themes') Themes
+              option(value='all') #{__("All")}
+              option(value='title') #{__("Titles")}
+              option(value='author') #{__("Authors")}
+              option(value='themes') #{__("Themes")}
           .col-md-2.col-xs-3
-            label(for='per-page') Items/page
+            label(for='per-page') #{__("Items/page")}
             select.form-control(name='per-page', ng-model='perPage', ng-change='reloadBooks(); pages();')
               option(value='10') 10
               option(value='20') 20
@@ -24,18 +24,18 @@
       .row
         .col-md-3
           .form-group
-            label(for='field') Order By
+            label(for='field') #{__("Order By")}
             select.form-control(name='field', ng-model='field', ng-change='reloadBooks(); setPage(); pages();')
-              option(value='title') Title
-              option(value='author') Author
-              option(value='published') Year
-              option(value='themes') Themes
-              option(value='uploaded') Date Added To sCOOLbry
+              option(value='title') #{__("Title")}
+              option(value='author') #{__("Author")}
+              option(value='published') #{__("Year")}
+              option(value='themes') #{__("Themes")}
+              option(value='uploaded') #{__("Date Added To sCOOLbry")}
           .form-group
-            label(for='order') Order
+            label(for='order') #{__("Order")}
             select.form-control(name='order', ng-model='order', ng-change='reloadBooks(); setPage(); pages();')
-              option(value='asc') Ascending (A-Z)
-              option(value='desc') Descending (Z-A)
+              option(value='asc') #{__("Ascending (A-Z)")}
+              option(value='desc') #{__("Descending (Z-A)")}
         .col-md-9
           div(ng-repeat='book in books', ng-init='pages();')
             .row

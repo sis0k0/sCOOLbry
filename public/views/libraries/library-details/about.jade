@@ -2,37 +2,37 @@
   .row
     .col-md-6
       div
-        h2.text-success Description
+        h2.text-success #{__("Description")}
         p {{ library.description }}
 
       div(ng-show='isLoggedIn && !isMember')
-        h2.text-success Become a Member
-        button.btn.btn-primary(ng-click='subscribeForLibrary()') Subscribe
+        h2.text-success #{__("Become a Member")}
+        button.btn.btn-primary(ng-click='subscribeForLibrary()') #{__("Subscribe")}
         //todo: add if + paypal button
       div(ng-show='isLoggedIn && isMember')
-        h2.text-success Unsubscribe
-        button.btn.btn-primary(ng-click='unsubscribeForLibrary()') Unsubscribe
+        h2.text-success #{__("Unsubscribe")}
+        button.btn.btn-primary(ng-click='unsubscribeForLibrary()') #{__("Unsubscribe")}
 
     .col-md-5.col-md-offset-1
 
       .panel.panel-primary(style='margin-top:2em')
         .panel-heading
-          h4 Additional information
+          h4 #{__("Additional information")}
         .panel-body
           p
-            span.text-success.text-bold Books count:
+            span.text-success.text-bold #{__("Books count")}:
             | &nbsp;&nbsp;{{ booksCount }}
           p(ng-show='library.paid')
-            span.text-success.text-bold Membership tax:
+            span.text-success.text-bold #{__("Membership tax")}:
             | &nbsp;&nbsp;{{ library.amount }} {{ library.currency }}
           p(ng-show='library.paid===false')
-            span.text-success.text-bold Membership tax:
-            | &nbsp;&nbsp;FREE
+            span.text-success.text-bold #{__("Membership tax")}:
+            | &nbsp;&nbsp;#{__("FREE")}
           p
-            span.text-success.text-bold Members:
+            span.text-success.text-bold #{__("Members")}:
             | &nbsp;&nbsp;{{ membersCount }}
           p
-            span.text-success.text-bold Location:
+            span.text-success.text-bold #{__("Location")}:
             | &nbsp;&nbsp;{{ library.address.formatted_address }}
 
       ui-gmap-google-map(center='map.center', zoom='map.zoom')
