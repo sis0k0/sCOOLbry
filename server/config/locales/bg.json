@@ -188,5 +188,13 @@
 	"Friday": "Петък",
 	"Saturday": "Събота",
 	"Sunday": "Неделя",
-	"Page not found": "Page not found"
+	"Page not found": "Page not found",
+	"Please select a sheet": "Please select a sheet",
+	"Column": "Column",
+	"holds": "holds",
+	"Value": "Value",
+	"Include the top row as a book": "Include the top row as a book",
+	"Import All": "Import All",
+	"Next": "Next",
+	"Search Results": "Search Results"
 }

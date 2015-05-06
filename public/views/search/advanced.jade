@@ -5,15 +5,15 @@
 
 .container(ng-hide='text')
 
-  .col-xs-6
+  .col-xs-12.col-sm-12.col-md-6
     form(name='uploadImage')
       h3 #{__("Upload cover or page from the book")}
-      input.form-control(type='file', loading='loading', name='file', text='text', uploadError='uploadError', fileupload='file', ng-model='file')
+      input.form-control(type='file', loading='loading', name='file', text='text', uploadError='uploadError', fileupload='file', ng-model='file', accept='image/*')
       p.text-danger(ng-show='uploadError')
 
 
 
-  .col-xs-6
+  .col-xs-12.col-sm-12.col-md-6
     form(name='searchByText')
       h3 #{__("Search by citation")}
       textarea.form-control(ng-model='citation', placeholder='#{__("Enter words to search for...")}')

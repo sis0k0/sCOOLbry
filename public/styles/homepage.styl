@@ -8,19 +8,17 @@
 */
 
 #welcome-section
-  background url('../images/book-min.jpg') no-repeat bottom left
+  background url('../images/book-min.jpg') bottom center no-repeat
   background-size cover !important
   font-size 25px
   font-size 2.5rem
-  height 90vh
   h1
     font-size 3.6em
-    margin-top 0.8em
   h2
     font-size 2.4em
     margin-top 0.5em
     a
-      color #428bca
+      color #2094F7
   h1, h2
     color #fff
     font-family gothic !important
@@ -46,7 +44,7 @@
         background rgba(255,255,255,0.3)
         position relative
         span
-          color #4D4D48
+          color #BDD0E3
           font-size 2em
           position absolute
           top 9px
@@ -54,6 +52,7 @@
 
 
   .btn-group
+    padding-bottom 1.8em
     margin-top 2em !important
     a
       padding 0.76em 0.64em
@@ -67,19 +66,11 @@
   #welcome-section
     font-size 18px
     font-size 1.8rem
-    // img
-      // width 60%
-    // .col-md-8
-    //   margin-left -3%
 
 @media screen and (max-width: 1032px)
   #welcome-section
     font-size 18px
     font-size 1.8rem
-    // img
-      // width 50%
-    // .col-md-8
-    //   margin-left -5%
 
 @media screen and (max-width: 942px)
   #welcome-section
@@ -89,9 +80,13 @@
       .ui-select-match
         .ui-select-toggle
           span
-            color #B9D9F0
             top 11px
             font-size 1.6em
+
+@media screen and (min-width: 768px)
+  #welcome-section
+    padding-top 68px
+    padding-bottom 68px
 
 @media screen and (max-width: 849px)
   #welcome-section

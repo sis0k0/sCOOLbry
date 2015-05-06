@@ -38,6 +38,7 @@ app.directive('fileupload', function ($http) {
                             if(books.length) {
                                 scope.text = books;
                             } else {
+                                console.log('no books found!');
                                 scope.uploadError = 'No books found!';
                             }
                         }).
