@@ -25,7 +25,7 @@ module.exports = function(app, config) {
        locales:['en', 'bg'],
        cookie: 'locale',
        directory: __dirname + '/locales',
-       defaultLocale: 'bg'
+       defaultLocale: 'en'
     });
 
     app.use(i18n.init);

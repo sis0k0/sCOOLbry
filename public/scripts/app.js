@@ -5,6 +5,7 @@ var app = angular.module('app', [
     'ngResource',
     'ngRoute',
     'ngSanitize',
+    'ngCookies',
     'reCAPTCHA',
     'nya.bootstrap.select',
     'timer',
