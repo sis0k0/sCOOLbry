@@ -8,6 +8,7 @@
 */
 
 #welcome-section
+  font-family gothic !important
   background url('../images/book-min.jpg') bottom center no-repeat
   background-size cover !important
   font-size 25px
@@ -20,8 +21,8 @@
     a
       color #2094F7
   h1, h2
-    color #fff
     font-family gothic !important
+    color #fff
     text-align center
     font-weight normal
   img
@@ -55,7 +56,7 @@
     padding-bottom 1.8em
     margin-top 2em !important
     a
-      padding 0.76em 0.64em
+      padding 0.76em 0.4em
       font-size 1em
       line-height 1.33
       border-radius(6px)
@@ -102,3 +103,23 @@
   #welcome-section
     font-size 12px
     font-size 1.2rem
+
+.container-light, .container-dark
+  font-family gothic !important
+  h3
+    text-transform uppercase
+    margin-bottom 1em
+    margin-top 2em
+    b
+      margin-right 0.5em
+  p
+    line-height 2em
+    
+@media screen and (max-width: 768px)
+  .container-light, .container-dark
+    text-align center
+    
+.container-dark
+  background #1f1f1f
+  p
+    color #ccc

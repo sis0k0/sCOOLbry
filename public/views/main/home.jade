@@ -1,4 +1,4 @@
-.container-fluid
+.container-fluid#welcome-container
   .jumbotron#welcome-section
     .row
       .col-xs-12
@@ -33,13 +33,66 @@
             a(href="/libraries").text-center.btn.btn-info.btn-lg #{__("Explore libraries")}
 
 
-.container#homepage-container
-  .row
-    .col-md-6
-      .panel.panel-info
-        .panel-heading.text-center #{__("Featured")}
-        .panel-body(ng-include="'/partials/main/featured-libraries'")
-    .col-md-6
-      .panel.panel-info
-        .panel-heading.text-center #{__("New")}
-        .panel-body(ng-include="'/partials/main/new-libraries'")
+.container-fluid.container-light
+  section.row
+    .col-md-4.col-md-offset-2.col-sm-10.col-sm-offset-2.vcenter
+
+      div
+        h3
+          b.text-warning.glyphicon.glyphicon-flash
+          span.text-warning Find faster
+        p From its quick loading speed, to its responsive design, everything about sCOOLbry has been optimized and engineered to get you to books and libraries, and get reading as quickly as possible.
+   
+      div
+        h3
+          b.text-warning.glyphicon.glyphicon-book
+          span.text-warning Reserve instantly
+        p With sCOOLbry you can reserve a book on the go and get it later from your favorite library, being sure it is there, waiting for you.
+   
+      div
+        h3
+          b.text-warning.glyphicon.glyphicon-search
+          span.text-warning Search better
+        p Using search should be as simple and comprehensive as possible. With sCOOLbry's text recognition technology you can simply take a picture of a book to find it.
+
+      div(style='margin-top:3em; padding-bottom:3em').text-center
+        a.btn.btn-warning.btn-large(href='/signup') Start your journey now!
+
+    .col-md-4.col-md-offset-1.vcenter.hidden-xs.hidden-sm
+      img(src='../../dist/images/book.jpg').img-responsive
+
+.container-fluid.container-dark
+  section.row
+    .col-md-4.col-md-offset-2.vcenter.hidden-sm.hidden-xs
+      img(src='../../dist/images/phone.png').img-responsive
+
+    .col-md-4.col-md-offset-1.vcenter.col-sm-10.col-sm-offset-2
+      div
+        h3
+          b.text-info.glyphicon.glyphicon-flash
+          span.text-info Digitize now
+        p sCOOLbry offers inovative and modern management solutions for every library. Completely free. And it always will be.
+
+      div
+        h3
+          b.text-info.glyphicon.glyphicon-book
+          span.text-info Do it faster
+        p Adding books to a library system is a slow and tedious process. But not with sCOOLbry! Import from external database, scan the ISBN or take a picture - the choice is yours!
+
+      div
+        h3
+          b.text-info.glyphicon.glyphicon-search
+          span.text-info Do it better
+        p With sCOOLbry you can automatically collect taxes from your subscribers, manage fines and keep an eye on your books.
+
+      div(style='margin-top:3em').text-center
+        a.btn.btn-info.btn-large(href='/register-library') Digitize your library now!
+
+    //- .col-md-6
+    //-   .panel.panel-info
+    //-     .panel-heading.text-center #{__("Featured")}
+    //-     .panel-body(ng-include="'/partials/main/featured-libraries'")
+    //- .col-md-6
+    //-   .panel.panel-info
+    //-     .panel-heading.text-center #{__("New")}
+    //-     .panel-body(ng-include="'/partials/main/new-libraries'")
