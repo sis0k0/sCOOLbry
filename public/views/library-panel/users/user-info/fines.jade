@@ -1,26 +1,26 @@
 .tab-pane.fade#fines
   h3
-    | Fines
+    | #{__("Fines")}
   .row
     #fines-list.col-md-12.table-responsive(ng-hide='fines.length===0')
       table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
         thead
           tr.text-bold.text-primary
-            td#amount Amount
+            td#amount #{__("Amount")}
               span#amount.text-right
-            td#reason Reason
+            td#reason #{__("Reason")}
               span#reason.text-right
-            td#added Date Added
+            td#added #{__("Date Added")}
               span#added.text-right
-            td#paid Date Paid
+            td#paid #{__("Date Paid")}
               span#paid.text-right
-            td Actions
+            td #{__("Actions")}
           tr(ng-repeat="fine in fines")
             td {{ fine.amount }}
             td {{ fine.reason }}
             td {{ fine.added }}
             td {{ fine.paid }}
             td
-              a.btn-sm(ng-hide='fine.paid', href='/api/payment/create/paypal/{{fine.amount}}/USD/fine/{{fine._id}}', tooltip='Pay Fine', target='_blank')
+              a.btn-sm(ng-hide='fine.paid', href='/api/payment/create/paypal/{{fine.amount}}/USD/fine/{{fine._id}}', tooltip='#{__("Pay Fine")}', target='_blank')
                 span.glyphicon.glyphicon-credit-card.text-success
-  p(ng-show='fines.length===0') No fines found.
+  p(ng-show='fines.length===0') #{__("No fines found.")}

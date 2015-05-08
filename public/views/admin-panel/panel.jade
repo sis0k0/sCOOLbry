@@ -3,7 +3,7 @@
 
     div(role='navigation').nav
       .navbar-header
-        button#panel.btn.pull-left.navbar-toggle(type='button', data-toggle='collapse', data-target='#admin-menu') Toggle Admin Menu
+        button#panel.btn.pull-left.navbar-toggle(type='button', data-toggle='collapse', data-target='#admin-menu') #{__("Toggle Admin Menu")}
         a.navbar-brand(href="/")
 
       #admin-menu.navbar-collapse.collapse
@@ -11,7 +11,7 @@
         ul.nav.nav-tabs.nav-justified(role='tablist')
 
           li(ng-class="{ 'active' : (path == '/admin') }")
-            a(href='/admin', data-toggle="tab") About
+            a(href='/admin', data-toggle="tab") #{__("About")}
 
           li(ng-repeat='obj in menu', ng-class="{ 'active' : (obj.name == currentMenuItem) }")
             a(href='#{{obj.name}}', data-toggle='tab', target='_self')

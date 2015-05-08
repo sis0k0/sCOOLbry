@@ -1,27 +1,27 @@
 include ../panel
 
 .container
-  h1.text-center Fines list
+  h1.text-center #{__("Fines list")}
 
   #fines-list.table-responsive(ng-init="pages();")
     table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
       thead
         tr.text-bold.text-primary
-          td#userID(ng-click="sort($event); reloadFines()") User ID
+          td#userID(ng-click="sort($event); reloadFines()") #{__("User ID")}
             span#userID.glyphicon.glyphicon-sort.text-right
-          td#username(ng-click="sort($event); reloadFines()") Username
+          td#username(ng-click="sort($event); reloadFines()") #{__("Username")}
             span#username.glyphicon.glyphicon-sort.text-right
-          td#amount(ng-click="sort($event); reloadFines()") Amount
+          td#amount(ng-click="sort($event); reloadFines()") #{__("Amount")}
             span#amount.glyphicon.glyphicon-sort.text-right
-          td#reason(ng-click="sort($event); reloadFines()") Reason
+          td#reason(ng-click="sort($event); reloadFines()") #{__("Reason")}
             span#reason.glyphicon.glyphicon-sort.text-right
-          td#added(ng-click="sort($event); reloadFines()") Date Added
+          td#added(ng-click="sort($event); reloadFines()") #{__("Date Added")}
             span#added.glyphicon.glyphicon-sort.text-right
-          td#paid(ng-click="sort($event); reloadFines()") Date Paid
+          td#paid(ng-click="sort($event); reloadFines()") #{__("Date Paid")}
             span#paid.glyphicon.glyphicon-sort.text-right
-          td#PaymentId(ng-click="sort($event); reloadFines()") PaymentId
+          td#PaymentId(ng-click="sort($event); reloadFines()") #{__("PaymentId")}
             span#PaymentId.glyphicon.glyphicon-sort.text-right
-          td Actions
+          td #{__("Actions")}
       tr(ng-repeat="fine in fines")
         td {{ fine.userID }}
         td {{ fine.username }}
@@ -31,9 +31,9 @@ include ../panel
         td {{ fine.paid }}
         td {{ fine.paymentId }}
         td
-          a.btn-sm(href='/library-panel/fine-paid/{{ fine._id }}', tooltip='Mark As Paid')
+          a.btn-sm(href='/library-panel/fine-paid/{{ fine._id }}', tooltip='#{__("Mark As Paid")}')
             span.glyphicon.glyphicon-edit.text-success
-          a.btn-sm(href='/library-panel/fine-remove/{{ fine._id }}', tooltip='Remove')
+          a.btn-sm(href='/library-panel/fine-remove/{{ fine._id }}', tooltip='#{__("Remove")}')
             span.glyphicon.glyphicon-remove.text-primary
   .pagination
       li(ng-repeat="i in range(pagesCount) track by $index")

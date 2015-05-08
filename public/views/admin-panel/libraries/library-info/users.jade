@@ -1,10 +1,10 @@
 .tab-pane.fade#library-users
-  h2 Library users
+  h2 #{__("Library users")}
   table.table.table-striped.table-bordered.table-wrapped
     tr
-      th Username
-      th Books given
-      th Books to return
+      th #{__("Username")}
+      th #{__("Books given")}
+      th #{__("Books to return")}
       th
 
     tr(ng-repeat='user in libraryUsers')
@@ -13,4 +13,4 @@
       td {{user.given}}
       td {{user.toReturn}}
       td
-        a(ng-href='/admin/user/{{user.userID}}') Link
+        a(ng-href='/admin/user/{{user.userID}}') #{__("Link")}

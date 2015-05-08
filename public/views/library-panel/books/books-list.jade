@@ -1,28 +1,28 @@
 include ../panel
 
 .container.text-center(ng-hide='books.length')
-  h1.text-danger No books to show!
+  h1.text-danger #{__("No books to show")}!
   h3
-    a(href='/library-panel/books/add') Click here to add books
+    a(href='/library-panel/books/add') #{__("Click here to add books")}
 
 .container(ng-show='books.length')
-  h1.text-center Books list
+  h1.text-center #{__("Books list")}
 
   #users-list.table-responsive(ng-init="pages();")
     table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
       thead
         tr.text-bold.text-primary
-          td#bookName(ng-click="sort($event); reloadBooks()") Title
+          td#bookName(ng-click="sort($event); reloadBooks()") #{__("Title")}
             span#bookName.glyphicon.glyphicon-sort.text-right
-          td#total(ng-click="sort($event); reloadBooks()") Total
+          td#total(ng-click="sort($event); reloadBooks()") #{__("Total")}
             span#total.glyphicon.glyphicon-sort.text-right
-          td#given(ng-click="sort($event); reloadBooks()") Given
+          td#given(ng-click="sort($event); reloadBooks()") #{__("Given")}
             span#given.glyphicon.glyphicon-sort.text-right
-          td#available(ng-click="sort($event); reloadBooks()") Available
+          td#available(ng-click="sort($event); reloadBooks()") #{__("Available")}
             span#available.glyphicon.glyphicon-sort.text-right
-          td#section(ng-click="sort($event); reloadBooks()") Section
+          td#section(ng-click="sort($event); reloadBooks()") #{__("Section")}
             span#section.glyphicon.glyphicon-sort.text-right
-          td Actions
+          td #{__("Actions")}
       tr(ng-repeat="book in books")
         td {{ book.bookName }}
         td {{ book.total }}
@@ -30,11 +30,11 @@ include ../panel
         td {{ book.available }}
         td {{ book.section }}
         td
-          a.btn-sm(href='/library-panel/bookInfo/{{ book._id }}', tooltip='Browse')
+          a.btn-sm(href='/library-panel/bookInfo/{{ book._id }}', tooltip='#{__("Browse")}')
             span.glyphicon.glyphicon-search.text-success
-          a.btn-sm(href='/library-panel/book/edit/{{ book._id }}', tooltip='Edit')
+          a.btn-sm(href='/library-panel/book/edit/{{ book._id }}', tooltip='#{__("Edit")}')
             span.glyphicon.glyphicon-edit.text-primary
-          a.btn-sm(href='/library-panel/book/delete/{{ book._id }}', tooltip='Delete', onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")')
+          a.btn-sm(href='/library-panel/book/delete/{{ book._id }}', tooltip='#{__("Delete")}', onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")')
             span.glyphicon.glyphicon-remove.text-danger
   .pagination
       li(ng-repeat="i in range(pagesCount) track by $index")

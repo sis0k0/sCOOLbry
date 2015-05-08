@@ -5,26 +5,26 @@
 
 
       div
-        h3.text-center Library's current librarians
+        h3.text-center #{__("Library's current librarians")}
 
         table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
           thead
             tr.text-bold.text-primary
               td#_id(ng-click="predicate='username'; reverse=!reverse ") ID
                 span#_id.glyphicon.glyphicon-sort.text-right
-              td#username(ng-click="predicate='username'; reverse=!reverse ") Username
+              td#username(ng-click="predicate='username'; reverse=!reverse ") #{__("Username")}
                 span#username.glyphicon.glyphicon-sort.text-right
-              td#firstName(ng-click="predicate='firstName'; reverse=!reverse ") First name
+              td#firstName(ng-click="predicate='firstName'; reverse=!reverse ") #{__("First name")}
                 span#firstName.glyphicon.glyphicon-sort.text-right
-              td#lastName(ng-click="predicate='lastName'; reverse=!reverse ") Last name
+              td#lastName(ng-click="predicate='lastName'; reverse=!reverse ") #{__("Last name")}
                 span#lastName.glyphicon.glyphicon-sort.text-right
-              td#created(ng-click="predicate='created'; reverse=!reverse ") Created
+              td#created(ng-click="predicate='created'; reverse=!reverse ") #{__("Created")}
                 span#created.glyphicon.glyphicon-sort.text-right
-              td#email(ng-click="predicate='email'; reverse=!reverse ") Email
+              td#email(ng-click="predicate='email'; reverse=!reverse ") #{__("Email")}
                 span#email.glyphicon.glyphicon-sort.text-right
-              td#roles(ng-click="predicate='roles'; reverse=!reverse ") Roles
+              td#roles(ng-click="predicate='roles'; reverse=!reverse ") #{__("Roles")}
                 span#roles.glyphicon.glyphicon-sort.text-right
-              td Remove librarian
+              td #{__("Remove librarian")}
           tr(ng-repeat="librarian in currentLibrarians | orderBy:predicate:reverse")
             td.text-bold {{ librarian._id }}
             td {{ librarian.username }}
@@ -35,12 +35,12 @@
             td 
               p(ng-repeat='role in librarian.roles track by $index') {{ role | titleCase }}
             td
-              a.btn-sm(ng-click='removeCurrentLibrarian(librarian)', tooltip='Remove')
+              a.btn-sm(ng-click='removeCurrentLibrarian(librarian)', tooltip='#{__("Remove")}')
                 span.glyphicon.glyphicon-remove.text-danger
 
       .col-md-8.col-md-offset-2
         .form-group
-          h3.text-center Select from existing users
+          h3.text-center #{__("Select from existing users")}
           .row
             .col-xs-12
               select.form-control.nya-selectpicker(name='librarians', ng-model='library.librarians', ng-options='value.username for (key, value) in users track by value._id', multiple, data-live-search)
@@ -49,41 +49,41 @@
         div(ng-repeat='librarian in librarians')
           ng-form(name='librarianForm', novalidate)
 
-            h3.text-left.col-xs-6.col-xs-offset-4(style="margin-top:0.5em; margin-bottom:0", ng-class="{ 'text-success': (librarianForm.firstName.$valid), 'text-danger': (librarianForm.$invalid) }") Librarian {{ $index+1 }}
-            button.btn.btn-danger.col-xs-2(style="margin-top:0.5em", ng-click='removeLibrarian($index)') Remove
+            h3.text-left.col-xs-6.col-xs-offset-4(style="margin-top:0.5em; margin-bottom:0", ng-class="{ 'text-success': (librarianForm.firstName.$valid), 'text-danger': (librarianForm.$invalid) }") #{__("Librarian")} {{ $index+1 }}
+            button.btn.btn-danger.col-xs-2(style="margin-top:0.5em", ng-click='removeLibrarian($index)') #{__("Remove")}
 
             .form-group(ng-class="{ 'has-success': (librarianForm.firstName.$valid && librarianForm.lastName.$valid), 'has-error': (librarianForm.firstName.$invalid || librarianForm.lastName.$invalid) }")
-              label.control-label(for="first-name") Name
+              label.control-label(for="first-name") #{__("Name")}
               .row
                 .col-xs-6
-                  input.form-control(name="firstName", type="text", placeholder="First Name", ng-model="librarian.firstName", required, on-focus)
+                  input.form-control(name="firstName", type="text", placeholder="#{__('First Name')}", ng-model="librarian.firstName", required, on-focus)
                 .col-xs-6
-                  input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model="librarian.lastName", required)
+                  input.form-control(name="lastName", type="text", placeholder="#{__('Last Name')}", ng-model="librarian.lastName", required)
             .form-group(ng-class="{ 'has-error': (librarianForm.username.$invalid), 'has-success': (librarianForm.username.$valid) }")
-              label.control-label(for="username") Username
+              label.control-label(for="username") #{__("Username")}
               .row
                 .col-xs-12
-                  input.form-control(name="username", type="text", placeholder="Username", tooltip-placement='left',  tooltip-trigger="focus", tooltip="Lowercase letters, digits, dots, hyphens and underscores. 3-16 characters", ng-model="librarian.username", ng-pattern="/^[a-z.0-9_-]{3,16}$/",  check-availability, required)
-                  span.help-block(ng-show="librarianForm.username.$error.available") Username already taken
+                  input.form-control(name="username", type="text", placeholder="#{__('Username')}", tooltip-placement='left',  tooltip-trigger="focus", tooltip="#{__('Lowercase letters, digits, dots, hyphens and underscores. 3-16 characters')}", ng-model="librarian.username", ng-pattern="/^[a-z.0-9_-]{3,16}$/",  check-availability, required)
+                  span.help-block(ng-show="librarianForm.username.$error.available") #{__("Username already taken")}
             .form-group(ng-class="{ 'has-error': (librarianForm.email.$invalid), 'has-success': (librarianForm.email.$valid) }")
-              label.control-label(for="email") Email
+              label.control-label(for="email") #{__("Email")}
               .row
                 .col-xs-12
-                  input.form-control(name="email", type="text", placeholder="Email", ng-model="librarian.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z0-9]+[a-z0-9-]+[a-z0-9]+[.][a-z]{2,5}$/", check-availability, required)
-                  span.help-block(ng-show="librarianForm.email.$error.available") Email already taken
-                  span.help-block(ng-show="librarianForm.email.$invalid && librarianForm.email.$dirty") Please enter valid email
+                  input.form-control(name="email", type="text", placeholder="#{__('Email')}", ng-model="librarian.email", ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z0-9]+[a-z0-9-]+[a-z0-9]+[.][a-z]{2,5}$/", check-availability, required)
+                  span.help-block(ng-show="librarianForm.email.$error.available") #{__("Email already taken")}
+                  span.help-block(ng-show="librarianForm.email.$invalid && librarianForm.email.$dirty") #{__("Please enter valid email")}
             .form-group(ng-class="{ 'has-error': (librarianForm.password.$invalid), 'has-success': (librarianForm.password.$valid) }")
-              label.control-label(for="password") Password
+              label.control-label(for="password") #{__("Password")}
               .row
                 .col-xs-12
-                    input.form-control(name="password", type="password", placeholder="Password", tooltip-placement='left',  tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="librarian.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
+                    input.form-control(name="password", type="password", placeholder="#{__("Password")}", tooltip-placement='left',  tooltip-trigger="focus", tooltip="#{__('Lowercase letters, digits, hyphens and underscores. 6-18 characters')}", ng-model="librarian.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
             .form-group(ng-class="{ 'has-error': (librarianForm.confirmPassword.$invalid), 'has-success': (librarianForm.confirmPassword.$valid) }")
-              label.control-label(for="confirm-password") Confirm password
+              label.control-label(for="confirm-password") #{__("Confirm password")}
               .row
                 .col-xs-12
-                    input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", fields-match="librarian.password", required)
-                    span.help-block(ng-show="librarianForm.confirmPassword.$error.fieldsMatch") These passwords don't match. Try again?
+                    input.form-control(name="confirmPassword", type="password", placeholder="#{__('Confirm password')}", ng-model="passwordConfirm", fields-match="librarian.password", required)
+                    span.help-block(ng-show="librarianForm.confirmPassword.$error.fieldsMatch") #{__("These passwords don't match. Try again?")}
         
-        h3.text-center(ng-hide='librariansCount>0') Or Add New User
+        h3.text-center(ng-hide='librariansCount>0') #{__("Or Add New User")}
         .text-center
-          button.btn.btn-primary(ng-click='addLibrarian()') Add New Librarian
+          button.btn.btn-primary(ng-click='addLibrarian()') #{__("Add New Librarian")}

@@ -1,7 +1,7 @@
 include ../panel
 
 .container
-  h1.text-center Update book 
+  h1.text-center #{__("Update book")} 
     span.text-info '{{ libraryBook.bookName }}'
   form.form-horizontal(name='bookForm', novalidate)
     include ../../partials/mongoose-validation
@@ -11,13 +11,13 @@ include ../panel
         .col-md-11.col-md-offset-1
           .col-md-5.col-sm-5
             .form-group(ng-class="{ 'has-success': !!libraryBook.total }")
-              label.control-label(for='total') Quantity at the library
+              label.control-label(for='total') #{__("Quantity at the library")}
               .row
                 .col-xs-12
                   input.form-control(name='total', ng-model='libraryBook.total', type='number', min='{{libraryBook.given}}', on-focus)
           .col-md-5.col-md-offset-1.col-sm-5.col-sm-offset-1
             .form-group(ng-class="{ 'has-success': !!libraryBook.section }")
-              label.control-label(for='section') Section
+              label.control-label(for='section') #{__("Section")}
               .row
                 .col-xs-12
                   select.nya-selectpicker.form-control(name='section', data-live-search='true', ng-options='index as section for (index, section) in library.librarySections.sectionsTheme', ng-model='libraryBook.section')
@@ -38,16 +38,16 @@ include ../panel
               span.text-info.pull-right {{ book.author }}
             div(ng-show='!showMore')
               p {{ book.description | limitTo: 200}}...
-              a(href='#' ng-click='showMore=!showMore') Show more
+              a(href='#' ng-click='showMore=!showMore') #{__("Show more")}
             div(ng-show='!!showMore')
               p {{ book.description}}
-              a(href='#' ng-click='showMore=!showMore') Show less
+              a(href='#' ng-click='showMore=!showMore') #{__("Show less")}
 
 
       .col-md-10.col-md-offset-1(ng-show='book.other.length>0')
         .panel.panel-primary(style='margin-top:2em', ng-show='!!showMore')
           .panel-heading
-            h4.text-center Additional information
+            h4.text-center #{__("Additional information")}
           .panel-body
             div.col-xs-5(ng-repeat='(key,value) in book.other')
               li
@@ -55,5 +55,5 @@ include ../panel
                 span : {{ value }}
       .row
         .pull-right
-          button.btn.btn-primary(ng-click='updateLibBookAsLibrarian(libraryBook)', ng-disabled='bookForm.$invalid') Update
-          a.btn.btn-danger(href='/library-panel/books-library', style='margin-left:0.2em') Cancel
+          button.btn.btn-primary(ng-click='updateLibBookAsLibrarian(libraryBook)', ng-disabled='bookForm.$invalid') #{__("Update")}
+          a.btn.btn-danger(href='/library-panel/books-library', style='margin-left:0.2em') #{__("Cancel")}

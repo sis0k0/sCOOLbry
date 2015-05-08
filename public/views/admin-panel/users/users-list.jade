@@ -1,7 +1,7 @@
 include ../panel
 
 .container
-  h1.text-center Users list
+  h1.text-center #{__("Users list")}
 
   #users-list.table-responsive(ng-init="pages();")
     table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
@@ -9,19 +9,19 @@ include ../panel
         tr.text-bold.text-primary
           td#_id(ng-click="sort($event); reloadUsers()") ID
             span#_id.glyphicon.glyphicon-sort.text-right
-          td#username(ng-click="sort($event); reloadUsers()") Username
+          td#username(ng-click="sort($event); reloadUsers()") #{__("Username")}
             span#username.glyphicon.glyphicon-sort.text-right
-          td#firstName(ng-click="sort($event); reloadUsers()") First name
+          td#firstName(ng-click="sort($event); reloadUsers()") #{__("First name")}
             span#firstName.glyphicon.glyphicon-sort.text-right
-          td#lastName(ng-click="sort($event); reloadUsers()") Last name
+          td#lastName(ng-click="sort($event); reloadUsers()") #{__("Last name")}
             span#lastName.glyphicon.glyphicon-sort.text-right
-          td#created(ng-click="sort($event); reloadUsers()") Registered
+          td#created(ng-click="sort($event); reloadUsers()") #{__("Registered")}
             span#created.glyphicon.glyphicon-sort.text-right
-          td#email(ng-click="sort($event); reloadUsers()") Email
+          td#email(ng-click="sort($event); reloadUsers()") #{__("Email")}
             span#email.glyphicon.glyphicon-sort.text-right
-          td#roles(ng-click="sort($event); reloadUsers()") Roles
+          td#roles(ng-click="sort($event); reloadUsers()") #{__("Roles")}
             span#roles.glyphicon.glyphicon-sort.text-right
-          td Actions
+          td #{__("Actions")}
       tr(ng-repeat="user in users")
         td.text-bold {{ user._id }}
         td {{ user.username }}
@@ -32,11 +32,11 @@ include ../panel
         td 
           p(ng-repeat='role in user.roles track by $index') {{ role | titleCase }}
         td
-          a.btn-sm(href='/admin/user/{{ user._id }}', tooltip='Browse')
+          a.btn-sm(href='/admin/user/{{ user._id }}', tooltip='#{__("Browse")}')
             span.glyphicon.glyphicon-search.text-success
-          a.btn-sm(href='/admin/user/edit/{{ user._id }}', tooltip='Edit')
+          a.btn-sm(href='/admin/user/edit/{{ user._id }}', tooltip='#{__("Edit")}')
             span.glyphicon.glyphicon-edit.text-primary
-          a.btn-sm(href='/admin/user/delete/{{ user._id }}', tooltip='Delete', onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")')
+          a.btn-sm(href='/admin/user/delete/{{ user._id }}', tooltip='#{__("Delete")}', onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")')
             span.glyphicon.glyphicon-remove.text-danger
   .pagination
       li(ng-repeat="i in range(pagesCount) track by $index")

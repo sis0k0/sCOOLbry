@@ -3,15 +3,15 @@
     .col-md-11.col-md-offset-1
       .col-md-5
         .form-group(ng-class="{ 'has-success': (sectionForm.count.$valid), 'has-error': (sectionForm.count.$invalid) }")
-            label.control-label(for='count') Sections Count *
+            label.control-label(for='count') #{__("Sections Count")} *
             .row
               .col-xs-12
-                  input.form-control(name='count', type='text', placeholder='Sections Count', ng-model='library.librarySections.sectionsCount', ng-change='changeSectionsCount()', required, on-focus)
+                  input.form-control(name='count', type='text', placeholder='#{__("Sections Count")}', ng-model='library.librarySections.sectionsCount', ng-change='changeSectionsCount()', required, on-focus)
 
         
       .col-md-5.col-md-offset-1
         .form-group(ng-repeat="section in library.librarySections.sectionsTheme track by $index")
-            label.control-label(for='section') Theme for section {{ $index+1 }} *
+            label.control-label(for='section') #{__("Theme for section")} {{ $index+1 }} *
             .row
               .col-xs-12
-                  input.form-control(name='theme', type='text', placeholder='Section Theme', ng-model='library.librarySections.sectionsTheme[$index]', required)
+                  input.form-control(name='theme', type='text', placeholder='#{__("Section Theme")}', ng-model='library.librarySections.sectionsTheme[$index]', required)

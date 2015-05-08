@@ -3,23 +3,23 @@ include ../panel
 .container(ng-controller='LibraryAddFineCtrl')
 
   .row
-    h1.text-center User: 
+    h1.text-center #{__("User")}: 
       a(ng-href='/library-panel/userInfo/{{finedUserInfo._id}}') {{ finedUserInfo.firstName }} {{ finedUserInfo.lastName }}
 
   .row
     .col-md-6.text-center
-      h2 Issue Fine
+      h2 #{__("Issue Fine")}
       form.form-horizontal(name='fineForm')
         fieldset
           .row
             .form-group(ng-class="{ 'has-success': (fineForm.amount.$valid), 'has-error': (fineForm.amount.$invalid) }")
-              label(for='amount') Fine Amount
+              label(for='amount') #{__("Fine Amount")}
                 .row
                   input.form-control(name='amount', ng-model='fine.amount', type='number', min='1')
 
             .form-group
-              label(for='reason') Reason
+              label(for='reason') #{__("Reason")}
                 .row
                   textarea.form-control(name='reason', cols='50', ng-model='fine.reason')
           .row
-            button.btn.btn-success(ng-click='addFine(fine)', ng-disabled='fineForm.$invalid') Issue Fine
+            button.btn.btn-success(ng-click='addFine(fine)', ng-disabled='fineForm.$invalid') #{__("Issue Fine")}

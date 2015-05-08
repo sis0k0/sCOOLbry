@@ -11,59 +11,59 @@ include ../panel
 
             .col-md-5
               .form-group(ng-class="{ 'has-success': (profileForm.firstName.$valid && profileForm.lastName.$valid) }")
-                  label.control-label(for="first-name") Name
+                  label.control-label(for="first-name") #{__("Name")}
                   .row
                       .col-xs-6
                           input.form-control(name="firstName", type="text", placeholder="First Name", ng-model="user.firstName", required)
                       .col-xs-6
                           input.form-control(name="lastName", type="text", placeholder="Last Name", ng-model="user.lastName", required)
               .form-group(ng-class="{ 'has-error': (profileForm.email.$invalid && profileForm.email.$dirty), 'has-success': (profileForm.email.$valid) }")
-                  label.control-label(for="email") Email
+                  label.control-label(for="email") #{__("Email")}
                   .row
                       .col-xs-12
                           input.form-control(name="email", type="text", placeholder="Email", ng-model="user.email", check-availability='::user.email', required)
-                          span.help-block(ng-show="profileForm.email.$error.available") Email already taken
-                          span.help-block(ng-show="profileForm.email.$invalid && profileForm.email.$dirty") Please enter valid email
+                          span.help-block(ng-show="profileForm.email.$error.available") #{__("Email already taken")}
+                          span.help-block(ng-show="profileForm.email.$invalid && profileForm.email.$dirty") #{__("Please enter valid email")}
               .form-group(ng-class="{ 'has-success': (profileForm.dateOfBirth.$valid && (!!user.dateOfBirth)) }")
-                label.control-label(for='date-of-birth') Date of birth
+                label.control-label(for='date-of-birth') #{__("Date of birth")}
                 .row.input-group.date
                     input.form-control(name='dateOfBirth', type='text', datepicker-popup='d MMMM yyyy', is-open='opened', ng-focus='opened=true', min-date='"1900-01-01"', max-date='today', placeholder='Date of birth', ng-model='user.dateOfBirth')
                     span.input-group-addon
                       i.glyphicon.glyphicon-th
               .form-group(ng-class="{ 'has-success': (profileForm.facebookUrl.$valid && (!!user.facebookUrl)) }")
-                  label.control-label(for='facebook-url') Facebook URL
+                  label.control-label(for='facebook-url') #{__("Facebook URL")}
                   .row
                       .col-xs-12
-                          input.form-control(name='facebookUrl', type='text', placeholder='Facebook URL', ng-model='user.facebookUrl')
+                          input.form-control(name='facebookUrl', type='text', placeholder='#{__("Facebook URL")}', ng-model='user.facebookUrl')
               .form-group(ng-class="{ 'has-success': (profileForm.googlePlusUrl.$valid && (!!user.googlePlusUrl)) }")
-                  label.control-label(for='google-plus-url') Google Plus URL
+                  label.control-label(for='google-plus-url') #{__("Google Plus URL")}
                   .row
                       .col-xs-12
-                          input.form-control(name='googlePlusUrl', type='text', placeholder='Google+ URL', ng-model='user.googlePlusUrl')
+                          input.form-control(name='googlePlusUrl', type='text', placeholder='#{__("Google+ URL")}', ng-model='user.googlePlusUrl')
 
             .col-md-5.col-md-offset-1
               .form-group(ng-class="{ 'has-success': (profileForm.gender.$valid && (!!user.gender)) }")
-                label.control-label(for='gender') Gender
+                label.control-label(for='gender') #{__("Gender")}
                 .row
                   .col-xs-12
                     select.form-control(name='gender', form='profileForm', ng-model='user.gender')
-                      option Not specified
-                      option Male
-                      option Female
+                      option #{__("Not specified")}
+                      option #{__("Male")}
+                      option #{__("Female")}
 
               .form-group(ng-class="{ 'has-error': (profileForm.password.$invalid && profileForm.password.$dirty), 'has-success': (profileForm.password.$valid && profileForm.password.$dirty) }")
-                  label.control-label(for="password") New Password
+                  label.control-label(for="password") #{__("New Password")}
                   .row
                       .col-xs-12
                           input.form-control(name="password", type="password", placeholder="Password", tooltip-placement="left", tooltip-trigger="focus", tooltip="Lowercase letters, digits, hyphens and underscores. 6-18 characters", ng-model="user.password", ng-pattern="/^[a-z0-9_-]{6,18}$/")
               .form-group(ng-class="{ 'has-error': (profileForm.confirmPassword.$invalid && profileForm.confirmPassword.$dirty), 'has-success': (profileForm.confirmPassword.$valid && profileForm.confirmPassword.$dirty) }")
-                  label.control-label(for="confirm-password") Confirm password
+                  label.control-label(for="confirm-password") #{__("Confirm password")}
                   .row
                     .col-xs-12
                         input.form-control(name="confirmPassword", type="password", placeholder="Confirm password", ng-model="passwordConfirm", fields-match="user.password")
                         span.help-block(ng-show="profileForm.confirmPassword.$error.fieldsMatch && profileForm.confirmPassword.$dirty") These passwords don't match. Try again?
               .form-group(ng-class="{ 'has-success': (profileForm.twitterURL.$valid && (!!user.twitterURL)) }")
-                  label.control-label(for='twitter-url') Twitter URL
+                  label.control-label(for='twitter-url') #{__("Twitter URL")}
                   .row
                       .col-xs-12
                           input.form-control(name='twitterURL', type='text', placeholder='Twitter URL', ng-model='user.twitterUrl')
@@ -71,103 +71,103 @@ include ../panel
         .row
           .col-md-10.col-md-offset-1
             .form-group(ng-class="{ 'has-error': profileForm.aboutMe.$invalid, 'has-success': (profileForm.aboutMe.$valid && (!!user.aboutMe)) }")
-              label.control-label(for='aboutMe') About Me
+              label.control-label(for='aboutMe') #{__("About Me")}
               .row
                 .col-xs-12
-                  textarea.form-control(name='aboutMe', rows='3', placeholder='About Me', ng-model='user.aboutMe', ng-maxlength='500')
-                  span.help-block(ng-show='profileForm.aboutMe.$error.maxlength') Length must be below 500 characters
+                  textarea.form-control(name='aboutMe', rows='3', placeholder='#{__("About Me")}', ng-model='user.aboutMe', ng-maxlength='500')
+                  span.help-block(ng-show='profileForm.aboutMe.$error.maxlength') #{__("Length must be below 500 characters")}
             .form-group(ng-class="{ 'has-success': (avatarUploadSuccessful), 'has-error': (avatarUploadError || avatarTypeError) }")
-              label.control-label(for='avatar') Avatar
+              label.control-label(for='avatar') #{__("Avatar")}
               .row
                 .col-xs-8
                     input.form-control(name='avatar', type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
-                    button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadFile()', ng-disabled='!uploadButtonState', style='margin-top:0.5em') Upload file
-                    span.help-block(ng-show='avatarTypeError') The supported types are GIF, JPEG, PNG and TIFF
-                    span.help-block(ng-show='avatarUploadError') An error occured. Please try again later.
+                    button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='#{__("Uploading...")}', value='Send', ng-click='uploadFile()', ng-disabled='!uploadButtonState', style='margin-top:0.5em') #{__("Upload file")}
+                    span.help-block(ng-show='avatarTypeError') #{__("The supported types are GIF, JPEG, PNG and TIFF")}
+                    span.help-block(ng-show='avatarUploadError') #{__("An error occured. Please try again later.")}
                 .col-xs-4
                   img.image-responsive.img-thumbnail(ng-src='{{ user.avatar }}', ng-bind='user.avatar')
 
 
             .form-group(ng-class = "{ 'has-success': profileForm.roles.$dirty }")
-              label.control-label(for='roles') Roles
+              label.control-label(for='roles') #{__("Roles")}
               .row
                 .col-xs-12
-                    select.form-control.nya-selectpicker(tooltip='Select user roles', ng-options='(role | titleCase) for role in roles track by role', ng-model='user.roles', multiple)
+                    select.form-control.nya-selectpicker(tooltip='#{__("Select user roles")}', ng-options='(role | titleCase) for role in roles track by role', ng-model='user.roles', multiple)
 
 
             .form-group(ng-show="user.roles.indexOf('librarian')!=-1 || user.roles.indexOf('libraryOwner')!=-1")
                 .row
                   .col-xs-9
-                    label.control-label(for='ownLibraryID') Choose existing library...
+                    label.control-label(for='ownLibraryID') #{__("Choose existing library...")}
                     select.form-control.nya-selectpicker(name='ownLibraryID', ng-disabled="!!newLibrary", ng-attr-tooltip='{{ user.ownLibraryID.name }}', ng-options='value.name for (key, value) in libraries track by value._id', ng-model='user.ownLibraryID', data-live-search)
                   
                   .col-xs-3
-                    label.control-label(for='newLibrary') Or add new
-                    button.form-control.btn.btn-success(ng-click='addNewLibrary()', ng-disabled="!!user.ownLibraryID || !!newLibrary") Add new Library
+                    label.control-label(for='newLibrary') #{__("Or add new")}
+                    button.form-control.btn.btn-success(ng-click='addNewLibrary()', ng-disabled="!!user.ownLibraryID || !!newLibrary") #{__("Add new Library")}
 
             ng-form(name='libraryForm', ng-if='!!newLibrary && !user.ownLibraryID', novalidate)
               .row
                 .col-md-11.col-md-offset-1
-                  h3.text-left.col-xs-6.col-xs-offset-4(ng-class="{ 'text-danger':(libraryForm.$invalid), 'text-success':(libraryForm.name.$valid) }") Add new Library
+                  h3.text-left.col-xs-6.col-xs-offset-4(ng-class="{ 'text-danger':(libraryForm.$invalid), 'text-success':(libraryForm.name.$valid) }") #{__("Add new Library")}
                   button.btn.btn-danger.col-xs-2(style="margin-top:0.5em", ng-click='removeNewLibrary()') Remove
 
 
                   .col-md-5
                     .form-group(ng-class="{ 'has-success': (libraryForm.name.$valid), 'has-error': (libraryForm.name.$invalid) }")
-                        label.control-label(for='name') Name *
+                        label.control-label(for='name') #{__("Name")} *
                         .row
                           .col-xs-12
-                              input.form-control(name='name', type='text', placeholder='Name', ng-model='library.name', required)
+                              input.form-control(name='name', type='text', placeholder='#{__("Name")}', ng-model='library.name', required)
 
                     .form-group(ng-class="{ 'has-success': (libraryForm.country.$dirty), 'has-error': (libraryForm.country.$invalid) }")
-                      label.control-label(for='country') Country *
+                      label.control-label(for='country') #{__("Country")} *
                       .row
                         .col-xs-12
                           select.form-control.nya-selectpicker(name='country', ng-model='library.country', ng-options='value.name for (key, value) in countries track by value.name', data-live-search, ng-attr-tooltip='{{ !!library.country && library.country.name || "Select country" }}', required)
 
                     .form-group(ng-class="{ 'has-success': (libraryForm.city.$valid), 'has-error': (libraryForm.city.$invalid) }")
-                        label.control-label(for='city') City *
+                        label.control-label(for='city') #{__("City")} *
                         .row
                           .col-xs-12
-                              input.form-control(name='city', type='text', placeholder='City', ng-model='library.city', ng-pattern='/^([a-zA-Z\u0080-\u024F]+(?:. |-| |\'))*[a-zA-Z\u0080-\u024F]*$/', required)
+                              input.form-control(name='city', type='text', placeholder='#{__("City")}', ng-model='library.city', ng-pattern='/^([a-zA-Z\u0080-\u024F]+(?:. |-| |\'))*[a-zA-Z\u0080-\u024F]*$/', required)
 
                     .form-group(ng-class="{ 'has-success': (libraryForm.address.$valid), 'has-error': (libraryForm.address.$invalid) }")
-                        label.control-label(for='address') Address *
+                        label.control-label(for='address') #{__("Address")} *
                         .row
                           .col-xs-12
-                              input.form-control(name='address', type='text', placeholder='Address', ng-model='library.address', required)
+                              input.form-control(name='address', type='text', placeholder='#{__("Address")}', ng-model='library.address', required)
 
                   .col-md-5.col-md-offset-1
                     
                       .form-group(ng-class="{ 'has-success': (libraryForm.yearOfEstablishment.$valid && libraryForm.yearOfEstablishment.$dirty), 'has-error': (libraryForm.yearOfEstablishment.$invalid) }")
-                        label.control-label(for='yearOfEstablishment') Year of Establishment
+                        label.control-label(for='yearOfEstablishment') #{__("Year of Establishment")}
                         .row
                           .col-xs-12
                               input.form-control(name='yearOfEstablishment', type='text', placeholder='Year', ng-model='library.yearOfEstablishment', ng-pattern='/^(1[0-9][0-9][0-9]|200[0-9]|201[0-5])$/')
                     
                       .form-group(ng-class="{ 'has-success': (libraryForm.tags.$valid && libraryForm.tags.$dirty) }")
-                        label.control-label(for='tags') Tags
+                        label.control-label(for='tags') #{__("Tags")}
                         .row
                           .col-xs-12
-                              input.form-control(name='tags', type='text', placeholder='Tags', ng-model='library.tags')
+                              input.form-control(name='tags', type='text', placeholder='#{__("Tags")}', ng-model='library.tags')
                       .row
                         .col-xs-3
                           .form-group(ng-class="{ 'has-success': (library.featured === true) }")
-                            label.control-label(for='featured') Featured
+                            label.control-label(for='featured') #{__("Featured")}
                               .row
                                 .col-xs-12
                                     input.form-control.checkbox(name='featured', type='checkbox', ng-model='library.featured') 
                         
                         .col-xs-3
                           .form-group(ng-class="{ 'has-success': (library.visible === true) }")
-                            label.control-label(for='visible') Visible
+                            label.control-label(for='visible') #{__("Visible")}
                               .row
                                 .col-xs-12
                                     input.form-control.checkbox(name='visible', type='checkbox', ng-model='library.visible')
 
                         .col-xs-3
                           .form-group(ng-class="{ 'has-success': (library.certified === true) }")
-                            label.control-label(for='certified') Certified
+                            label.control-label(for='certified') #{__("Certified")}
                               .row
                                 .col-xs-12
                                     input.form-control.checkbox(name='certified', type='checkbox', ng-model='library.certified') 
@@ -177,19 +177,19 @@ include ../panel
                 .col-md-10.col-md-offset-1
 
                   .form-group(ng-class="{ 'has-success': (libraryForm.description.$dirty)}")
-                    label.control-label(for='description') Description
+                    label.control-label(for='description') #{__("Description")}
                     .row
                       .col-xs-12
-                        textarea.form-control(name='description', placeholder='Description', ng-model='library.description', rows='3')
+                        textarea.form-control(name='description', placeholder='#{__("Description")}', ng-model='library.description', rows='3')
 
                   .form-group(ng-class="{ 'has-success': (!!library.certificate), 'has-error': (!library.certificate) }")
-                    label.control-label(for='certificate') Certificate *
+                    label.control-label(for='certificate') #{__("Certificate")} *
                     .row
                       .col-xs-8
                           input.form-control(name='certificate', type='file', ng-model='upFileCertificate', onchange="angular.element(this).scope().setFileEventListener(this, 'certificate')")
-                          button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click="uploadFile('certificate')", ng-disabled='!uploadCertificateButtonState', style='margin-top:0.5em') Upload file
-                          span.help-block(ng-show='certificateTypeError') The supported types are GIF, JPEG, PNG and TIFF
-                          span.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
+                          button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='#{__("Uploading...")}', value='#{__("Send")}', ng-click="uploadFile('certificate')", ng-disabled='!uploadCertificateButtonState', style='margin-top:0.5em') Upload file
+                          span.help-block(ng-show='certificateTypeError') #{__("The supported types are GIF, JPEG, PNG and TIFF")}
+                          span.help-block(ng-show='certificateUploadError') #{__("An error occured. Please try again later.")}
                       .col-xs-4
                         img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
                         input(type='hidden', ng-model='library.certificate', required)
@@ -198,5 +198,5 @@ include ../panel
 
 
         .pull-right
-          button.btn.btn-primary(ng-click='updateAsAdmin(user)', ng-disabled='profileForm.$invalid') Update
-          a.btn.btn-danger(href='/admin/users', style="margin-left:0.2em") Cancel
+          button.btn.btn-primary(ng-click='updateAsAdmin(user)', ng-disabled='profileForm.$invalid') #{__("Update")}
+          a.btn.btn-danger(href='/admin/users', style="margin-left:0.2em") #{__("Cancel")}

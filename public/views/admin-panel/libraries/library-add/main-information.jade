@@ -3,57 +3,57 @@
     .col-md-11.col-md-offset-1
       .col-md-5
         .form-group(ng-class="{ 'has-success': (libraryForm.name.$valid), 'has-error': (libraryForm.name.$invalid) }")
-            label.control-label(for='name') Name *
+            label.control-label(for='name') #{__("Name")} *
             .row
               .col-xs-12
-                  input.form-control(name='name', type='text', placeholder='Name', ng-model='library.name', required, on-focus)
+                  input.form-control(name='name', type='text', placeholder='#{__("Name")}', ng-model='library.name', required, on-focus)
 
         .form-group(ng-class="{ 'has-success': (libraryForm.address.$valid), 'has-error': (libraryForm.address.$invalid) }")
-            label.control-label(for='address') Address *
+            label.control-label(for='address') #{__("Address")} *
             .row
               .col-xs-12
                 ui-select(name='address', ng-model='library.address', ng-disabled='disabled', reset-search-input='false', required)
-                  ui-select-match(placeholder='Enter an address...') {{$select.selected.formatted_address}}
+                  ui-select-match(placeholder='#{__("Enter an address...")}') {{$select.selected.formatted_address}}
                   ui-select-choices(repeat='address in addresses', refresh='refreshAddresses($select.search)', refresh-delay='0')
                     div(ng-bind-html="address.formatted_address | highlight: $select.search")
 
       .col-md-5.col-md-offset-1
         
           .form-group(ng-class="{ 'has-success': (libraryForm.yearOfEstablishment.$valid && libraryForm.yearOfEstablishment.$dirty), 'has-error': (libraryForm.yearOfEstablishment.$invalid) }")
-            label.control-label(for='yearOfEstablishment') Year of Establishment
+            label.control-label(for='yearOfEstablishment') #{__("Year of Establishment")}
             .row
               .col-xs-12
-                  input.form-control(name='yearOfEstablishment', type='text', placeholder='Year', ng-model='library.yearOfEstablishment', ng-pattern='/^(1[0-9][0-9][0-9]|200[0-9]|201[0-5])$/')
+                  input.form-control(name='yearOfEstablishment', type='text', placeholder='#{__("Year")}', ng-model='library.yearOfEstablishment', ng-pattern='/^(1[0-9][0-9][0-9]|200[0-9]|201[0-5])$/')
         
           .form-group(ng-class="{ 'has-success': (libraryForm.tags.$valid && libraryForm.tags.$dirty) }")
-            label.control-label(for='tags') Tags
+            label.control-label(for='tags') #{__("Tags")}
             .row
               .col-xs-12
-                  input.form-control(name='tags', type='text', placeholder='Tags', ng-model='library.tags')
+                  input.form-control(name='tags', type='text', placeholder='#{__("Tags")}', ng-model='library.tags')
           .row
             .col-xs-3
               .form-group(ng-class="{ 'has-success': (library.featured === true) }")
-                label.control-label(for='featured') Featured
+                label.control-label(for='featured') #{__("Featured")}
                   .row
                     .col-xs-12
                         input.form-control.checkbox(name='featured', type='checkbox', ng-model='library.featured') 
             
             .col-xs-3
               .form-group(ng-class="{ 'has-success': (library.visible === true) }")
-                label.control-label(for='visible') Visible
+                label.control-label(for='visible') #{__("Visible")}
                   .row
                     .col-xs-12
                         input.form-control.checkbox(name='visible', type='checkbox', ng-model='library.visible')
 
             .col-xs-3
               .form-group(ng-class="{ 'has-success': (library.certified === true) }")
-                label.control-label(for='certified') Certified
+                label.control-label(for='certified') #{__("Certified")}
                   .row
                     .col-xs-12
                         input.form-control.checkbox(name='certified', type='checkbox', ng-model='library.certified') 
             .col-xs-3
               .form-group(ng-class="{ 'has-success': (library.paid === true) }")
-                label.control-label(for='paid') &nbsp;Paid&nbsp;&nbsp;
+                label.control-label(for='paid') &nbsp;#{__("Paid")}&nbsp;&nbsp;
                   .row
                     .col-xs-12
                         input.form-control.checkbox(name='paid', type='checkbox', ng-model='library.paid') 
@@ -65,25 +65,25 @@
     .col-md-10.col-md-offset-1
 
       .form-group(ng-class="{ 'has-success': (libraryForm.description.$dirty)}")
-        label.control-label(for='description') Description
+        label.control-label(for='description') #{__("Description")}
         .row
           .col-xs-12
-            textarea.form-control(name='description', placeholder='Description', ng-model='library.description', rows='3')
+            textarea.form-control(name='description', placeholder='#{__("Description")}', ng-model='library.description', rows='3')
 
       .form-group(ng-class="{ 'has-success': (!!library.certificate), 'has-error': (!library.certificate) }")
-        label.control-label(for='certificate') Certificate *
+        label.control-label(for='certificate') #{__("Certificate")} *
         .row
           .col-xs-8
               input.form-control(name='certificate', type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
-              button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadFile()', ng-disabled='!uploadButtonState', style='margin-top:0.5em') Upload file
-              span.help-block(ng-show='certificateTypeError') The supported types are GIF, JPEG, PNG and TIFF
-              span.help-block(ng-show='certificateUploadError') An error occured. Please try again later.
+              button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='#{__("Uploading...")}', value='#{__("Send")}', ng-click='uploadFile()', ng-disabled='!uploadButtonState', style='margin-top:0.5em') #{__("Upload file")}
+              span.help-block(ng-show='certificateTypeError') #{__("The supported types are GIF, JPEG, PNG and TIFF")}
+              span.help-block(ng-show='certificateUploadError') #{__("An error occured. Please try again later.")}
           .col-xs-4
             img.image-responsive.img-thumbnail(ng-src='{{ library.certificate }}', ng-bind='library.certificate')
             input(type='hidden', ng-model='library.certificate', required)
 
       .form-group
-        label.control-label(for='lateFine') Fine for late returning
+        label.control-label(for='lateFine') #{__("Fine for late returning")}
         .row
           .col-xs-12
             input.form-control(name='lateFine', ng-model='library.lateFine')
@@ -93,13 +93,13 @@
       .row(ng-show='library.paid')
 
         .form-group(ng-class = "{ 'has-success': (!!libraryForm.amount) }")
-          label.control-label(for='tax') Amount
+          label.control-label(for='tax') #{__("Amount")}
           .row
             .col-xs-12
               input.form-control(name='tax', ng-model='library.amount')
 
         .form-group(ng-class = "{ 'has-success': libraryForm.currency.$dirty }")
-          label.control-label(for='currency') Currency
+          label.control-label(for='currency') #{__("Currency")}
           .row
             .col-xs-12
-                select.form-control.nya-selectpicker(name='currency', tooltip='Select tax currency', live-search='true', ng-options='curr for curr in currency track by curr', ng-model='library.currency')
+                select.form-control.nya-selectpicker(name='currency', tooltip='#{__("Select tax currency")}', live-search='true', ng-options='curr for curr in currency track by curr', ng-model='library.currency')

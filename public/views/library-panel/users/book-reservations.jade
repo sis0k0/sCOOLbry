@@ -1,7 +1,7 @@
 include ../panel
 
 .container
-    h1.text-center Book Reservations
+    h1.text-center #{__("Book Reservations")}
 
     #users-list.table-responsive(ng-init="pages();")
       table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
@@ -9,20 +9,20 @@ include ../panel
           tr.text-bold.text-primary
             td#_id(ng-click="sort($event); reloadBookings()") ID
               span#_id.glyphicon.glyphicon-sort.text-right
-            td#userID(ng-click="sort($event); reloadBookings()") Username
+            td#userID(ng-click="sort($event); reloadBookings()") #{__("Username")}
               span#userID.glyphicon.glyphicon-sort.text-right
-            td#bookID(ng-click="sort($event); reloadBookings()") Book
+            td#bookID(ng-click="sort($event); reloadBookings()") #{__("Book")}
               span#bookID.glyphicon.glyphicon-sort.text-right
-            td#bookDate(ng-click="sort($event); reloadBookings()") End date
+            td#bookDate(ng-click="sort($event); reloadBookings()") #{__("End date")}
               span#bookDate.glyphicon.glyphicon-sort.text-right
-            td Actions
+            td #{__("Actions")}
         tr(ng-repeat="booking in bookings")
           td.text-bold {{ booking._id }}
           td {{ booking.userName }}
           td {{ booking.bookName }}
           td {{ booking.bookDate | date:'HH:mm:ss &nbsp;&nbsp;&nbsp;dd/MM/yyyy' }}
           td
-            a.btn-sm(href='/library-panel/user/interact/{{ booking.userID }}', tooltip='Give A Book')
+            a.btn-sm(href='/library-panel/user/interact/{{ booking.userID }}', tooltip='#{__("Give A Book")}')
               span.glyphicon.glyphicon-book.text-success
     .pagination
         li(ng-repeat="i in range(pagesCount) track by $index")

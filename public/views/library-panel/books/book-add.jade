@@ -10,35 +10,35 @@ include ../panel
         .row(ng-hide='displayForm || result || book')
 
           .col-md-4.text-center
-            h3 Fill in a form
+            h3 #{__("Fill in a form")}
             .row
-              button.btn.btn-primary(ng-click='newForm()') Add book form
+              button.btn.btn-primary(ng-click='newForm()') #{__("Add book form")}
 
           .col-md-4.text-center
-            h3 Find book by ISBN
+            h3 #{__("Find book by ISBN")}
             .col-xs-8(style='padding:0')
               input.form-control(name='isbn', id='searchByIsbn', type='text', placeholder='ISBN', style='border-radius: 0', ng-model='ISBNSearch', ng-pattern='/((978[\--– ])?[0-9][0-9\--– ]{10}[\--– ][0-9xX])|((978)?[0-9]{9}[0-9Xx])/', on-focus, ng-keypress="($event.which === 13 && !!ISBNSearch) ? findBook() : 0")
-            button.btn.btn-success.pull-right.col-xs-4(id='searchByIsbnButton', style='border-radius: 0', loading-button, data-loading-text='Searching...',  ng-disabled='!ISBNSearch', ng-click='findBook()') Search
+            button.btn.btn-success.pull-right.col-xs-4(id='searchByIsbnButton', style='border-radius: 0', loading-button, data-loading-text='#{__("Searching...")}',  ng-disabled='!ISBNSearch', ng-click='findBook()') #{__("Search")}
           
           database-import
         include ../../partials/import-result
 
         .row
-          h3.text-center.text-danger(ng-if='searchState===false && !existInLibrary') Book not found! Please try something else!
-          h3.text-center.text-success(ng-if='searchState===true') Book found! Please check the fields, because there may be differences.
-          h3.text-center.text-info(ng-if='existInLibrary') The book exist in your Library! 
-            a(ng-href='/library-panel/bookInfo/{{libBook._id}}') Click
+          h3.text-center.text-danger(ng-if='searchState===false && !existInLibrary') #{__("Book not found! Please try something else!")}
+          h3.text-center.text-success(ng-if='searchState===true') #{__("Book found! Please check the fields, because there may be differences.")}
+          h3.text-center.text-info(ng-if='existInLibrary') #{__("The book exist in your Library!")} 
+            a(ng-href='/library-panel/bookInfo/{{libBook._id}}') #{__("Click")}
 
         div(ng-if='book')
-            h1.text-succes.text-center The book exist in sCOOLbry database!
-            h3.text-info.text-center Just add the quantity in your library
+            h1.text-succes.text-center #{__("The book exist in sCOOLbry database!")}
+            h3.text-info.text-center #{__("Just add the quantity in your library")}
 
             form(name='quantityForm', novalidate)
               .form-group(ng-class="{ 'has-success': (quantityForm.quantity.$valid), 'has-error': (quantityForm.quantity.$invalid) }")
-                  label.control-label(for='quantity') Quantity
+                  label.control-label(for='quantity') #{__("Quantity")}
                   .row
                     .col-xs-12
-                        input.form-control(name='quantity', type='number', min='1', placeholder='Quantity', ng-model='book.total', on-focus)   
+                        input.form-control(name='quantity', type='number', min='1', placeholder='#{__("Quantity")}', ng-model='book.total', on-focus)   
 
             .row(style='margin-top: 3em')
               .col-md-10.col-md-offset-1
@@ -55,16 +55,16 @@ include ../panel
                     span.text-info.pull-right {{ book.author }}
                   div(ng-show='!showMore')
                     p {{ book.description | limitTo: 200}}...
-                    a(href='#' ng-click='showMore=!showMore') Show more
+                    a(href='#' ng-click='showMore=!showMore') #{__("Show more")}
                   div(ng-show='!!showMore')
                     p {{ book.description}}
-                    a(href='#' ng-click='showMore=!showMore') Show less
+                    a(href='#' ng-click='showMore=!showMore') #{__("Show less")}
 
             .row
               .col-md-10.col-md-offset-1(ng-show='book.other')
                 .panel.panel-primary(style='margin-top:2em', ng-show='!!showMore')
                   .panel-heading
-                    h4.text-center Additional information
+                    h4.text-center #{__("Additional information")}
                   .panel-body
                     div.col-xs-5(ng-repeat='(key,value) in book.other')
                       li
@@ -78,7 +78,7 @@ include ../panel
               button.btn.btn-primary.col-xs-2.col-xs-offset-9(ng-disabled='quantityForm.$invalid' ng-click='addBook(book)') Add
               .col-xs-1
 
-        h3.text-danger(ng-if='isbnExists') The following books are already in the library's database: 
+        h3.text-danger(ng-if='isbnExists') #{__("The following books are already in the library's database")}: 
         div(ng-repeat='book in isbnExists')
           span
             a(ng-href='/library-panel/bookInfo/{{book._id}}') {{book.bookName}} ({{book.bookISBN}})
@@ -90,18 +90,18 @@ include ../panel
 
               .row
 
-                h1.text-center.col-xs-8.col-xs-offset-1(ng-class="{ 'text-success': (bookForm.title.$valid), 'text-danger': (bookForm.$invalid) }") Add a Book ({{$index + (page-1)*perPage + 1}})
-                button.btn.btn-danger.col-xs-2(style="margin-top:1.5em", ng-click='removeBookForm($index)') Remove
+                h1.text-center.col-xs-8.col-xs-offset-1(ng-class="{ 'text-success': (bookForm.title.$valid), 'text-danger': (bookForm.$invalid) }") #{__("Add a Book")} ({{$index + (page-1)*perPage + 1}})
+                button.btn.btn-danger.col-xs-2(style="margin-top:1.5em", ng-click='removeBookForm($index)') #{__("Remove")}
                 .col-xs-1
   
 
               .col-md-5
 
                 .form-group(ng-class="{ 'has-success': (bookForm.quantity.$valid), 'has-error': (bookForm.quantity.$invalid) }")
-                    label.control-label(for='quantity') Quantity *
+                    label.control-label(for='quantity') #{__("Quantity")} *
                     .row
                       .col-xs-12
-                          input.form-control(name='quantity', type='number', min='1', placeholder='Quantity', ng-model='book.total', on-focus, required)        
+                          input.form-control(name='quantity', type='number', min='1', placeholder='#{__("Quantity")}', ng-model='book.total', on-focus, required)        
 
                 .form-group(ng-class="{ 'has-success': (bookForm.isbn.$valid && (!!book.isbn)), 'has-error': (bookForm.isbn.$invalid && bookForm.isbn.$dirty) }")
                     label.control-label(for='isbn') ISBN
@@ -113,60 +113,60 @@ include ../panel
                     label.control-label(for='title') Title *
                     .row
                       .col-xs-12
-                        input.form-control(name='title', type='text', placeholder='Title', ng-model='book.title', ng-pattern='/^.{1,200}$/', required)
-                        span.help-block(ng-show='bookForm.title.$invalid && bookForm.title.$dirty') Title should be between 1 and 200 characters
+                        input.form-control(name='title', type='text', placeholder='#{__("Title")}', ng-model='book.title', ng-pattern='/^.{1,200}$/', required)
+                        span.help-block(ng-show='bookForm.title.$invalid && bookForm.title.$dirty') #{__("Title should be between 1 and 200 characters")}
                 .form-group(ng-class="{ 'has-success': (bookForm.author.$valid), 'has-error': (bookForm.author.$invalid) }")
-                    label.control-label(for='author') Author *
+                    label.control-label(for='author') #{__("Author")} *
                     .row
                       .col-xs-12
-                        input.form-control(name='author', type='text', placeholder='Author', ng-model='book.author', ng-pattern='/^.{1,200}$/', required)
-                        span.help-block(ng-show='bookForm.author.$invalid && bookForm.author.$dirty') Author's name should be between 1 and 200 characters
+                        input.form-control(name='author', type='text', placeholder='#{__("Author")}', ng-model='book.author', ng-pattern='/^.{1,200}$/', required)
+                        span.help-block(ng-show='bookForm.author.$invalid && bookForm.author.$dirty') #{__("Author's name should be between 1 and 200 characters")}
                 .form-group(ng-class="{ 'has-success': (bookForm.publisher.$valid), 'has-error': (bookForm.publisher.$invalid) }")
-                  label.control-label(for='publisher') Publisher *
+                  label.control-label(for='publisher') #{__("Publisher")} *
                   .row
                     .col-xs-12
                       input.form-control(name='publisher', type='text', placeholder='Publisher', ng-model='book.publisher', ng-pattern='/^.{1,200}$/', required)
                       span.help-block(ng-show='bookForm.publisher.$invalid && bookForm.publisher.$dirty') Publisher's name should be between 1 and 200 characters
                 .form-group(ng-class="{ 'has-success': !!book.section }")
-                  label.control-label(for='section') Section
+                  label.control-label(for='section') #{__("Section")}
                   .row
                     .col-xs-12
                       select.nya-selectpicker.form-control(name='section', data-live-search='true', ng-options='index as section for (index, section) in library.librarySections.sectionsTheme', ng-model='book.section')
               .col-md-5.col-md-offset-1
                 .form-group(ng-class="{ 'has-success': !!book.pages }")
-                    label.control-label(for='pages') Pages
+                    label.control-label(for='pages') #{__("Pages")}
                     .row
                       .col-xs-12
-                        input.form-control(name='pages', type='number', placeholder='Pages', ng-model='book.pages', min='0', max='3500')
+                        input.form-control(name='pages', type='number', placeholder='#{__("Pages")}', ng-model='book.pages', min='0', max='3500')
                 .form-group(ng-class="{ 'has-success': !!book.language }")
-                  label.control-label(for='language') Language
+                  label.control-label(for='language') #{__("Language")}
                   .row
                     .col-xs-12
-                      input.form-control(name='language', type='text', placeholder='Book Language', ng-model='book.language', ng-pattern='/^.{2,50}$/')
-                      span.help-block(ng-show='bookForm.language.$invalid') Language should be between 2 and 50 characters
+                      input.form-control(name='language', type='text', placeholder='#{__("Book Language")}', ng-model='book.language', ng-pattern='/^.{2,50}$/')
+                      span.help-block(ng-show='bookForm.language.$invalid') #{__("Language should be between 2 and 50 characters")}
                 .form-group(ng-class="{ 'has-success': !!book.authorNationality }")
-                  label.control-label(for='authorNationality') Author Nationality
+                  label.control-label(for='authorNationality') #{__("Author Nationality")}
                   .row
                     .col-xs-12
-                      input.form-control(name='authorNationality', type='text', placeholder='Author Nationality', ng-model='book.authorNationality', ng-pattern='/^.{2,50}$/')
-                      span.help-block(ng-show='bookForm.authorNationality.$invalid') Author's Nationality should be between 2 and 50 characters
+                      input.form-control(name='authorNationality', type='text', placeholder='#{__("Author Nationality")}', ng-model='book.authorNationality', ng-pattern='/^.{2,50}$/')
+                      span.help-block(ng-show='bookForm.authorNationality.$invalid') #{__("Author's Nationality should be between 2 and 50 characters")}
                 .form-group(ng-class="{ 'has-success': book.themes.length>0 }")
-                  label.control-label(for='themes') Themes
+                  label.control-label(for='themes') #{__("Themes")}
                   .row
                     .col-xs-12
                       input.form-control(name='themes', type='text', placeholder='Themes', ng-model='book.themes')
                 .form-group(ng-class="{ 'has-success': book.genres.length>0 }")
-                  label.control-label(for='genres') Genres
+                  label.control-label(for='genres') #{__("Genres")}
                   .row
                     .col-xs-12
                       select.nya-selectpicker.form-control(name='genres', data-live-search='true', ng-options='(genre | titleCase) for genre in genres track by genre', ng-model='book.genres', multiple)
                 .form-group(ng-class="{ 'has-success': !!book.edition }")
-                  label.control-label(for='edition') Edition
+                  label.control-label(for='edition') #{__("Edition")}
                   .row
                     .col-xs-12
-                      input.form-control(name='edition', type='text', placeholder='Edition', ng-model='book.edition')
+                      input.form-control(name='edition', type='text', placeholder='#{__("Edition")}', ng-model='book.edition')
                 .form-group(ng-class="{ 'has-success': !!book.published }")
-                  label.control-label(for='published') Published
+                  label.control-label(for='published') #{__("Published")}
                   .row.input-group.date
                     input.form-control(name='published', type='text', datepicker-popup='d MMMM yyyy', is-open='opened', ng-focus='opened=true', min-date='"1900-01-01"', max-date='today', placeholder='Published', ng-model='book.published')
                     span.input-group-addon
@@ -181,13 +181,13 @@ include ../panel
 
 
                   .form-group(ng-class="{ 'has-success': (coverUploadSuccessful || (!!book.cover)), 'has-error': (coverUploadError || coverTypeError) }")
-                    label.control-label(for='cover') Cover
+                    label.control-label(for='cover') #{__("Cover")}
                     .row
                       .col-xs-11
                           input.form-control(name='cover', type='file', ng-model='upFile', onchange='angular.element(this).scope().setFileEventListener(this)')
-                          button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadFile($index)', ng-disabled='!uploadButtonState', style='margin-top:0.5em') Upload file
-                          span.help-block(ng-show='coverTypeError') The supported types are GIF, JPEG, PNG and TIFF
-                          span.help-block(ng-show='coverUploadError') An error occured. Please try again later.
+                          button#btnStartUpload.btn.start.btn-success(type='submit', loading-button, data-loading-text='#{__("Uploading...")}', value='#{__("Send")}', ng-click='uploadFile($index)', ng-disabled='!uploadButtonState', style='margin-top:0.5em') #{__("Upload file")}
+                          span.help-block(ng-show='coverTypeError') #{__("The supported types are GIF, JPEG, PNG and TIFF")}
+                          span.help-block(ng-show='coverUploadError') #{__("An error occured. Please try again later.")}
 
 
                 .col-xs-4
@@ -196,26 +196,26 @@ include ../panel
 
                 .col-xs-12              
                   .form-group(ng-class="{ 'has-error': bookForm.description.$invalid, 'has-success': !!book.description }")
-                    label.control-label(for='description') Book review
+                    label.control-label(for='description') #{__("Book review")}
                     .row
                       .col-xs-11
-                        textarea.form-control.col-xs-4(name='description', placeholder='Book review', ng-model='book.description', rows='6', ng-maxlength='1500')
-                        span.help-block(ng-show='bookForm.description.$error.maxlength') Length must be below 1500 characters
+                        textarea.form-control.col-xs-4(name='description', placeholder='#{__("Book review")}', ng-model='book.description', rows='6', ng-maxlength='1500')
+                        span.help-block(ng-show='bookForm.description.$error.maxlength') #{__("Length must be below 1500 characters")}
            
                   .col-xs-12
                     .form-group(ng-class="{ 'has-success': (!!book.ebook), 'has-error': (epubUploadError) }")
-                      label.control-label(for='ebook') Upload ebook
+                      label.control-label(for='ebook') #{__("Upload ebook")}
                       .row
                         .col-xs-11
-                          input.form-control(type='file', name='ebook', ng-model='book.ebook', tooltip='The supported type is epub', tooltip-trigger='focus', tooltip-placement='top', onchange='angular.element(this).scope().setFileEventListener(this)')
-                          button.btn.start.btn-success(type='submit', loading-button, data-loading-text='Uploading...', value='Send', ng-click='uploadEbook($index)', ng-disabled='!uploadButtonState', style='margin-top:0.5em') Upload file
-                          span.text-warning &nbsp;&nbsp;By uploading this file, you confirm that you have the right and/or permission to share it.
+                          input.form-control(type='file', name='ebook', ng-model='book.ebook', tooltip='#{__("The supported type is epub")}', tooltip-trigger='focus', tooltip-placement='top', onchange='angular.element(this).scope().setFileEventListener(this)')
+                          button.btn.start.btn-success(type='submit', loading-button, data-loading-text='#{__("Uploading...")}', value='#{__("Send")}', ng-click='uploadEbook($index)', ng-disabled='!uploadButtonState', style='margin-top:0.5em') #{__("Upload file")}
+                          span.text-warning &nbsp;&nbsp;#{__("By uploading this file, you confirm that you have the right and/or permission to share it.")}
 
                           span.help-block.text-success {{ebookUploadSuccess}}
                           span.help-block.text-danger {{ebookUploadError}}
 
               .row
-                button.btn.btn-primary.col-xs-2.col-xs-offset-9(ng-disabled='bookForm.$invalid' ng-click='addBook(book, $index)') Add
+                button.btn.btn-primary.col-xs-2.col-xs-offset-9(ng-disabled='bookForm.$invalid' ng-click='addBook(book, $index)') #{__("Add")}
                 .col-xs-1
 
           .pagination

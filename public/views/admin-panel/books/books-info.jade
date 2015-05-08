@@ -1,7 +1,7 @@
 include ../panel
 
 .container
-  h1.text-info.text-center About the book
+  h1.text-info.text-center #{__("About the book")}
   .row(style='margin-top: 3em')
     .col-md-10.col-md-offset-1
       .col-xs-2
@@ -17,16 +17,16 @@ include ../panel
           span.text-info.pull-right {{ book.author }}
         div(ng-show='!showMore')
           p {{ book.description | limitTo: 200}}...
-          a(href='#' ng-click='showMore=!showMore') Show more
+          a(href='#' ng-click='showMore=!showMore') #{__("Show more")}
         div(ng-show='!!showMore')
           p {{ book.description}}
-          a(href='#' ng-click='showMore=!showMore') Show less
+          a(href='#' ng-click='showMore=!showMore') #{__("Show less")}
 
   .row
     .col-md-10.col-md-offset-1(ng-show='book.other')
       .panel.panel-primary(style='margin-top:2em', ng-show='!!showMore')
         .panel-heading
-          h4.text-center Additional information
+          h4.text-center #{__("Additional information")}
         .panel-body
           div.col-xs-5(ng-repeat='(key,value) in book.other')
             li
@@ -34,5 +34,5 @@ include ../panel
               span : {{ value | titleCase }}
   
   .row
-    a.btn.btn-danger.pull-right(href='/admin/book/delete/{{ book._id }}' onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")') Delete   
-    a.btn.btn-primary.pull-right(href='/admin/book/edit/{{ book._id }}', style='margin-right:0.25em') Edit
+    a.btn.btn-danger.pull-right(href='/admin/book/delete/{{ book._id }}' onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")') #{__("Delete")}   
+    a.btn.btn-primary.pull-right(href='/admin/book/edit/{{ book._id }}', style='margin-right:0.25em') #{__("Edit")}

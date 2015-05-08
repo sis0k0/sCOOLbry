@@ -3,18 +3,18 @@
   .row
     .col-md-11.col-md-offset-1
       .col-md-8.col-md-offset-2
-          h1.text-center.text-info Select working schedule
+          h1.text-center.text-info #{__("Select working schedule")}
           .row            
 
 
               .form-group
-                h2.col-xs-5.text-success Day
-                h2.col-xs-4.text-success From
-                h2.col-xs-2.text-success.text-center To
+                h2.col-xs-5.text-success #{__("Day")}
+                h2.col-xs-4.text-success #{__("From")}
+                h2.col-xs-2.text-success.text-center #{__("To")}
 
                 .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour0.$invalid || libraryForm.workHoursOpeningMinutes0.$invalid || libraryForm.workHoursClosingHour0.$invalid || libraryForm.workHoursClosingMinutes0.$invalid), 'has-success': (libraryForm.workHoursOpeningHour0.$valid && libraryForm.workHoursOpeningMinutes0.$valid && libraryForm.workHoursClosingHour0.$valid && libraryForm.workHoursClosingMinutes0.$valid) }")
                   .col-xs-12
-                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='monday') Monday
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='monday') #{__("Monday")}
                     .col-xs-2
                       input.form-control(name='monday', type='checkbox' ng-model='library.workdays[0]')
 
@@ -34,7 +34,7 @@
 
                 .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour1.$invalid || libraryForm.workHoursOpeningMinutes1.$invalid || libraryForm.workHoursClosingHour1.$invalid || libraryForm.workHoursClosingMinutes1.$invalid), 'has-success': (libraryForm.workHoursOpeningHour1.$valid && libraryForm.workHoursOpeningMinutes1.$valid && libraryForm.workHoursClosingHour1.$valid && libraryForm.workHoursClosingMinutes1.$valid) }")
                   .col-xs-12
-                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='tuesday') Tuesday
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='tuesday') #{__("Tuesday")}
                     .col-xs-2
                       input.form-control(name='tuesday', type='checkbox' ng-model='library.workdays[1]')
 
@@ -53,7 +53,7 @@
 
                 .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour2.$invalid || libraryForm.workHoursOpeningMinutes2.$invalid || libraryForm.workHoursClosingHour2.$invalid || libraryForm.workHoursClosingMinutes2.$invalid), 'has-success': (libraryForm.workHoursOpeningHour2.$valid && libraryForm.workHoursOpeningMinutes2.$valid && libraryForm.workHoursClosingHour2.$valid && libraryForm.workHoursClosingMinutes2.$valid) }")
                   .col-xs-12
-                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='wednesday') Wednesday
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='wednesday') #{__("Wednesday")}
                     .col-xs-2
                       input.form-control(name='wednesday', type='checkbox' ng-model='library.workdays[2]')
 
@@ -73,7 +73,7 @@
 
                 .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour3.$invalid || libraryForm.workHoursOpeningMinutes3.$invalid || libraryForm.workHoursClosingHour3.$invalid || libraryForm.workHoursClosingMinutes3.$invalid), 'has-success': (libraryForm.workHoursOpeningHour3.$valid && libraryForm.workHoursOpeningMinutes3.$valid && libraryForm.workHoursClosingHour3.$valid && libraryForm.workHoursClosingMinutes3.$valid) }")
                   .col-xs-12
-                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='thursday') Thursday
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='thursday') #{__("Thursday")}
                     .col-xs-2
                       input.form-control(name='thursday', type='checkbox' ng-model='library.workdays[3]')
 
@@ -94,7 +94,7 @@
 
                 .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour4.$invalid || libraryForm.workHoursOpeningMinutes4.$invalid || libraryForm.workHoursClosingHour4.$invalid || libraryForm.workHoursClosingMinutes4.$invalid), 'has-success': (libraryForm.workHoursOpeningHour4.$valid && libraryForm.workHoursOpeningMinutes4.$valid && libraryForm.workHoursClosingHour4.$valid && libraryForm.workHoursClosingMinutes4.$valid) }")
                   .col-xs-12
-                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='friday') Friday
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='friday') #{__("Friday")}
                     .col-xs-2
                       input.form-control(name='friday', type='checkbox' ng-model='library.workdays[4]')
 
@@ -113,7 +113,7 @@
 
                 .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour5.$invalid || libraryForm.workHoursOpeningMinutes5.$invalid || libraryForm.workHoursClosingHour5.$invalid || libraryForm.workHoursClosingMinutes5.$invalid), 'has-success': (libraryForm.workHoursOpeningHour5.$valid && libraryForm.workHoursOpeningMinutes5.$valid && libraryForm.workHoursClosingHour5.$valid && libraryForm.workHoursClosingMinutes5.$valid) }")
                   .col-xs-12
-                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='saturday') Saturday
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='saturday') #{__("Saturday")}
                     .col-xs-2
                       input.form-control(name='saturday', type='checkbox' ng-model='library.workdays[5]')
 
@@ -133,7 +133,7 @@
 
                 .row.form-group(ng-class="{ 'has-error': (libraryForm.workHoursOpeningHour6.$invalid || libraryForm.workHoursOpeningMinutes6.$invalid || libraryForm.workHoursClosingHour6.$invalid || libraryForm.workHoursClosingMinutes6.$invalid), 'has-success': (libraryForm.workHoursOpeningHour6.$valid && libraryForm.workHoursOpeningMinutes6.$valid && libraryForm.workHoursClosingHour6.$valid && libraryForm.workHoursClosingMinutes6.$valid) }")
                   .col-xs-12
-                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='sunday') Sunday
+                    label.col-md-1.control-label.col-sm-1.col-xs-8(for='sunday') #{__("Sunday")}
                     .col-xs-2
                       input.form-control(name='sunday', type='checkbox' ng-model='library.workdays[6]')
 

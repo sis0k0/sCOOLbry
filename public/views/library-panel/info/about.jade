@@ -2,43 +2,43 @@
   .row
     .col-md-7
 
-      h2 Main information
+      h2 #{__("Main information")}
       table.table.table-striped.table-bordered.table-wrapped
         tr
-          td Registered
+          td #{__("Registered")}
           td {{library.published | date: 'MMM dd, yyyy'}}
         tr
-          td Location
+          td #{__("Location")}
           td {{library.address.formatted_address}}
         tr
-          td Books count
+          td #{__("Books count")}
           td {{libraryBooks.length}}
         tr
-          td Members count
+          td #{__("Members count")}
           td {{membersCount}}
         tr
-          td Certified
+          td #{__("Certified")}
           td
             i.fa(ng-class="{ 'fa-check text-success': (library.certified==true), 'fa-times text-danger': (library.certified==false) }")
         tr
-          td Visible
+          td #{__("Visible")}
           td
             i.fa(ng-class="{ 'fa-check text-success': (library.visible==true), 'fa-times text-danger': (library.visible==false) }")
         tr
-          td Featured
+          td #{__("Featured")}
           td
             i.fa(ng-class="{ 'fa-check text-success': (library.featured==true), 'fa-times text-danger': (library.featured==false) }")
         tr
-          td Tags
+          td #{__("Tags")}
           td(ng-repeat='tag in library.tags')
             span  {{tag}}
             span(ng-show='!$last') ,
       
       div
-        h3 Certificate
+        h3 #{__("Certificate")}
         img(fallback-src, ng-src='{{library.certificate}}').img-responsive.img-thumbnail
       div(ng-show='library.description')
-        h2.text-success Description
+        h2.text-success #{__("Description")}
         p {{ library.description }}
 
     .col-md-4.col-md-offset-1

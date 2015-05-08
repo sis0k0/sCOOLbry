@@ -1,6 +1,6 @@
 .tab-pane.fade#favorites
   h3
-    | Favorite Books at our Library
+    | #{__("Favorite Books at our Library")}
   
   div(ng-repeat='favBook in favoriteBooks')
     .row(style='margin-bottom: 1em', ng-if='favBook.libraryID === libraryID')
@@ -16,4 +16,4 @@
           span.text-info {{favBook.bookID.author}}
         p.text-justify.hidden-xs {{ favBook.bookID.description | cut:true:250:'...'}}
 
-  p(ng-hide='favoriteBooks.length') No favorite books found.
+  p(ng-hide='favoriteBooks.length') #{__("No favorite books found.")}

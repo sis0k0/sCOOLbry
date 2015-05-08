@@ -3,7 +3,7 @@ include ../../panel
 .container
   form.form-horizontal(name='libraryForm', novalidate)
     fieldset
-      h1.text-center Edit library 
+      h1.text-center #{__("Edit library")} 
         span.text-info '{{::library.name}}'
       .row
       
@@ -11,13 +11,13 @@ include ../../panel
         
         li.active
           a(href='#main-information', data-toggle='tab', target='_self').active
-            |  Main information
+            |  #{__("Main information")}
         li
           a(href='#working-schedule', data-toggle='tab', target='_self')
-            | Working schedule
+            | #{__("Working schedule")}
         li
           a(href='#librarians', data-toggle='tab', target='_self')
-            | Librarians
+            | #{__("Librarians")}
 
         include ../../../partials/mongoose-validation
 
@@ -28,5 +28,5 @@ include ../../panel
         include ./librarians
 
       .pull-right
-        button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='updateLibrary(library, librarians)') Edit
-        a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') Cancel
+        button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='updateLibrary(library, librarians)') #{__("Edit")}
+        a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') #{__("Cancel")}

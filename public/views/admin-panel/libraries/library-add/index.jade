@@ -3,20 +3,20 @@ include ../../panel
 .container
   form.form-horizontal(name='libraryForm', novalidate)
     fieldset
-      legend Add new Library
+      legend #{__("Add new Library")}
       .row
       
       ul.nav.nav-tabs(style='margin-bottom: 25px')
         
         li.active
           a(href='#main-information', data-toggle='tab', target='_self').active
-            |  Main information
+            |  #{__("Main information")}
         li
           a(href='#working-schedule', data-toggle='tab', target='_self')
-            | Working schedule
+            | #{__("Working schedule")}
         li
           a(href='#librarians', data-toggle='tab', target='_self')
-            | Librarians
+            | #{__("Librarians")}
 
         include ../../../partials/mongoose-validation
 
@@ -27,5 +27,5 @@ include ../../panel
         include ./librarians
 
       .pull-right
-        button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='addLibrary(library, librarians)') Add
-        a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') Cancel
+        button.btn.btn-success(ng-disabled='libraryForm.$invalid' ng-click='addLibrary(library, librarians)') #{__("Add")}
+        a.btn.btn-danger(href='/admin/libraries', style='margin-left:0.2em') #{__("Cancel")}

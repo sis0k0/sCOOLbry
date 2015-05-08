@@ -1,12 +1,12 @@
 .tab-pane.fade#library-books
-  h2 Library books
+  h2 #{__("Library books")}
   table.table.table-striped.table-bordered.table-wrapped
     tr
-      th Book Name
-      th Total Copies 
-      th Copies Available 
-      th Copies Given
-      th Book Section
+      th #{__("Book Name")}
+      th #{__("Total Copies")} 
+      th #{__("Copies Available")} 
+      th #{__("Copies Given")}
+      th #{__("Book Section")}
       th
     tr(ng-repeat='book in libraryBooks')
       td.col-md-4
@@ -16,4 +16,4 @@
       td {{ book.given }}
       td {{ library.librarySections.sectionsTheme[book.section] }}
       td
-        a(ng-href='/book/{{book.bookID}}/{{library._id}}') Link
+        a(ng-href='/book/{{book.bookID}}/{{library._id}}') #{__("Link")}

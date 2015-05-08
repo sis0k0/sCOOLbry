@@ -6,13 +6,13 @@
       .row
         h3.text-info.text-bold
           | {{ user.firstName }} {{ user.lastName }} ({{ user.username }}) 
-        i.fa.fa-male.blue(ng-show='user.gender=="Male"', title='Male', style='font-size: 1.2em')
-        i.fa.fa-female.pink(ng-show='user.gender=="Female"', title='Female', style='font-size: 1.2em')
-        i.fa.fa-user(ng-show='user.gender=="Not specified"', title='Not Specified', style='font-size: 1.2em')
+        i.fa.fa-male.blue(ng-show='user.gender=="Male"', title='#{__("Male")}', style='font-size: 1.2em')
+        i.fa.fa-female.pink(ng-show='user.gender=="Female"', title='#{__("Female")}', style='font-size: 1.2em')
+        i.fa.fa-user(ng-show='user.gender=="Not specified"', title='#{__("Not Specified")}', style='font-size: 1.2em')
       .row
-        span Member since: {{ user.created | date:'dd MMMM yyyy HH:mm:ss'}}
+        span #{__("Member since")}: {{ user.created | date:'dd MMMM yyyy HH:mm:ss'}}
       .row(ng-show='user.dateOfBirth!=="N/A"')
-        span Birthday: {{ user.dateOfBirth | date:'dd MMMM yyyy'}}
+        span #{__("Birthday")}: {{ user.dateOfBirth | date:'dd MMMM yyyy'}}
       .row
         a(href='{{ user.facebookUrl }}', ng-show='user.facebookUrl!=="N/A"')
           i.fa.fa-facebook(style='font-size: 1.5em; color: #fff;')
@@ -21,13 +21,13 @@
         a(href='{{ user.googlePlusUrl }}', ng-show='user.googlePlusUrl!=="N/A"')
           i.fa.fa-google-plus(style='font-size: 1.5em; color: #fff;')
       .row
-        span Email: {{ user.email }}&nbsp;
+        span #{__("Email")}: {{ user.email }}&nbsp;
         a(href='mailto:{{ user.email }}', title='Send an email')
           i.fa.fa-envelope(style='color: #fff;')
       .row(ng-show='user.aboutMe!==""')
-        span About: {{ user.aboutMe }}
+        span #{__("About")}: {{ user.aboutMe }}
       .row
-        h4.text-bold Roles
+        h4.text-bold #{__("Roles")}
         span(ng-repeat='(key, value) in user.roles')
           span {{ value | titleCase }}
           span(ng-if='!$last') , 
@@ -38,7 +38,7 @@
       div(barcode-generator='{{user}}')
     .col-md-5.col-md-offset-0.col-sm-5.col-sm-offset-1.hidden-xs.vcenter
       ul
-        li That's your personal sCOOLbry ID card.
-        li If your library supports our 'sCOOLbry Welcome' system, you can identify yourself with it.
-        li At the entrance of the library, use the barcode scanner to scan your card.
-        li You can download it (simply click on it) and print it, but you can also use it from your phone or tablet.
+        li #{__("That's your personal sCOOLbry ID card.")}
+        li #{__("If your library supports our 'sCOOLbry Welcome' system, you can identify yourself with it.")}
+        li #{__("At the entrance of the library, use the barcode scanner to scan your card.")}
+        li #{__("You can download it (simply click on it) and print it, but you can also use it from your phone or tablet.")}

@@ -1,7 +1,7 @@
 include ../panel
 
 .container
-  h1.text-center Books list
+  h1.text-center #{__("Books list")}
 
   #users-list.table-responsive(ng-init="pages();")
     table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
@@ -9,21 +9,21 @@ include ../panel
         tr.text-bold.text-primary
           td#_id(ng-click="sort($event); reloadBooks()") ID
             span#_id.glyphicon.glyphicon-sort.text-right
-          td#uploaded(ng-click="sort($event); reloadBooks()") Uploaded
+          td#uploaded(ng-click="sort($event); reloadBooks()") #{__("Uploaded")}
             span#uploaded.glyphicon.glyphicon-sort.text-right
-          td#isbn(ng-click="sort($event); reloadBooks()") ISBN
+          td#isbn(ng-click="sort($event); reloadBooks()") #{__("ISBN")}
             span#isbn.glyphicon.glyphicon-sort.text-right
-          td#name(ng-click="sort($event); reloadBooks()") Title
+          td#name(ng-click="sort($event); reloadBooks()") #{__("Title")}
             span#title.glyphicon.glyphicon-sort.text-right
-          td#author(ng-click="sort($event); reloadBooks()") Author
+          td#author(ng-click="sort($event); reloadBooks()") #{__("Author")}
             span#author.glyphicon.glyphicon-sort.text-right
-          td#published(ng-click="sort($event); reloadBooks()") Published
+          td#published(ng-click="sort($event); reloadBooks()") #{__("Published")}
             span#published.glyphicon.glyphicon-sort.text-right
-          td#publisher(ng-click="sort($event); reloadBooks()") Publisher
+          td#publisher(ng-click="sort($event); reloadBooks()") #{__("Publisher")}
             span#publisher.glyphicon.glyphicon-sort.text-right
-          td#themes(ng-click="sort($event); reloadBooks()") Themes
+          td#themes(ng-click="sort($event); reloadBooks()") #{__("Themes")}
             span#themes.glyphicon.glyphicon-sort.text-right
-          td Actions
+          td #{__("Actions")}
       tr(ng-repeat="book in books")
         td.text-bold {{ book._id }}
         td {{ book.uploaded | date:'dd/MM/yyyy'  }}
@@ -35,11 +35,11 @@ include ../panel
         td 
           p(ng-repeat='theme in book.themes track by $index') {{ theme | titleCase }}
         td
-          a.btn-sm(href='/admin/book/{{ book._id }}', tooltip='Browse')
+          a.btn-sm(href='/admin/book/{{ book._id }}', tooltip='#{__("Browse")}')
             span.glyphicon.glyphicon-search.text-success
-          a.btn-sm(href='/admin/book/edit/{{ book._id }}', tooltip='Edit')
+          a.btn-sm(href='/admin/book/edit/{{ book._id }}', tooltip='#{__("Edit")}')
             span.glyphicon.glyphicon-edit.text-primary
-          a.btn-sm(href='/admin/book/delete/{{ book._id }}', tooltip='Delete', onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")')
+          a.btn-sm(href='/admin/book/delete/{{ book._id }}', tooltip='#{__("Delete")}', onclick='return window.confirm("Deleting a book" || "Are you sure that you want to delete this book?")')
             span.glyphicon.glyphicon-remove.text-danger
   .pagination
       li(ng-repeat="i in range(pagesCount) track by $index")

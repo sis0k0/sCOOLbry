@@ -1,7 +1,7 @@
 include ../panel
 
 .container(ng-controller="LibraryInfoCtrl")
-  h1.text-center Library 
+  h1.text-center #{__("Library")} 
     span.text-info '{{ library.name }}'
 
 
@@ -9,16 +9,16 @@ include ../panel
   ul.nav.nav-tabs(style='margin-bottom: 25px')
     li.active
       a(href='#about', data-toggle='tab', target='_self').active
-        |  About
+        |  #{__("About")}
     li
       a(href='#library-books', data-toggle='tab', target='_self')
-        | Books
+        | #{__("Books")}
     li
       a(href='#library-users', data-toggle='tab', target='_self')
-        | Users
+        | #{__("Users")}
     li
       a(href='#working-schedule', data-toggle='tab', target='_self')
-        | Working schedule
+        | #{__("Working schedule")}
 
   #myTabContent.tab-content
     
@@ -29,6 +29,6 @@ include ../panel
       
 
   .row
-    a.btn.btn-primary.pull-right(href='/library-panel/library-settings') Edit
+    a.btn.btn-primary.pull-right(href='/library-panel/library-settings') #{__("Edit")}
   
 

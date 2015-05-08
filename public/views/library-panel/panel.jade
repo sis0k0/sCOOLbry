@@ -3,7 +3,7 @@
 
     div(role='navigation').nav
       .navbar-header
-        button#panel.btn.btn-success.pull-left.navbar-toggle(type='button', data-toggle='collapse', data-target='#library-menu') Toggle Library Menu
+        button#panel.btn.btn-success.pull-left.navbar-toggle(type='button', data-toggle='collapse', data-target='#library-menu') #{__("Toggle Library Menu")}
         a.navbar-brand(href="/")
 
       #library-menu.navbar-collapse.collapse
@@ -11,7 +11,7 @@
         ul.nav.nav-tabs.nav-justified(role='tablist')
 
           li(ng-class="{ 'active' : (path == '/library-panel') }")
-            a(href='/library-panel', data-toggle="tab") About
+            a(href='/library-panel', data-toggle="tab") #{__("About")}
 
           li(ng-repeat='obj in menu', ng-class="{ 'active' : (obj.name == currentMenuItem) }")
             a(href='#{{obj.name}}', data-toggle='tab', target='_self')

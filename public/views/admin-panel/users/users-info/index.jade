@@ -4,19 +4,19 @@ include ../../panel
   ul.nav.nav-tabs(style="margin-bottom: 25px")
     li.active
       a(href="#personal-information", data-toggle="tab", target="_self").active
-        | Personal information
+        | #{__("Personal information")}
     li
       a(href="#favorites", data-toggle="tab", target="_self")
-        | Favorites
+        | #{__("Favorites")}
     li
       a(href="#library-subscriptions", data-toggle="tab", target="_self")
-        | Libraries
+        | #{__("Libraries")}
     li
       a(href="#readings", data-toggle="tab", target="_self")
-        | Readings
+        | #{__("Readings")}
     li
       a(href="#bookings", data-toggle="tab", target="_self")
-        | Bookings
+        | #{__("Bookings")}
 
   #myTabContent.tab-content
 
@@ -28,5 +28,5 @@ include ../../panel
     include ./fines
     .row  
       .col-md-3.vcenter(style="margin-top: 1em;")
-          a.btn.btn-primary.pull-left(href='/admin/user/edit/{{ user._id }}') Edit
-          a.btn.btn-danger.pull-left(style='margin-left: 0.5em', href='/admin/user/delete/{{ user._id }}' onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")') Delete
+          a.btn.btn-primary.pull-left(href='/admin/user/edit/{{ user._id }}') #{__("Edit")}
+          a.btn.btn-danger.pull-left(style='margin-left: 0.5em', href='/admin/user/delete/{{ user._id }}' onclick='return window.confirm("Deleting an user" || "Are you sure that you want to delete this user?")') #{__("Delete")}

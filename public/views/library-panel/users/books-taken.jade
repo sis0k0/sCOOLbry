@@ -1,7 +1,7 @@
 include ../panel
 
 .container
-    h1.text-center Books taken
+    h1.text-center #{__("Books taken")}
 
     #users-list.table-responsive(ng-init="pages();")
       table.table.table-hover.table-bordered(ng-class="{ 'table-wrapped': windowWidth>768 }", resize)
@@ -9,17 +9,17 @@ include ../panel
           tr.text-bold.text-primary
             td#_id(ng-click="sort($event); reloadReadings()") ID
               span#_id.glyphicon.glyphicon-sort.text-right
-            td#userID(ng-click="sort($event); reloadReadings()") Username
+            td#userID(ng-click="sort($event); reloadReadings()") #{__("Username")}
               span#userID.glyphicon.glyphicon-sort.text-right
-            td#bookID(ng-click="sort($event); reloadReadings()") Book
+            td#bookID(ng-click="sort($event); reloadReadings()") #{__("Book")}
               span#bookID.glyphicon.glyphicon-sort.text-right
-            td#startDate(ng-click="sort($event); reloadReadings()") Start Date
+            td#startDate(ng-click="sort($event); reloadReadings()") #{__("Start Date")}
               span#startDate.glyphicon.glyphicon-sort.text-right
-            td#endDate(ng-click="sort($event); reloadReadings()") End Date
+            td#endDate(ng-click="sort($event); reloadReadings()") #{__("End Date")}
               span#endDate.glyphicon.glyphicon-sort.text-right
-            td#returnDate(ng-click="sort($event); reloadReadings()") Return Date
+            td#returnDate(ng-click="sort($event); reloadReadings()") #{__("Return Date")}
               span#returnDate.glyphicon.glyphicon-sort.text-right
-            td Actions
+            td #{__("Actions")}
         tr(ng-repeat="reading in readings")
           td.text-bold {{ reading._id }}
           td {{ reading.userName }}
@@ -28,7 +28,7 @@ include ../panel
           td {{ reading.endDate | date:'HH:mm:ss &nbsp;dd/MM/yyyy' }}
           td {{ reading.returnDate | date:'HH:mm:ss &nbsp;dd/MM/yyyy' }}
           td
-            a.btn-sm(href='/library-panel/user/interact/{{ reading.userID }}', tooltip='Return A Book')
+            a.btn-sm(href='/library-panel/user/interact/{{ reading.userID }}', tooltip='#{__("Return A Book")}')
               span.glyphicon.glyphicon-book.text-success
     .pagination
         li(ng-repeat="i in range(pagesCount) track by $index")

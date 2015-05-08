@@ -1,7 +1,7 @@
 include ../../panel
 
 .container
-  h1.text-center Library 
+  h1.text-center #{__("Library")} 
     span.text-info '{{ library.name }}'
 
 
@@ -10,16 +10,16 @@ include ../../panel
   ul.nav.nav-tabs(style='margin-bottom: 25px')
     li.active
       a(href='#about', data-toggle='tab', target='_self').active
-        |  About
+        | #{__("About")}
     li
       a(href='#library-books', data-toggle='tab', target='_self')
-        | Books
+        | #{__("Books")}
     li
       a(href='#library-users', data-toggle='tab', target='_self')
-        | Users
+        | #{__("Users")}
     li
       a(href='#working-schedule', data-toggle='tab', target='_self')
-        | Working schedule
+        | #{__("Working schedule")}
 
   #myTabContent.tab-content
     
@@ -30,7 +30,7 @@ include ../../panel
       
 
   .row
-    a.btn.btn-danger.pull-right(href='/admin/library/delete/{{ library._id }}' onclick='return window.confirm("Deleting a library" || "Are you sure that you want to delete this library?")') Delete   
-    a.btn.btn-primary.pull-right(href='/admin/library/edit/{{ library._id }}', style='margin-right:0.25em') Edit
+    a.btn.btn-danger.pull-right(href='/admin/library/delete/{{ library._id }}' onclick='return window.confirm("Deleting a library" || "Are you sure that you want to delete this library?")') #{__("Delete")}   
+    a.btn.btn-primary.pull-right(href='/admin/library/edit/{{ library._id }}', style='margin-right:0.25em') #{__("Edit")}
   
 
