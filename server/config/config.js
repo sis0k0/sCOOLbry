@@ -31,14 +31,15 @@ module.exports = {
         rootPath: rootPath,
        // elasticHost: 'localhost:9200',
         elasticHost: 'https://711fqwx7:p9azlyuf5unldabk@apricot-5221687.us-east-1.bonsai.io/',
-        // db: 'mongodb://admin:test@ds029541.mongolab.com:29541/scoolbry2',
-        db: 'mongodb://admin:test@ds053109.mongolab.com:53109/scoolbry',
-        // db: 'mongodb://admin:test@ds043971.mongolab.com:43971/scoolbry-test',
+        // db: 'mongodb://admin:test@ds041871.mongolab.com:41871/scoolbry-demo-2',
 
+        // db: 'mongodb://admin:test@ds029541.mongolab.com:29541/scoolbry2',
+        // db: 'mongodb://admin:test@ds053109.mongolab.com:53109/scoolbry',
+        // db: 'mongodb://admin:test@ds043971.mongolab.com:43971/scoolbry-test',
 
         // DEMO
         // db: 'mongodb://admin:test@ds045097.mongolab.com:45097/scoolbry-testfordemo',
-        // db: 'mongodb://admin:test@dbh13.mongolab.com:27137/scoolbry-demo',
+        db: 'mongodb://admin:test@dbh13.mongolab.com:27137/scoolbry-demo',
         // db: 'mongodb://admin:test@ds045027.mongolab.com:45027/test-demo-scoolbry',
         port: process.env.PORT || 3030,
         facebook: {

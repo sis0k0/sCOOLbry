@@ -36,7 +36,7 @@
           h4 #{__("Get the book")}
         .panel-body(ng-show='user')
           div(ng-hide='reservationEnd || !libraryID')
-            a.btn.btn-success(ng-show='!isMember && (libBook.available>bookings.length && libBook.available>0)', ng-href='/libraries/{{library._id}}') #{__("Subscribe to reserve")}
+            a.btn.btn-success(style='margin-bottom: 0.25em', ng-show='!isMember && (libBook.available>bookings.length && libBook.available>0)', ng-href='/libraries/{{library._id}}') #{__("Subscribe to reserve")}
             button.btn.btn-success(style='margin-bottom: 0.25em', ng-click='addBooking()', ng-show='(libBook.available>bookings.length && libBook.available>0) && isMember', ng-confirm-click='#{__("Are you sure you want to reserve that book?")}').btn.btn-primary #{__("Reserve")}
             button(style='margin-top:0.5em', ng-hide='(libBook.available>bookings.length && libBook.available>0) || !isMember || subscribedForAvailability', ng-click='subscribeForAvailabilityNotification()').btn.btn-success #{__("Notify me when available")}
             button(style='margin-top:0.5em', ng-show='subscribedForAvailability && (libBook.available<=bookings.length || libBook.available===0)', ng-click='unsubscribeForAvailabilityNotification()').btn.btn-danger #{__("Don't notify when available")}

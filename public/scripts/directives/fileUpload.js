@@ -13,7 +13,6 @@ app.directive('fileupload', function ($http) {
             scope.loading = 0;
             scope.uploadError = undefined;
             element.bind('change', function (changeEvent) {
-                console.log('change');
                 scope.$apply(function () {
                     scope.fileupload = changeEvent.target.files[0];
                 });
@@ -34,7 +33,6 @@ app.directive('fileupload', function ($http) {
 
                     $http.post('/api/books/full-text', {text: data}).
                         success(function(books) {
-                            console.log(books);
                             if(books.length) {
                                 scope.text = books;
                             } else {
