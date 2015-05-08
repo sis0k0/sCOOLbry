@@ -36,7 +36,7 @@
       
       div
         h3 #{__("Certificate")}
-        img(fallback-src, ng-src='{{library.certificate}}').img-responsive.img-thumbnail
+        img(ng-src='{{library.certificate}}').img-responsive.img-thumbnail
       div(ng-show='library.description')
         h2.text-success #{__("Description")}
         p {{ library.description }}

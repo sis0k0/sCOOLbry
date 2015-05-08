@@ -76,7 +76,7 @@
               label.control-label(for="password") #{__("Password")}
               .row
                 .col-xs-12
-                    input.form-control(name="password", type="password", placeholder="#{__("Password")}", tooltip-placement='left',  tooltip-trigger="focus", tooltip="#{__('Lowercase letters, digits, hyphens and underscores. 6-18 characters')}", ng-model="librarian.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
+                    input.form-control(name="password", type="password", placeholder="#{__('Password')}", tooltip-placement='left',  tooltip-trigger="focus", tooltip="#{__('Lowercase letters, digits, hyphens and underscores. 6-18 characters')}", ng-model="librarian.password", ng-pattern="/^[a-z0-9_-]{6,18}$/", required)
             .form-group(ng-class="{ 'has-error': (librarianForm.confirmPassword.$invalid), 'has-success': (librarianForm.confirmPassword.$valid) }")
               label.control-label(for="confirm-password") #{__("Confirm password")}
               .row
