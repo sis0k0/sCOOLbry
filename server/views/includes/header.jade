@@ -7,9 +7,9 @@
         span.icon-bar
         span.icon-bar
       a.navbar-brand(href='/')
-      a(href='en', title='English', ng-show='flag==="gb"', target='_self').pull-left.nopadding-horizontal
+      a#translate(href='en', title='English', ng-show='flag==="gb"', target='_self').pull-left.nopadding-horizontal
         span(class="flag flag-gb").nopadding-horizontal
-      a(href='bg', title='Български', ng-show='flag==="bg"', target='_self').pull-right.nopadding-horizontal
+      a#translate(href='bg', title='Български', ng-show='flag==="bg"', target='_self').pull-right.nopadding-horizontal
         span(class="flag flag-bg").nopadding-horizontal
       div(ng-controller='NotificationsCtrl')
         button#navbar-collapsed-notifications.notifications-icon.btn.btn-success.dropdown.navbar-toggle(aria-hidden='true', data-toggle='dropdown', ng-class=" {'notification-success': notifications.length} ")

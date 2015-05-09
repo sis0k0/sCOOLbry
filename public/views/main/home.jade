@@ -55,7 +55,7 @@
         p #{__("Using search should be as simple and comprehensive as possible. With sCOOLbry's text recognition technology you can simply take a picture of a book to find it.")}
 
       div(style='margin-top:3em; padding-bottom:3em').text-center
-        a.btn.btn-warning.btn-large(href='/signup') #{__("Start your journey now!")}
+        a#start-journey.btn.btn-warning.btn-large(href='/signup') #{__("Start your journey now!")}
 
     .col-md-4.col-md-offset-1.vcenter.hidden-xs.hidden-sm
       img(src='../../dist/images/book.jpg').img-responsive
@@ -85,7 +85,7 @@
         p #{__("With sCOOLbry you can automatically collect taxes from your subscribers, manage fines and keep an eye on your books.")}
 
       div(style='margin-top:3em').text-center
-        a.btn.btn-info.btn-large(href='/register-library') #{__("Digitize your library now!")}
+        a#digitalize-now.btn.btn-info.btn-large(href='/register-library') #{__("Digitize your library now!")}
 
 
 .container(ng-show='identity.currentUser')

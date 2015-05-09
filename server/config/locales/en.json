@@ -245,5 +245,9 @@
 	"Adding books to a library system is a slow and tedious process. But not with sCOOLbry! Import from external database, scan the ISBN or take a picture - the choice is yours!": "Adding books to a library system is a slow and tedious process. But not with sCOOLbry! Import from external database, scan the ISBN or take a picture - the choice is yours!",
 	"Do it better": "Do it better",
 	"With sCOOLbry you can automatically collect taxes from your subscribers, manage fines and keep an eye on your books.": "With sCOOLbry you can automatically collect taxes from your subscribers, manage fines and keep an eye on your books.",
-	"Digitize your library now!": "Digitize your library now!"
+	"Digitize your library now!": "Digitize your library now!",
+	"Toggle Library Menu": "Toggle Library Menu",
+	"Users list": "Users list",
+	"First name": "First name",
+	"Last name": "Last name"
 }
