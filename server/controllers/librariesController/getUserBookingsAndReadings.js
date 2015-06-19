@@ -3,24 +3,21 @@
 var Reading  = require('mongoose').model('Reading'),
     Booking  = require('mongoose').model('Booking'),
     Book     = require('mongoose').model('Book'),
-    User     = require('mongoose').model('User');
+    User     = require('mongoose').model('User'),
+    errors   = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
     var history = [];
     User.findOne({_id: req.params.userID}).exec(function(err, user) {
-        if (err) {
-            console.log('User could not be loaded: ' + err);
-            res.status(503).send('Cannot connect to database');
-        } else if(!user) {
-            res.status(404).send('User not found');
+        if (err || !user) {
+            return next(new errors.DatabaseError(err, 'User'));
         } else {
 
             Reading.find({userID: user._id, returnDate: undefined}).exec(function(err, collection) {
                 
                 if (err) {
-                    console.log('Readings could not be loaded: ' + err);
-                    res.status(503).send('Cannot connect to database');
+                    return next(new errors.DatabaseError(err, 'Readings'));
                 }
 
                 var readingsCount = collection.length;
@@ -33,8 +30,7 @@ module.exports = function(req, res) {
                     var bookingsCount = bookingsCollection.length;
 
                     if(err) {
-                        console.log('Readings could not be loaded: ' + err);
-                        res.status(503).send('Cannot connect to database.');
+                        return next(new errors.DatabaseError(err, 'Bookings'));
                     } else if(bookingsCount<1 && readingsCount<1) {
                         res.send(history);
                     }
@@ -46,8 +42,7 @@ module.exports = function(req, res) {
 
                         Book.findOne({_id: collection[i].bookID}).exec(function(err, book) {
                             if (err) {
-                                console.log('Book could not be loaded: ' + err);
-                                res.status(503).send('Cannot connect to database');
+                                return next(new errors.DatabaseError(err, 'Book'));
                             } else {
                                 var reading = new Object({});
                                 reading.type = 'reading';
@@ -67,8 +62,7 @@ module.exports = function(req, res) {
 
                         Book.findOne({_id: bookingsCollection[j].bookID}).exec(function(err, book) {
                             if (err) {
-                                console.log('Book could not be loaded: ' + err);
-                                res.status(503).send('Cannot connect to database');
+                                return next(new errors.DatabaseError(err, 'Book'));
                             } else {
                                 var booking = new Object({});
                                 booking.type = 'booking';

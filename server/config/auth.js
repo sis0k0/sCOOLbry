@@ -1,8 +1,9 @@
 'use strict';
 
-var passport    = require('passport'),
-    http        = require('http'),
-    querystring = require('querystring');
+var passport     = require('passport'),
+    http         = require('http'),
+    querystring  = require('querystring'),
+    errors       = require('../utilities/httpErrors');
 
 
 // Private methods
@@ -177,10 +178,10 @@ logout = function(req, res) {
 isAuthorized = function() {
     return function(req, res, next) {
         if(!isAuthenticated(req)) {
-            res.status(401).send('Sorry, you are not authenticated!');
+            return next(new errors.ClientError(401));
         } else {
             if(!isAuthorized(req)) {
-                res.status(403).send('Sorry, you are not authorized!');
+                return next(new errors.ClientError(403));
             } else {
                 next();
             }
@@ -190,9 +191,9 @@ isAuthorized = function() {
 isInRole = function(role) {
     return function(req, res, next) {
         if(!isAuthenticated(req)) {
-            res.status(401).send('Sorry, you are not authenticated!');
+            return next(new errors.ClientError(401));
         } else if(!roleChecker(req.user.roles, role)) {
-            res.status(403).send('Sorry, you are not authorized!');
+            return next(new errors.ClientError(403));
         } else {
             next();
         }
@@ -202,9 +203,9 @@ isInRole = function(role) {
 isAuthenticatedOrInRole = function(role) {
     return function(req, res, next) {
         if(!isAuthenticated(req)) {
-            res.status(401).send('Sorry, you are not authenticated!');
+            return next(new errors.ClientError(401));
         } else if(!isAuthorized(req) && !roleChecker(req.user.roles, role)) {
-            res.status(403).send('Sorry, you are not authorized!');
+            return next(new errors.ClientError(403));
         } else {
             next();
         }

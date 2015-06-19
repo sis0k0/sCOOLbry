@@ -1,16 +1,15 @@
 'use strict';
 
-var LibFines = require('mongoose').model('LibFines');
+var LibFines = require('mongoose').model('LibFines'),
+    errors   = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
-    LibFines.findOne({_id: req.params.id}).exec(function(err, book) {
-        if (err) {
-            console.log('Library fine could not be loaded: ' + err);
-            res.status(503).send('Cannot connect to database');
-        } else if(!book) {
-            res.status(404).send('Library fine not found');
+module.exports = function(req, res, next) {
+
+    LibFines.findOne({_id: req.params.id}).exec(function(err, fines) {
+        if (err || !fines) {
+            return next(new errors.DatabaseError(err, 'Library Fines'));
         } else {
-            res.send(book);
+            res.send(fines);
         }
     });
 };

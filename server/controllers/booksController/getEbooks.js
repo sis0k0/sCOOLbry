@@ -1,18 +1,16 @@
 'use strict';
 
-var Book = require('mongoose').model('Book');
+var Book    = require('mongoose').model('Book'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-    
     Book
     .find()
     .exists('ebookUrl')
     .exec(function(err, collection) {
         if (err) {
-            console.log('Books could not be loaded: ' + err);
+            return next(new errors.DatabaseError(err, 'EBooks'));
         }
 
         res.send(collection);

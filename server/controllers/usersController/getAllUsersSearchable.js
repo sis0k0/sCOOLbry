@@ -1,8 +1,9 @@
 'use strict';
 
-var User = require('mongoose').model('User');
+var User    = require('mongoose').model('User'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
     User
     .find(
@@ -17,7 +18,7 @@ module.exports = function(req, res) {
         )
     .exec(function(err, collection) {
         if (err) {
-            console.log('Users could not be loaded: ' + err);
+            return next(new errors.DatabaseError(err, 'User'));
         }
         res.send(collection);
     });

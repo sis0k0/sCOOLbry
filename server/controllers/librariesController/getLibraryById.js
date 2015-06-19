@@ -1,14 +1,13 @@
 'use strict';
 
-var Library = require('mongoose').model('Library');
-module.exports = function(req, res) {
+var Library = require('mongoose').model('Library'),
+    errors  = require('../../utilities/httpErrors');
+
+module.exports = function(req, res, next) {
 
     Library.findOne({_id: req.params.id}).exec(function(err, library) {
-        if (err) {
-            console.log('Library could not be loaded: ' + err);
-            res.status(503).send('Cannot connect to database');
-        } else if(!library) {
-            res.status(404).send('Library not found');
+        if (err || !library) {
+            return next(new errors.DatabaseError(err, 'Library'));
         } else {
             res.send(library);
         }

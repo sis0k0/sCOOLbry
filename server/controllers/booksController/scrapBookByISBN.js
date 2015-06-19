@@ -1,7 +1,7 @@
 'use strict';
 
-var    request         = require('request'),
-    cheerio         = require('cheerio');
+var request = require('request'),
+    cheerio = require('cheerio');
 
 module.exports = function(req, res) {
 

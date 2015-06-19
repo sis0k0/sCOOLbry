@@ -1,13 +1,14 @@
 'use strict';
 
-var FavBook = require('mongoose').model('FavBook');
+var FavBook = require('mongoose').model('FavBook'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
     FavBook.find({userID: req.params.userID, libraryID: req.params.libraryID}).exec(function(err, collection) {
-        if (err) {
-            console.log('Books could not be loaded: ' + err);
-        }
 
+        if (err) {
+            return next(new errors.DatabaseError(err, 'Favorite Books'));
+        }
         res.send(collection);
     });
 };

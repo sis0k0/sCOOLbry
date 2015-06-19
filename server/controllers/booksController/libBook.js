@@ -1,13 +1,16 @@
 'use strict';
 
-var LibBook = require('mongoose').model('LibBook');
+var LibBook = require('mongoose').model('LibBook'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
+
     LibBook.remove({_id: req.params.id}, function(err) {
         if (err) {
-                res.send('false');
-        }else{
-                res.send('true');
+            return next(new errors.DatabaseError(err, 'Library Book'));
+        } else {
+            res.send('true');
         }
     });
+
 };

@@ -1,23 +1,23 @@
 'use strict';
 
-var Reading 	= 	require('mongoose').model('Reading');
-var LibFines	= 	require('mongoose').model('LibFines');
-var Library 	= 	require('mongoose').model('Library');
+var Reading  = 	require('mongoose').model('Reading'),
+    LibFines = 	require('mongoose').model('LibFines'),
+    Library  = 	require('mongoose').model('Library'),
+    errors   = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
 	var now = new Date();
 
     Reading.find({endDate: {$lte: now}, returnDate: undefined, fined: undefined}).exec(function(err, collection) {
         if (err) {
-            console.log('Readings could not be loaded: ' + err);
+            return next(new errors.DatabaseError(err, 'Readings'));
         }
 
         collection.forEach(function(item){
         	Library.findOne({_id: item.libraryID}).exec(function(err, library) {
-       			if (err) {
-            		console.log('Library could not be loaded: ' + err);
-            	} else if(!library) {
+       			if (err || !library) {
+                    return next(new errors.DatabaseError(err, 'Library'));
             	} else {
             		var newFine = new Object({}), now = new Date();
 		    		newFine.userID = item.userID;
@@ -34,39 +34,17 @@ module.exports = function(req, res) {
 
 		   			LibFines.create(newFine, function(err){
 		       			if(err) {
-		            		console.log('Failed to add the fine: '+err);
+                            return next(new errors.DatabaseError(err, 'Library Fines'));
 			     		}
-
 			     		Reading.update({_id: item._id}, {fined: now}, function(err){
 			     			if(err) {
-			     				console.log(err);
+                                return next(new errors.DatabaseError(err, 'Reading'));
 			     			}
 			     		});
 		            });
 
        		 	}
     		});
-
-			
-
-		   // LibFines.create(newFine, function(err, fine){
-		       // if(err) {
-		   //         console.log('Failed to add the fine: '+err);
-		     //       res.send({reason: err});
-		       // } else {
-
-		  //          var socketio = req.app.get('socketio'); // take out socket instance from the app container
-		            // Notify the user
-		    //        var result = Notification.addFine(socketio, fine.amount, fine.userID);
-		      //      console.log(result);
-		        //    if(result) { // If error is returned
-		          //      res.status(400).send({reason: result});
-		           //     return;
-		            //} else { // If no error occured
-		              //  res.send(fine); // Return the fine
-		            //}
-		    //    }
-		   // });
 
         });
 

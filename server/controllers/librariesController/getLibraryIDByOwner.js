@@ -16,8 +16,6 @@ module.exports = function(req, res) {
         } else if(typeof user.ownLibraryID === 'undefined' || user.ownLibraryID === '') {
             res.status(400).send('User not library owner');
         } else {
-            console.log(typeof user.ownLibraryID);
-            console.log(user.ownLibraryID);
             res.send(user.ownLibraryID);
         }
     });

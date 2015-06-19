@@ -1,15 +1,15 @@
 'use strict';
 
-var Library = require('mongoose').model('Library');
+var Library = require('mongoose').model('Library'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
         
     Library.remove({_id: req.params.id}, function(err) {
         if (err) {
-                res.send('false');
-        }else{
-                res.send('true');
-                
+            return next(new errors.DatabaseError(err, 'Library'));
+        } else {
+            res.send('true');
         }
     });
 };

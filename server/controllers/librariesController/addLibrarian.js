@@ -1,16 +1,17 @@
 'use strict';
 
-var Library = require('mongoose').model('Library');
+var Library = require('mongoose').model('Library'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
+
     Library.findOne({_id: req.params.libraryID}).exec(function(err, library) {
 
         if (err) {
-            console.log('Library could not be loaded: ' + err);
+            return next(new errors.DatabaseError(err, 'Library'));
         }
 
         library.librarians.push(req.params.userID);
-        
 
         var updatedLibraryData = new Object({});
         updatedLibraryData = library.toObject();
@@ -20,7 +21,7 @@ module.exports = function(req, res) {
         delete updatedLibraryData.$resolved;
 
         Library.update({_id: req.params.libraryID}, updatedLibraryData, function(err) {
-            console.log(err);
+            return next(new errors.DatabaseError(err, 'Library')); 
             
         });
         

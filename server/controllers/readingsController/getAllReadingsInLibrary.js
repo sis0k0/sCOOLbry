@@ -1,11 +1,12 @@
 'use strict';
 
-var Reading = require('mongoose').model('Reading');
+var Reading = require('mongoose').model('Reading'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
     Reading.find({libraryID: req.params.libraryID}).distinct('userID').exec(function(err, collection) {
         if (err) {
-            console.log('Readings could not be loaded: ' + err);
+            return next(new errors.DatabaseError(err, 'Readings'));
         }
         var collection2 = [];
 

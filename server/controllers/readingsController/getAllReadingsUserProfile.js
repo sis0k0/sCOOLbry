@@ -1,17 +1,22 @@
 'use strict';
 
-var Reading = require('mongoose').model('Reading');
-var Book = require('mongoose').model('Book');
+var Reading = require('mongoose').model('Reading'),
+    Book    = require('mongoose').model('Book'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
     Reading.find({userID: req.params.userID}).exec(function(err, collection) {
 
         if (err) {
-            res.status(400).send(err);
+            return next(new errors.DatabaseError(err, 'Readings'));
         }
 
         var bookIDs = collection.map(function(reading){ return reading.bookID; });
         Book.find({_id: {$in: bookIDs} }, function (err, books) {
+
+            if(err) {
+                return next(new errors.DatabaseError(err, 'Books'));
+            }
         	
             var result = [];
             var temp = {};

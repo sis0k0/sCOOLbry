@@ -1,8 +1,9 @@
 'use strict';
 
-var LibFines = require('mongoose').model('LibFines');
+var LibFines = require('mongoose').model('LibFines'),
+    errors   = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
     var order   = req.params.order || 'asc',
         field   = req.params.field || '_id',
@@ -24,7 +25,7 @@ module.exports = function(req, res) {
         )
     .exec(function(err, collection) {
         if (err) {
-            console.log('LibFines could not be loaded: ' + err);
+            return next(new errors.DatabaseError(err, 'Library Fines'));
         }
 
         res.send(collection);

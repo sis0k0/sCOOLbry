@@ -72,7 +72,6 @@ module.exports = function (req, res) {
             if(returnedObject.hasOwnProperty('Title')) {
                 book.title = returnedObject.Title[0];
             }
-            console.log('amazon');
             res.send(book);
         } else {
             res.send(false);

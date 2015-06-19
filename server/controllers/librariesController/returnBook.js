@@ -2,19 +2,20 @@
 
 var Reading      = require('mongoose').model('Reading'),
     LibBook      = require('mongoose').model('LibBook'),
-    Notification = require('../../services/NotificationService');
+    Notification = require('../../services/NotificationService'),
+    errors       = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
     
     Reading.update({bookISBN: req.body.bookISBN, userID: req.body.userID, libraryID: req.body.libraryID, returnDate: undefined}, req.body, function(err) {
             
         if(err) {
-            console.log(err);
+            return next(new errors.DatabaseError(err, 'Reading'));
         }
+
         LibBook.update({libraryID: req.body.libraryID, bookID: req.body.bookID}, {$inc: {available: +1, given: -1}}, function(err) {
             if(err) {
-                console.log('Cannot connect to database: ' + err);
-                res.status(503).send('Cannot connect to database');
+                return next(new errors.DatabaseError(err, 'Library Book'));
             }
 
             Reading.findOne({bookISBN: req.body.bookISBN, userID: req.body.userID, libraryID: req.body.libraryID}, function(err, reading) {
@@ -24,6 +25,7 @@ module.exports = function(req, res) {
                 // Notify all subscribed users
                 var result = Notification.addBookAvailable(socketio, reading);
                 if(result) {
+                    // Don't throw error, just because the notification failed
                     res.status(400).send({reason: result});
                     return;
                 } else {

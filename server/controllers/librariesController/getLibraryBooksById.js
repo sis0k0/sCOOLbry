@@ -1,9 +1,10 @@
 'use strict';
 
 var LibBook = require('mongoose').model('LibBook'),
-    Booking = require('mongoose').model('Booking');
+    Booking = require('mongoose').model('Booking'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
     var conditions = {};
 
@@ -17,8 +18,7 @@ module.exports = function(req, res) {
     .find(conditions)
     .exec(function(err, books) {
         if (err) {
-            console.log('LibBook could not be loaded: ' + err);
-            res.status(503).send('Cannot connect to database');
+            return next(new errors.DatabaseError(err, 'Library Books'));
         } else if(req.params.available === 'true') {
             
             var now = new Date(),
@@ -29,8 +29,7 @@ module.exports = function(req, res) {
             .find({libraryID: req.params.id, bookDate: {$gte: now } })
             .exec(function(err, collection) {
                 if(err) {
-                    console.log('Bookings could not be loaded: ' + err);
-                    res.status(503).send('Cannot connect to database');
+                    return next(new errors.DatabaseError(err, 'Bookings'));
                 }
 
                 // Check how many books are actually available, eg. not booked

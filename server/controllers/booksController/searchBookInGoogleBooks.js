@@ -117,7 +117,6 @@ module.exports = function(req, res) {
                         result.language = options.lang;
                     }
                     
-                    console.log('google books');
                     res.send(result);
                 } else {
                     res.send(false);

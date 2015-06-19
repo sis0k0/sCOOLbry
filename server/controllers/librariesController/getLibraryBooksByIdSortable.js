@@ -1,8 +1,9 @@
 'use strict';
 
-var LibBook = require('mongoose').model('LibBook');
+var LibBook = require('mongoose').model('LibBook'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
     var conditions = {};
     conditions.libraryID = req.params.id;
@@ -21,8 +22,7 @@ module.exports = function(req, res) {
 
     LibBook.find(conditions, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage}).exec(function(err, books) {
         if (err) {
-            console.log('LibBook could not be loaded: ' + err);
-            res.status(503).send('Cannot connect to database');
+            return next(new errors.DatabaseError(err, 'Library Books'));
         } else {
             res.send(books);
         }

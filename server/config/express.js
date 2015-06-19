@@ -60,10 +60,10 @@ module.exports = function(app, config) {
     // Configure express session
     app.use(
         session({
-                secret: 'pwF1Kv7CJ0F33MAQeXP5hUJf7344bz', 
-                saveUninitialized: true,
-                resave: true
-        })
+            secret: 'pwF1Kv7CJ0F33MAQeXP5hUJf7344bz', 
+            saveUninitialized: true,
+            resave: true
+        })  
     );
 
     // Configure middleware for compiling stylus to css
@@ -91,8 +91,5 @@ module.exports = function(app, config) {
         }
         next();
     });
-
-
-
 
 };

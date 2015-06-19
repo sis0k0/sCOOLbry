@@ -1,34 +1,31 @@
 'use strict';
 
-var paypal = require('paypal-rest-sdk');
-var LibFines = require('mongoose').model('LibFines');
-var LibUser = require('mongoose').model('LibUser');
+var paypal = require('paypal-rest-sdk'),
+    LibFines = require('mongoose').model('LibFines'),
+    LibUser = require('mongoose').model('LibUser'),
+    errors  = require('../../utilities/httpErrors');
 
 
-module.exports = function(req, res) {
-    var paymentId = req.session.paymentId;
-    var paymentType = req.session.paymentType;
+module.exports = function(req, res, next) {
 
+    var paymentId = req.session.paymentId,
+        paymentType = req.session.paymentType,
+        payerId = req.param('PayerID'),
+        details = { 'payer_id': payerId };
 
-	var payerId = req.param('PayerID');
+    paypal.payment.execute(paymentId, details, function (err) {
+        if (err) {
+            return next(new errors.DatabaseError(err, 'PayPal Payment'));
+        } else {
+            if(paymentType==='fine') {
+                var now = new Date();
 
-	var details = { 'payer_id': payerId };
-	paypal.payment.execute(paymentId, details, function (error) {
-		if (error) {
-			console.log(error);
-			res.send(error);
-			res.end();
-		} else {
-			if(paymentType==='fine') {
-    			var now = new Date();
-
-        	var paidObject = {
-          		paid: now
-        	};
+            var paidObject = {
+                paid: now
+            };
         
           LibFines.update({paymentId: paymentId}, paidObject, {runValidators: true}, function(err) {
-              console.log(err);
-              res.end();
+                return next(new errors.DatabaseError(err, 'Library Fines'));
           });
 
 
@@ -40,20 +37,17 @@ module.exports = function(req, res) {
               active: true
           };
           
-          console.log(paymentId);
-          console.log(paidObject);
-          LibUser.update({paymentId: paymentId}, paidObject, {runValidators: true}, function(err) {
-              console.log(err);
-              res.end();
-          });
+            LibUser.update({paymentId: paymentId}, paidObject, {runValidators: true}, function(err) {
+                return next(new errors.DatabaseError(err, 'Library User'));
+            });
       }
-    	
+        
       res.writeHead(302, {
           'Location': '/thank-you'
       });
       
       res.end();
-		}
-	});
+        }
+    });
 
 };

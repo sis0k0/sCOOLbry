@@ -1,15 +1,16 @@
 'use strict';
 
-var Library = require('mongoose').model('Library');
+var Library = require('mongoose').model('Library'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
     var newLibraryData = req.body;
     
     
     Library.create(newLibraryData, function(err, library) {
+
         if (err) {
-            console.log('Failed to add new library: ' + err);
-            res.status(400).send({reason: err});
+            return next(new errors.DatabaseError(err, 'Library'));
         }
         
         res.send(library);

@@ -1,8 +1,9 @@
 'use strict';
 
-var LibUser = require('mongoose').model('LibUser');
+var LibUser = require('mongoose').model('LibUser'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
         
     var newLibraryUser = new Object({});
     newLibraryUser.userID = req.body.userID;
@@ -14,9 +15,9 @@ module.exports = function(req, res) {
 
     
     LibUser.create(newLibraryUser, function(err, user){
+
         if(err) {
-            console.log('Failed to add the user to the library: '+err);
-            return ;
+            return next(new errors.DatabaseError(err, 'Library User'));
         }
         
         res.send(user);

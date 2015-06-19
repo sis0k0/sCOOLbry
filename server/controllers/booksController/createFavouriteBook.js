@@ -1,16 +1,16 @@
 'use strict';
 
-var FavBook = require('mongoose').model('FavBook');
+var FavBook = require('mongoose').model('FavBook'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
-    var newFavBookData = req.body;
-    
-    FavBook.create(newFavBookData, function(err, book) {
+
+module.exports = function(req, res, next) {
+
+    FavBook.create(req.body, function(err, book) {
         if (err) {
-            console.log('Failed to add new favourite book: ' + err);
-            return;
+            return next(new errors.DatabaseError(err, 'Favorite Book'));
         }
-        
         res.send(book);
     });
+    
 };

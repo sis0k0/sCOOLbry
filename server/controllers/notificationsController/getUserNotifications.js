@@ -1,14 +1,14 @@
 'use strict';
 
-var Notification = require('mongoose').model('Notification');
+var Notification = require('mongoose').model('Notification'),
+    errors       = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
     Notification
     .find({userID: req.params.id})
     .exec(function(err, collection) {
         if (err) {
-            console.log('Cannot load notifications: ' + err);
-            res.status(503).send('Cannot connect to database');
+            return next(new errors.DatabaseError(err, 'Notification'));
         }else{
             res.send(collection);
         }

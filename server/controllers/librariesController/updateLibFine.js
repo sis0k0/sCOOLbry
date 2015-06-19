@@ -1,24 +1,22 @@
 'use strict';
 
-var LibFines = require('mongoose').model('LibFines');
+var LibFines = require('mongoose').model('LibFines'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
-    if (req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('librarian') > -1 ) {
-        var now = new Date();
+    var now = new Date();
 
-        var paidObject = {
-            paid: now
-        };
+    var paidObject = {
+        paid: now
+    };
 
-        var updatedId = req.params.id;
-        
-        LibFines.update({_id: updatedId}, paidObject, {runValidators: true}, function(err) {
-            console.log(err);
-            res.end();
-        });
-    }
-    else {
-        res.send({reason: 'You do not have permissions!'});
-    }
+    var updatedId = req.params.id;
+    
+    LibFines.update({_id: updatedId}, paidObject, {runValidators: true}, function(err) {
+        if(err) {
+            return next(new errors.DatabaseError(err, 'Library Fines'));
+        }
+        res.end();
+    });
 };

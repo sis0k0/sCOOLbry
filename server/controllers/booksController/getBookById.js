@@ -1,14 +1,13 @@
 'use strict';
 
-var Book = require('mongoose').model('Book');
+var Book    = require('mongoose').model('Book'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
+
     Book.findOne({_id: req.params.id}).exec(function(err, book) {
-        if (err) {
-            console.log('Book could not be loaded: ' + err);
-            res.status(503).send('Cannot connect to database');
-        } else if(!book) {
-            res.status(404).send('Book not found');
+        if (err || !book) {
+            return next(new errors.DatabaseError(err, 'Book'));
         } else {
 
             var otherCharacteristics = ({});

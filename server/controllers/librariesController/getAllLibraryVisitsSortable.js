@@ -1,8 +1,9 @@
 'use strict';
 
-var LibVisit = require('mongoose').model('LibVisit');
+var LibVisit = require('mongoose').model('LibVisit'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
     var order   = req.params.order || 'asc',
         field   = req.params.field || '_id',
@@ -16,7 +17,7 @@ module.exports = function(req, res) {
     .find({libraryID: req.params.libraryID}, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage})
     .exec(function(err, collection) {
         if (err) {
-            console.log('LibVisits could not be loaded: ' + err);
+            return next(new errors.DatabaseError(err, 'Library Visits'));
         }
         res.send(collection);
     });

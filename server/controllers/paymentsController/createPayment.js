@@ -1,17 +1,15 @@
 'use strict';
 
-var paypal = require('paypal-rest-sdk');
-var LibFines = require('mongoose').model('LibFines');
-var LibUser = require('mongoose').model('LibUser');
+var paypal   = require('paypal-rest-sdk'),
+    LibFines = require('mongoose').model('LibFines'),
+    LibUser  = require('mongoose').model('LibUser'),
+    errors   = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
-    var method = req.param('method');
-
-    var paymentType = req.param('type');
-
-    var itemID = req.param('itemID');
-
-    var description = '';
+module.exports = function(req, res, next) {
+    var method = req.param('method'),
+        paymentType = req.param('type'),
+        itemID = req.param('itemID'),
+        description = '';
 
     if(paymentType==='fine') {
         description = 'Fine '+itemID;
@@ -63,10 +61,9 @@ module.exports = function(req, res) {
     } */
 
 /*jshint camelcase: true */
-    paypal.payment.create(payment, function (error, payment) {
-        if (error) {
-            console.log(error);
-            res.send(error);
+    paypal.payment.create(payment, function (err, payment) {
+        if (err) {
+            return next(new errors.DatabaseError(err, 'PayPal Payment'));
         } else {
             req.session.paymentId = payment.id;
             if(paymentType==='fine') {
@@ -76,8 +73,7 @@ module.exports = function(req, res) {
                 };
         
                 LibFines.update({_id: itemID}, paymentObject, {runValidators: true}, function(err) {
-                    console.log(err);
-                    res.end();
+                    return next(new errors.DatabaseError(err, 'Library Fines'));
                 });
 
             }else{
@@ -88,8 +84,7 @@ module.exports = function(req, res) {
                 };
 
                 LibUser.update({_id: itemID}, paymentObject, {runValidators: true}, function(err) {
-                    console.log(err);
-                    res.end();
+                    return next(new errors.DatabaseError(err, 'Library User'));
                 });
 
 

@@ -1,11 +1,11 @@
 'use strict';
 
-var Library = require('mongoose').model('Library');
+var Library = require('mongoose').model('Library'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
         
     var updatedLibraryData = req.body;
-    console.log(updatedLibraryData);
     var updatedId = req.body._id;
 
     delete updatedLibraryData._id;
@@ -15,10 +15,8 @@ module.exports = function(req, res) {
     
     Library.update({_id: updatedId}, updatedLibraryData, {runValidators: true}, function(err) {
         if(err) {
-            console.log(err);
-            res.status(400).send({reason: err});
-        } else {
-            res.status(200).end();
+            return next(new errors.DatabaseError(err, 'Library'));
         }
+        res.status(200).end();
     });
 };

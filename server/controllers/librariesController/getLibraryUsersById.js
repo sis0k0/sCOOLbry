@@ -1,8 +1,9 @@
 'use strict';
 
-var LibUser = require('mongoose').model('LibUser');
+var LibUser = require('mongoose').model('LibUser'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
     var order   = req.params.order || 'asc',
         field   = req.params.field || '_id',
@@ -13,16 +14,10 @@ module.exports = function(req, res) {
     sortObject[field] = order;
 
     LibUser.find({libraryID: req.params.id}, null, {sort: sortObject, limit: perPage, skip: (page-1)*perPage}).exec(function(err, collection) {
-        console.log('ret');
-        console.log(err);
-        console.log(collection);
 
         if (err) {
-            console.log('Users could not be loaded: ' + err);
+            return next(new errors.DatabaseError(err, 'Library Users'));
         }
-
-        console.log(collection);
-        console.log(req.params.id);
 
         res.send(collection);
     });

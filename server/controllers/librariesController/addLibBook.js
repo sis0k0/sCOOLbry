@@ -1,8 +1,9 @@
 'use strict';
 
-var LibBook = require('mongoose').model('LibBook');
+var LibBook = require('mongoose').model('LibBook'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
     var book = req.body,
         data = new Object({});
 
@@ -15,11 +16,10 @@ module.exports = function(req, res) {
     data.section = book.section;
 
     LibBook.create(data, function(err, book){
-        if(err){
-            console.log('Failed to assign new book to library: ' +  err);
-            res.status(400).send({reason: err});
+
+        if (err) {
+            return next(new errors.DatabaseError(err, 'Library Book'));
         }
-        console.log(book);
         res.send(book);
     });
 };

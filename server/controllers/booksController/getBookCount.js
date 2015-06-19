@@ -1,9 +1,10 @@
 'use strict';
 
 var Book    = require('mongoose').model('Book'),
-    LibBook = require('mongoose').model('LibBook');
+    LibBook = require('mongoose').model('LibBook'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
     // If the library ID is specified - count the libBooks
     if(typeof req.params.libraryID !== 'undefined') {
@@ -11,7 +12,7 @@ module.exports = function(req, res) {
         .count({libraryID: req.params.libraryID})
         .exec(function(err, count) {
             if(err) {
-                console.log('Books could not be counted: ' + err);
+                return next(new errors.DatabaseError(err, 'Library Books Count'));
             }
             res.send(''+count);
         });
@@ -21,7 +22,7 @@ module.exports = function(req, res) {
         .count({})
         .exec(function(err, count) {
             if (err) {
-                console.log('Books could not be counted: ' + err);
+                return next(new errors.DatabaseError(err, 'Books Count'));
             }
             res.send(''+count);
         });

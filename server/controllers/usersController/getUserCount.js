@@ -1,13 +1,15 @@
 'use strict';
 
-var User = require('mongoose').model('User');
+var User   = require('mongoose').model('User'),
+    errors = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
-    User.count({}).exec(function(err, collection) {
+module.exports = function(req, res, next) {
+
+    console.log(req.accepts());
+    User.count({}).exec(function(err, count) {
         if (err) {
-            console.log('Users could not be loaded: ' + err);
+            return next(new errors.DatabaseError(err, 'Users count'));
         }
-
-        res.send(''+collection);
+        res.send(''+count);
     });
 };

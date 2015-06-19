@@ -1,9 +1,10 @@
 'use strict';
 
 var encryption = require('../../utilities/encryption'),
-    User       = require('mongoose').model('User');
+    User       = require('mongoose').model('User'),
+    errors     = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
     var updatedUserData = req.body;
     if (updatedUserData.password && updatedUserData.password.length > 0) {
@@ -24,8 +25,7 @@ module.exports = function(req, res) {
     
     User.update({_id: updatedId}, updatedUserData, {runValidators: true}, function(err) {
         if (err) {
-            console.log('Failed to update user: ' + err);
-            res.status(400).send({reason: err});
+            return next(new errors.DatabaseError(err, 'User'));
         } else {
             res.status(200).end();
         }

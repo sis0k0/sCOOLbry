@@ -1,23 +1,21 @@
 'use strict';
 
-var    LibBook = require('mongoose').model('LibBook');
+var LibBook = require('mongoose').model('LibBook'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
-    if (req.user.roles.indexOf('admin') > -1 || req.user.roles.indexOf('librarian') > -1 ) {
-        var updatedLibraryData = req.body;
+    var updatedLibraryData = req.body;
 
-        var updatedId = req.body._id;
-        delete updatedLibraryData._id;
-        delete updatedLibraryData.$promise;
-        delete updatedLibraryData.$resolved;
-        
-        LibBook.update({_id: updatedId}, updatedLibraryData, {runValidators: true}, function(err) {
-            console.log(err);
-            res.end();
-        });
-    }
-    else {
-        res.send({reason: 'You do not have permissions!'});
-    }
+    var updatedId = req.body._id;
+    delete updatedLibraryData._id;
+    delete updatedLibraryData.$promise;
+    delete updatedLibraryData.$resolved;
+    
+    LibBook.update({_id: updatedId}, updatedLibraryData, {runValidators: true}, function(err) {
+        if(err) {
+            return next(new errors.DatabaseError(err, 'Library Book'));
+        }
+        res.end();
+    });
 };

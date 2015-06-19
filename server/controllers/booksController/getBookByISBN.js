@@ -16,7 +16,6 @@ module.exports = function(req, res) {
                 bookISBN = bookISBN.replace(/-/gi, '');
                 Book.findOne({isbn: bookISBN}).exec(function(error, returnedBook) {
                     if(returnedBook!==null && !error) {
-                        console.log('database');
                         res.send(returnedBook);
                     } else {
                         res.send(false);
@@ -27,7 +26,6 @@ module.exports = function(req, res) {
 
                 Book.findOne({isbn: bookISBN}).exec(function(error, returnedBook) {
                     if(returnedBook!==null && !error) {
-                        console.log('database');
                         res.send(returnedBook);
                     } else {
                         res.send(false);
@@ -39,7 +37,6 @@ module.exports = function(req, res) {
 
                 Book.findOne({isbn: bookISBN}).exec(function(error, returnedBook) {
                     if(returnedBook!==null && !error) {
-                        console.log('database');
                         res.send(returnedBook);
                     } else {
                         res.send(false);

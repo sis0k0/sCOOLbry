@@ -1,8 +1,9 @@
 'use strict';
 
-var Book = require('mongoose').model('Book');
+var Book    = require('mongoose').model('Book'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
     var order   = req.params.order || 'asc',
         field   = req.params.field || '_id',
         page    = req.params.page || 1,
@@ -14,7 +15,7 @@ module.exports = function(req, res) {
         .exec(function(err, collection) {
 
             if (err) {
-                console.log('Books could not be loaded: ' + err);
+                return next(new errors.DatabaseError(err, 'Books'));
             }
 
             res.send(collection);

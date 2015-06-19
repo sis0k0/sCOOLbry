@@ -1,9 +1,10 @@
 'use strict';
 
 var Book    = require('mongoose').model('Book'),
-    LibBook = require('mongoose').model('LibBook');
+    LibBook = require('mongoose').model('LibBook'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
 
     // Set sort params
     var order = req.params.order || 'asc',
@@ -40,7 +41,7 @@ module.exports = function(req, res) {
         .exec(function(err, books) {
 
             if(err) {
-                console.log('Books could not be loaded: ' + err);
+                return next(new errors.DatabaseError(err, 'Library books'));
             }
 
             var matchedBooks = [];
@@ -55,7 +56,7 @@ module.exports = function(req, res) {
         // Get the books count
         Book.count(condition).exec(function(err, count) {
             if (err) {
-                console.log('Books could not be loaded: ' + err);
+                return next(new errors.DatabaseError(err, 'Books Count'));
             }
             res.send(''+count);
         });

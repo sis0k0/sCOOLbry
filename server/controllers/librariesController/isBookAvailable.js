@@ -1,12 +1,13 @@
 'use strict';
 
 var LibBook = require('mongoose').model('LibBook'),
-    Booking = require('mongoose').model('Booking');
+    Booking = require('mongoose').model('Booking'),
+    errors  = require('../../utilities/httpErrors');
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next) {
     LibBook.findOne({libraryID: req.params.libraryID, bookID: req.params.bookID}).exec(function(err, book) {
         if (err) {
-            console.log('LibBook could not be loaded: ' + err);
+            return next(new errors.DatabaseError(err, 'Library Books'));
         }
 
         var now = new Date();
