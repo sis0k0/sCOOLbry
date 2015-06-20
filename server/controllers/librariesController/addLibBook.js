@@ -4,6 +4,10 @@ var LibBook = require('mongoose').model('LibBook'),
     errors  = require('../../utilities/httpErrors');
 
 module.exports = function(req, res, next) {
+
+    console.log('then add new lib book');
+
+    console.log(req.body);
     var book = req.body,
         data = new Object({});
 

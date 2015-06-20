@@ -6,6 +6,8 @@ var Book        = require('mongoose').model('Book'),
 
 module.exports = function(req, res, next) {
 
+    console.log('add new book');
+
     // Get book data from the request body
     var newBookData = req.body;
     for(var prop in newBookData) {
@@ -31,6 +33,8 @@ module.exports = function(req, res, next) {
                 }
                 res.send(book);
             });
+        } else {
+            res.send(book);
         }
 
     });

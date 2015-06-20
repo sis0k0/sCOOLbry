@@ -36,7 +36,7 @@ var getMongooseHttpCode = function (err) {
 // Errors 'classes'
 
 // Client errors => authorization, authentication, etc.
-function ClientError(statusCode) {
+function ClientError(statusCode, message) {
     this.prototype = Error.prototype;
     Error.captureStackTrace(this, this.constructor);
 
@@ -44,15 +44,16 @@ function ClientError(statusCode) {
     if(!arguments.length) {
         this.name = 'ClientError';
         this.statusCode = 400;
-        this.message = STATUS_CODES[this.statusCode];
+        this.message = message || STATUS_CODES[this.statusCode];
     } else {
         this.name = this.constructor.name;
         this.statusCode = statusCode;
-        this.message = STATUS_CODES[statusCode];
+        this.message = message || STATUS_CODES[statusCode];
     }
 }
 
 function DatabaseError(error, resourceName) {
+    console.log(error);
     this.prototype = Error.prototype;
     Error.captureStackTrace(this, this.constructor);
 

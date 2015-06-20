@@ -4,11 +4,12 @@ app.controller('SignUpCtrl', function($scope, $location, User, notifier, $http, 
 
     // Handle error function
     var handleError = function(reason) {
-        if(reason instanceof Object) {
+        console.log(reason);
+        if(reason.errors) {
             notifier.error($filter('titleCase')(reason.name));
             $scope.mongooseErrors = reason.errors;
         } else {
-            notifier.error(reason);
+            notifier.error(reason.data.error.message);
         }
     };
 

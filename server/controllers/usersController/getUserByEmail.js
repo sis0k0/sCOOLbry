@@ -5,9 +5,11 @@ var User = require('mongoose').model('User'),
 
 module.exports = function(req, res, next) {
     User.findOne({email: req.params.email}).exec(function(err, user) {
-        if (err || !user) {
+        if (err) {
             return next(new errors.DatabaseError(err, 'User'));
-        }else{
+        } else if (!user) {
+            res.send(false);
+        } else {
             res.send(true);
         }
     });

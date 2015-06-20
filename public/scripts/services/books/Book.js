@@ -32,6 +32,7 @@ app.factory('Book', function($q, $http, BookResource, BooksResource, LibraryBook
                     var newBook = new BookResource(book);
                     newBook.$save().then(function(data) {
                         console.log(libraryID);
+                        console.log(data);
                         if(typeof(libraryID) !== 'undefined') {
                             book.libraryID = libraryID;
                             book._id = data._id;

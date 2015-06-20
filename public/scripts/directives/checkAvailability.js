@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('checkAvailability', function ($http) {
+app.directive('checkAvailability', function ($http, notifier) {
     return {
         restrict: 'A',
         scope: {
@@ -17,13 +17,17 @@ app.directive('checkAvailability', function ($http) {
 
                     // check whether available
                     var responsePromise = $http.get('/api/' + attrs.name + 'Available/' + value);
-                    responsePromise.success(function(data) {
-                        if(data===true){
-                            ngModel.$setValidity('available', false);
-                        }else{
-                            ngModel.$setValidity('available', true);
-                        }
-                    }); 
+                    responsePromise
+                        .success(function(data) {
+                            if(data){
+                                ngModel.$setValidity('available', false);
+                            } else {
+                                ngModel.$setValidity('available', true);
+                            }
+                        })
+                        .error(function(err) {
+                            notifier.error(err.error.message);
+                        });
                 } else {
                     ngModel.$setValidity('available', true);
                 }

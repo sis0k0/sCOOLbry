@@ -204,7 +204,10 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
 
     // Add book
     $scope.addBook = function(book, index) {
+
+        console.log('add book ctrl');
         Book.add(book, identity.currentUser.ownLibraryID).then(function() {
+            console.log('success');
             notifier.success('Book added successfully!');
             if(typeof $scope.books !== 'undefined') {
                 $scope.books.splice(index,1);
@@ -214,6 +217,8 @@ app.controller('LibraryAddBookCtrl', function($scope, $http, $location, $anchorS
             }
 
         }, function(reason){
+            console.log('fail');
+            console.log(reason);
             handleError(reason);
         });
     };

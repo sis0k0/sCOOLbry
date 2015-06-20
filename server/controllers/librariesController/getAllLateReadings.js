@@ -17,7 +17,7 @@ module.exports = function(req, res, next) {
         collection.forEach(function(item){
         	Library.findOne({_id: item.libraryID}).exec(function(err, library) {
        			if (err || !library) {
-                    return next(new errors.DatabaseError(err, 'Library'));
+                    console.log(err);
             	} else {
             		var newFine = new Object({}), now = new Date();
 		    		newFine.userID = item.userID;
@@ -32,15 +32,8 @@ module.exports = function(req, res, next) {
 				    newFine.added = now;
 		   			newFine.paid = undefined;
 
-		   			LibFines.create(newFine, function(err){
-		       			if(err) {
-                            return next(new errors.DatabaseError(err, 'Library Fines'));
-			     		}
-			     		Reading.update({_id: item._id}, {fined: now}, function(err){
-			     			if(err) {
-                                return next(new errors.DatabaseError(err, 'Reading'));
-			     			}
-			     		});
+		   			LibFines.create(newFine, function(){
+			     		Reading.update({_id: item._id}, {fined: now});
 		            });
 
        		 	}

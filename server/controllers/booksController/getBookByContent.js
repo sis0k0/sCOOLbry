@@ -34,7 +34,7 @@ module.exports = function(req, res, next) {
             highlight: {
                 fields: {
                     text: {
-                        fragment_size: 300,
+                        fragment_size: 600,
                         number_of_fragments: 1
                     }
                 }

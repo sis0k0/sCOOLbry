@@ -1,16 +1,21 @@
 'use strict';
 
 var http        = require('http'),
-    querystring = require('querystring');
+    querystring = require('querystring'),
+    errors      = require('../../utilities/httpErrors');
 
 module.exports = function(req, res, next) {
 
     if(req.hasOwnProperty('user') && req.user.roles.indexOf('admin') > -1){
-        next();
+        return next();
     } else if(req.isAuthenticated()) {
-        res.status(403);
-        return res.send({reason: 'You are already logged in.'});
+        return next(new errors.ClientError(403, 'You are already logged in!'));
     } else {
+
+        if(!req.body.captcha) {
+            return next(new errors.ClientError(400, 'No RECAPTCHA Challenge Answer!'));
+        }
+
         var captchaData = {};
         var stopSignUp = false;
 
