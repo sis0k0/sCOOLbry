@@ -11,16 +11,9 @@ var app = angular.module('app', [
     'timer',
     'ui.select',
     'ui.bootstrap',
-    'btford.socket-io',
-    'uiGmapgoogle-maps',
+    'btford.socket-io'
 ])
-    .value('toastr', toastr)
-    .config(function(uiGmapGoogleMapApiProvider) {
-        uiGmapGoogleMapApiProvider.configure({
-            v: '3.18',
-            libraries: 'geometry,visualization'
-        });
-    });
+    .value('toastr', toastr);
 
 app.run(function($rootScope, $location) {
     

@@ -39,8 +39,8 @@ module.exports = {
 
         // DEMO
         // db: 'mongodb://admin:test@ds045097.mongolab.com:45097/scoolbry-testfordemo',
-        db: 'mongodb://admin:test@dbh13.mongolab.com:27137/scoolbry-demo',
-        // db: 'mongodb://admin:test@ds045027.mongolab.com:45027/test-demo-scoolbry',
+        // db: 'mongodb://admin:test@dbh13.mongolab.com:27137/scoolbry-demo',
+        db: 'mongodb://admin:test@ds045027.mongolab.com:45027/test-demo-scoolbry',
         port: process.env.PORT || 3030,
         facebook: {
             clientID: '1511950165721139',

@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('LibraryDetailsCtrl', function($scope, $location, User, $routeParams, $route, uiGmapGoogleMapApi, BookResource, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier, $window) {
+app.controller('LibraryDetailsCtrl', function($scope, $location, User, $routeParams, $route, BookResource, cachedLibraries, LibBooksResource, UserReadingResource, identity, $http, LibraryUsers, notifier, $window) {
 
     $scope.user = identity.currentUser;
 
@@ -9,24 +9,6 @@ app.controller('LibraryDetailsCtrl', function($scope, $location, User, $routePar
         collection.every(function(library) {
             if (library._id === $routeParams.id) {
                 $scope.library = library;
-                
-                uiGmapGoogleMapApi.then(function() {
-                    $scope.map = { 
-                        center: { latitude: library.address.geometry.location.lat, longitude: library.address.geometry.location.lng },
-                        zoom: 16
-                    };
-                    $scope.marker = {
-                        coords: { latitude: library.address.geometry.location.lat, longitude: library.address.geometry.location.lng },
-                        idkey: 0,
-                        icon: '../../dist/images/bluemarker.png',
-                        options: {
-                            animation: 1,
-                            labelContent: library.name,
-                            labelClass: 'marker-labels',
-                            labelAnchor:'24 4'
-                        }
-                    };
-                });
                 found = true;
                 return false;
             }
