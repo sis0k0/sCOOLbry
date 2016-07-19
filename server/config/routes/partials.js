@@ -11,8 +11,6 @@ module.exports = function(app) {
     router.post('/loginNoCaptcha', auth.loginNoCaptcha);
     router.post('/logout', auth.logout);
 
-
-    // Partials ----------------------------------------------
     router.get('/partials/*', function(req, res) {
 
         var requestedView = path.join('../../public/views', req.params[0]);
@@ -29,7 +27,6 @@ module.exports = function(app) {
     router.get('*', function(req, res) {
         res.render('index', {currentUser: req.user});
     });
-
 
     app.use('/', router);
 };
